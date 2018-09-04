@@ -1,0 +1,408 @@
+0 silly input []
+1 silly flags { _: [ 'bootstrap' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   args: [] }
+2 verbose rootPath /Users/leonardo.favre/Trabalho/sling-web
+3 info version 2.11.0
+4 silly existsSync /Users/leonardo.favre/Trabalho/sling-web/VERSION
+5 silly initialize attempt
+6 silly npmConfig { registry: undefined,
+6 silly npmConfig   npmClient: undefined,
+6 silly npmConfig   npmClientArgs: undefined,
+6 silly npmConfig   mutex: undefined }
+7 silly initialize success
+8 silly execute attempt
+9 info Bootstrapping 42 packages
+10 info lifecycle preinstall
+11 silly runScript preinstall sling-web-component-loader-wrapper
+12 silly sling-web-component-loader-wrapper
+13 silly runScript preinstall sling-web-helpers
+14 silly sling-web-helpers
+15 silly runScript preinstall sling-web-component-sdk-connect
+16 silly sling-web-component-sdk-connect
+17 silly runScript preinstall sling-web-storage
+18 silly sling-web-storage
+19 silly runScript preinstall sling-web-sdk
+20 silly sling-web-sdk
+21 silly runScript preinstall sling-web-framework
+22 silly sling-web-framework
+23 silly runScript preinstall sling-web-assets
+24 silly sling-web-assets
+25 silly runScript preinstall sling-web-component-brand-icon
+26 silly sling-web-component-brand-icon
+27 silly runScript preinstall sling-web-component-button
+28 silly sling-web-component-button
+29 silly runScript preinstall sling-web-component-card
+30 silly sling-web-component-card
+31 silly runScript preinstall sling-web-component-input
+32 silly sling-web-component-input
+33 silly runScript preinstall sling-web-component-list
+34 silly sling-web-component-list
+35 silly runScript preinstall sling-web-component-loader
+36 silly sling-web-component-loader
+37 silly runScript preinstall sling-web-component-message
+38 silly sling-web-component-message
+39 silly runScript preinstall sling-web-component-paginator
+40 silly sling-web-component-paginator
+41 silly runScript preinstall sling-web-component-select
+42 silly sling-web-component-select
+43 silly runScript preinstall sling-web-business-merchant-addresses-list
+44 silly sling-web-business-merchant-addresses-list
+45 silly runScript preinstall sling-web-business-merchant-bank-info-list
+46 silly sling-web-business-merchant-bank-info-list
+47 silly runScript preinstall sling-web-business-merchant-contacts-list
+48 silly sling-web-business-merchant-contacts-list
+49 silly runScript preinstall sling-web-business-merchant-partners-list
+50 silly sling-web-business-merchant-partners-list
+51 silly runScript preinstall sling-web-business-payment-status
+52 silly sling-web-business-payment-status
+53 silly runScript preinstall sling-web-business-sales-amount
+54 silly sling-web-business-sales-amount
+55 silly runScript preinstall sling-web-component-calendar
+56 silly sling-web-component-calendar
+57 silly runScript preinstall sling-web-component-form
+58 silly sling-web-component-form
+59 silly runScript preinstall sling-web-component-icon
+60 silly sling-web-component-icon
+61 silly runScript preinstall sling-web-component-login
+62 silly sling-web-component-login
+63 silly runScript preinstall sling-web-component-table
+64 silly sling-web-component-table
+65 silly runScript preinstall sling-web-business-aggregate-sales
+66 silly sling-web-business-aggregate-sales
+67 silly runScript preinstall sling-web-business-merchant-addresses
+68 silly sling-web-business-merchant-addresses
+69 silly runScript preinstall sling-web-business-merchant-bank-info
+70 silly sling-web-business-merchant-bank-info
+71 silly runScript preinstall sling-web-business-merchant-contacts
+72 silly sling-web-business-merchant-contacts
+73 silly runScript preinstall sling-web-business-merchant-info-list
+74 silly sling-web-business-merchant-info-list
+75 silly runScript preinstall sling-web-business-merchant-partners
+76 silly sling-web-business-merchant-partners
+77 silly runScript preinstall sling-web-business-payment-details-item
+78 silly sling-web-business-payment-details-item
+79 silly runScript preinstall sling-web-business-payment-details-summary
+80 silly sling-web-business-payment-details-summary
+81 silly runScript preinstall sling-web-business-payment-operations
+82 silly sling-web-business-payment-operations
+83 silly runScript preinstall sling-web-business-payments-calendar
+84 silly sling-web-business-payments-calendar
+85 silly runScript preinstall sling-web-business-sales-report-expanded
+86 silly sling-web-business-sales-report-expanded
+87 silly runScript preinstall sling-web-business-sales-simulator
+88 silly sling-web-business-sales-simulator
+89 silly runScript preinstall sling-web-component-snackbar
+90 silly sling-web-component-snackbar
+91 silly runScript preinstall sling-web-business-payment-details
+92 silly sling-web-business-payment-details
+93 silly runScript preinstall sling-web-business-sales-report
+94 silly sling-web-business-sales-report
+95 silly hasMatchingDependency sling-web-assets sling-web-framework
+96 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-component-button
+97 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-component-card
+98 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-component-loader
+99 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-component-table
+100 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-framework
+101 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-helpers
+102 silly hasMatchingDependency sling-web-business-aggregate-sales sling-web-sdk
+103 silly hasMatchingDependency sling-web-business-merchant-addresses-list sling-web-component-list
+104 silly hasMatchingDependency sling-web-business-merchant-addresses-list sling-web-framework
+105 silly hasMatchingDependency sling-web-business-merchant-addresses-list sling-web-helpers
+106 silly hasMatchingDependency sling-web-business-merchant-addresses-list sling-web-sdk
+107 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-button
+108 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-form
+109 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-input
+110 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-loader
+111 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-message
+112 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-select
+113 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-component-table
+114 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-framework
+115 silly hasMatchingDependency sling-web-business-merchant-addresses sling-web-helpers
+116 silly hasMatchingDependency sling-web-business-merchant-bank-info-list sling-web-component-list
+117 silly hasMatchingDependency sling-web-business-merchant-bank-info-list sling-web-framework
+118 silly hasMatchingDependency sling-web-business-merchant-bank-info-list sling-web-helpers
+119 silly hasMatchingDependency sling-web-business-merchant-bank-info-list sling-web-sdk
+120 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-button
+121 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-form
+122 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-input
+123 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-loader
+124 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-message
+125 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-select
+126 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-component-table
+127 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-framework
+128 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-helpers
+129 silly hasMatchingDependency sling-web-business-merchant-bank-info sling-web-sdk
+130 silly hasMatchingDependency sling-web-business-merchant-contacts-list sling-web-component-list
+131 silly hasMatchingDependency sling-web-business-merchant-contacts-list sling-web-framework
+132 silly hasMatchingDependency sling-web-business-merchant-contacts-list sling-web-helpers
+133 silly hasMatchingDependency sling-web-business-merchant-contacts-list sling-web-sdk
+134 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-button
+135 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-form
+136 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-input
+137 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-loader
+138 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-message
+139 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-select
+140 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-component-table
+141 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-framework
+142 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-helpers
+143 silly hasMatchingDependency sling-web-business-merchant-contacts sling-web-sdk
+144 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-component-button
+145 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-component-form
+146 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-component-input
+147 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-component-list
+148 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-component-loader
+149 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-component-message
+150 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-framework
+151 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-helpers
+152 silly hasMatchingDependency sling-web-business-merchant-info-list sling-web-sdk
+153 silly hasMatchingDependency sling-web-business-merchant-partners-list sling-web-component-list
+154 silly hasMatchingDependency sling-web-business-merchant-partners-list sling-web-framework
+155 silly hasMatchingDependency sling-web-business-merchant-partners-list sling-web-helpers
+156 silly hasMatchingDependency sling-web-business-merchant-partners-list sling-web-sdk
+157 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-component-button
+158 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-component-loader
+159 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-component-message
+160 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-component-table
+161 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-framework
+162 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-helpers
+163 silly hasMatchingDependency sling-web-business-merchant-partners sling-web-sdk
+164 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-component-button
+165 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-component-card
+166 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-component-loader
+167 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-component-table
+168 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-framework
+169 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-helpers
+170 silly hasMatchingDependency sling-web-business-payment-details-item sling-web-sdk
+171 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-component-brand-icon
+172 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-component-button
+173 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-component-card
+174 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-component-table
+175 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-framework
+176 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-helpers
+177 silly hasMatchingDependency sling-web-business-payment-details-summary sling-web-sdk
+178 silly hasMatchingDependency sling-web-business-payment-details sling-web-business-payment-details-item
+179 silly hasMatchingDependency sling-web-business-payment-details sling-web-business-payment-details-summary
+180 silly hasMatchingDependency sling-web-business-payment-details sling-web-component-button
+181 silly hasMatchingDependency sling-web-business-payment-details sling-web-component-card
+182 silly hasMatchingDependency sling-web-business-payment-details sling-web-component-table
+183 silly hasMatchingDependency sling-web-business-payment-details sling-web-framework
+184 silly hasMatchingDependency sling-web-business-payment-details sling-web-helpers
+185 silly hasMatchingDependency sling-web-business-payment-details sling-web-sdk
+186 silly hasMatchingDependency sling-web-business-payment-operations sling-web-component-loader
+187 silly hasMatchingDependency sling-web-business-payment-operations sling-web-component-paginator
+188 silly hasMatchingDependency sling-web-business-payment-operations sling-web-component-table
+189 silly hasMatchingDependency sling-web-business-payment-operations sling-web-framework
+190 silly hasMatchingDependency sling-web-business-payment-operations sling-web-helpers
+191 silly hasMatchingDependency sling-web-business-payment-operations sling-web-sdk
+192 silly hasMatchingDependency sling-web-business-payment-status sling-web-component-loader
+193 silly hasMatchingDependency sling-web-business-payment-status sling-web-framework
+194 silly hasMatchingDependency sling-web-business-payment-status sling-web-helpers
+195 silly hasMatchingDependency sling-web-business-payment-status sling-web-sdk
+196 silly hasMatchingDependency sling-web-business-payments-calendar sling-web-business-payment-status
+197 silly hasMatchingDependency sling-web-business-payments-calendar sling-web-component-calendar
+198 silly hasMatchingDependency sling-web-business-payments-calendar sling-web-component-loader
+199 silly hasMatchingDependency sling-web-business-payments-calendar sling-web-framework
+200 silly hasMatchingDependency sling-web-business-payments-calendar sling-web-helpers
+201 silly hasMatchingDependency sling-web-business-payments-calendar sling-web-sdk
+202 silly hasMatchingDependency sling-web-business-sales-amount sling-web-component-card
+203 silly hasMatchingDependency sling-web-business-sales-amount sling-web-component-loader
+204 silly hasMatchingDependency sling-web-business-sales-amount sling-web-framework
+205 silly hasMatchingDependency sling-web-business-sales-amount sling-web-helpers
+206 silly hasMatchingDependency sling-web-business-sales-amount sling-web-sdk
+207 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-component-button
+208 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-component-card
+209 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-component-loader
+210 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-component-table
+211 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-framework
+212 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-helpers
+213 silly hasMatchingDependency sling-web-business-sales-report-expanded sling-web-sdk
+214 silly hasMatchingDependency sling-web-business-sales-report sling-web-business-aggregate-sales
+215 silly hasMatchingDependency sling-web-business-sales-report sling-web-business-sales-report-expanded
+216 silly hasMatchingDependency sling-web-business-sales-report sling-web-component-button
+217 silly hasMatchingDependency sling-web-business-sales-report sling-web-framework
+218 silly hasMatchingDependency sling-web-business-sales-report sling-web-helpers
+219 silly hasMatchingDependency sling-web-business-sales-report sling-web-sdk
+220 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-button
+221 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-card
+222 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-form
+223 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-input
+224 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-loader
+225 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-message
+226 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-select
+227 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-component-table
+228 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-framework
+229 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-helpers
+230 silly hasMatchingDependency sling-web-business-sales-simulator sling-web-sdk
+231 silly hasMatchingDependency sling-web-component-brand-icon sling-web-framework
+232 silly hasMatchingDependency sling-web-component-brand-icon sling-web-helpers
+233 silly hasMatchingDependency sling-web-component-button sling-web-framework
+234 silly hasMatchingDependency sling-web-component-button sling-web-helpers
+235 silly hasMatchingDependency sling-web-component-calendar sling-web-component-paginator
+236 silly hasMatchingDependency sling-web-component-calendar sling-web-framework
+237 silly hasMatchingDependency sling-web-component-calendar sling-web-helpers
+238 silly hasMatchingDependency sling-web-component-card sling-web-framework
+239 silly hasMatchingDependency sling-web-component-card sling-web-helpers
+240 silly hasMatchingDependency sling-web-component-form sling-web-component-button
+241 silly hasMatchingDependency sling-web-component-form sling-web-component-input
+242 silly hasMatchingDependency sling-web-component-form sling-web-framework
+243 silly hasMatchingDependency sling-web-component-form sling-web-helpers
+244 silly hasMatchingDependency sling-web-component-icon sling-web-assets
+245 silly hasMatchingDependency sling-web-component-icon sling-web-framework
+246 silly hasMatchingDependency sling-web-component-icon sling-web-helpers
+247 silly hasMatchingDependency sling-web-component-input sling-web-framework
+248 silly hasMatchingDependency sling-web-component-input sling-web-helpers
+249 silly hasMatchingDependency sling-web-component-list sling-web-framework
+250 silly hasMatchingDependency sling-web-component-list sling-web-helpers
+251 silly hasMatchingDependency sling-web-component-loader sling-web-framework
+252 silly hasMatchingDependency sling-web-component-loader sling-web-helpers
+253 silly hasMatchingDependency sling-web-component-login sling-web-component-button
+254 silly hasMatchingDependency sling-web-component-login sling-web-component-input
+255 silly hasMatchingDependency sling-web-component-login sling-web-helpers
+256 silly hasMatchingDependency sling-web-component-message sling-web-framework
+257 silly hasMatchingDependency sling-web-component-message sling-web-helpers
+258 silly hasMatchingDependency sling-web-component-paginator sling-web-framework
+259 silly hasMatchingDependency sling-web-component-paginator sling-web-helpers
+260 silly hasMatchingDependency sling-web-component-sdk-connect sling-web-helpers
+261 silly hasMatchingDependency sling-web-component-select sling-web-framework
+262 silly hasMatchingDependency sling-web-component-select sling-web-helpers
+263 silly hasMatchingDependency sling-web-component-snackbar sling-web-component-button
+264 silly hasMatchingDependency sling-web-component-snackbar sling-web-component-icon
+265 silly hasMatchingDependency sling-web-component-snackbar sling-web-framework
+266 silly hasMatchingDependency sling-web-component-snackbar sling-web-helpers
+267 silly hasMatchingDependency sling-web-component-table sling-web-component-brand-icon
+268 silly hasMatchingDependency sling-web-component-table sling-web-framework
+269 silly hasMatchingDependency sling-web-component-table sling-web-helpers
+270 silly hasMatchingDependency sling-web-framework sling-web-storage
+271 silly hasMatchingDependency sling-web-framework sling-web-helpers
+272 silly hasMatchingDependency sling-web-framework sling-web-sdk
+273 silly hasMatchingDependency sling-web-sdk sling-web-component-sdk-connect
+274 silly hasMatchingDependency sling-web-sdk sling-web-helpers
+275 silly hasMatchingDependency sling-web-storage sling-web-helpers
+276 silly hasDependencyInstalled sling-web-business-merchant-addresses customer-web-sdk
+277 silly dependencyIsSatisfied [ 'customer-web-sdk',
+277 silly dependencyIsSatisfied   '^1.0.4',
+277 silly dependencyIsSatisfied   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/node_modules' ]
+278 verbose dependencyIsSatisfied customer-web-sdk false
+279 silly hasDependencyInstalled sling-web-component-loader-wrapper sling-web-framework
+280 silly dependencyIsSatisfied [ 'sling-web-framework',
+280 silly dependencyIsSatisfied   '^0.13.2',
+280 silly dependencyIsSatisfied   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/node_modules' ]
+281 verbose dependencyIsSatisfied sling-web-framework false
+282 silly hasDependencyInstalled sling-web-component-loader-wrapper sling-web-helpers
+283 silly dependencyIsSatisfied [ 'sling-web-helpers',
+283 silly dependencyIsSatisfied   '^0.13.0',
+283 silly dependencyIsSatisfied   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/node_modules' ]
+284 verbose dependencyIsSatisfied sling-web-helpers false
+285 silly hasDependencyInstalled sling-web-component-loader-wrapper sling-web-component-loader
+286 silly dependencyIsSatisfied [ 'sling-web-component-loader',
+286 silly dependencyIsSatisfied   '^0.13.2',
+286 silly dependencyIsSatisfied   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/node_modules' ]
+287 verbose dependencyIsSatisfied sling-web-component-loader false
+288 silly hasDependencyInstalled sling-web-helpers imask
+289 silly dependencyIsSatisfied [ 'imask',
+289 silly dependencyIsSatisfied   '^3.3.0',
+289 silly dependencyIsSatisfied   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/node_modules' ]
+290 verbose dependencyIsSatisfied imask false
+291 silly hasDependencyInstalled sling-web-sdk redux-thunk
+292 silly dependencyIsSatisfied [ 'redux-thunk',
+292 silly dependencyIsSatisfied   '^2.2.0',
+292 silly dependencyIsSatisfied   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/node_modules' ]
+293 verbose dependencyIsSatisfied redux-thunk false
+294 silly root dependencies []
+295 silly leaf dependencies {
+295 silly leaf dependencies   "sling-web-business-merchant-addresses": [
+295 silly leaf dependencies     {
+295 silly leaf dependencies       "dependency": "customer-web-sdk@^1.0.4",
+295 silly leaf dependencies       "isSatisfied": false
+295 silly leaf dependencies     }
+295 silly leaf dependencies   ],
+295 silly leaf dependencies   "sling-web-component-loader-wrapper": [
+295 silly leaf dependencies     {
+295 silly leaf dependencies       "dependency": "sling-web-framework@^0.13.2",
+295 silly leaf dependencies       "isSatisfied": false
+295 silly leaf dependencies     },
+295 silly leaf dependencies     {
+295 silly leaf dependencies       "dependency": "sling-web-helpers@^0.13.0",
+295 silly leaf dependencies       "isSatisfied": false
+295 silly leaf dependencies     },
+295 silly leaf dependencies     {
+295 silly leaf dependencies       "dependency": "sling-web-component-loader@^0.13.2",
+295 silly leaf dependencies       "isSatisfied": false
+295 silly leaf dependencies     }
+295 silly leaf dependencies   ],
+295 silly leaf dependencies   "sling-web-helpers": [
+295 silly leaf dependencies     {
+295 silly leaf dependencies       "dependency": "imask@^3.3.0",
+295 silly leaf dependencies       "isSatisfied": false
+295 silly leaf dependencies     }
+295 silly leaf dependencies   ],
+295 silly leaf dependencies   "sling-web-sdk": [
+295 silly leaf dependencies     {
+295 silly leaf dependencies       "dependency": "redux-thunk@^2.2.0",
+295 silly leaf dependencies       "isSatisfied": false
+295 silly leaf dependencies     }
+295 silly leaf dependencies   ]
+295 silly leaf dependencies }
+296 info Installing external dependencies
+297 verbose actions 4 actions, concurrency 4
+298 silly installInDir sling-web-business-merchant-addresses [ 'customer-web-sdk@^1.0.4' ]
+299 silly installInDir backup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/package.json
+300 silly rename [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/package.json',
+300 silly rename   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/package.json.lerna_backup' ]
+301 silly installInDir sling-web-component-loader-wrapper [ 'sling-web-framework@^0.13.2',
+301 silly installInDir   'sling-web-helpers@^0.13.0',
+301 silly installInDir   'sling-web-component-loader@^0.13.2' ]
+302 silly installInDir backup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/package.json
+303 silly rename [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/package.json',
+303 silly rename   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/package.json.lerna_backup' ]
+304 silly installInDir sling-web-helpers [ 'imask@^3.3.0' ]
+305 silly installInDir backup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/package.json
+306 silly rename [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/package.json',
+306 silly rename   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/package.json.lerna_backup' ]
+307 silly installInDir sling-web-sdk [ 'redux-thunk@^2.2.0' ]
+308 silly installInDir backup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/package.json
+309 silly rename [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/package.json',
+309 silly rename   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/package.json.lerna_backup' ]
+310 silly installInDir writing tempJson { dependencies: { 'customer-web-sdk': '^1.0.4' } }
+311 silly installInDir writing tempJson { dependencies:
+311 silly installInDir    { 'sling-web-framework': '^0.13.2',
+311 silly installInDir      'sling-web-helpers': '^0.13.0',
+311 silly installInDir      'sling-web-component-loader': '^0.13.2' } }
+312 silly installInDir writing tempJson { dependencies: { imask: '^3.3.0' } }
+313 silly installInDir writing tempJson { dependencies: { 'redux-thunk': '^2.2.0' } }
+314 silly getExecOpts { cwd: '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses' }
+315 silly installInDir [ 'npm', [ 'install' ] ]
+316 silly getExecOpts { cwd: '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers' }
+317 silly installInDir [ 'npm', [ 'install' ] ]
+318 silly getExecOpts { cwd: '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper' }
+319 silly installInDir [ 'npm', [ 'install' ] ]
+320 silly getExecOpts { cwd: '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk' }
+321 silly installInDir [ 'npm', [ 'install' ] ]
+322 silly installInDir cleanup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/package.json
+323 silly renameSync [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/package.json.lerna_backup',
+323 silly renameSync   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-helpers/package.json' ]
+324 verbose installed leaf sling-web-helpers
+325 silly installInDir cleanup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/package.json
+326 silly renameSync [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/package.json.lerna_backup',
+326 silly renameSync   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-sdk/package.json' ]
+327 verbose installed leaf sling-web-sdk
+328 silly installInDir cleanup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/package.json
+329 silly renameSync [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/package.json.lerna_backup',
+329 silly renameSync   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-component-loader-wrapper/package.json' ]
+330 verbose installed leaf sling-web-component-loader-wrapper
+331 silly installInDir cleanup /Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/package.json
+332 silly renameSync [ '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/package.json.lerna_backup',
+332 silly renameSync   '/Users/leonardo.favre/Trabalho/sling-web/packages/sling-web-business-merchant-addresses/package.json' ]
+333 verbose installed leaf sling-web-business-merchant-addresses
+334 error execute callback with error
+335 error Error: Command failed: npm install
+335 error npm ERR! code E404
+335 error npm ERR! 404 Not Found: customer-web-sdk@^1.0.4
+335 error
+335 error npm ERR! A complete log of this run can be found in:
+335 error npm ERR!     /Users/leonardo.favre/.npm/_logs/2018-08-31T15_39_10_980Z-debug.log
+335 error
+335 error     at Promise.all.then.arr (/Users/leonardo.favre/Trabalho/sling-web/node_modules/execa/index.js:236:11)
+335 error     at <anonymous>

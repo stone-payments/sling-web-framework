@@ -1,0 +1,19 @@
+Subject: 'sling-web'
+Description: 'New sling-web component package release'
+RequesterEmail: 'devportalcliente@stone.com.br'
+Impact: 'Low'
+Risk: 'Low'
+Priority: 'Low'
+ChangeType: 'Standard'
+TimeZoneId: 'Brazil/East'
+
+CustomFields:
+  ChangeReason: Feature
+  CanAffectOtherSystems: false
+  EmergencialChange: false
+  CanAffectCriticalSystems: false
+  WillAffectExternalCustomers: false
+  WillAffectInternalCustomers: false
+  IsProductionEnvironment: true
+  ApplicationVersion: v0.16.0
+  SystemName: SlingWeb
