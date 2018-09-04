@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.json text
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
