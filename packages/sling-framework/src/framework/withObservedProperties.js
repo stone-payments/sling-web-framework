@@ -1,4 +1,4 @@
-import { globalHelper } from '../../node_modules/sling-web-helpers/src/index.js';
+import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
 import { LitElement } from '../lib/lit-element.bundle.js';
 
 export const withObservedProperties = (Base = LitElement) =>

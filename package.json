@@ -1,5 +1,5 @@
 {
-  "name": "sling-web-framework",
+  "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
   "version": "0.0.0",
   "private": true,
@@ -65,13 +65,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stone-payments/sling-web-framework.git"
+    "url": "git+https://github.com/stone-payments/sling-framework.git"
   },
   "author": "Stone Pagamentos",
   "bugs": {
-    "url": "https://github.com/stone-payments/sling-web-framework/issues"
+    "url": "https://github.com/stone-payments/sling-framework/issues"
   },
-  "homepage": "https://github.com/stone-payments/sling-web-framework#readme",
+  "homepage": "https://github.com/stone-payments/sling-framework#readme",
   "resolutions": {
     "eslint-scope": "3.7.1"
   }

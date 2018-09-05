@@ -1,22 +1,25 @@
+import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
 import { LitElement } from '../lib/lit-element.bundle.js';
-import { globalHelper } from '../../../../node_modules/sling-web-helpers/src/index.js';
 
 export const withPropertyToAttribute = (Base = LitElement) =>
   class extends Base {
-    static get reflectedProperties() {
+    static get _reflectedProperties() {
       return globalHelper.pickBy(this.properties || {},
         ({ reflectToAttribute }) => reflectToAttribute);
     }
 
     _propertiesChanged(props, changedProps, ...lastArgs) {
       super._propertiesChanged(props, changedProps, ...lastArgs);
+      this._reflectPropertiesToAttributes(changedProps);
+    }
 
-      const { reflectedProperties } = this.constructor;
-      const reflectedPropertyNames = Object.keys(reflectedProperties);
+    _reflectPropertiesToAttributes(changedProps) {
+      const { _reflectedProperties } = this.constructor;
+      const _reflectedPropertyNames = Object.keys(_reflectedProperties);
 
       Object
         .entries(changedProps || {})
-        .filter(([propName]) => reflectedPropertyNames.includes(propName))
+        .filter(([propName]) => _reflectedPropertyNames.includes(propName))
         .forEach(([propName, propValue]) => {
           if (propValue == null || propValue === false) {
             this.removeAttribute(propName);

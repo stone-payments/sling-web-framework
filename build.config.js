@@ -1,5 +1,5 @@
 module.exports = {
   bundled: [
-    'sling-web-framework',
+    'sling-framework',
   ],
 };

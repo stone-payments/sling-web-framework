@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { domHelper } from '../../../../node_modules/sling-web-helpers/src/index.js';
+import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 import { withRequestParams } from './withRequestParams.js';
 
 let $dummy;
