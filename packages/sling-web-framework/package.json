@@ -1,0 +1,16 @@
+{
+  "name": "sling-web-framework",
+  "version": "0.16.0",
+  "description": "",
+  "main": "dist/cjs/index.js",
+  "jsnext:main": "dist/es/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stone Pagamentos",
+  "dependencies": {
+    "sling-web-helpers": "^0.16.0",
+    "sling-web-sdk": "^0.16.0",
+    "sling-web-storage": "^0.16.0"
+  }
+}
