@@ -1,6 +1,8 @@
 import imask from './lib/imask.bundle.js';
 import moment from './lib/moment.bundle.js';
 
+import { onSdkAvailable } from './sdk/onSdkAvailable.js';
+
 import * as domHelper from './dom/domHelper.js';
 import * as interfaceHelper from './interface/interfaceHelper.js';
 import * as globalHelper from './global/globalHelper.js';
@@ -15,4 +17,5 @@ export {
   globalHelper,
   globalFormatters,
   formHelper,
+  onSdkAvailable,
 };
