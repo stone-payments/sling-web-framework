@@ -1,5 +1,4 @@
-import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
-import { onSdkAvailable } from '../../node_modules/sling-helpers/src/index.js';
+import { globalHelper, onSdkAvailable } from '../../node_modules/sling-helpers/src/index.js';
 import { LitElement } from '../lib/lit-element.bundle.js';
 
 export const withBusinessLogic = (Base = LitElement) =>
