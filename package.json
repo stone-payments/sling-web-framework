@@ -62,7 +62,8 @@
     "sinon": "^5.0.3",
     "sinon-chai": "^3.2.0",
     "string-replace-async": "^1.2.1",
-    "webpack": "^4.6.0"
+    "webpack": "^4.6.0",
+    "lerna-semantic-release": "^9.1.0"
   },
   "repository": {
     "type": "git",
