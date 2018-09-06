@@ -15,6 +15,7 @@
     "build-es-bundle": "./node_modules/.bin/cross-env NODE_ENV=es BABEL_ENV=es-bundle BUILD_TYPE=dist node ./scripts/build.js",
     "build-cjs-bundle": "./node_modules/.bin/cross-env NODE_ENV=cjs BABEL_ENV=cjs-bundle BUILD_TYPE=dist node ./scripts/build.js",
     "build": "npm run build-es-package && npm run build-cjs-package && npm run build-es-bundle && npm run build-cjs-bundle",
+    "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "pretest": "./node_modules/.bin/eslint ./packages/**/*.js",
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
     "postinstall": "./node_modules/.bin/lerna bootstrap"
