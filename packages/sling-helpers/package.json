@@ -1,0 +1,14 @@
+{
+  "name": "sling-helpers",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/cjs/index.js",
+  "jsnext:main": "dist/es/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stone Pagamentos",
+  "dependencies": {
+    "imask": "^3.3.0"
+  }
+}
