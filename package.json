@@ -49,7 +49,6 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "lerna": "^2.9.0",
-    "lerna-semantic-release": "^9.1.0",
     "lodash": "^4.17.10",
     "mocha": "^5.1.1",
     "postcss": "^6.0.21",
