@@ -1,6 +1,6 @@
 {
   "name": "sling-framework",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/cjs/index.js",
   "jsnext:main": "dist/es/index.js",
@@ -9,6 +9,6 @@
   },
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-helpers": "^0.0.0"
+    "sling-helpers": "^1.0.0"
   }
 }
