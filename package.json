@@ -18,7 +18,8 @@
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "pretest": "./node_modules/.bin/eslint ./packages/**/*.js",
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
-    "postinstall": "./node_modules/.bin/lerna bootstrap"
+    "postinstall": "./node_modules/.bin/lerna bootstrap",
+    "generate-changelog": "conventional-changelog -i CHANGELOG.md -s && git commit -m 'docs(changelog): update changelog' CHANGELOG.md && git push origin master"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -28,6 +29,7 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "chai": "^4.1.2",
+    "conventional-changelog": "^2.0.3",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -62,8 +64,7 @@
     "sinon": "^5.0.3",
     "sinon-chai": "^3.2.0",
     "string-replace-async": "^1.2.1",
-    "webpack": "^4.6.0",
-    "lerna-semantic-release": "^9.1.0"
+    "webpack": "^4.6.0"
   },
   "repository": {
     "type": "git",
