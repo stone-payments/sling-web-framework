@@ -9,6 +9,6 @@
   },
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-helpers": "^0.1.0"
+    "sling-helpers": "^1.0.0"
   }
 }

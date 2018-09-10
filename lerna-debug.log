@@ -19,7 +19,7 @@
 12 verbose hasTags true
 13 silly getLastTag
 14 error initialize caught error
-15 error Error: fatal: No tags can describe '1bfed34f7b521270303ff0306ca4ba677909c7c5'.
+15 error Error: fatal: No tags can describe 'ce2d54764b6b41595a28d84611d5f5af02f19d6f'.
 15 error Try --always, or create some tags.
 15 error
 15 error     at Function.module.exports.sync (/home/bmendonca/development/sling-web-framework/node_modules/execa/index.js:303:26)
