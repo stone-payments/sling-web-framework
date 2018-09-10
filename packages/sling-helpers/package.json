@@ -1,6 +1,6 @@
 {
   "name": "sling-helpers",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "dist/cjs/index.js",
   "jsnext:main": "dist/es/index.js",

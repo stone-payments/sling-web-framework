@@ -7,5 +7,5 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 fi
 
 if [[ $TRAVIS_BRANCH == 'master' ]]; then
-  npm run generate-changelog && npm run publish-packages
+  npm run semantic-release
 fi
