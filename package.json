@@ -18,8 +18,7 @@
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "pretest": "./node_modules/.bin/eslint ./packages/**/*.js",
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
-    "postinstall": "./node_modules/.bin/lerna bootstrap",
-    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform"
+    "postinstall": "./node_modules/.bin/lerna bootstrap"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -29,9 +28,7 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "chai": "^4.1.2",
-    "conventional-changelog": "^2.0.3",
     "cross-env": "^5.1.4",
-    "cz-lerna-changelog": "^1.2.1",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
@@ -78,13 +75,5 @@
   "homepage": "https://github.com/stone-payments/sling-framework#readme",
   "resolutions": {
     "eslint-scope": "3.7.1"
-  },
-  "dependencies": {
-    "lerna-semantic-release": "^9.1.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-lerna-changelog"
-    }
   }
 }
