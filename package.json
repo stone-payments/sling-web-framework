@@ -18,6 +18,8 @@
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "pretest": "./node_modules/.bin/eslint ./packages/**/*.js",
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
+    "test-unit": "mocha-webpack --colors --webpack-config webpack.config-test.js \"packages/*/src/**/*.spec.js\"",
+    "coverage": "cross-env NODE_ENV=coverage nyc npm run test-unit --colors",
     "postinstall": "./node_modules/.bin/lerna bootstrap",
     "generate-changelog": "conventional-changelog -i CHANGELOG.md -s && git commit -m 'docs(changelog): update changelog' CHANGELOG.md && git push origin master"
   },
@@ -51,6 +53,8 @@
     "lerna": "^2.9.0",
     "lodash": "^4.17.10",
     "mocha": "^5.1.1",
+    "mocha-webpack": "^2.0.0-beta.0",
+    "nyc": "^13.0.1",
     "postcss": "^6.0.21",
     "postcss-import": "^11.1.0",
     "puppeteer": "^1.3.0",
@@ -64,7 +68,8 @@
     "sinon": "^5.0.3",
     "sinon-chai": "^3.2.0",
     "string-replace-async": "^1.2.1",
-    "webpack": "^4.6.0"
+    "webpack": "^4.6.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "repository": {
     "type": "git",
@@ -77,5 +82,23 @@
   "homepage": "https://github.com/stone-payments/sling-framework#readme",
   "resolutions": {
     "eslint-scope": "3.7.1"
+  },
+  "nyc": {
+    "include": [
+      "packages/**/src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "**/*.test.js",
+      "**/*.bundle.js",
+      "**/mocha-webpack"
+    ],
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "all": true,
+    "report-dir": "./coverage_unit"
   }
 }
