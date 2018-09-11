@@ -1,7 +1,7 @@
 <a name="1.0.2"></a>
 ## 1.0.2 (2018-09-11)
 
-* fix: deployment script ([6bf9233](https://github.com/stone-payments/sling-web-framework/commit/6bf9233))
+* fix: sdk connect ([6bf9233](https://github.com/stone-payments/sling-web-framework/commit/6bf9233))
 
 
 <a name="1.0.1"></a>
