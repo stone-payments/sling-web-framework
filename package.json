@@ -20,7 +20,7 @@
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
     "test-unit": "mocha-webpack --colors --webpack-config webpack.config-test.js \"packages/*/src/**/*.spec.js\"",
     "coverage": "cross-env NODE_ENV=coverage nyc npm run test-unit --colors",
-    "generate-changelog": "conventional-changelog -i CHANGELOG.md -s && git commit -m 'docs(changelog): update changelog' CHANGELOG.md && git push origin master"
+    "generate-changelog": "conventional-changelog -i CHANGELOG.md -s && git commit -m 'docs(changelog): update changelog' CHANGELOG.md && git push origin master",
     "postinstall": "./node_modules/.bin/lerna bootstrap"
   },
   "devDependencies": {
