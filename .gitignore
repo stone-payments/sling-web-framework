@@ -24,6 +24,7 @@ package-lock.json
 # nyc coverage
 /coverage
 /.nyc_output
+/coverage_unit
 
 # ide
 /.vscode
