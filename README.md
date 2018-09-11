@@ -1,4 +1,5 @@
 # Sling Web  
+[![Coverage Status](https://coveralls.io/repos/github/stone-payments/sling-web-framework/badge.svg?branch=task%2FCMPDC-909)](https://coveralls.io/github/stone-payments/sling-web-framework?branch=task%2FCMPDC-909)
 
 ## Technologies  
   
