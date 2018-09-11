@@ -1,3 +1,5 @@
+import moment from '../lib/moment.bundle.js';
+
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;
 
@@ -11,6 +13,17 @@ export const createRangeArray = (start, end = start) =>
   Array.from(Array(1 + (end - start)).keys()).map(item => item + start);
 
 export const isDateRange = (startDate, finalDate) => startDate !== finalDate;
+
+export const getDateRangeArray = (startDateStr, finalDateStr, dateFormat) => {
+  const dateRangeDays = [];
+  for (const currentDate = moment(startDateStr);
+    currentDate <= moment(finalDateStr);
+    currentDate.add(1, 'days')) {
+    dateRangeDays.push(currentDate.format(dateFormat));
+  }
+
+  return dateRangeDays;
+};
 
 export const toFlatArray = (result, arg) => (Array.isArray(arg)
   ? [...result, ...arg]
