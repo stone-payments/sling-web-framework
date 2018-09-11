@@ -1,4 +1,7 @@
+import chai from 'chai';
 import { isValidCNPJ } from './isValidCNPJ.js';
+
+const { expect } = chai;
 
 describe('isValidCNPJ', () => {
   it('Should return true for valid CNPJs.', () => {
