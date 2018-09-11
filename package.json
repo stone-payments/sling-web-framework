@@ -1,7 +1,7 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "private": true,
   "flat": true,
   "scripts": {
@@ -20,8 +20,8 @@
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
     "test-unit": "mocha-webpack --colors --webpack-config webpack.config-test.js \"packages/*/src/**/*.spec.js\"",
     "coverage": "cross-env NODE_ENV=coverage nyc npm run test-unit --colors",
-    "postinstall": "./node_modules/.bin/lerna bootstrap",
     "generate-changelog": "conventional-changelog -i CHANGELOG.md -s && git commit -m 'docs(changelog): update changelog' CHANGELOG.md && git push origin master"
+    "postinstall": "./node_modules/.bin/lerna bootstrap"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -31,7 +31,6 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "chai": "^4.1.2",
-    "conventional-changelog": "^2.0.3",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
