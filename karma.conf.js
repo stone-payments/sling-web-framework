@@ -49,6 +49,7 @@ module.exports = (config) => {
     reporters: ['mocha', 'coverage-istanbul'],
     coverageIstanbulReporter: {
       reports: ['html', 'lcovonly', 'text-summary'],
+      dir: path.join('coverage/integration'),
       fixWebpackSourcePaths: true,
       skipFilesWithNoCoverage: true,
       thresholds: {

@@ -97,6 +97,6 @@
       "text-summary"
     ],
     "all": true,
-    "report-dir": "./coverage_unit"
+    "report-dir": "./coverage/unit"
   }
 }
