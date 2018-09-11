@@ -38,7 +38,7 @@ module.exports = (config) => {
               },
             },
             include: path.resolve('./packages/'),
-            exclude: /((node_modules|dev|dist)(\\|\/|$)|(test|bundle).js$)/,
+            exclude: /((node_modules|dev|dist)(\\|\/|$)|(test|bundle)\.js$)/,
           },
         ],
       },
