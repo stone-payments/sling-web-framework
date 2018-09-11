@@ -1,3 +1,4 @@
+import chai from 'chai';
 import {
   isString,
   isFunction,
@@ -15,6 +16,8 @@ import {
   groupByDeep,
   mapByKey,
 } from './globalHelper.js';
+
+const { expect } = chai;
 
 describe('isString', () => {
   it('Should return true for a string.', () => {
