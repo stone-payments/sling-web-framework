@@ -1,3 +1,4 @@
+import chai from 'chai';
 import {
   NULLABLE,
   nullable,
@@ -6,6 +7,8 @@ import {
   matchesInterface,
   matchesInterfacePartially,
 } from './interfaceHelper.js';
+
+const { expect } = chai;
 
 const mockInterface = {
   name: String,
