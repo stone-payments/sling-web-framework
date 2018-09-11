@@ -7,10 +7,10 @@ export const onSdkAccessible = async () => {
     await waitUntilEvent('DOMContentLoaded');
   }
 
-  let $sdk = document.querySelector('slung-sdk-connect');
+  let $sdk = document.querySelector('sling-sdk-connect');
 
   if ($sdk == null) {
-    $sdk = await waitUntilTagIsAppended('slung-sdk-connect', document.body);
+    $sdk = await waitUntilTagIsAppended('sling-sdk-connect', document.body);
   }
 
   if ($sdk.store == null) {
