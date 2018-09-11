@@ -1,7 +1,7 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "private": true,
   "flat": true,
   "scripts": {
@@ -31,7 +31,6 @@
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "chai": "^4.1.2",
-    "conventional-changelog": "^2.0.3",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
