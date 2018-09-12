@@ -1,3 +1,11 @@
+<a name="1.1.0"></a>
+## 1.1.0 (2018-09-12)
+
+* feat: add getDateRangeArray to helpers ([350e703](https://github.com/stone-payments/sling-web-framework/commit/350e703))
+* feat: update travis.yml ([c444f91](https://github.com/stone-payments/sling-web-framework/commit/c444f91))
+* feat: add unit tests coverage ([487b297](https://github.com/stone-payments/sling-web-framework/commit/487b297))
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2018-09-11)
 
