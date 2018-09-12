@@ -38,7 +38,7 @@ module.exports = (config) => {
               },
             },
             include: path.resolve('./packages/'),
-            exclude: /((node_modules|dev|dist)(\\|\/|$)|(test|bundle).js$)/,
+            exclude: /((node_modules|dev|dist)(\\|\/|$)|(test|bundle)\.js$)/,
           },
         ],
       },
@@ -49,13 +49,14 @@ module.exports = (config) => {
     reporters: ['mocha', 'coverage-istanbul'],
     coverageIstanbulReporter: {
       reports: ['html', 'lcovonly', 'text-summary'],
+      dir: path.join('coverage/integration'),
       fixWebpackSourcePaths: true,
       skipFilesWithNoCoverage: true,
       thresholds: {
         emitWarning: false,
         global: {
           statements: 50,
-          branches: 40,
+          branches: 35,
           functions: 40,
           lines: 50,
         },

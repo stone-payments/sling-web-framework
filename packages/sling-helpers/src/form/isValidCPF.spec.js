@@ -1,4 +1,7 @@
+import chai from 'chai';
 import { isValidCPF } from './isValidCPF.js';
+
+const { expect } = chai;
 
 describe('isValidCPF', () => {
   it('Should return true for valid CPFs.', () => {

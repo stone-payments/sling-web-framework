@@ -1,4 +1,7 @@
+import chai from 'chai';
 import { isValidPhone } from './isValidPhone.js';
+
+const { expect } = chai;
 
 describe('isValidPhone', () => {
   it('Should not validate “(00) 00-0000”.', () => {

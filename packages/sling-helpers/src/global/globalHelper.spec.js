@@ -1,3 +1,4 @@
+import chai from 'chai';
 import {
   isString,
   isFunction,
@@ -14,8 +15,10 @@ import {
   set,
   groupByDeep,
   mapByKey,
+  getDateRangeArray,
 } from './globalHelper.js';
 
+const { expect } = chai;
 describe('isString', () => {
   it('Should return true for a string.', () => {
     expect(isString('a')).to.equal(true);
@@ -525,5 +528,29 @@ describe('mapByKey', () => {
       def: 20,
     };
     expect(mapByKey(test, 'cool_name', 'cool_value')).to.eql(expected);
+  });
+
+  describe('getDateRangeArray', () => {
+    it('should return array of days in YYYY-MM-DD for a date range', () => {
+      expect(getDateRangeArray('2018-01-31', '2018-02-04', 'YYYY-MM-DD'))
+        .to.deep.equal([
+          '2018-01-31',
+          '2018-02-01',
+          '2018-02-02',
+          '2018-02-03',
+          '2018-02-04',
+        ]);
+    });
+
+    it('should return array of days in DD/MM for a date range', () => {
+      expect(getDateRangeArray('2018-01-31', '2018-02-04', 'DD/MM'))
+        .to.deep.equal([
+          '31/01',
+          '01/02',
+          '02/02',
+          '03/02',
+          '04/02',
+        ]);
+    });
   });
 });

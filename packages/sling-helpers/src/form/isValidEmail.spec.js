@@ -1,4 +1,7 @@
+import chai from 'chai';
 import { isValidEmail } from './isValidEmail.js';
+
+const { expect } = chai;
 
 describe('isValidEmail', () => {
   it('Should not validate “me@”.', () => {

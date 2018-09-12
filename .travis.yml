@@ -8,7 +8,8 @@ notifications:
 node_js:
   - "8"
 before_install: .travis/before_install.sh
+after_script: npm run send-coverage
 after_success: .travis/after_success.sh
-script: npm run lint && npm test
+script: npm run lint && npm run coverage && npm test
 git:
   depth: 1
