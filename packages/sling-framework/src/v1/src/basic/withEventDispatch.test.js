@@ -4,7 +4,7 @@ import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withEventDispatch', () => {
   class EvtDispatchLitElement extends withEventDispatch(LitElement) {
-    render() {}
+    _render() {}
   }
 
   if (window.customElements.get('evt-dispatch-lit') == null) {

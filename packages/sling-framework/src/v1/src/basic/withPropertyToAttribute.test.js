@@ -21,7 +21,7 @@ describe('withPropertyToAttribute', () => {
       };
     }
 
-    render() {}
+    _render() {}
   }
 
   domHelper.registerComponent('prop-attr-lit', PropAttrLitElement);
@@ -40,7 +40,7 @@ describe('withPropertyToAttribute', () => {
 
   it('Should not break without a base class.', () => {
     class PropAttrBaseless extends withPropertyToAttribute() {
-      render() {}
+      _render() {}
     }
 
     domHelper.registerComponent('prop-attr-baseless', PropAttrBaseless);

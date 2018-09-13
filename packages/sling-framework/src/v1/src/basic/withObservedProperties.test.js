@@ -26,7 +26,7 @@ describe('withObservedProperties', () => {
       };
     }
 
-    render() {}
+    _render() {}
   }
 
   domHelper.registerComponent('observed-prop-lit', ObservedPropLitElement);
@@ -46,7 +46,7 @@ describe('withObservedProperties', () => {
 
   it('Should not break without a base class.', () => {
     class ObsPropBaseless extends withObservedProperties() {
-      render() {}
+      _render() {}
     }
 
     domHelper.registerComponent('observed-prop-baseless', ObsPropBaseless);

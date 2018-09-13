@@ -17,7 +17,7 @@ describe('withAttributeToCss', () => {
       };
     }
 
-    render() {}
+    _render() {}
   }
 
   domHelper.registerComponent('attr-css-lit', AttrCssLitElement);

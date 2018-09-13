@@ -22,7 +22,7 @@ class BusinessTester extends withBusinessLogic() {
     };
   }
 
-  render() {}
+  _render() {}
 }
 
 window.customElements.define('business-tester', BusinessTester);
