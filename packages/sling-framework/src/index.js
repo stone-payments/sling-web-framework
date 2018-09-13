@@ -1,4 +1,4 @@
-import { html } from './lib/lit-element.bundle.js';
+import { html } from '@polymer/lit-element';
 import { SlingElement } from './framework/SlingElement.js';
 import { SlingBusinessElement } from './framework/SlingBusinessElement.js';
 

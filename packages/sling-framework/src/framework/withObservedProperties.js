@@ -1,5 +1,5 @@
+import { LitElement } from '@polymer/lit-element';
 import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
-import { LitElement } from '../lib/lit-element.bundle.js';
 
 export const withObservedProperties = (Base = LitElement) =>
   class extends Base {

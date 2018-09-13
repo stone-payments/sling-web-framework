@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { LitElement } from '@polymer/lit-element';
 import { withObservedProperties } from './withObservedProperties.js';
 import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
