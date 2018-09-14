@@ -1,3 +1,8 @@
+<a name="1.2.0"></a>
+## 1.2.0 (2018-09-14)
+
+* feat: add sling-assets ([5774981](https://github.com/stone-payments/sling-web-framework/commit/5774981))
+
 <a name="1.1.0"></a>
 ## 1.1.0 (2018-09-12)
 
