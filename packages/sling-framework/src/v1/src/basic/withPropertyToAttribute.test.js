@@ -1,5 +1,5 @@
 import { registerComponent } from 'sling-helpers';
-import { LitElement } from 'lit-element';
+import { LitElement } from '@polymer/lit-element';
 import { withPropertyToAttribute } from './withPropertyToAttribute.js';
 
 describe('withPropertyToAttribute', () => {
@@ -63,11 +63,6 @@ describe('withPropertyToAttribute', () => {
   it('Should reflect property to attribute when "reflectToAttribute" ' +
     'is true.', (done) => {
     $dummy.reflected = 'lake';
-
-    console.log('========================');
-    console.log($dummy.reflected);
-    console.log($dummy.getAttribute('reflected'));
-    console.log('========================');
 
     setTimeout(() => {
       expect($dummy.getAttribute('reflected')).to.equal('lake');

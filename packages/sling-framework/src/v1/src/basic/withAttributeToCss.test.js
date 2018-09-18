@@ -1,5 +1,5 @@
 import { registerComponent } from 'sling-helpers';
-import { LitElement } from 'lit-element';
+import { LitElement } from '@polymer/lit-element';
 import { withAttributeToCss } from './withAttributeToCss.js';
 
 describe('withAttributeToCss', () => {

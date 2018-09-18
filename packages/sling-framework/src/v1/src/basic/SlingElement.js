@@ -1,4 +1,4 @@
-import { LitElement } from 'lit-element';
+import { LitElement } from '@polymer/lit-element';
 import { withEventDispatch } from './withEventDispatch.js';
 import { withAttributeToCss } from './withAttributeToCss.js';
 import { withObservedProperties } from './withObservedProperties.js';
