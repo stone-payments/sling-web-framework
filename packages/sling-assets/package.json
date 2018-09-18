@@ -1,0 +1,9 @@
+{
+  "name": "sling-assets",
+  "version": "1.2.0",
+  "description": "Sling Assets",
+  "author": "Stone Pagamentos",
+  "main": "dist/cjs/index.js",
+  "jsnext:main": "dist/es/index.js",
+  "license": "Apache-2.0"
+}
