@@ -56,7 +56,7 @@ module.exports = (config) => {
         emitWarning: false,
         global: {
           statements: 50,
-          branches: 35,
+          branches: 30,
           functions: 40,
           lines: 50,
         },
