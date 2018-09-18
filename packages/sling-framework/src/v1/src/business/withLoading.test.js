@@ -1,4 +1,4 @@
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
+import { domHelper } from 'sling-helpers';
 import { withLoading } from './withLoading.js';
 
 class Loader extends withLoading() {}

@@ -1,4 +1,4 @@
-import { globalHelper } from '../../../../node_modules/sling-helpers/src/index.js';
+import { globalHelper } from 'sling-helpers';
 
 const isValidParam = param => param != null && param !== '';
 

@@ -1,6 +1,6 @@
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { domHelper } from 'sling-helpers';
+import { LitElement } from 'lit-element';
 import { withPropertyToAttribute } from './withPropertyToAttribute.js';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withPropertyToAttribute', () => {
   class PropAttrLitElement extends withPropertyToAttribute(LitElement) {

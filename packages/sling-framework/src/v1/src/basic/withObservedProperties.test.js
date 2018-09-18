@@ -1,7 +1,7 @@
 import sinon from 'sinon';
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { domHelper } from 'sling-helpers';
+import { LitElement } from 'lit-element';
 import { withObservedProperties } from './withObservedProperties.js';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withObservedProperties', () => {
   class ObservedPropLitElement extends withObservedProperties(LitElement) {

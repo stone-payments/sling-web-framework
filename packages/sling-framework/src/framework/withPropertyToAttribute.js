@@ -1,5 +1,5 @@
-import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { globalHelper } from 'sling-helpers';
+import { LitElement } from 'lit-element';
 
 export const withPropertyToAttribute = (Base = LitElement) =>
   class extends Base {

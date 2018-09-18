@@ -1,4 +1,4 @@
-import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
+import { globalHelper } from 'sling-helpers';
 
 export const withEventDispatch = (Base = HTMLElement) =>
   class extends Base {

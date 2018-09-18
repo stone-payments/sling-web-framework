@@ -1,4 +1,4 @@
-import moment from '../lib/moment.bundle.js';
+import moment from 'moment';
 
 export const defaultSdkCallDateFormat = 'YYYY-MM-DD';
 

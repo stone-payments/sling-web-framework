@@ -1,120 +1,70 @@
-const { rollup } = require('rollup');
-const { transform } = require('babel-core');
-const { readFile, ensureFile, writeFile, copy, pathExists } =
-  require('fs-extra');
+const { readFile } = require('fs-extra');
 
-const globAsyncMap = require('./globAsyncMap.js');
-const replaceNodeDependencyPaths = require('./replaceNodeDependencyPaths.js');
-const replaceCssImportsForTheirContents =
-  require('./replaceCssImportsForTheirContents.js');
+const getScope = require('./helpers/getScope');
+const forEachPackage = require('./helpers/forEachPackage');
+const getJsPathsExceptTests = require('./helpers/getJsPathsExceptTests');
+const getPackageName = require('./helpers/getPackageName');
+const bundleJsImports = require('./helpers/bundleJsImports');
+const injectCssContent = require('./helpers/injectCssContent');
+const transformImportToCjs = require('./helpers/transformImportToCjs');
+const transformEs6ToEs5 = require('./helpers/transformEs6ToEs5');
+const safeWriteFile = require('./helpers/safeWriteFile');
 
-const buildConfig = require('../build.config.js');
-const rollupConfig = require('../rollup.config.js');
+const scope = getScope();
+console.log(`Building ${scope !== '*' ? scope : 'all packages'}\n`);
 
-const { NODE_ENV, BABEL_ENV, BUILD_TYPE } = process.env;
-const devPackage = process.argv[2];
+forEachPackage(scope, pkg => {
+  (async () => {
+    console.log(`Started:\n${pkg}\n`);
 
-if (!NODE_ENV) {
-  throw new Error('NODE_ENV must be provided.');
-}
+    let context;
 
-if (!BABEL_ENV) {
-  throw new Error('BABEL_ENV must be provided.');
-}
+    // Outputs `dist/es/es6/` and `dist/es/es5/` from `src/`
 
-if (BUILD_TYPE === 'dev' && !devPackage) {
-  throw new Error('A source package must be provided. ' +
-    'Run "npm build-dev package-name".');
-}
+    context = await getJsPathsExceptTests(`${pkg}/src`);
 
-let globPattern = [];
-const globOptions = { onlyFiles: true };
-const bundlePaths = (buildConfig || {}).bundled || [];
-const buildDistribution = BABEL_ENV.split('-')[1];
-const buildType = BUILD_TYPE || 'dist';
+    await Promise.all(context.map(path => {
+      const es6Path = path.replace('/src/', '/dist/es/es6/');
+      const es5Path = path.replace('/src/', '/dist/es/es5/');
 
-if (buildType === 'dev') {
-  globPattern = `./packages/${devPackage}/index.js`;
-} else if (buildType === 'dist' && buildDistribution === 'bundle') {
-  globPattern = bundlePaths
-    .map(folderName => `./packages/${folderName}/src/index.js`);
-} else if (buildType === 'dist' && buildDistribution === 'package') {
-  globPattern = [
-    './packages/*/src/**/*.js',
-    '!./packages/*/src/**/*.test.js',
-    ...bundlePaths.map(folderName => `!./packages/${folderName}`),
-  ];
-}
+      return readFile(path, 'utf8')
+        .then(injectCssContent)
+        .then(safeWriteFile(es6Path))
+        .then(transformEs6ToEs5)
+        .then(safeWriteFile(es5Path));
+    }));
 
-const safeCopy = async (srcPath, destPath) => {
-  if (await pathExists(srcPath)) {
-    await ensureFile(destPath);
-    await copy(srcPath, destPath);
-  }
-};
+    // Outputs `dist/cjs/es6/` and `dist/cjs/es5/` from `dist/es/es6`
 
-console.log(`Building ${NODE_ENV.toUpperCase()} ${buildDistribution}s.`);
+    context = await getJsPathsExceptTests(`${pkg}/dist/es/es6`);
 
-try {
-  globAsyncMap(globPattern, globOptions, async (path) => {
-    let processedCode;
-    let savePath;
-    let basePath;
+    await Promise.all(context.map(path => {
+      const es6Path = path.replace('/dist/es/es6/', '/dist/cjs/es6/');
+      const es5Path = path.replace('/dist/es/es6/', '/dist/cjs/es5/');
 
-    if (buildType === 'dev') {
-      savePath = path.replace(devPackage, `${devPackage}/${buildType}`);
-      [basePath] = path.split('/index.js');
-    } else if (buildType === 'dist') {
-      savePath = path.replace('src', `${buildType}/${NODE_ENV}`);
-      [basePath] = path.split('/src/');
-    }
+      return readFile(path, 'utf8')
+        .then(transformImportToCjs)
+        .then(safeWriteFile(es6Path))
+        .then(transformEs6ToEs5)
+        .then(safeWriteFile(es5Path));
+    }));
 
-    if (buildType === 'dev') {
-      const htmlPath = path.replace('.js', '.html');
-      const htmlSavePath = savePath.replace('.js', '.html');
-      await safeCopy(htmlPath, htmlSavePath);
+    // Outputs `dist/iife/es6/` and `dist/iife/es5/` from `dist/es/es6/index.js`
 
-      const cssPath = path.replace('.js', '.css');
-      const cssSavePath = savePath.replace('.js', '.css');
-      await safeCopy(cssPath, cssSavePath);
-    }
+    context = [`${pkg}/dist/es/es6/index.js`];
 
-    if (buildDistribution === 'bundle') {
-      const rollupOptions = {
-        configInput: path,
-        configOutput: savePath,
-      };
+    await Promise.all(context.map(path => {
+      const es6Path = path.replace('/dist/es/es6/', '/dist/iife/es6/');
+      const es5Path = path.replace('/dist/es/es6/', '/dist/iife/es5/');
+      const packageName = getPackageName(pkg);
 
-      const config = rollupConfig(rollupOptions);
+      return Promise.resolve(path)
+        .then(bundleJsImports(packageName))
+        .then(safeWriteFile(es6Path))
+        .then(transformEs6ToEs5)
+        .then(safeWriteFile(es5Path));
+    }));
 
-      const inputOptions = {
-        input: config.input,
-        plugins: config.plugins,
-      };
-
-      const outputOptions = config.output;
-      const bundle = await rollup(inputOptions);
-      const { code } = await bundle.generate(outputOptions);
-
-      processedCode = await replaceCssImportsForTheirContents(code, basePath);
-    } else if (buildDistribution === 'package') {
-      const code = await readFile(path, 'utf8');
-      const babelRc = await readFile('.babelrc', 'utf8');
-      const babelConfig = JSON.parse(babelRc).env[BABEL_ENV];
-
-      const codeWithReplaces = await replaceCssImportsForTheirContents(
-        replaceNodeDependencyPaths(code), basePath);
-
-      const transformed = transform(codeWithReplaces, babelConfig);
-
-      processedCode = transformed.code;
-    }
-
-    await ensureFile(savePath);
-    await writeFile(savePath, processedCode);
-  });
-} catch (err) {
-  console.log('An error occurred while building ' +
-    `${NODE_ENV.toUpperCase()} ${buildDistribution}s.`);
-  console.warn(err);
-}
+    console.log(`Finished:\n${pkg}\n`);
+  })();
+});

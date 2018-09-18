@@ -1,6 +1,6 @@
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { domHelper } from 'sling-helpers';
+import { LitElement } from 'lit-element';
 import { withEventDispatch } from './withEventDispatch.js';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withEventDispatch', () => {
   class EvtDispatchLitElement extends withEventDispatch(LitElement) {

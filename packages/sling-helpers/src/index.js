@@ -1,5 +1,5 @@
-import imask from './lib/imask.bundle.js';
-import moment from './lib/moment.bundle.js';
+import imask from 'imask';
+import moment from 'moment';
 
 import { onSdkAvailable } from './sdk/onSdkAvailable.js';
 

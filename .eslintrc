@@ -53,10 +53,9 @@
     ]
   },
   "overrides": [{
-    "files": ["*.test.js", "*.spec.js"],
+    "files": "*.{test,spec,cafe}.js",
     "rules": {
-      "no-unused-expressions": "off",
-      "no-new-wrappers": "off"
+      "no-unused-expressions": "off"
     }
   }]
 }

@@ -1,6 +1,6 @@
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { domHelper } from 'sling-helpers';
+import { LitElement } from 'lit-element';
 import { withAttributeToCss } from './withAttributeToCss.js';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withAttributeToCss', () => {
   class AttrCssLitElement extends withAttributeToCss(LitElement) {

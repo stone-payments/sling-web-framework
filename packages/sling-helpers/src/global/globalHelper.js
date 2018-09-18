@@ -1,4 +1,4 @@
-import moment from '../lib/moment.bundle.js';
+import moment from 'moment';
 
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;
