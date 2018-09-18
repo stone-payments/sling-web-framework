@@ -8,8 +8,6 @@
   "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "lit-element": "^0.5.0",
-    "@polymer/lit-element": "^0.6.1",
     "sling-helpers": "^1.2.0"
   }
 }
