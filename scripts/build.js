@@ -60,6 +60,7 @@ forEachPackage(scope, (pkg) => {
 
       return Promise.resolve(path)
         .then(bundleJsImports(packageName))
+        .then(injectCssContent)
         .then(safeWriteFile(es6Path))
         .then(transformEs6ToEs5)
         .then(safeWriteFile(es5Path));
