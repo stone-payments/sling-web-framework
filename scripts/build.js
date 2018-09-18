@@ -34,7 +34,7 @@ forEachPackage(scope, (pkg) => {
         .then(safeWriteFile(es5Path));
     }));
 
-    // Outputs `dist/cjs/es6/` and `dist/cjs/es5/` from `dist/es/es6`
+    // Outputs `dist/cjs/es6/` and `dist/cjs/es5/` from `dist/es/es6/`
 
     context = await getJsPathsExceptTests(`${pkg}/dist/es/es6`);
 
