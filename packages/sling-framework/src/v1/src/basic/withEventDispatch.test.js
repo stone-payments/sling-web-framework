@@ -1,4 +1,4 @@
-import { domHelper } from 'sling-helpers';
+import { registerComponent } from 'sling-helpers';
 import { LitElement } from 'lit-element';
 import { withEventDispatch } from './withEventDispatch.js';
 
@@ -26,7 +26,7 @@ describe('withEventDispatch', () => {
   it('Should not break without a base class.', () => {
     class EvtDispatchBaseless extends withEventDispatch() {}
 
-    domHelper.registerComponent('evt-dispatch-baseless', EvtDispatchBaseless);
+    registerComponent('evt-dispatch-baseless', EvtDispatchBaseless);
     const $baseless = document.createElement('evt-dispatch-baseless');
     document.body.appendChild($baseless);
     expect($baseless.constructor === EvtDispatchBaseless).to.be.true;

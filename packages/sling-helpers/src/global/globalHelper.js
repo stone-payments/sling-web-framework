@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/moment';
 
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;

@@ -5,7 +5,7 @@ module.exports = filePath => fileAsString =>
   postcss()
     .use(atImport())
     .process(fileAsString, {
-      from: filePath
+      from: filePath,
     })
     .then(result => result.css)
     .catch((err) => {

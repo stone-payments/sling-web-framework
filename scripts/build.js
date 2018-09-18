@@ -13,7 +13,7 @@ const safeWriteFile = require('./helpers/safeWriteFile');
 const scope = getScope();
 console.log(`Building ${scope !== '*' ? scope : 'all packages'}\n`);
 
-forEachPackage(scope, pkg => {
+forEachPackage(scope, (pkg) => {
   (async () => {
     console.log(`Started:\n${pkg}\n`);
 
@@ -23,7 +23,7 @@ forEachPackage(scope, pkg => {
 
     context = await getJsPathsExceptTests(`${pkg}/src`);
 
-    await Promise.all(context.map(path => {
+    await Promise.all(context.map((path) => {
       const es6Path = path.replace('/src/', '/dist/es/es6/');
       const es5Path = path.replace('/src/', '/dist/es/es5/');
 
@@ -38,7 +38,7 @@ forEachPackage(scope, pkg => {
 
     context = await getJsPathsExceptTests(`${pkg}/dist/es/es6`);
 
-    await Promise.all(context.map(path => {
+    await Promise.all(context.map((path) => {
       const es6Path = path.replace('/dist/es/es6/', '/dist/cjs/es6/');
       const es5Path = path.replace('/dist/es/es6/', '/dist/cjs/es5/');
 
@@ -53,7 +53,7 @@ forEachPackage(scope, pkg => {
 
     context = [`${pkg}/dist/es/es6/index.js`];
 
-    await Promise.all(context.map(path => {
+    await Promise.all(context.map((path) => {
       const es6Path = path.replace('/dist/es/es6/', '/dist/iife/es6/');
       const es5Path = path.replace('/dist/es/es6/', '/dist/iife/es5/');
       const packageName = getPackageName(pkg);

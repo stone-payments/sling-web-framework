@@ -1,4 +1,4 @@
-import { domHelper } from 'sling-helpers';
+import { registerComponent } from 'sling-helpers';
 import { LitElement } from 'lit-element';
 import { withPropertyToAttribute } from './withPropertyToAttribute.js';
 
@@ -24,7 +24,7 @@ describe('withPropertyToAttribute', () => {
     render() {}
   }
 
-  domHelper.registerComponent('prop-attr-lit', PropAttrLitElement);
+  registerComponent('prop-attr-lit', PropAttrLitElement);
 
   let $dummy;
 
@@ -43,7 +43,7 @@ describe('withPropertyToAttribute', () => {
       render() {}
     }
 
-    domHelper.registerComponent('prop-attr-baseless', PropAttrBaseless);
+    registerComponent('prop-attr-baseless', PropAttrBaseless);
     const $baseless = document.createElement('prop-attr-baseless');
     document.body.appendChild($baseless);
     expect($baseless.constructor === PropAttrBaseless).to.be.true;
@@ -63,6 +63,11 @@ describe('withPropertyToAttribute', () => {
   it('Should reflect property to attribute when "reflectToAttribute" ' +
     'is true.', (done) => {
     $dummy.reflected = 'lake';
+
+    console.log('========================');
+    console.log($dummy.reflected);
+    console.log($dummy.getAttribute('reflected'));
+    console.log('========================');
 
     setTimeout(() => {
       expect($dummy.getAttribute('reflected')).to.equal('lake');

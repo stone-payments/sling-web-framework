@@ -1,4 +1,4 @@
-const { search = '' } = location;
+const { search = '' } = document.location;
 const ecmaVersion = (search.match(/[?&]es=(\d)/) || [])[1] || '6';
 
 const docHead = document.querySelector('head');

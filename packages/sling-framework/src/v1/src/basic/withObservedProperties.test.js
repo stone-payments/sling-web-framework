@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { domHelper } from 'sling-helpers';
+import { registerComponent } from 'sling-helpers';
 import { LitElement } from 'lit-element';
 import { withObservedProperties } from './withObservedProperties.js';
 
@@ -29,7 +29,7 @@ describe('withObservedProperties', () => {
     render() {}
   }
 
-  domHelper.registerComponent('observed-prop-lit', ObservedPropLitElement);
+  registerComponent('observed-prop-lit', ObservedPropLitElement);
 
   let $dummy;
 
@@ -49,7 +49,7 @@ describe('withObservedProperties', () => {
       render() {}
     }
 
-    domHelper.registerComponent('observed-prop-baseless', ObsPropBaseless);
+    registerComponent('observed-prop-baseless', ObsPropBaseless);
     const $baseless = document.createElement('observed-prop-baseless');
     document.body.appendChild($baseless);
     expect($baseless.constructor === ObsPropBaseless).to.be.true;

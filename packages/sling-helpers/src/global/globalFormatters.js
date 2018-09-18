@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment/moment';
 
 export const defaultSdkCallDateFormat = 'YYYY-MM-DD';
 

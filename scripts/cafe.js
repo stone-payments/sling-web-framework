@@ -13,4 +13,4 @@ env.TEST_BASE = 'http://127.0.0.1:8123/packages';
 
 exec('npm run build && ' +
   `./node_modules/.bin/testcafe firefox ${basePath}/src/**/*.cafe.js ` +
-  `--app "http-server . -p 8123"`);
+  '--app "http-server . -p 8123"');

@@ -24,5 +24,5 @@ module.exports = fileAsString =>
   stringReplaceAsync(
     fileAsString,
     /@import.*?(?:["'])((?!\/\/)(?!https?:\/\/).*?)(?:[\\"']).*?;?(<|$)/gm,
-    replacer
+    replacer,
   );

@@ -1,5 +1,5 @@
-import { LitElement } from 'lit-element';
 import { globalHelper, onSdkAvailable } from 'sling-helpers';
+import { LitElement } from 'lit-element';
 
 export const withBusinessLogic = (Base = LitElement) =>
   class extends Base {
