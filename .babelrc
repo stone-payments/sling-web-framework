@@ -3,14 +3,14 @@
     "es-package": {
       "plugins": [
         "transform-object-rest-spread",
-        "transform-async-to-generator"
+        "transform-async-to-generator",
       ]
     },
     "es-bundle": {
       "plugins": [
         "external-helpers",
         "transform-object-rest-spread",
-        "transform-async-to-generator"
+        "transform-async-to-generator",
       ]
     },
     "cjs-package": {
@@ -19,7 +19,7 @@
       ],
       "plugins": [
         "transform-object-rest-spread",
-        "transform-async-to-generator"
+        "transform-async-to-generator",
       ]
     },
     "cjs-bundle": {
@@ -29,7 +29,7 @@
       "plugins": [
         "external-helpers",
         "transform-object-rest-spread",
-        "transform-async-to-generator"
+        "transform-async-to-generator",
       ]
     }
   }

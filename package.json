@@ -18,12 +18,14 @@
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "pretest": "./node_modules/.bin/eslint ./packages/**/*.js",
     "test": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js",
+    "test-debug": "./node_modules/.bin/cross-env NODE_ENV=karma karma start karma.conf.js --browsers=Chrome --single-run=false",
     "test-unit": "mocha-webpack --colors --webpack-config webpack.config-test.js \"packages/*/src/**/*.spec.js\"",
     "coverage": "cross-env NODE_ENV=coverage nyc npm run test-unit --colors",
     "send-coverage": "cat ./coverage/unit/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "postinstall": "./node_modules/.bin/lerna bootstrap"
   },
   "devDependencies": {
+    "@babel/polyfill": "^7.0.0",
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
