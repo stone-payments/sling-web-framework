@@ -1,4 +1,4 @@
-import { LitElement } from '@polymer/lit-element';
+import { LitElement } from '../lib/lit-element.bundle.js';
 import { withInitialValue } from './withInitialValue.js';
 import { withPropertyToAttribute } from './withPropertyToAttribute.js';
 import { withObservedProperties } from './withObservedProperties.js';

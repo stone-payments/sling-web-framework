@@ -1,5 +1,5 @@
 import { registerComponent } from 'sling-helpers';
-import { LitElement } from '@polymer/lit-element';
+import { LitElement } from '../../../lib/lit-element.bundle.js';
 import { withEventDispatch } from './withEventDispatch.js';
 
 describe('withEventDispatch', () => {

@@ -1,5 +1,5 @@
 import { registerComponent } from 'sling-helpers';
-import { LitElement } from '@polymer/lit-element';
+import { LitElement } from '../../../lib/lit-element.bundle.js';
 import { withPropertyToAttribute } from './withPropertyToAttribute.js';
 
 describe('withPropertyToAttribute', () => {

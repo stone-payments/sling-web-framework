@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { registerComponent } from 'sling-helpers';
-import { LitElement } from '@polymer/lit-element';
+import { LitElement } from '../../../lib/lit-element.bundle.js';
 import { withObservedProperties } from './withObservedProperties.js';
 
 describe('withObservedProperties', () => {
