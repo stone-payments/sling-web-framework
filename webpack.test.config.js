@@ -6,7 +6,7 @@ const basePath = getBasePath();
 module.exports = () => ({
   mode: 'development',
   resolve: {
-    mainFields: ['module', 'jsnext:main', 'main']
+    mainFields: ['module', 'jsnext:main', 'main'],
   },
   context: resolve(__dirname, basePath),
   module: {
@@ -16,11 +16,11 @@ module.exports = () => ({
         use: {
           loader: 'istanbul-instrumenter-loader',
           options: {
-            esModules: true
-          }
+            esModules: true,
+          },
         },
-        exclude: /((node_modules|dist|public)(\\|\/|$)|(test|spec|cafe)\.js$)/
-      }
-    ]
-  }
+        exclude: /((node_modules|dist|public)(\\|\/|$)|(test|spec|cafe|bundle)\.js$)/,
+      },
+    ],
+  },
 });

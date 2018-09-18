@@ -8,8 +8,8 @@ const allPackagesPath = './packages/*';
 let reports = {
   reporters: ['mocha'],
   mochaReporter: {
-    showDiff: true
-  }
+    showDiff: true,
+  },
 };
 
 if (basePath === allPackagesPath) {
@@ -20,8 +20,8 @@ if (basePath === allPackagesPath) {
       dir: resolve(__dirname, './coverage/integration'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true,
-      skipFilesWithNoCoverage: true
-    }
+      skipFilesWithNoCoverage: true,
+    },
   };
 }
 
@@ -31,38 +31,38 @@ module.exports = (config) => {
     webpack: webpackTestConfig(),
     browsers: [
       'ChromeHeadlessNoSandbox',
-      'FirefoxHeadless'
+      'FirefoxHeadless',
     ],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
+        flags: ['--no-sandbox'],
       },
       FirefoxHeadless: {
         base: 'Firefox',
-        flags: ['-headless']
-      }
+        flags: ['-headless'],
+      },
     },
     browserNoActivityTimeout: 60000,
     singleRun: true,
     frameworks: ['mocha', 'chai-sinon'],
     urlRoot: 'test',
     proxies: {
-      '/test/': '/test/base/packages/'
+      '/test/': '/test/base/packages/',
     },
     files: [
       {
         pattern: `${allPackagesPath}/src/**/*.css`,
         watched: true,
-        served: true
+        served: true,
       },
       {
         pattern: `${basePath}/src/**/*.test.js`,
-        watched: false
-      }
+        watched: false,
+      },
     ],
     preprocessors: {
-      [`${basePath}/src/**/*.test.js`]: ['webpack']
-    }
+      [`${basePath}/src/**/*.test.js`]: ['webpack'],
+    },
   });
 };

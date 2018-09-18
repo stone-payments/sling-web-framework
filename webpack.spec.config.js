@@ -10,12 +10,12 @@ module.exports = {
         use: {
           loader: 'istanbul-instrumenter-loader',
           options: {
-            esModules: true
-          }
+            esModules: true,
+          },
         },
         include: resolve(__dirname, './packages/'),
-        exclude: /((node_modules|dist|public)(\\|\/|$)|(test|spec|cafe)\.js$)/
-      }
-    ]
-  }
+        exclude: /((node_modules|dist|public)(\\|\/|$)|(test|spec|cafe|bundle)\.js$)/,
+      },
+    ],
+  },
 };

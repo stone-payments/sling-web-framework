@@ -9,11 +9,11 @@ const basePath = getBasePath();
 module.exports = () => ({
   mode: 'development',
   resolve: {
-    mainFields: ['module', 'jsnext:main', 'main']
+    mainFields: ['module', 'jsnext:main', 'main'],
   },
   context: resolve(__dirname, basePath),
   entry: {
-    app: './src/index.js'
+    app: './src/index.js',
   },
   devServer: {
     open: true,
@@ -22,19 +22,19 @@ module.exports = () => ({
     publicPath: '/',
     contentBase: [
       resolve(__dirname, `${basePath}/public`),
-      resolve(__dirname, `./packages`)
+      resolve(__dirname, './packages'),
     ],
-    watchContentBase: true
+    watchContentBase: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       inject: 'body',
-      template: './public/index.html'
+      template: './public/index.html',
     }),
     new HtmlStringReplace([{
       pattern: /<script.*?\/script>/,
-      replacement: ''
-    }])
-  ]
+      replacement: '',
+    }]),
+  ],
 });
