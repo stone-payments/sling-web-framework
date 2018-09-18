@@ -3,8 +3,10 @@
   "version": "0.17.0",
   "description": "Sling Snack Bar component",
   "author": "Stone Pagamentos",
-  "main": "dist/cjs/index.js",
-  "jsnext:main": "dist/es/index.js",
+  "module": "src/index.js",
+  "main": "dist/cjs/es6/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "browser": "dist/iife/es6/index.js",
   "dependencies": {
     "sling-web-component-button": "^0.17.0",
     "sling-web-component-icon": "^0.17.0",

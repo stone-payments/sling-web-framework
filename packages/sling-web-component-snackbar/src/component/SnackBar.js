@@ -33,14 +33,14 @@ export class SnackBar extends SlingElement {
     this.dispatchEventAndMethod('closeclick');
   }
 
-  _render() {
+  render() {
     const base = 'emd-snackbar';
     const attrNames = Object.keys(this.constructor.properties);
     const className = this.generateClassName(base, attrNames);
 
     return html`
       <style>
-        @import url('../sling-web-component-snackbar/src/index.css');
+        @import url('sling-web-component-snackbar/src/index.css');
       </style>
       <div className="${className}">
         <sling-icon class="emd-snackbar_icon" icon="${this.aim || 'info'}"></sling-icon>

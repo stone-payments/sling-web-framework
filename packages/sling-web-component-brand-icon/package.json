@@ -2,11 +2,10 @@
   "name": "sling-web-component-brand-icon",
   "version": "0.17.0",
   "description": "",
-  "main": "dist/cjs/index.js",
-  "jsnext:main": "dist/es/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "module": "src/index.js",
+  "main": "dist/cjs/es6/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
     "sling-framework": "^1.2.0",

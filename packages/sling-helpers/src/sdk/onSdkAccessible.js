@@ -1,4 +1,3 @@
-import '@babel/polyfill';
 import * as domHelper from '../dom/domHelper.js';
 
 export const onSdkAccessible = async () => {
