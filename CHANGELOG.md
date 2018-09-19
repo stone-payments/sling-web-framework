@@ -1,7 +1,7 @@
 <a name="unreleased"></a>
 ## Unreleased (2018-09-18)
 
-* feat: Add babel/polyfil dependency and sncackbar, sdk-conect and brandicon component ([b7e9ede](https://github.com/stone-payments/sling-web-framework/commit/b7e9ede))
+* feat: Add babel/polyfil dependency and snackbar, sdk-conect and brandicon component ([b7e9ede](https://github.com/stone-payments/sling-web-framework/commit/b7e9ede))
 
 
 <a name="1.2.0"></a>
