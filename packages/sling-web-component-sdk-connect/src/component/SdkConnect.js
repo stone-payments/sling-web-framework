@@ -1,9 +1,9 @@
-import { globalHelper } from 'sling-helpers';
+import { isFunction } from 'sling-helpers';
 
 export class SdkConnect extends HTMLElement {
   static isValidStore(store) {
     return store && [store.dispatch, store.subscribe, store.getState]
-      .every(globalHelper.isFunction);
+      .every(isFunction);
   }
 
   get store() {

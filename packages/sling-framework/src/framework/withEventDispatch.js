@@ -1,4 +1,4 @@
-import { globalHelper } from 'sling-helpers';
+import { isFunction } from 'sling-helpers';
 
 export const withEventDispatch = (Base = HTMLElement) =>
   class extends Base {
@@ -18,7 +18,7 @@ export const withEventDispatch = (Base = HTMLElement) =>
 
       this.dispatchEvent(event);
 
-      if (globalHelper.isFunction(method)) {
+      if (isFunction(method)) {
         method(event);
       }
     }

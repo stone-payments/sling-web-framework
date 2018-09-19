@@ -1,24 +1,7 @@
-import imask from 'imask';
-import moment from 'moment/moment';
+export { onSdkAvailable } from './sdk/onSdkAvailable.js';
 
-import { onSdkAvailable } from './sdk/onSdkAvailable.js';
-
-import * as domHelper from './dom/domHelper.js';
-import * as interfaceHelper from './interface/interfaceHelper.js';
-import * as globalHelper from './global/globalHelper.js';
-import * as globalFormatters from './global/globalFormatters.js';
-import * as formHelper from './form/formHelper.js';
-
-const { registerComponent } = domHelper;
-
-export {
-  moment,
-  imask,
-  domHelper,
-  interfaceHelper,
-  globalHelper,
-  globalFormatters,
-  formHelper,
-  onSdkAvailable,
-  registerComponent,
-};
+export * from './interface/interfaceHelper.js';
+export * from './form/formHelper.js';
+export * from './dom/domHelper.js';
+export * from './global/globalFormatters.js';
+export * from './global/globalHelper.js';

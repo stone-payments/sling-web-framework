@@ -1,4 +1,4 @@
-import { globalHelper, onSdkAvailable } from 'sling-helpers';
+import { pickBy, isFunction, onSdkAvailable } from 'sling-helpers';
 import { LitElement } from '../lib/lit-element.bundle.js';
 
 export const withBusinessLogic = (Base = LitElement) =>
@@ -41,13 +41,11 @@ export const withBusinessLogic = (Base = LitElement) =>
     }
 
     static get _observedRequestParams() {
-      return globalHelper
-        .pickBy(this.properties, ({ callSdk }) => callSdk);
+      return pickBy(this.properties, ({ callSdk }) => callSdk);
     }
 
     static get _observedRequiredRequestParams() {
-      return globalHelper
-        .pickBy(this.properties, ({ callSdk }) => callSdk === 'required');
+      return pickBy(this.properties, ({ callSdk }) => callSdk === 'required');
     }
 
     _propertiesChanged(original, changes, ...args) {
@@ -91,7 +89,7 @@ export const withBusinessLogic = (Base = LitElement) =>
           .reduce((result, obj) => ({ ...result, ...obj }), {});
 
         if (this._shouldTriggerSdkCall) {
-          if (globalHelper.isFunction(this.getdata)) {
+          if (isFunction(this.getdata)) {
             this.getdata(this.requestParams, this.instance);
           }
         }

@@ -1,10 +1,10 @@
-import { globalHelper } from 'sling-helpers';
+import { pickBy } from 'sling-helpers';
 import { LitElement } from '../lib/lit-element.bundle.js';
 
 export const withInitialValue = (Base = LitElement) =>
   class extends Base {
     static get _initializedProperties() {
-      return globalHelper.pickBy(this.properties || {}
+      return pickBy(this.properties || {}
         , ({ value }) => value != null);
     }
 
