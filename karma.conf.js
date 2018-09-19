@@ -31,16 +31,11 @@ module.exports = (config) => {
     webpack: webpackTestConfig(),
     browsers: [
       'ChromeHeadlessNoSandbox',
-      'FirefoxHeadless',
     ],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox'],
-      },
-      FirefoxHeadless: {
-        base: 'Firefox',
-        flags: ['-headless'],
       },
     },
     browserNoActivityTimeout: 60000,
