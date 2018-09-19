@@ -12,4 +12,4 @@ const { DEBUG } = process.env;
 const karma = join('node_modules/.bin/karma');
 
 exec(`${karma} start --colors` +
-  `${DEBUG ? ' --browsers=Chrome,Firefox --single-run=false --auto-watch' : ''}`);
+  `${DEBUG ? ' --browsers=Chrome --single-run=false --auto-watch' : ''}`);
