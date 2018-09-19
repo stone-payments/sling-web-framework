@@ -23,11 +23,11 @@ forEachPackage(scope, (pkg) => {
 
     context = await getJsPathsExceptTests(`${pkg}/src`);
 
-    await Promise.all(context.map((path) => {
-      const es6Path = path.replace('/src/', '/dist/es/es6/');
-      const es5Path = path.replace('/src/', '/dist/es/es5/');
+    await Promise.all(context.map((filePath) => {
+      const es6Path = filePath.replace('/src/', '/dist/es/es6/');
+      const es5Path = filePath.replace('/src/', '/dist/es/es5/');
 
-      return readFile(path, 'utf8')
+      return readFile(filePath, 'utf8')
         .then(injectCssContent)
         .then(safeWriteFile(es6Path))
         .then(transformEs6ToEs5)
@@ -38,11 +38,11 @@ forEachPackage(scope, (pkg) => {
 
     context = await getJsPathsExceptTests(`${pkg}/dist/es/es6`);
 
-    await Promise.all(context.map((path) => {
-      const es6Path = path.replace('/dist/es/es6/', '/dist/cjs/es6/');
-      const es5Path = path.replace('/dist/es/es6/', '/dist/cjs/es5/');
+    await Promise.all(context.map((filePath) => {
+      const es6Path = filePath.replace('/dist/es/es6/', '/dist/cjs/es6/');
+      const es5Path = filePath.replace('/dist/es/es6/', '/dist/cjs/es5/');
 
-      return readFile(path, 'utf8')
+      return readFile(filePath, 'utf8')
         .then(transformImportToCjs)
         .then(safeWriteFile(es6Path))
         .then(transformEs6ToEs5)
@@ -53,12 +53,12 @@ forEachPackage(scope, (pkg) => {
 
     context = [`${pkg}/dist/es/es6/index.js`];
 
-    await Promise.all(context.map((path) => {
-      const es6Path = path.replace('/dist/es/es6/', '/dist/iife/es6/');
-      const es5Path = path.replace('/dist/es/es6/', '/dist/iife/es5/');
+    await Promise.all(context.map((filePath) => {
+      const es6Path = filePath.replace('/dist/es/es6/', '/dist/iife/es6/');
+      const es5Path = filePath.replace('/dist/es/es6/', '/dist/iife/es5/');
       const packageName = getPackageName(pkg);
 
-      return Promise.resolve(path)
+      return Promise.resolve(filePath)
         .then(bundleJsImports(packageName))
         .then(injectCssContent)
         .then(safeWriteFile(es6Path))
