@@ -8,7 +8,6 @@
   "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "imask": "^3.3.0",
     "moment": "^2.22.2"
   }
 }
