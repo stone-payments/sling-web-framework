@@ -2,7 +2,10 @@ const { search = '' } = document.location;
 const ecmaVersion = (search.match(/[?&]es=(\d)/) || [])[1] || '6';
 
 const docHead = document.querySelector('head');
-const injectScript = document.querySelector('script');
+
+const injectScript = Array
+  .from(document.querySelectorAll('script'))
+  .find(domEl => domEl.getAttribute('src').endsWith('injectDependencies.js'));
 
 const polyfillScript = document.createElement('script');
 polyfillScript.src = '../../../polyfills/webcomponents-bundle-2.0.2.js';
