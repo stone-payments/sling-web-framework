@@ -1,10 +1,10 @@
-import { globalHelper } from '../../node_modules/sling-helpers/src/index.js';
+import { pickBy, isFunction } from 'sling-helpers';
 import { LitElement } from '../lib/lit-element.bundle.js';
 
 export const withObservedProperties = (Base = LitElement) =>
   class extends Base {
     static get _observedProperties() {
-      return globalHelper.pickBy(this.properties || {},
+      return pickBy(this.properties || {},
         ({ observer }) => observer != null);
     }
 
@@ -25,7 +25,7 @@ export const withObservedProperties = (Base = LitElement) =>
           const oldValue = oldProps[propName];
           const callback = _observedProperties[propName].observer;
 
-          const fn = globalHelper.isFunction(callback)
+          const fn = isFunction(callback)
             ? callback.bind(this)
             : this[callback].bind(this);
 

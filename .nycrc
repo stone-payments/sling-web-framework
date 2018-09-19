@@ -1,0 +1,18 @@
+{
+  "include": [
+    "packages/*/src/**/*.js"
+  ],
+  "exclude": [
+    "**/*.spec.js",
+    "**/*.test.js",
+    "**/*.cafe.js",
+    "**/mocha-webpack"
+  ],
+  "reporter": [
+    "lcov",
+    "text",
+    "text-summary"
+  ],
+  "all": true,
+  "report-dir": "./coverage/unit"
+}

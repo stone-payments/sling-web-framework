@@ -1,14 +1,37 @@
-const path = require('path');
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+const { resolve } = require('path');
+const webpackTestConfig = require('./webpack.test.config');
+const getBasePath = require('./scripts/helpers/getBasePath');
 
-let filesPattern = 'packages/*/src/**/*.test.js';
-if (process.env.FILES_PATTERN) {
-  filesPattern = process.env.FILES_PATTERN;
+const basePath = getBasePath();
+const allPackagesPath = './packages/*';
+
+let reports = {
+  reporters: ['mocha'],
+  mochaReporter: {
+    showDiff: true,
+  },
+};
+
+if (basePath === allPackagesPath) {
+  reports = {
+    ...reports,
+    reporters: [...reports.reporters, 'coverage-istanbul'],
+    coverageIstanbulReporter: {
+      dir: resolve(__dirname, './coverage/integration'),
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true,
+      skipFilesWithNoCoverage: true,
+    },
+  };
 }
 
 module.exports = (config) => {
   config.set({
-    browsers: ['ChromeHeadlessNoSandbox'],
+    ...reports,
+    webpack: webpackTestConfig(),
+    browsers: [
+      'ChromeHeadlessNoSandbox',
+    ],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
@@ -18,49 +41,23 @@ module.exports = (config) => {
     browserNoActivityTimeout: 60000,
     singleRun: true,
     frameworks: ['mocha', 'chai-sinon'],
-    files: [{
-      pattern: filesPattern,
-      watched: false,
-    }],
+    urlRoot: 'test',
+    proxies: {
+      '/test/': '/test/base/packages/',
+    },
+    files: [
+      {
+        pattern: `${allPackagesPath}/src/**/*.css`,
+        watched: true,
+        served: true,
+      },
+      {
+        pattern: `${basePath}/src/**/*.test.js`,
+        watched: false,
+      },
+    ],
     preprocessors: {
-      [filesPattern]: ['webpack'],
-    },
-    webpack: {
-      mode: 'development',
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            use: {
-              loader: 'istanbul-instrumenter-loader',
-              options: {
-                esModules: true,
-              },
-            },
-            include: path.resolve('./packages/'),
-            exclude: /((node_modules|dev|dist)(\\|\/|$)|(test|bundle)\.js$)/,
-          },
-        ],
-      },
-    },
-    mochaReporter: {
-      showDiff: true,
-    },
-    reporters: ['mocha', 'coverage-istanbul'],
-    coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly', 'text-summary'],
-      dir: path.join('coverage/integration'),
-      fixWebpackSourcePaths: true,
-      skipFilesWithNoCoverage: true,
-      thresholds: {
-        emitWarning: false,
-        global: {
-          statements: 50,
-          branches: 35,
-          functions: 40,
-          lines: 50,
-        },
-      },
+      [`${basePath}/src/**/*.test.js`]: ['webpack'],
     },
   });
 };

@@ -1,8 +1,8 @@
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
+import { registerComponent } from 'sling-helpers';
 import { withLoading } from './withLoading.js';
 
 class Loader extends withLoading() {}
-domHelper.registerComponent('with-loading', Loader);
+registerComponent('with-loading', Loader);
 
 let $dummy;
 

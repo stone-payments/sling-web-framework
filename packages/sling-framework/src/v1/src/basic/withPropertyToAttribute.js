@@ -1,10 +1,10 @@
-import { LitElement } from '../lib/lit-element.bundle.js';
-import { globalHelper } from '../../../../node_modules/sling-helpers/src/index.js';
+import { pickBy } from 'sling-helpers';
+import { LitElement } from '../../../lib/lit-element.bundle.js';
 
 export const withPropertyToAttribute = (Base = LitElement) =>
   class extends Base {
     static get reflectedProperties() {
-      return globalHelper.pickBy(this.properties || {},
+      return pickBy(this.properties || {},
         ({ reflectToAttribute }) => reflectToAttribute);
     }
 

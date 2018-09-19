@@ -1,4 +1,4 @@
-import { globalHelper } from '../../../../node_modules/sling-helpers/src/index.js';
+import { isFunction, toFlatEntries } from 'sling-helpers';
 
 const isValidParam = param => param != null && param !== '';
 
@@ -45,7 +45,7 @@ export const withRequestParams = (Base = HTMLElement) =>
       const requestAttrIndex = requestAttrNames.indexOf(attrName);
 
       const shouldTrigger = requestAttrIndex > -1 &&
-        globalHelper.isFunction(this.onRequestParamChanged) &&
+        isFunction(this.onRequestParamChanged) &&
         oldValue !== newValue;
 
       if (shouldTrigger) {
@@ -58,12 +58,12 @@ export const withRequestParams = (Base = HTMLElement) =>
             ...changedParam,
           })
           .filter(([, value]) => isValidParam(value))
-          .reduce(globalHelper.toFlatEntries, {});
+          .reduce(toFlatEntries, {});
 
         this.onRequestParamChanged(this.requestParams, changedParam);
       }
 
-      if (globalHelper.isFunction(super.attributeChangedCallback)) {
+      if (isFunction(super.attributeChangedCallback)) {
         super.attributeChangedCallback(attrName, oldValue, newValue, ...args);
       }
     }

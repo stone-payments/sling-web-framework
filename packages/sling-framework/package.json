@@ -2,11 +2,10 @@
   "name": "sling-framework",
   "version": "1.2.0",
   "description": "",
-  "main": "dist/cjs/index.js",
-  "jsnext:main": "dist/es/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "module": "src/index.js",
+  "main": "dist/cjs/es6/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
     "sling-helpers": "^1.2.0"
