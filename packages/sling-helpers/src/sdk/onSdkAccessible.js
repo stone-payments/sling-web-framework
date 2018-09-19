@@ -1,8 +1,9 @@
-import * as domHelper from '../dom/domHelper.js';
+import {
+  waitUntilEvent,
+  waitUntilTagIsAppended,
+} from '../dom/domHelper.js';
 
 export const onSdkAccessible = async () => {
-  const { waitUntilEvent, waitUntilTagIsAppended } = domHelper;
-
   if (document.body == null) {
     await waitUntilEvent('DOMContentLoaded');
   }
