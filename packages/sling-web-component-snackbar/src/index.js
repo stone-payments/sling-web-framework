@@ -1,4 +1,4 @@
-import { domHelper } from 'sling-helpers';
+import { registerComponent } from 'sling-helpers';
 import { SnackBar } from './component/SnackBar.js';
 
-domHelper.registerComponent('sling-snackbar', SnackBar);
+registerComponent('sling-snackbar', SnackBar);

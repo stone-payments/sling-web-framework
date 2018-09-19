@@ -1,7 +1,7 @@
-import { domHelper } from 'sling-helpers';
+import { registerComponent } from 'sling-helpers';
 import { SdkConnect } from './SdkConnect.js';
 
-domHelper.registerComponent('sling-web-sdk', SdkConnect);
+registerComponent('sling-web-sdk', SdkConnect);
 
 const validStore = {
   getState() { return { a: 1 }; },

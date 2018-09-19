@@ -1,4 +1,5 @@
 const { exec, env } = require('shelljs');
+const { join } = require('path');
 
 const getScope = require('./helpers/getScope');
 
@@ -10,7 +11,8 @@ if (scope === '*') {
 
 console.log(`Starting ${scope !== '*' ? scope : 'all packages'}\n`);
 
+const webpackDevServer = join('node_modules/.bin/webpack-dev-server');
+
 env.PKG_SCOPE = scope;
 
-exec('./node_modules/.bin/webpack-dev-server --config ' +
-  './webpack.server.config.js');
+exec(`${webpackDevServer} --config webpack.server.config.js`);
