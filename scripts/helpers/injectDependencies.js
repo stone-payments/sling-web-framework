@@ -5,7 +5,8 @@ const docHead = document.querySelector('head');
 
 const injectScript = Array
   .from(document.querySelectorAll('script'))
-  .find(domEl => domEl.getAttribute('src').endsWith('injectDependencies.js'));
+  .find(domEl => domEl.getAttribute('src')
+    && domEl.getAttribute('src').endsWith('injectDependencies.js'));
 
 const polyfillScript = document.createElement('script');
 polyfillScript.src = '../../../polyfills/webcomponents-bundle-2.0.2.js';
