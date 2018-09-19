@@ -1,7 +1,7 @@
-import { domHelper } from 'sling-helpers';
+import { registerComponent } from 'sling-helpers';
 import { Button } from './Button.js';
 
-domHelper.registerComponent('sling-button', Button);
+registerComponent('sling-button', Button);
 
 let $button;
 
