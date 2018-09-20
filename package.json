@@ -9,7 +9,7 @@
     "prepublish-packages": "npm install",
     "publish-packages": "lerna exec --bail=false -- npm publish",
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
-    "send-coverage": "cat ./coverage/integration/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "send-coverage": "cat ./coverage/unit/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "postinstall": "lerna bootstrap",
     "build": "node ./scripts/build.js",
     "start": "node ./scripts/start.js",
