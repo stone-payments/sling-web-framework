@@ -56,4 +56,4 @@ use the `slot` tag to direct the content.
 </sling-card>
 ```
 
-![image](https://user-images.githubusercontent.com/22959060/45841305-c00bbb00-bcef-11e8-8f19-918a7690cb21.png)
+![image](https://user-images.githubusercontent.com/22959060/45841419-27c20600-bcf0-11e8-80fc-c9d407b640a2.png)
