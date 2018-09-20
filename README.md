@@ -16,10 +16,10 @@
 ## Usage  
 
 #### Node
-v8.10.0 or higher, but lower than 9.
+v8.x.x >= v8.9.0
 
 #### Npm
-v6.4.0 or higher, but lower than 7.
+v6.x.x >= v6.4.0
 
 ## Available scripts
 
