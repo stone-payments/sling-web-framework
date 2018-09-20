@@ -85,5 +85,8 @@
   "homepage": "https://github.com/stone-payments/sling-framework#readme",
   "resolutions": {
     "eslint-scope": "3.7.1"
+  },
+  "dependencies": {
+    "npm": "^6.4.1"
   }
 }
