@@ -1,4 +1,4 @@
-import { SlingElement, html } from '../../node_modules/sling-web-framework/src/index.js';
+import { SlingElement, html } from 'sling-web-framework';
 
 export class Loader extends SlingElement {
   static get properties() {
@@ -17,7 +17,7 @@ export class Loader extends SlingElement {
 
     return html`
       <style>
-        @import url('../sling-web-component-loader/src/index.css');
+        @import url('sling-web-component-loader/src/index.css');
       </style>
       <div className="${className}">
         <div class="emd-loader__inner"></div>
