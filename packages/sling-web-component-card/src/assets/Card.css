@@ -1,0 +1,59 @@
+.emd-card {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  border: 1px solid #C3C8D2;
+  border-radius: 2px;
+  color: #424B54;
+  font-family: 'Heebo', sans-serif;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.emd-card__slot {
+  padding: 24px;
+}
+
+.emd-card__slot_body {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.emd-card__slot_nopadding {
+  padding: 0;
+}
+
+.emd-card__slot_hidden {
+  display: none;
+}
+
+.emd-card__slot_visible + .emd-card__slot_visible {
+  border-top: 1px solid #C3C8D2;
+}
+
+.emd-card__slot_header {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  color: #424B54;
+}
+
+/* STYLED SCROLL */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+border-radius: 4px;
+background-color: #242932;
+outline: 1px solid #242932;
+}

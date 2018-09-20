@@ -37,13 +37,13 @@ npm instal sling-web-component-snackbar
 
 ## Events
 
-This component have no event.
+This component does not emit events.
 
 ## Examples
 
 All component examples can be emulated using the `npm start sling-web-component-snackbar` command.
 
-### Use
+### Usage
 
 ```HTML
 <sling-snackbar closeable size="small">
