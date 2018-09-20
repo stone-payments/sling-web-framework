@@ -49,3 +49,5 @@ All component examples can be emulated using the `npm start sling-web-component-
 <sling-paginator total="5" selected="3"></sling-paginator>
 <sling-paginator total="12" selected="3"></sling-paginator>
 ```
+
+![screen shot 2018-09-20 at 16 33 27](https://user-images.githubusercontent.com/125764/45842396-0282c700-bcf3-11e8-893c-5b04655bc383.png)
