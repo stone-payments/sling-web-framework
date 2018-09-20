@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Heebo');
+
+* {
+  font-family: 'Heebo', sans-serif;
+}
+/* DEFAULT */
+.emd-message {
+  border: solid 1px transparent;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  color: #fff;
+}
+
+.emd-message_list {
+  flex-grow: 1;
+  margin: 0 0 0 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.emd-message_item {
+  display: flex;
+  align-items: center;
+  font-size: .9em;
+}
+
+.emd-message .shape {
+  fill: #fff;
+}
+
+/* DEFAULT ERROR */
+.emd-message_aim_error {
+  background: #E74C3C;
+}
+
+/* DEFAULT SUCCESS */
+.emd-message_aim_success {
+  background: #2ECC71;
+}
+
+/* DEFAULT ALERT */
+.emd-message_aim_alert {
+  background: #FFC00E;
+}
+
+/* DEFAULT STANDBY */
+.emd-message_aim_standby {
+  background: #8036DC;
+}
+
+/* OUTLINE */
+.emd-message_layout_outline {
+  border: solid 1px #E9ECF0;
+  border-left: inherit;
+  background: #fff;
+  color: #242932;
+}
+
+/* OUTLINE ERROR */
+.emd-message_layout_outline.emd-message_aim_error {
+  fill: #E74C3C;
+  border-left: solid 3px #E74C3C;
+}
+
+.emd-message_layout_outline.emd-message_aim_error .shape {
+  fill: #E74C3C;
+}
+
+/* OUTLINE SUCESS */
+.emd-message_layout_outline.emd-message_aim_success {
+  fill: #2ECC71;
+  border-left: solid 3px #2ECC71;
+}
+
+.emd-message_layout_outline.emd-message_aim_success .shape {
+  fill: #2ECC71;
+}
+
+/* OUTLINE ALERT */
+.emd-message_layout_outline.emd-message_aim_alert {
+  fill: #FFC00E;
+  border-left: solid 3px #FFC00E;
+}
+
+.emd-message_layout_outline.emd-message_aim_alert .shape {
+  fill: #FFC00E;
+}
+
+/* OUTLINE STANDBY */
+.emd-message_layout_outline.emd-message_aim_standby {
+  fill: #8036DC;
+  border-left: solid 3px #8036DC;
+}
+
+.emd-message_layout_outline.emd-message_aim_standby .shape {
+  fill: #8036DC;
+}
