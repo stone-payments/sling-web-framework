@@ -31,15 +31,12 @@ npm instal sling-web-component-sdk-connect
 
 ## Events
 
-This component does not emmit events.
+This component does not emit events.
 
-
-## Examples      
+## Examples
 
 ```html
-<body>
-  <sling-sdk-connect></sling-sdk-connect>
-</body>
+<sling-sdk-connect></sling-sdk-connect>
 ```
 
 ```javascript

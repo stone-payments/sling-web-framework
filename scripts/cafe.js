@@ -9,8 +9,8 @@ console.log(`Testing ${scope !== '*' ? scope : 'all packages'}\n`);
 
 const basePath = getBasePath(scope);
 
-env.PKG_SCOPE = scope;
-env.TEST_BASE = 'http://127.0.0.1:8123/packages';
+env.PKG = scope;
+env.BASE = 'http://127.0.0.1:8123/packages';
 
 const testCafe = join('node_modules/.bin/testcafe');
 const testFiles = join(basePath, 'src/**/*.cafe.js');
