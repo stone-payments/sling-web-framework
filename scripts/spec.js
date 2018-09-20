@@ -12,7 +12,7 @@ const testFiles = join(basePath, 'src/**/*.spec.js');
 const nyc = join('node_modules/.bin/nyc');
 const mochaWebpack = join('node_modules/.bin/mocha-webpack');
 
-env.PKG_SCOPE = scope;
+env.PKG = scope;
 
 exec(`${scope === '*' ? `${nyc} ` : ''}` +
   `${mochaWebpack} --colors --webpack-config webpack.spec.config.js "${testFiles}"`);

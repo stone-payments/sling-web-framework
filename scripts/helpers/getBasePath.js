@@ -1,6 +1,6 @@
 const { existsSync } = require('fs-extra');
 
-module.exports = (scope = process.env.PKG_SCOPE || '*') => {
+module.exports = (scope = process.env.PKG || '*') => {
   const basePath = `./packages/${scope}`;
 
   if (scope !== '*' && !existsSync(basePath)) {
