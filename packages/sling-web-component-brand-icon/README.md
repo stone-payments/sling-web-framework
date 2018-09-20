@@ -35,13 +35,13 @@ npm instal sling-web-component-brand-icon
 
 ## Events
 
-This component have no event.
+This component does not emit events.
 
 ## Examples
 
 All component examples can be emulated using the `npm start sling-web-component-brand-icon` command.
 
-### Use
+### Usage
 
 ```HTML
  <sling-brand-icon brandid="2" width="50" height="50"></sling-brand-icon>
