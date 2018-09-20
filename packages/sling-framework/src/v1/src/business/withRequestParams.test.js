@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
+import { registerComponent } from 'sling-helpers';
 import { withRequestParams } from './withRequestParams.js';
 
 let $dummy;
@@ -22,7 +22,7 @@ class ReqParams extends withRequestParams() {
   }
 }
 
-domHelper.registerComponent('with-req-params', ReqParams);
+registerComponent('with-req-params', ReqParams);
 
 describe('withRequestParams', () => {
   beforeEach(() => {
@@ -71,7 +71,7 @@ describe('withRequestParams', () => {
 
   it('Should not break when requestParamNames is undefined.', () => {
     class NoReqParams extends withRequestParams() {}
-    domHelper.registerComponent('no-req-params', NoReqParams);
+    registerComponent('no-req-params', NoReqParams);
 
     document.body.removeChild($dummy);
     $dummy = document.createElement('no-req-params');
@@ -93,7 +93,7 @@ describe('withRequestParams', () => {
       }
     }
 
-    domHelper.registerComponent('req-keep-attr-changed', ReqKeepAttrChanged);
+    registerComponent('req-keep-attr-changed', ReqKeepAttrChanged);
 
     document.body.removeChild($dummy);
     $dummy = document.createElement('req-keep-attr-changed');
@@ -128,7 +128,7 @@ describe('withRequestParams', () => {
         }
       }
 
-      domHelper.registerComponent('req-keep-observed', ReqKeepObserved);
+      registerComponent('req-keep-observed', ReqKeepObserved);
 
       document.body.removeChild($dummy);
       $dummy = document.createElement('req-keep-observed');

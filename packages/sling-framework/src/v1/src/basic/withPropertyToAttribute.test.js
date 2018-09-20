@@ -1,6 +1,6 @@
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { registerComponent } from 'sling-helpers';
+import { LitElement } from '../../../lib/lit-element.bundle.js';
 import { withPropertyToAttribute } from './withPropertyToAttribute.js';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withPropertyToAttribute', () => {
   class PropAttrLitElement extends withPropertyToAttribute(LitElement) {
@@ -24,7 +24,7 @@ describe('withPropertyToAttribute', () => {
     render() {}
   }
 
-  domHelper.registerComponent('prop-attr-lit', PropAttrLitElement);
+  registerComponent('prop-attr-lit', PropAttrLitElement);
 
   let $dummy;
 
@@ -43,7 +43,7 @@ describe('withPropertyToAttribute', () => {
       render() {}
     }
 
-    domHelper.registerComponent('prop-attr-baseless', PropAttrBaseless);
+    registerComponent('prop-attr-baseless', PropAttrBaseless);
     const $baseless = document.createElement('prop-attr-baseless');
     document.body.appendChild($baseless);
     expect($baseless.constructor === PropAttrBaseless).to.be.true;

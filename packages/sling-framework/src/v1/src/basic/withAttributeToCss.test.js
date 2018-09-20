@@ -1,6 +1,6 @@
-import { LitElement } from '../lib/lit-element.bundle.js';
+import { registerComponent } from 'sling-helpers';
+import { LitElement } from '../../../lib/lit-element.bundle.js';
 import { withAttributeToCss } from './withAttributeToCss.js';
-import { domHelper } from '../../../../node_modules/sling-helpers/src/index.js';
 
 describe('withAttributeToCss', () => {
   class AttrCssLitElement extends withAttributeToCss(LitElement) {
@@ -20,7 +20,7 @@ describe('withAttributeToCss', () => {
     render() {}
   }
 
-  domHelper.registerComponent('attr-css-lit', AttrCssLitElement);
+  registerComponent('attr-css-lit', AttrCssLitElement);
 
   let $dummy;
 
@@ -37,7 +37,7 @@ describe('withAttributeToCss', () => {
   it('Should not break without a base class.', () => {
     class AttrCssBaseless extends withAttributeToCss() {}
 
-    domHelper.registerComponent('attr-css-baseless', AttrCssBaseless);
+    registerComponent('attr-css-baseless', AttrCssBaseless);
     const $baseless = document.createElement('attr-css-baseless');
     document.body.appendChild($baseless);
     expect($baseless.constructor === AttrCssBaseless).to.be.true;

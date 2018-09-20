@@ -15,10 +15,6 @@ const fakeUrl = faker.internet.url();
 const fakeUserName = faker.internet.userName();
 
 describe('makeRequest', () => {
-  it('Should return a promise when no extra parameters are passed.', () => {
-    expect(makeRequest(fakeUrl)).to.be.a('promise');
-  });
-
   it('Should have a default error handler that just returns the response ' +
     'as an error if response.ok is not true.', (done) => {
     const forcedErrorResponse = {

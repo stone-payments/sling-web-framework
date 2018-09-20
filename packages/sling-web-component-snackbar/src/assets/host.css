@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  background: none !important;
+  height: auto !important;
+}
+
+:host slot {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+::slotted(sling-button) {
+  margin-top: -8px;
+  margin-bottom: -8px;
+  margin-left: 32px;
+}
+
+/* for compatibility */
+
+sling-snackbar {
+  display: block;
+  background: none !important;
+  height: auto !important;
+}
+
+sling-snackbar slot {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+sling-snackbar sling-button {
+  margin-top: -8px;
+  margin-bottom: -8px;
+  margin-left: 32px;
+}
