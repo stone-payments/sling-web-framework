@@ -1,16 +1,13 @@
 {
   "name": "sling-web-component-loader-wrapper",
   "version": "0.16.0",
-  "description": "",
-  "main": "dist/cjs/index.js",
-  "jsnext:main": "dist/es/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "dist/cjs/es6/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
     "sling-web-component-loader": "^0.13.2",
-    "sling-web-framework": "^0.13.2",
-    "sling-web-helpers": "^0.13.0"
+    "sling-framework": "^1.3.0",
+    "sling-helpers": "^1.3.0"
   }
 }
