@@ -1,4 +1,4 @@
-import { SlingElement, html } from 'sling-web-framework';
+import { SlingElement, html } from 'sling-framework';
 
 export class Loader extends SlingElement {
   static get properties() {
