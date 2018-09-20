@@ -1,5 +1,7 @@
-<a name="unreleased"></a>
-## Unreleased (2018-09-18)
+<a name="1.3.0"></a>
+## 1.3.0 (2018-09-19)
+
+* feat: Add new build, test, unit test, screen test and scripts ([a879f2a](https://github.com/stone-payments/sling-web-framework/commit/a879f2a))
 
 * feat: Add babel/polyfil dependency and snackbar, sdk-conect and brandicon component ([b7e9ede](https://github.com/stone-payments/sling-web-framework/commit/b7e9ede))
 

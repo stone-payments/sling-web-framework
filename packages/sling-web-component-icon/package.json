@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-icon",
-  "version": "0.17.0",
+  "version": "1.3.0",
   "description": "Sling Icon component",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
@@ -8,8 +8,8 @@
   "jsnext:main": "dist/es/es6/index.js",
   "browser": "dist/iife/es6/index.js",
   "dependencies": {
-    "sling-assets": "^1.2.0",
-    "sling-framework": "^1.2.0",
-    "sling-helpers": "^1.2.0"
+    "sling-assets": "^1.3.0",
+    "sling-framework": "^1.3.0",
+    "sling-helpers": "^1.3.0"
   }
 }
