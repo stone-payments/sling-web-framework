@@ -1,9 +1,10 @@
 import sinon from 'sinon';
-import { domHelper, moment } from 'sling-helpers';
+import moment from 'moment/moment';
+import { registerComponent } from 'sling-helpers';
 import { Calendar } from './Calendar.js';
 
 moment.locale('pt-BR');
-domHelper.registerComponent('sling-calendar', Calendar);
+registerComponent('sling-calendar', Calendar);
 
 let $calendar;
 
