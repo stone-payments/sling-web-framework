@@ -1,10 +1,9 @@
-/* eslint-disable */
 import { registerComponent } from 'sling-helpers';
 import { Loader } from './Loader.js';
 
 registerComponent('sling-loader', Loader);
 
-let $loader
+let $loader;
 
 describe('Loader', () => {
   beforeEach(() => {
@@ -20,14 +19,15 @@ describe('Loader', () => {
   it('Should reflect "loading" attribute to property ', () => {
     $loader.setAttribute('loading', '');
 
-    expect($loader.loading).to.equal(true)
+    expect($loader.hasAttribute('loading')).to.be.true;
   })
 
-  it('Should reflect "loading" property to attribute ', () => {
+  it('Should reflect "loading" property to attribute ', (done) => {
+    $loader.loading = false;
+
     setTimeout(() => {
-      $loader.loading = false;
-
-      expect($loader.getAttribute('loading')).to.equal(false)
-    }, 1000)
-  })
+      expect($loader.hasAttribute('loading')).to.be.false;
+      done();
+    });
+  });
 });
