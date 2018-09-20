@@ -1,4 +1,4 @@
-import { domHelper } from 'sling-web-helpers';
+import { registerComponent } from 'sling-helpers';
 import { Loader } from './component/Loader.js';
 
-domHelper.registerComponent('sling-loader', Loader);
+registerComponent('sling-loader', Loader);
