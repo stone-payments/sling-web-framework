@@ -5,7 +5,7 @@ registerComponent('sling-icon', Icon);
 
 let $icon;
 
-describe('Brand Icon', () => {
+describe('Icon', () => {
   beforeEach(() => {
     $icon = document.createElement('sling-icon');
     document.body.appendChild($icon);

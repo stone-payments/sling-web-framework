@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* for compatibility */
+
+sling-card {
+  display: block;
+  height: 100%;
+}

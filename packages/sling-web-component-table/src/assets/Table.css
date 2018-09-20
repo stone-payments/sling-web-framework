@@ -1,0 +1,124 @@
+.emd-table {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-collapse: collapse;
+  border-radius: 2px;
+  color: #424B54;
+  font-family: 'Heebo', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  width: 100%;
+  background: var(--emd-table-background-color, transparent);
+}
+
+.emd-table__header_hidden {
+  display: none;
+}
+
+.emd-table__title {
+  background: #fafafa;
+  padding: 16px;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+}
+
+.emd-table__row {
+  background: transparent;
+}
+
+.emd-table_row_success {
+  border-left: 2px #31cd65;
+}
+
+.emd-table_clickablerows .emd-table__row {
+  cursor: pointer;
+}
+
+.emd-table_clickablerows .emd-table__row:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.emd-table__title + .emd-table__title {
+  border-left: none;
+}
+
+.emd-table__cell {
+  padding: 16px;
+  height: 32px;
+  border-top: solid 1px #C3C8D2;
+  font-weight: 400;
+}
+
+.emd-table__cell + .emd-table__cell {
+  border-left: none;
+}
+
+.emd-table__header_hidden + .emd-table__body .emd-table__row:nth-child(1) .emd-table__cell {
+  border-top: solid 1px #C3C8D2;
+}
+
+.emd-table__currency {
+  white-space: nowrap;
+}
+
+.emd-table__value_negative {
+  color: #E2001E;
+}
+
+.emd-table__symbol {
+  padding-right: 8px;
+  color: #96A0AF;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: left;
+}
+
+.emd-table__content_secondary {
+  color: #96A0AF;
+  display: block;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.bullet__status {
+  position: relative;
+  padding-left: 10px;
+}
+
+.bullet__status:before {
+  content: '•';
+  position: absolute;
+  font-size: 1.6em;
+  left: -6px;
+}
+
+.bullet__status_1 {
+  color: var(--calendar-status-1-color, #F9BF09);
+}
+.bullet__status_2 {
+  color: var(--calendar-status-2-color, #B9C3CC);
+}
+.bullet__status_3 {
+  color: var(--calendar-status-3-color, #C7352E);
+}
+.bullet__status_4 {
+  color: var(--calendar-status-4-color, #31CD65);
+}
+
+.bullet__status_secondary {
+  padding-left: 10px;
+}
+
+.emd-table__icon {
+  width: 30px;
+  text-align: center;
+}
+
+.edit-icon {
+  fill: #ced6dc;
+}
