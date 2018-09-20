@@ -1,0 +1,15 @@
+{
+  "name": "sling-web-component-loader",
+  "version": "0.17.0",
+  "description": "",
+  "main": "dist/cjs/index.js",
+  "jsnext:main": "dist/es/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stone Pagamentos",
+  "dependencies": {
+    "sling-web-framework": "^0.17.0",
+    "sling-web-helpers": "^0.17.0"
+  }
+}
