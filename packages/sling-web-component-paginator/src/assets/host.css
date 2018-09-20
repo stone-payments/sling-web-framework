@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+/* for compatibility */
+
+sling-paginator {
+  display: block;
+}

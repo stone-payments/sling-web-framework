@@ -17,7 +17,7 @@ describe('waitUntilEvent', () => {
     document.dispatchEvent(testEvent);
   });
 
-  it('2. Should enable changing the event emmiter.', (done) => {
+  it('2. Should enable changing the event emiter.', (done) => {
     const testEvent = new CustomEvent('divtestevent');
     const $div = document.createElement('div');
     document.body.appendChild($div);

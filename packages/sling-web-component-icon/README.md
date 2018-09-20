@@ -32,13 +32,13 @@ npm instal sling-web-component-icon
 
 ## Events
 
-This component have no event.
+This component does not emit events.
 
 ## Examples
 
 All component examples can be emulated using the `npm start sling-web-component-icon` command.
 
-### Use
+### Usage
 
 ```HTML
 <sling-icon icon="success"></sling-icon>

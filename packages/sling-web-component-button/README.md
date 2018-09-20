@@ -44,7 +44,7 @@ npm instal sling-web-component-button
 ## Examples      
  
 All component examples can be emulated using the `npm start sling-web-component-button` command.   
-### Use
+### Usage
 
 
 ```HTML
