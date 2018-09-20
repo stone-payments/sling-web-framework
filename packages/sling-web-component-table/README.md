@@ -58,10 +58,16 @@ All component examples can be emulated using the `npm start sling-web-component-
 <sling-table noheader></sling-table>
 ```
 
+![image](https://user-images.githubusercontent.com/22959060/45834251-0efc2500-bcdd-11e8-8eb4-808a9e62c014.png)
+
 ```HTML
 <sling-table clickablerows></sling-table>
  ```
 
+![image](https://user-images.githubusercontent.com/22959060/45834251-0efc2500-bcdd-11e8-8eb4-808a9e62c014.png)
+
 ```HTML
 <sling-table noheader clickablerows></sling-table>
  ```
+
+ ![image](https://user-images.githubusercontent.com/22959060/45834251-0efc2500-bcdd-11e8-8eb4-808a9e62c014.png)
