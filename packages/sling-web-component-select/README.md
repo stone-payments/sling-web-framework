@@ -14,8 +14,8 @@ npm instal sling-web-component-select
 
  ## Dependencies       
  
-* **sling-web-framework**       
-* **sling-web-helpers** 
+* **sling-framework**       
+* **sling-helpers** 
 
  ## Attributes and properties   
         
