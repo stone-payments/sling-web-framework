@@ -1,4 +1,4 @@
-import { domHelper } from 'sling-web-helpers';
+import { domHelper } from 'sling-helpers';
 import { Input } from './Input.js';
 
 domHelper.registerComponent('sling-input', Input);
