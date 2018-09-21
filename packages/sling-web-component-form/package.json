@@ -1,0 +1,16 @@
+{
+  "name": "sling-web-component-form",
+  "version": "1.0.3",
+  "description": "Sling Web Component Form",
+  "module": "src/index.js",
+  "main": "dist/cjs/es6/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "browser": "dist/iife/es6/index.js",
+  "author": "Stone Pagamentos",
+  "dependencies": {
+    "sling-web-component-button": "^1.0.3",
+    "sling-web-component-input": "^1.0.3",
+    "sling-framework": "^1.0.3",
+    "sling-helpers": "^1.0.3"
+  }
+}
