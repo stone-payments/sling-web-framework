@@ -1,4 +1,4 @@
-import { html, SlingElement } from 'sling-web-framework';
+import { html, SlingElement } from 'sling-framework';
 
 const isFormField = target =>
   target.nodeName === 'SLING-INPUT' || target.nodeName === 'SLING-SELECT';
