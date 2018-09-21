@@ -18,28 +18,24 @@ describe('Table', () => {
 
   it('Should reflect "editable", ' +
   '"noheader" and clickablerows attribute to property ', () => {
-    setTimeout(() => {
-      $table.setAttribute('editable', '');
-      $table.setAttribute('noheader', '');
-      $table.setAttribute('clickablerows', '');
+    $table.setAttribute('editable', '');
+    $table.setAttribute('noheader', '');
+    $table.setAttribute('clickablerows', '');
 
-      expect($table.editable).to.be.true;
-      expect($table.noheader).to.be.true;
-      expect($table.clickablerows).to.be.true;
-    });
+    expect($table.editable).to.be.true;
+    expect($table.noheader).to.be.true;
+    expect($table.clickablerows).to.be.true;
   });
 
   it('Should reflect "editable", ' +
   '"noheader" and clickablerows attribute to property ', () => {
-    setTimeout(() => {
-      $table.editable = '';
-      $table.noheader = '';
-      $table.clickablerows = '';
+    $table.editable = '';
+    $table.noheader = '';
+    $table.clickablerows = '';
 
-      expect($table.editable).to.be.true;
-      expect($table.noheader).to.be.true;
-      expect($table.clickablerows).to.be.true;
-    });
+    expect($table.hasAttribute('editable')).to.be.true;
+    expect($table.hasAttribute('noheader')).to.be.true;
+    expect($table.hasAttribute('clickablerows')).to.be.true;
   });
 });
 
