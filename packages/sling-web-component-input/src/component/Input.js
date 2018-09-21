@@ -1,5 +1,5 @@
-import { html, SlingElement } from '../../node_modules/sling-web-framework/src/index.js';
-import { imask } from '../../node_modules/sling-web-helpers/src/index.js';
+import { SlingElement, html } from 'sling-framework';
+import imask from 'imask';
 
 export class Input extends SlingElement {
   constructor() {
@@ -174,17 +174,17 @@ export class Input extends SlingElement {
   render() {
     return html`
     <style>
-      @import url('../sling-web-component-input/src/index.css');
+      @import url('sling-web-component-input/src/index.css');
     </style>
-    
-    <label class="emd-input__label">${this.label} 
-      <input 
+
+    <label class="emd-input__label">${this.label}
+      <input
         autocomplete="${this.autocomplete}"
         checked="${this.checked}"
         class="emd-input"
         disabled="${this.disabled}"
         max="${this.max}"
-        maxLength="${this.maxlength}" 
+        maxLength="${this.maxlength}"
         min="${this.min}"
         minLength="${this.minlength}"
         name="${this.name}"
