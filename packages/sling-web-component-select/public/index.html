@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../../../scripts/helpers/injectDependencies.js"></script>
+  <title>sling-select</title>
+</head>
+<body>
+<sling-select></sling-select>
+<sling-select disabled></sling-select>
+<script>
+  const mockData = [
+    {
+      name: 'Option 1',
+      id: 1,
+    },
+    {
+      name: 'Option 2',
+      id: 2,
+    },
+    {
+      name: 'Option 3',
+      id: 3,
+    },
+    {
+      name: 'Option 4',
+      id: 4,
+    },
+    {
+      name: 'Option 5',
+      id: 5,
+    },
+    {
+      name: 'Option 6',
+      id: 6,
+    },
+    {
+      name: 'Option 7',
+      id: 7,
+    },
+    {
+      name: 'Option 8',
+      id: 8,
+    },
+  ];
+
+  const $Select = document.querySelector('sling-select');
+
+  $Select.srcoptions = mockData;
+
+</script>
+</body>
+</html>
