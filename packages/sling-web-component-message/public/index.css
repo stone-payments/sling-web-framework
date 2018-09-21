@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px 20px;
+  margin: 30px 20px;
+  background: #fff;
+  align-items: center;
+  justify-items: flex-start;
+  font-family: Roboto, sans-serif;
+}
+
+body > * {
+  width: 100%;
+}
