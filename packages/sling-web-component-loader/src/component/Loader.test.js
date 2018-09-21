@@ -20,7 +20,7 @@ describe('Loader', () => {
     $loader.setAttribute('loading', '');
 
     expect($loader.hasAttribute('loading')).to.be.true;
-  })
+  });
 
   it('Should reflect "loading" property to attribute ', (done) => {
     $loader.loading = false;
