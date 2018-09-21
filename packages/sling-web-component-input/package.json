@@ -1,15 +1,15 @@
 {
   "name": "sling-web-component-input",
-  "version": "0.17.0",
-  "description": "",
-  "main": "dist/cjs/index.js",
-  "jsnext:main": "dist/es/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "1.3.0",
+  "description": "Sling Web Component Input",
+  "module": "src/index.js",
+  "main": "dist/cjs/es6/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-web-framework": "^0.17.0",
-    "sling-web-helpers": "^0.17.0"
+    "imask": "^4.0.0",
+    "sling-framework": "^1.3.0",
+    "sling-helpers": "^1.3.0"
   }
 }
