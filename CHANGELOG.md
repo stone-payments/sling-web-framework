@@ -1,3 +1,14 @@
+<a name="1.4.0"></a>
+## 1.4.0 (2018-09-21)
+
+* feat: Brings Message component from `sling-web` ([3e6d3dc](https://github.com/stone-payments/sling-web-framework/commit/3e6d3dc))
+* feat: Brings Input component from `sling-web` ([5ee4858](https://github.com/stone-payments/sling-web-framework/commit/5ee4858))
+* feat: Brings Select component from `sling-web` ([29f4902](https://github.com/stone-payments/sling-web-framework/commit/29f4902))
+* feat: Moved Card and Table component from `sling-web` ([c30c8b5](https://github.com/stone-payments/sling-web-framework/commit/c30c8b5))
+* feat: Moved Loader and Loader Wrapper from `sling-web` ([f4240d1](https://github.com/stone-payments/sling-web-framework/commit/f4240d1))
+* feat: Moved Calandar and Paginator from `sling-web` ([a6578e4](https://github.com/stone-payments/sling-web-framework/commit/a6578e4))
+* fix: LoaderWrapper's gigantic bundle size ([ffbdd3f](https://github.com/stone-payments/sling-web-framework/commit/ffbdd3f))
+
 <a name="1.3.0"></a>
 ## 1.3.0 (2018-09-19)
 
