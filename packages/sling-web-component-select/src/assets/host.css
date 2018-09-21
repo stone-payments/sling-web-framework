@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+:host([validationstatus="success"]) .emd-select {
+  border: 1px solid #2ECC71;
+}
+
+:host([validationstatus="success"]) .emd-select__tips {
+  color: #2ECC71;
+}
+
+:host([validationstatus="warning"]) .emd-select {
+  border: 1px solid #F9BF09;
+}
+
+:host([validationstatus="warning"]) .emd-select__tips {
+  color: #F9BF09;
+}
+
+:host([validationstatus="error"]) .emd-select {
+  border: 1px solid #E74C3C;
+}
+
+:host([validationstatus="error"]) .emd-select__tips {
+ color: #E74C3C;
+}
+
+/* for compatibility */
+
+sling-input {
+  display: block;
+}
+
+sling-input[validationstatus="success"] .emd-select {
+  border: 1px solid #2ECC71;
+}
+
+sling-input[validationstatus="success"] .emd-select__tips {
+  color: #2ECC71;
+}
+
+sling-input[validationstatus="warning"] .emd-select {
+  border: 1px solid #F9BF09;
+}
+
+sling-input[validationstatus="warning"] .emd-select__tips {
+  color: #F9BF09;
+}
+
+sling-input[validationstatus="error"] .emd-select {
+  border: 1px solid #E74C3C;
+}
+
+sling-input[validationstatus="error"] .emd-select__tips {
+ color: #E74C3C;
+}

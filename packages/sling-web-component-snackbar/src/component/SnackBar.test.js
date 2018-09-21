@@ -29,17 +29,18 @@ describe('Snackbar', () => {
     expect($snackbar.closeable).to.be.true
   })
 
-  it('Should reflect "layout", "aim" and "heigth" property to attribute ', () => {
+  it('Should reflect "layout", "aim" and "heigth" property to attribute ', (done) => {
     $snackbar.layout = 'outline';
     $snackbar.aim = 'warning';
     $snackbar.size = 'big';
-    $snackbar.closeable = false;
+    $snackbar.closeable = null;
 
     setTimeout(() => {
       expect($snackbar.getAttribute('layout')).to.equal('outline')
       expect($snackbar.getAttribute('aim')).to.equal('warning')
       expect($snackbar.getAttribute('size')).to.equal('big')
-      expect($snackbar.getAttribute('closeable')).to.be.false
+      expect($snackbar.getAttribute('closeable')).to.be.null
+      done()
     })
   })
 
