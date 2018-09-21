@@ -32,7 +32,8 @@ npm instal sling-web-component-message
 
 |Name|Description|
 |:---|:---|
-|loading |Boolean that defines if the loader will be displayed.|
+|srcdata|This is the message that will be shown in the component|
+|aim|Defines the message objective, can be `danger`, `success` or `warning`.|
 
 ## Events
 
