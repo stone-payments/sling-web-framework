@@ -44,10 +44,6 @@ module.exports = (config) => {
     browserNoActivityTimeout: 60000,
     singleRun: true,
     frameworks: ['mocha', 'chai-sinon'],
-    urlRoot: 'test',
-    proxies: {
-      '/test/': '/test/base/packages/',
-    },
     files: [
       {
         pattern: cssFiles,
