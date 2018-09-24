@@ -2,7 +2,7 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlStringReplace = require('html-replace-webpack-plugin');
-const getBasePath = require('./scripts/helpers/getBasePath');
+const getBasePath = require('../helpers/getBasePath');
 
 const basePath = getBasePath();
 
@@ -11,7 +11,7 @@ module.exports = () => ({
   resolve: {
     mainFields: ['module', 'jsnext:main', 'main'],
   },
-  context: resolve(__dirname, basePath),
+  context: resolve(basePath),
   entry: {
     app: './src/index.js',
   },
@@ -21,8 +21,8 @@ module.exports = () => ({
     historyApiFallback: true,
     publicPath: '/',
     contentBase: [
-      resolve(__dirname, `${basePath}/public`),
-      resolve(__dirname, './packages'),
+      resolve(`${basePath}/public`),
+      resolve('./packages'),
     ],
     watchContentBase: true,
   },

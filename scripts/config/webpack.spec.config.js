@@ -13,7 +13,7 @@ module.exports = {
             esModules: true,
           },
         },
-        include: resolve(__dirname, './packages/'),
+        include: resolve('./packages/'),
         exclude: /((node_modules|dist|public)(\\|\/|$)|(test|spec|cafe|bundle)\.js$)/,
       },
     ],
