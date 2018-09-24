@@ -10,8 +10,11 @@ const transformImportToCjs = require('./helpers/transformImportToCjs');
 const transformEs6ToEs5 = require('./helpers/transformEs6ToEs5');
 const safeWriteFile = require('./helpers/safeWriteFile');
 
+const { CI_ENV } = process.env;
+
 const scope = getScope();
-console.log(`Building ${scope !== '*' ? scope : 'all packages'}\n`);
+console.log(`Building ${scope !== '*' ? scope : 'all packages'} ` +
+  `for ${CI_ENV ? 'DEPLOYMENT' : 'DEVELOPMENT'}\n`);
 
 forEachPackage(scope, (pkg) => {
   (async () => {
@@ -19,9 +22,17 @@ forEachPackage(scope, (pkg) => {
 
     let context;
 
-    // Outputs `dist/es/es6/` and `dist/es/es5/` from `src/`
+    // Injects CSS in `src/` files (DEPLOYMENT only!)
 
     context = await getJsPathsExceptTests(`${pkg}/src`);
+
+    if (CI_ENV) {
+      await Promise.all(context.map(filePath => readFile(filePath, 'utf8')
+        .then(injectCssContent)
+        .then(safeWriteFile(filePath))));
+    }
+
+    // Outputs `dist/es/es6/` and `dist/es/es5/` from `src/`
 
     await Promise.all(context.map((filePath) => {
       const es6Path = filePath.replace('/src/', '/dist/es/es6/');
