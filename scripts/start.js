@@ -12,7 +12,8 @@ if (scope === '*') {
 console.log(`Starting ${scope !== '*' ? scope : 'all packages'}\n`);
 
 const webpackDevServer = join('node_modules/.bin/webpack-dev-server');
+const webpackStartConfig = join('scripts/config/webpack.start.config.js');
 
 env.PKG = scope;
 
-exec(`${webpackDevServer} --config webpack.server.config.js`);
+exec(`${webpackDevServer} --config ${webpackStartConfig}`);
