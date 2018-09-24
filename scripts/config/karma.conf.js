@@ -1,6 +1,6 @@
 const { resolve } = require('path');
 const webpackTestConfig = require('./webpack.test.config');
-const getBasePath = require('./scripts/helpers/getBasePath');
+const getBasePath = require('../helpers/getBasePath');
 
 const basePath = getBasePath();
 const allPackagesPath = './packages/*';
@@ -17,13 +17,16 @@ if (basePath === allPackagesPath) {
     ...reports,
     reporters: [...reports.reporters, 'coverage-istanbul'],
     coverageIstanbulReporter: {
-      dir: resolve(__dirname, './coverage/integration'),
+      dir: resolve('./coverage/integration'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true,
       skipFilesWithNoCoverage: true,
     },
   };
 }
+
+const cssFiles = `${resolve(allPackagesPath)}/src/**/*.css`;
+const testFiles = `${resolve(basePath)}/src/**/*.test.js`;
 
 module.exports = (config) => {
   config.set({
@@ -41,23 +44,23 @@ module.exports = (config) => {
     browserNoActivityTimeout: 60000,
     singleRun: true,
     frameworks: ['mocha', 'chai-sinon'],
-    urlRoot: 'test',
+    urlRoot: 'root',
     proxies: {
-      '/test/': '/test/base/packages/',
+      '/root/': '/root/base/packages/',
     },
     files: [
       {
-        pattern: `${allPackagesPath}/src/**/*.css`,
+        pattern: cssFiles,
         watched: true,
         served: true,
       },
       {
-        pattern: `${basePath}/src/**/*.test.js`,
+        pattern: testFiles,
         watched: false,
       },
     ],
     preprocessors: {
-      [`${basePath}/src/**/*.test.js`]: ['webpack'],
+      [testFiles]: ['webpack'],
     },
   });
 };
