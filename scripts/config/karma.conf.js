@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const webpackTestConfig = require('./webpack.test.config');
 const getBasePath = require('../helpers/getBasePath');
 
@@ -17,7 +16,7 @@ if (basePath === allPackagesPath) {
     ...reports,
     reporters: [...reports.reporters, 'coverage-istanbul'],
     coverageIstanbulReporter: {
-      dir: resolve('./coverage/integration'),
+      dir: 'coverage/integration',
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true,
       skipFilesWithNoCoverage: true,
@@ -25,8 +24,8 @@ if (basePath === allPackagesPath) {
   };
 }
 
-const cssFiles = `${resolve(allPackagesPath)}/src/**/*.css`;
-const testFiles = `${resolve(basePath)}/src/**/*.test.js`;
+const cssFiles = `${allPackagesPath}/src/**/*.css`;
+const testFiles = `${basePath}/src/**/*.test.js`;
 
 module.exports = (config) => {
   config.set({
@@ -40,6 +39,11 @@ module.exports = (config) => {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox'],
       },
+    },
+    basePath: '../..',
+    urlRoot: 'test',
+    proxies: {
+      '/test/': '/test/base/packages/',
     },
     browserNoActivityTimeout: 60000,
     singleRun: true,
