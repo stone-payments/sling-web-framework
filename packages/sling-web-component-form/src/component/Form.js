@@ -1,7 +1,7 @@
 import { html, SlingElement } from 'sling-framework';
 
 const isFormField = target =>
-  target.nodeName === 'SLING-INPUT' || target.nodeName === 'SLING-SELECT';
+  ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT'].includes(target.nodeName);
 
 const getFieldId = target => target.getAttribute('name') ||
   target.name ||
