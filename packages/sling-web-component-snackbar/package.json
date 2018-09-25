@@ -1,7 +1,7 @@
 {
   "name": "sling-web-component-snackbar",
   "version": "1.4.0",
-  "description": "Sling Web Snackbar Component",
+  "description": "Sling Snackbar",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
   "main": "dist/cjs/es6/index.js",

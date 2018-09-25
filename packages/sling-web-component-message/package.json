@@ -1,7 +1,7 @@
 {
   "name": "sling-web-component-message",
   "version": "1.4.0",
-  "description": "Sling Web Component Message",
+  "description": "Sling Message",
   "module": "src/index.js",
   "main": "dist/cjs/es6/index.js",
   "jsnext:main": "dist/es/es6/index.js",

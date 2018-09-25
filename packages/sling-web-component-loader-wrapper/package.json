@@ -1,7 +1,7 @@
 {
   "name": "sling-web-component-loader-wrapper",
   "version": "1.4.0",
-  "description": "Sling Web Component Loader Wrapper",
+  "description": "Sling Loader Wrapper",
   "module": "src/index.js",
   "main": "dist/cjs/es6/index.js",
   "jsnext:main": "dist/es/es6/index.js",

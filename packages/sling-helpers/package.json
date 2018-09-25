@@ -1,12 +1,7 @@
 {
   "name": "sling-helpers",
-<<<<<<< HEAD
-  "version": "1.3.0",
-  "description": "Sling Helpers",
-=======
   "version": "1.4.0",
   "description": "Sling Helpers",
->>>>>>> develop
   "module": "src/index.js",
   "main": "dist/cjs/es6/index.js",
   "jsnext:main": "dist/es/es6/index.js",
