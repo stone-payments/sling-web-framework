@@ -1,3 +1,9 @@
+<a name="1.5.0"></a>
+## 1.5.0 (2018-09-25)
+
+* fix: Improve the build system so that CSS can be inlined in `src/` folders' files for deployment.
+* fix: Group all `npm script`-related files in a single folder for easier mantainance.
+
 <a name="1.4.0"></a>
 ## 1.4.0 (2018-09-21)
 
