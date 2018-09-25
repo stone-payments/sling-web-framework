@@ -7,7 +7,7 @@ const getBasePath = require('../helpers/getBasePath');
 
 const basePath = getBasePath();
 
-const entry = existsSync(resolve(__dirname, basePath, './public/index.js'))
+const entry = existsSync(resolve(basePath, './public/index.js'))
   ? ['./src/index.js', './public/index.js']
   : './src/index.js';
 
@@ -36,7 +36,7 @@ module.exports = () => ({
       template: './public/index.html',
     }),
     new HtmlStringReplace([{
-      pattern: /<script.*?\/script>/,
+      pattern: /<script.*?injectDependencies.*?\/script>/,
       replacement: '',
     }]),
   ],
