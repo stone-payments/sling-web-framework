@@ -14,5 +14,5 @@
     "text-summary"
   ],
   "all": true,
-  "report-dir": "./coverage/unit"
+  "report-dir": "coverage/unit"
 }

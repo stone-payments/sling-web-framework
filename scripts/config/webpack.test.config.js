@@ -1,5 +1,5 @@
 const { resolve } = require('path');
-const getBasePath = require('./scripts/helpers/getBasePath');
+const getBasePath = require('../helpers/getBasePath');
 
 const basePath = getBasePath();
 
@@ -8,7 +8,7 @@ module.exports = () => ({
   resolve: {
     mainFields: ['module', 'jsnext:main', 'main'],
   },
-  context: resolve(__dirname, basePath),
+  context: resolve(basePath),
   module: {
     rules: [
       {

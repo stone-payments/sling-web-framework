@@ -6,12 +6,12 @@ const getScope = require('./helpers/getScope');
 
 const scope = getScope();
 
-console.log(`Starting server\n`);
+console.log('Starting server\n');
 
 const httpServer = join('node_modules/.bin/http-server');
 
 env.PKG = scope;
-env.BASE = `http://127.0.0.1:8321/packages`;
+env.BASE = 'http://127.0.0.1:8321/packages';
 
 const url = `${env.BASE}/${scope !== '*' ? `${scope}/public` : ''}`;
 
