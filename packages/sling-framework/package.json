@@ -1,6 +1,6 @@
 {
   "name": "sling-framework",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "",
   "module": "src/index.js",
   "main": "dist/cjs/es6/index.js",
@@ -8,6 +8,6 @@
   "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-helpers": "^1.4.0"
+    "sling-helpers": "^1.5.0"
   }
 }
