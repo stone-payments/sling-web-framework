@@ -1,7 +1,7 @@
 {
   "name": "sling-web-component-table",
   "version": "1.5.0",
-  "description": "Sling Table component",
+  "description": "Sling Table",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
   "main": "dist/cjs/es6/index.js",

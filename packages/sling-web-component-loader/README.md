@@ -1,7 +1,7 @@
 # sling-web-component-loader
 
-The loader Component. It´s aimed to be used in pair with business components that demands requests and component renders with processess delays.
-The component must show the loader element while loading the data source required to populate and render his view.
+The loader should be used with business components that demand requests and render with delay.
+The component must show the loader component while loading the data source required to populate and render its view.
 
 ## Install
 
