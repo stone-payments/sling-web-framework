@@ -52,16 +52,17 @@ export class Form extends SlingElement {
   connectedCallback() {
     super.connectedCallback();
     this.initForm();
-    this.addEventListener('update', this.handleUpdate);
-    this.addEventListener('click', this.handleClick);
-    this.addEventListener('fieldblur', this.handleBlur);
+
+    this.addEventListener('input', this.handleUpdate);
+    this.addEventListener('click', this.handleClick, true);
+    this.addEventListener('blur', this.handleBlur, true);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('update', this.handleUpdate);
-    this.removeEventListener('click', this.handleClick);
-    this.removeEventListener('fieldblur', this.handleBlur);
+    this.removeEventListener('input', this.handleUpdate);
+    this.removeEventListener('click', this.handleClick, true);
+    this.removeEventListener('blur', this.handleBlur, true);
   }
 
   initForm() {
@@ -149,7 +150,7 @@ export class Form extends SlingElement {
       <style>
         @import url('sling-web-component-form/src/index.css');
       </style>
-      <slot></slot>
+      <slot id="inside"></slot>
     `;
   }
 }
