@@ -42,10 +42,6 @@ export class Form extends SlingElement {
         type: Array,
         value: [],
       },
-      open: {
-        type: Boolean,
-        reflectToAttribute: true,
-      },
     };
   }
 
