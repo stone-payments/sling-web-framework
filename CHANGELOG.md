@@ -1,3 +1,9 @@
+<a name="1.6.0"></a>
+## 1.6.0 (2018-09-27)
+
+* feat: Brings Login component from `sling-web`
+* feat: Brings List component from `sling-web`
+
 <a name="1.5.0"></a>
 ## 1.5.0 (2018-09-25)
 
