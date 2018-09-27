@@ -1,8 +1,6 @@
 # sling-web-component-message
 
-Sling Message Basic Component.
-
-The message component is a static bar that indicates, through prevailing icons and colors, to the user some state.
+The message component is a static bar that indicates, through prevailing icons and colors, some state to the user.
 
 ## Install
 

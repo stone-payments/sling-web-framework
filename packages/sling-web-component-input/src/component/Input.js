@@ -5,8 +5,6 @@ export class Input extends SlingElement {
   constructor() {
     super();
     this.mask = { resolve: value => value };
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.formatType = this.formatType.bind(this);
   }
@@ -98,16 +96,16 @@ export class Input extends SlingElement {
     };
   }
 
-  handleInput({ target }) {
-    this.value = target.value;
+  handleInput(evt) {
+    evt.stopPropagation();
+    this.value = evt.target.value;
   }
 
-  handleBlur({ target }) {
-    this.dispatchEventAndMethod('fieldblur', { target });
-  }
-
-  handleFocus({ target }) {
-    this.dispatchEventAndMethod('fieldfocus', { target });
+  updateValue(value, oldValue) {
+    if (value !== oldValue) {
+      this.value = this.mask.resolve(value);
+      this.dispatchEventAndMethod('input', { value });
+    }
   }
 
   formatType(type = '') {
@@ -164,13 +162,6 @@ export class Input extends SlingElement {
     return type;
   }
 
-  updateValue(value, oldValue) {
-    if (value !== oldValue) {
-      this.value = this.mask.resolve(value);
-      this.dispatchEventAndMethod('update', { value });
-    }
-  }
-
   render() {
     return html`
     <style>
@@ -188,8 +179,6 @@ export class Input extends SlingElement {
         min="${this.min}"
         minLength="${this.minlength}"
         name="${this.name}"
-        onblur="${this.handleBlur}"
-        onfocus="${this.handleFocus}"
         oninput="${this.handleInput}"
         pattern="${this.pattern}"
         placeholder="${this.placeholder}"
