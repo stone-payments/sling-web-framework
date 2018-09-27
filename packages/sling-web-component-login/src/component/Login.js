@@ -1,10 +1,7 @@
-import { globalHelper } from '../../node_modules/sling-web-helpers/src/index.js';
-import '../../node_modules/sling-web-component-button/src/index.js';
-import '../../node_modules/sling-web-component-input/src/index.js';
+import { isFunction } from 'sling-helpers';
+import 'sling-web-component-button';
+import 'sling-web-component-input';
 
-/**
- * The Login Component uses the GIM API to log the user and dispatches an event called 'loginResponse', which you can listen, treating the response.
- */
 export class ScLogin extends HTMLElement {
   constructor() {
     super();
@@ -12,16 +9,10 @@ export class ScLogin extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
-  /**
-   * @return {string} errorMessage.
-   */
   get errorMessage() {
     return this._errorMessage;
   }
 
-  /**
-   * @param {string} value - new value for the errorMessage variable.
-   */
   set errorMessage(value) {
     this._errorMessage = value;
     this.handleError(value);
@@ -30,7 +21,7 @@ export class ScLogin extends HTMLElement {
   connectedCallback() {
     this.shadowRoot.innerHTML = `
       <style>
-        @import url('../sling-web-component-login/src/index.css');
+        @import url('sling-web-component-login/src/index.css');
       </style>
       <div class="login">
         <p class="login__title">
@@ -55,11 +46,8 @@ export class ScLogin extends HTMLElement {
     this.setupLogin();
   }
 
-  /**
-   * Button click handler. This handler in particular is what actually executes the SDK login function
-   */
   handleClick() {
-    if (globalHelper.isFunction(this.onSubmit)) {
+    if (isFunction(this.onSubmit)) {
       this.$login__error.innerText = '';
       const email = this.$email.value;
       const password = this.$password.value;
@@ -67,16 +55,10 @@ export class ScLogin extends HTMLElement {
     }
   }
 
-  /**
-   * Updates the error message shown in the Component view
-   */
   handleError(value) {
     this.$login__error.innerText = value;
   }
 
-  /**
-   * Setup the login component, adding the necessary class variables and the event listeners
-   */
   setupLogin() {
     this.$login__error = this.shadowRoot.querySelector('.login__error');
     this.$email = this.shadowRoot.querySelector('#email');
