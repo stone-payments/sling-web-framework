@@ -1,7 +1,7 @@
-# sling-web-component-calendar    
-`Sling-web-component-calendar` is a simple, customizable calendar,
- receives an Array with data to be shown
- according to the configuration also passed to the component.
+# sling-web-component-calendar
+
+The calendar component is a simple and customizable calendar that receives an array with data to be shown according to the configuration passed.
+
  
 ## Install      
 ```

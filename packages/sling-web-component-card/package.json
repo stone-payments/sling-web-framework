@@ -1,7 +1,7 @@
 {
   "name": "sling-web-component-card",
   "version": "1.5.0",
-  "description": "",
+  "description": "Sling Card",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
