@@ -1,7 +1,5 @@
 # sling-web-component-table
 
-Sling Table Basic Component.
-
 ## Install
 
 ```

@@ -1,7 +1,7 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "private": true,
   "flat": true,
   "scripts": {
@@ -39,7 +39,6 @@
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
-    "faker": "^4.1.0",
     "fs-extra": "^5.0.0",
     "globby": "^8.0.1",
     "html-replace-webpack-plugin": "^2.5.3",

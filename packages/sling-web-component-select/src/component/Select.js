@@ -3,8 +3,6 @@ import { SlingElement, html } from 'sling-framework';
 export class Select extends SlingElement {
   constructor() {
     super();
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -53,17 +51,9 @@ export class Select extends SlingElement {
     this.value = target.value;
   }
 
-  handleBlur({ target }) {
-    this.dispatchEventAndMethod('fieldblur', { target });
-  }
-
-  handleFocus({ target }) {
-    this.dispatchEventAndMethod('fieldfocus', { target });
-  }
-
   dispatchUpdateEvent(newValue, oldValue) {
     if (oldValue !== newValue) {
-      this.dispatchEventAndMethod('update', { value: this.value });
+      this.dispatchEventAndMethod('input', { value: this.value });
     }
   }
 
@@ -78,8 +68,6 @@ export class Select extends SlingElement {
       <label class="emd-select__label">${this.label}
         <select
           class="emd-select"
-          onblur="${this.handleBlur}"
-          onfocus="${this.handleFocus}"
           onchange="${this.handleChange}"
           disabled="${this.disabled}"
           name="${this.name}"
