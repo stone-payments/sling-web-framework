@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-sdk-connect",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Sling SDK Connect",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
@@ -8,6 +8,6 @@
   "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-helpers": "^1.5.0"
+    "sling-helpers": "^1.6.0"
   }
 }
