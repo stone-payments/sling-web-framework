@@ -1,9 +1,9 @@
 {
   "name": "sling-framework",
   "version": "1.5.0",
-  "description": "",
+  "description": "Sling Framework",
   "module": "src/index.js",
-  "main": "dist/cjs/es6/index.js",
+  "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
