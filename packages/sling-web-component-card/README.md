@@ -1,7 +1,5 @@
 # sling-web-component-card
 
-Sling Card Basic Component.
-
 ## Install
 
 ```
