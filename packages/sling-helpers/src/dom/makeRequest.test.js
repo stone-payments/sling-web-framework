@@ -1,5 +1,4 @@
 import sinon from 'sinon';
-import faker from 'faker';
 import { makeRequest } from './makeRequest.js';
 
 const mockFetch = response => () => Promise.resolve(response);
@@ -11,8 +10,8 @@ const mockFetchReturningParams = (url, params) => Promise.resolve({
   json() { return { url, params }; },
 });
 
-const fakeUrl = faker.internet.url();
-const fakeUserName = faker.internet.userName();
+const fakeUrl = 'http://sling-web.com/';
+const fakeUserName = 'Sling Web';
 
 describe('makeRequest', () => {
   it('Should have a default error handler that just returns the response ' +
