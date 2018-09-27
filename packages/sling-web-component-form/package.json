@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "description": "Sling Form",
   "module": "src/index.js",
-  "main": "dist/cjs/es6/index.js",
+  "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
