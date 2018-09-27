@@ -18,7 +18,7 @@ export class List extends SlingElement {
 
     return html`
       <style>
-        @import url('../sling-web-component-list/src/index.css');
+        @import url('sling-web-component-list/src/index.css');
       </style>
       ${data.map(list => html`
         <ul className="list-view ${this.cascadelist ? 'list-view_cascade' : ''}">
