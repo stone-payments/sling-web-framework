@@ -1,14 +1,13 @@
 {
   "name": "sling-web-component-loader",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Sling Loader",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
-  "browser": "dist/iife/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-framework": "^1.6.0",
-    "sling-helpers": "^1.6.0"
+    "sling-framework": "^1.7.0",
+    "sling-helpers": "^1.7.0"
   }
 }
