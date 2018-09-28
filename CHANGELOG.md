@@ -1,3 +1,8 @@
+<a name="1.7.0"></a>
+## 1.7.0 (2018-09-28)
+
+* fix: Remove browser field from package.json files.
+
 <a name="1.6.0"></a>
 ## 1.6.0 (2018-09-27)
 
