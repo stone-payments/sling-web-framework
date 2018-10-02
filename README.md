@@ -1,4 +1,4 @@
-# Sling Web  
+# Sling Web
 [![Build Status](https://travis-ci.org/stone-payments/sling-web-framework.svg?branch=master)](https://travis-ci.org/stone-payments/sling-web-framework) [![Coverage Status](https://coveralls.io/repos/github/stone-payments/sling-web-framework/badge.svg?branch=task%2FCMPDC-909)](https://coveralls.io/github/stone-payments/sling-web-framework?branch=task%2FCMPDC-909)
 
 ## Technologies
@@ -12,8 +12,8 @@
   - [Sinon](https://sinonjs.org/)
   - [TestCafé](http://devexpress.github.io/testcafe/)
   - [Webpack](https://webpack.js.org/)
-  
-## Usage  
+
+## Usage
 
 #### Node
 v8.x.x >= v8.9.0
@@ -28,12 +28,12 @@ v6.x.x >= v6.4.0
 
 Installs project dependencies.
 
-#### Start  
+#### Start
 `npm start component-name`
 
 Starts the development server with webpack.
 
-#### Test  
+#### Test
 `npm test` or `npm test component-name`
 
 Runs tests that depend on the DOM using Chrome Headless and generates a coverage report. If a component name is passed as parameter, the tests will run for that specific component but the coverage report will not be generated.
@@ -42,17 +42,17 @@ Runs tests that depend on the DOM using Chrome Headless and generates a coverage
 
 Runs tests that depend on the DOM using Chrome. If a component name is passed as parameter, the tests will run for that specific component.
 
-#### Spec  
+#### Spec
 `npm run spec` or `npm run spec component-name`
 
 Runs tests that do not depend on the DOM using Mocha and generates a coverage report. If a component name is passed as parameter, the tests will run for that specific component but the coverage report will not be generated.
 
-#### Build  
+#### Build
 `npm run build` or `npm run build component-name`
 
 Generates the distribution folders of all components. If a component name is passed as parameter, it only generates the distribution folder for that specific component.
 
-#### Server  
+#### Server
 `npm run server` or `npm run server component-name`
 
 Starts a static server, allowing you to navigate through stand-alone, browser-specific versions of all components. If a component name is passed as parameter, the server will open on that component's folder, otherwise, it will open on the project's root folder.
@@ -61,4 +61,4 @@ Note that this command depends on `npm run build` to be run first, in order to g
 
 By appending `?es=6` or `?es=5` to the end of URL, you can choose which EcmaScript version is used by the component (either 5 or 6 are allowed).
 
-## [Contribute](./CONTRIBUTING.md)
+## [Contribute](.github/CONTRIBUTING.md)
