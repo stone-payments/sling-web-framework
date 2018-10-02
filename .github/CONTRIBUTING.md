@@ -1,5 +1,7 @@
 # Contributing
-Thanks for your interest in contributing to the Sling Framework! :tada: Please read this doc before start to use this repo. We have a set of guidelines that should be followed.  
+Thanks for your interest in contributing to the Sling Framework! :tada:
+
+Please read this doc before start to use this repo. We have a set of guidelines that should be followed.  
 
 Feel free to propose changes to this document using a pull request.
 
@@ -26,7 +28,7 @@ Please see our [Contributor Code of Conduct](https://github.com/stone-payments/s
 2. A browser should open at `http://localhost:8080/`. From here you can see the changes. This page have auto-reload feature, so you can see any modification in real time.
 4. If your changes look good, you're ready to [commit](#committing)!
 
-See on the [README](./README.md#available-scripts) all the available scripts that you can use for develop a component.
+See on the [README](https://github.com/stone-payments/sling-framework/README.md#available-scripts) all the available scripts that you can use for develop a component.
 
 ## Git Workflow
 ### Committing
