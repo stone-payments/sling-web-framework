@@ -1,7 +1,7 @@
 ![npm version][npm-badge]
 ![node version][node-badge]
 [![Build Status][build-status]][travis-url]
-[![Coverage Status][coverage-status]][coverall-url]
+[![Coverage Status][coverage-status]][coveralls-url]
 
 # Sling Web
 
