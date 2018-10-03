@@ -14,7 +14,7 @@ Start using sling by following our quick guide about how to [create a basic comp
 We would love to hear from you! If you have any feedback or run into issues using our framework, please file
 an [issue](https://github.com/stone-payments/sling-web-framework/issues/new) on this repository.
 
-### :sparkles: Contributing
+### :rocket: Contributing
 Thanks for your interest in contributing! Read up on our guidelines for
 [contributing](https://github.com/stone-payments/sling-web-framework/blob/master/.github/CONTRIBUTING.md)
 and then look through our issues with a [help wanted](https://github.com/stone-payments/sling-web-framework/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
@@ -22,14 +22,14 @@ label.
 
 # Packages
 
-## :black_heart: Core
+### :black_heart: Core
 The `sling-framework` package is essential for all of your components. With `sling-helpers` and `sling-assets`, they are part of the core of our framework. See the docs below:
 
 * [sling-framework](https://github.com/stone-payments/sling-web-framework/tree/master/packages/sling-framework)
 * [sling-helpers](https://github.com/stone-payments/sling-web-framework/tree/master/packages/sling-helpers)
 * [sling-assets](https://github.com/stone-payments/sling-web-framework/tree/master/packages/sling-assets)
 
-## :card_file_box: Components
+### :card_file_box: Components
 Right now all the basic components are available. See the docs of each one to know how to use it on your application:
 
 * [sling-web-component-brand-icon](https://github.com/stone-payments/sling-web-framework/tree/master/packages/)
