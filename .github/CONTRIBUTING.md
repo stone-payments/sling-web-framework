@@ -1,7 +1,7 @@
 # Contributing
 Thanks for your interest in contributing to the Sling Framework! :tada:
 
-Please read this doc before start to use this repo. We have a set of guidelines that should be followed.  
+Please read this doc before starting to use this repo. We have a set of guidelines that should be followed.  
 
 Feel free to propose changes to this document using a pull request.
 
@@ -28,12 +28,12 @@ Please see our [Contributor Code of Conduct](https://github.com/stone-payments/s
 2. A browser should open at `http://localhost:8080/`. From here you can see the changes. This page have auto-reload feature, so you can see any modification in real time.
 4. If your changes look good, you're ready to [commit](#committing)!
 
-See on the [Wiki](https://github.com/stone-payments/sling-web-framework/wiki/Available-Scripts) all the available scripts that you can use for develop a component.
+See on the [Wiki](https://github.com/stone-payments/sling-web-framework/wiki/Available-Scripts) all the available scripts that you can use for developing a component.
 
 ## Git Workflow
 ### Committing
 
-Feel free to commit clear messages, in **english** to describe every single change in your branch.
+Feel free to commit clear messages, in **english**, to describe every single change in your branch.
 
 We use [conventional commits](https://conventionalcommits.org/) as guidelines for merge commits.
 
@@ -53,7 +53,7 @@ We use [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/) when n
 
 * The issue list of this repository is exclusively for bug reports and feature requests. Non-conforming issues will be closed immediately.
 
-* Issues with no clear steps to reproduce will not be triaged. If an issue is labeled with "needs reply" and receives no further replies from the author of the issue for more than 5 days, it will be closed.
+* Issues with no clear steps to reproduce will not be triggered. If an issue is labeled with "needs reply" and receives no further replies from the author of the issue for more than 5 days, it will be closed.
 
 * If you think you have found a bug, or have a new feature idea, please start by making sure it hasn't already been [reported](https://github.com/stone-payments/sling-web-framework/issues?utf8=%E2%9C%93&q=is%3Aissue). You can search through existing issues to see if there is a similar one reported. Include closed issues as it may have been closed with a solution.
 
@@ -62,7 +62,7 @@ We use [GitFlow](http://nvie.com/posts/a-successful-git-branching-model/) when n
 ## Creating a Pull Request
 * We appreciate you taking the time to contribute! Before submitting a pull request, we ask that you please [create an issue](#creating-an-issue) that explains the bug or feature request and let us know that you plan on creating a pull request for it. If an issue already exists, please comment on that issue letting us know you would like to submit a pull request for it. This helps us to keep track of the pull request and make sure there isn't duplicated effort.
 
-* All Pull Request must be made to the `develop` branch. Never on the `master`. We only change the `master` branch when a release is made.
+* All pull requests must be made to the `develop` branch. Never on the `master`. We only change the `master` branch when a release is made.
 
 * After you make a pull request, your CI will run over your code. Make sure that evereyhing passes and change your code if needed.
 
