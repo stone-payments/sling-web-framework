@@ -28,7 +28,7 @@ Please see our [Contributor Code of Conduct](https://github.com/stone-payments/s
 2. A browser should open at `http://localhost:8080/`. From here you can see the changes. This page have auto-reload feature, so you can see any modification in real time.
 4. If your changes look good, you're ready to [commit](#committing)!
 
-See on the [README](https://github.com/stone-payments/sling-framework/README.md#available-scripts) all the available scripts that you can use for develop a component.
+See on the [Wiki](https://github.com/stone-payments/sling-web-framework/wiki/Available-Scripts) all the available scripts that you can use for develop a component.
 
 ## Git Workflow
 ### Committing
