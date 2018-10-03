@@ -1,5 +1,5 @@
-![npm version][npm-badge]
 ![node version][node-badge]
+![npm version][npm-badge]
 [![Build Status][build-status]][travis-url]
 [![Coverage Status][coverage-status]][coveralls-url]
 
