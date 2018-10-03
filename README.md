@@ -50,7 +50,7 @@ Right now all the basic components are available. See the docs of each one to kn
 * [sling-web-component-snackbar](https://github.com/stone-payments/sling-web-framework/tree/master/packages/)
 * [sling-web-component-table](https://github.com/stone-payments/sling-web-framework/tree/master/packages/)
 
-### Technologies
+### :green_apple: Technologies
 * [Babel](https://babeljs.io/)
 * [Chai](https://www.chaijs.com/)
 * [EsLint](https://eslint.org/) (rules extends [eslint-config-airbnb](https://www.npmjs.com/package/eslint-config-airbnb))
