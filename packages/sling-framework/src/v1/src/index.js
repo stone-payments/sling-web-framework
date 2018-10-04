@@ -1,9 +1,4 @@
-import { html } from '../../lib/lit-element.bundle.js';
-import { SlingElement } from './basic/SlingElement.js';
-import { SlingBusinessElement } from './business/SlingBusinessElement.js';
-
-export {
-  SlingElement,
-  SlingBusinessElement,
-  html,
-};
+export { html } from '../../lib/lit-element.bundle.js';
+export { SlingElement } from './basic/SlingElement.js';
+export { SlingBusinessElement } from './business/SlingBusinessElement.js';
+export { withLoading } from './business/withLoading.js';
