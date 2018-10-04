@@ -1,3 +1,8 @@
+<a name="1.8.0"></a>
+## 1.8.0 (2018-10-04)
+
+* Update: Exports the methods withLoading and withRequest on sling-web-framework.
+
 <a name="1.7.0"></a>
 ## 1.7.0 (2018-09-28)
 
