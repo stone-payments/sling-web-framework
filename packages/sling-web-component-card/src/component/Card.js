@@ -1,12 +1,11 @@
 import { html, SlingElement } from 'sling-framework';
 
-const applySlotClass = (area, isVisible, hasPadding) => {
+export const applySlotClass = (area, isVisible, hasPadding) => {
   const base = 'emd-card__slot';
 
   return `${base} ${base}_${area}` +
-    /** @todo [#148](https://github.com/stone-payments/sling-web/issues/148) Fix Card */
-    // `${isVisible ? ` ${base}_visible` : ` ${base}_hidden`}` +
-    `${hasPadding ? ` ${base}_nopadding` : ''}`;
+    `${isVisible ? ` ${base}_visible` : ` ${base}_hidden`}` +
+    `${hasPadding ? '' : ` ${base}_nopadding`}`;
 };
 
 export class Card extends SlingElement {
@@ -49,13 +48,13 @@ export class Card extends SlingElement {
         @import url('sling-web-component-card/src/index.css');
       </style>
       <div class="emd-card">
-        <div className="${applySlotClass('header', showHeader, nopadding || nopaddingheader)}">
+        <div className="${applySlotClass('header', showHeader, !nopadding && !nopaddingheader)}">
           <slot name="header" class="emd-card__slot"></slot>
         </div>
-        <div className="${applySlotClass('body', showBody, nopadding || nopaddingbody)}">
+        <div className="${applySlotClass('body', showBody, !nopadding && !nopaddingbody)}">
           <slot class="emd-card__slot"></slot>
         </div>
-        <div className="${applySlotClass('footer', showFooter, nopadding || nopaddingfooter)}">
+        <div className="${applySlotClass('footer', showFooter, !nopadding && !nopaddingfooter)}">
           <slot name="footer" class="emd-card__slot"></slot>
         </div>
       </div>

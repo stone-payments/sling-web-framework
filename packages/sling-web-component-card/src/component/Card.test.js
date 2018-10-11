@@ -1,5 +1,5 @@
 import { registerComponent } from 'sling-helpers';
-import { Card } from './Card.js';
+import { Card, applySlotClass } from './Card.js';
 
 registerComponent('sling-card', Card);
 
@@ -43,3 +43,37 @@ describe('Card', () => {
   });
 });
 
+describe('applySlotClass', () => {
+  it('Should create properly className with card part ' +
+  'visible and padding for Card after be called', () => {
+    const area = 'cardPart';
+    const isVisible = true;
+    const hasPadding = true;
+    const resultantClassName = applySlotClass(area, isVisible, hasPadding);
+
+    expect(resultantClassName).to.be.equals('emd-card__slot ' +
+    'emd-card__slot_cardPart emd-card__slot_visible');
+  });
+
+  it('Should create properly className with card part ' +
+  'visible and no padding for Card after be called', () => {
+    const area = 'cardPart';
+    const isVisible = true;
+    const hasPadding = false;
+    const resultantClassName = applySlotClass(area, isVisible, hasPadding);
+
+    expect(resultantClassName).to.be.equals('emd-card__slot ' +
+    'emd-card__slot_cardPart emd-card__slot_visible emd-card__slot_nopadding');
+  });
+
+  it('Should create properly className with card part ' +
+  'invisible and no padding for Card after be called', () => {
+    const area = 'cardPart';
+    const isVisible = false;
+    const hasPadding = false;
+    const resultantClassName = applySlotClass(area, isVisible, hasPadding);
+
+    expect(resultantClassName).to.be.equals('emd-card__slot ' +
+    'emd-card__slot_cardPart emd-card__slot_hidden emd-card__slot_nopadding');
+  });
+});
