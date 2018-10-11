@@ -1,11 +1,10 @@
 import { html, SlingElement } from 'sling-framework';
 
-const applySlotClass = (area, isVisible, hasPadding) => {
+export const applySlotClass = (area, isVisible, hasPadding) => {
   const base = 'emd-card__slot';
 
   return `${base} ${base}_${area}` +
-    /** @todo [#148](https://github.com/stone-payments/sling-web/issues/148) Fix Card */
-    // `${isVisible ? ` ${base}_visible` : ` ${base}_hidden`}` +
+    `${isVisible ? ` ${base}_visible` : ` ${base}_hidden`}` +
     `${hasPadding ? ` ${base}_nopadding` : ''}`;
 };
 
