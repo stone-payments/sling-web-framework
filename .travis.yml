@@ -5,8 +5,13 @@ notifications:
 node_js:
   - "8"
 after_script: npm run send-coverage
-script: npm run lint && npm test && npm run spec
+script:
+  - npm run lint
+  - npm test
+  - npm run spec
+  - npm run build
 after_success:
+  - npm run send-coverage
   - npm run semantic-release
 git:
   depth: 1
