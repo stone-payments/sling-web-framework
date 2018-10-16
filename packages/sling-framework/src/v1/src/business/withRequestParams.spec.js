@@ -1,250 +1,201 @@
+import chai from 'chai';
 import sinon from 'sinon';
-import { registerComponent } from 'sling-helpers';
+import sinonChai from 'sinon-chai';
 import { withRequestParams } from './withRequestParams.js';
 
-let $dummy;
+chai.use(sinonChai);
+const { expect } = chai;
+
 let spy;
-
-class ReqParams extends withRequestParams() {
-  static get requestParamNames() {
-    return [
-      'affiliationCodes',
-      'crossBalance',
-      'finalDate',
-      'page',
-      'startDate',
-    ];
-  }
-
-  onRequestParamChanged(allParams, changedParams) {
-    spy(allParams, changedParams);
-    return this;
-  }
-}
-
-registerComponent('with-req-params', ReqParams);
 
 describe('withRequestParams', () => {
   beforeEach(() => {
     spy = sinon.spy();
-    $dummy = document.createElement('with-req-params');
-    document.body.appendChild($dummy);
   });
 
   afterEach(() => {
-    document.body.removeChild($dummy);
-    $dummy = null;
-    spy = null;
+    spy = undefined;
   });
 
-  it('Should reflect attribute to property as string.', () => {
-    $dummy.setAttribute('page', 8);
-    expect($dummy.page).to.equal('8');
-  });
+  describe('.requestParamNames', () => {
+    class Empty extends withRequestParams() {}
 
-  it('Should reflect property to attribute as string.', () => {
-    $dummy.page = 8;
-    expect($dummy.getAttribute('page')).to.equal('8');
-  });
-
-  it('Should remove attribute when property is null or undefined.', () => {
-    $dummy.page = 8;
-    expect($dummy.hasAttribute('page')).to.be.true;
-
-    $dummy.page = null;
-    expect($dummy.hasAttribute('page')).to.be.false;
-
-    $dummy.page = 8;
-    expect($dummy.hasAttribute('page')).to.be.true;
-
-    $dummy.page = undefined;
-    expect($dummy.hasAttribute('page')).to.be.false;
-  });
-
-  it('Should convert boolean properties to string attributes.', () => {
-    $dummy.crossbalance = false;
-    expect($dummy.getAttribute('crossbalance')).to.equal('false');
-
-    $dummy.crossbalance = true;
-    expect($dummy.getAttribute('crossbalance')).to.equal('true');
-  });
-
-  it('Should not break when requestParamNames is undefined.', () => {
-    class NoReqParams extends withRequestParams() {}
-    registerComponent('no-req-params', NoReqParams);
-
-    document.body.removeChild($dummy);
-    $dummy = document.createElement('no-req-params');
-    document.body.appendChild($dummy);
-
-    expect($dummy.constructor.requestParamNames).to.eql([]);
-  });
-
-  it('Should call inherited attributeChangedCallback.', () => {
-    class Parent extends HTMLElement {
-      attributeChangedCallback() {
-        spy(this);
-      }
-    }
-
-    class ReqKeepAttrChanged extends withRequestParams(Parent) {
-      static get observedAttributes() {
-        return ['observed'];
-      }
-    }
-
-    registerComponent('req-keep-attr-changed', ReqKeepAttrChanged);
-
-    document.body.removeChild($dummy);
-    $dummy = document.createElement('req-keep-attr-changed');
-    document.body.appendChild($dummy);
-
-    $dummy.setAttribute('observed', 'changed');
-    expect(spy).to.have.been.calledOnce;
-  });
-
-  describe('#observedAttributes', () => {
-    it('Should include requestParamNames converted to lowercase.', () => {
-      expect($dummy.constructor.observedAttributes.sort())
-        .to.eql([
-          'affiliationcodes',
-          'crossbalance',
-          'finaldate',
-          'page',
-          'startdate',
-        ]);
+    it('Should return an empty array if not set.', () => {
+      expect(Empty.requestParamNames).to.deep.equal([]);
     });
 
-    it('Should not override inherited observedAttributes.', () => {
-      class Parent extends HTMLElement {
-        static get observedAttributes() {
-          return ['inherited'];
-        }
-      }
-
-      class ReqKeepObserved extends withRequestParams(Parent) {
+    it('Should not override super.requestParamNames.', () => {
+      class Parent {
         static get requestParamNames() {
-          return ['page'];
+          return ['bassPlayer'];
         }
       }
 
-      registerComponent('req-keep-observed', ReqKeepObserved);
+      class Child extends withRequestParams(Parent) {}
 
-      document.body.removeChild($dummy);
-      $dummy = document.createElement('req-keep-observed');
-      document.body.appendChild($dummy);
-
-      expect($dummy.constructor.observedAttributes).to.include('inherited');
-      expect($dummy.constructor.observedAttributes).to.include('page');
+      expect(Child.requestParamNames).to.deep.equal(['bassPlayer']);
     });
   });
 
-  describe('.onRequestParamChanged', () => {
-    it('Should call onRequestParamChanged if a request param changes.', () => {
-      expect(spy).not.to.have.been.called;
-      $dummy.setAttribute('page', '3');
-      expect(spy).to.have.been.called;
+  describe('.requestAttrNames', () => {
+    it('Should return all param names converted to lowercase.', () => {
+      class Dummy extends withRequestParams() {
+        static get requestParamNames() {
+          return ['bassPlayer', 'guitarPlayer', 'drummer'];
+        }
+      }
+
+      expect(Dummy.requestAttrNames)
+        .to.deep.equal(['bassplayer', 'guitarplayer', 'drummer']);
+    });
+  });
+
+  describe('.observedAttributes', () => {
+    class Empty extends withRequestParams() {}
+
+    it('Should return an empty array if not set.', () => {
+      expect(Empty.observedAttributes).to.deep.equal([]);
     });
 
-    it('Should not break if onRequestParamChanged is not a function.', () => {
-      $dummy.onRequestParamChanged = null;
-      $dummy.setAttribute('page', '3');
-      expect(spy).not.to.have.been.called;
+    it('Should add param names converted to lowercase to ' +
+      'super.observedAttributes.', () => {
+      class Parent {
+        static get observedAttributes() {
+          return ['concert'];
+        }
+      }
+
+      class Child extends withRequestParams(Parent) {
+        static get requestAttrNames() {
+          return ['bassplayer', 'guitarplayer', 'drummer'];
+        }
+      }
+
+      expect(Child.observedAttributes)
+        .to.deep.equal(['concert', 'bassplayer', 'guitarplayer', 'drummer']);
+    });
+  });
+
+  describe('#constructor()', () => {
+    class Dummy extends withRequestParams() {
+      static get requestAttrNames() {
+        return ['bassplayer', 'guitarplayer', 'drummer'];
+      }
+
+      getAttribute(attrName) {
+        spy('getAttr', attrName, this);
+      }
+
+      removeAttribute(attrName) {
+        spy('removeAttr', attrName, this);
+      }
+
+      setAttribute(attrName, value) {
+        spy('setAttr', attrName, value, this);
+      }
+    }
+
+    const dummy = new Dummy();
+
+    it('Should define getters and setters.', () => {
+      let descriptor;
+
+      descriptor = Object.getOwnPropertyDescriptor(dummy, 'bassplayer');
+      expect(descriptor.get).to.be.a('function');
+      expect(descriptor.set).to.be.a('function');
+
+      descriptor = Object.getOwnPropertyDescriptor(dummy, 'drummer');
+      expect(descriptor.get).to.be.a('function');
+      expect(descriptor.set).to.be.a('function');
+
+      descriptor = Object.getOwnPropertyDescriptor(dummy, 'guitarplayer');
+      expect(descriptor.get).to.be.a('function');
+      expect(descriptor.set).to.be.a('function');
     });
 
-    it('Should not call onRequestParamChanged if a request param ' +
+    it('Expect getters to trigger getAttribute.', () => {
+      const { bassplayer, guitarplayer, drummer } = dummy;
+
+      expect(spy).to.have.been.calledThrice;
+
+      expect(spy).to.have.been.calledWith('getAttr', 'bassplayer');
+      expect(spy).to.have.been.calledWith('getAttr', 'guitarplayer');
+      expect(spy).to.have.been.calledWith('getAttr', 'drummer');
+
+      expect(bassplayer).to.be.undefined;
+      expect(guitarplayer).to.be.undefined;
+      expect(drummer).to.be.undefined;
+    });
+
+    it('Expect setters to trigger setAttribute if passed strings.', () => {
+      dummy.bassplayer = 'Ben Adamo';
+      dummy.guitarplayer = 'Miyagi';
+      dummy.drummer = 'Ed Chivers';
+
+      expect(spy).to.have.been.calledThrice;
+
+      expect(spy).to.have.been.calledWith('setAttr', 'bassplayer', 'Ben Adamo');
+      expect(spy).to.have.been.calledWith('setAttr', 'guitarplayer', 'Miyagi');
+      expect(spy).to.have.been.calledWith('setAttr', 'drummer', 'Ed Chivers');
+    });
+
+    it('Expect setters to trigger removeAttribute if passed ' +
+      'null or undefined, but not false.', () => {
+      dummy.bassplayer = false;
+      dummy.guitarplayer = null;
+      dummy.drummer = undefined;
+
+      expect(spy).to.have.been.calledThrice;
+
+      expect(spy).to.have.been.calledWith('setAttr', 'bassplayer', false);
+      expect(spy).to.have.been.calledWith('removeAttr', 'guitarplayer');
+      expect(spy).to.have.been.calledWith('removeAttr', 'drummer');
+    });
+  });
+
+  describe('#attributeChangedCallback()', () => {
+    it('Should call inherited attributeChangedCallback.', () => {
+
+    });
+
+    it('Should call requestParamsChangedCallback if a request ' +
+      'param changes.', () => {
+
+    });
+
+    it('Should not break if requestParamsChangedCallback ' +
+      'is not a function.', () => {
+
+    });
+
+    it('Should not call requestParamsChangedCallback if a request param ' +
       'changes to the previous value.', () => {
-      $dummy.setAttribute('crossbalance', 'true');
-      $dummy.setAttribute('crossbalance', 'true');
-      $dummy.setAttribute('crossbalance', 'true');
-      expect(spy).to.have.been.calledOnce;
+
     });
 
-    it('Should not call onRequestParamChanged if a changed attribute ' +
+    it('Should not call requestParamsChangedCallback if a changed attribute ' +
       'is not a request param.', () => {
-      $dummy.setAttribute('nothing', 'not a request param');
-      expect(spy).not.to.have.been.called;
+
     });
 
     it('Should receive an object containing all the request parameters ' +
       'as the first argument.', () => {
-      $dummy.setAttribute('affiliationcodes', '123456789');
 
-      expect(spy.args[0][0]).to.eql({
-        affiliationCodes: '123456789',
-      });
-
-      $dummy.setAttribute('startdate', '2018-06-01');
-
-      expect(spy.args[1][0]).to.eql({
-        affiliationCodes: '123456789',
-        startDate: '2018-06-01',
-      });
-
-      $dummy.removeAttribute('affiliationcodes');
-
-      expect(spy.args[2][0]).to.eql({
-        startDate: '2018-06-01',
-      });
-
-      expect(spy).to.have.been.calledThrice;
     });
 
     it('Should exclude parameters with empty values ' +
       'at the first argument.', () => {
-      $dummy.setAttribute('affiliationcodes', '123456789');
 
-      expect(spy.args[0][0]).to.eql({
-        affiliationCodes: '123456789',
-      });
-
-      $dummy.setAttribute('startdate', '');
-
-      expect(spy.args[1][0]).to.eql({
-        affiliationCodes: '123456789',
-      });
-
-      expect(spy).to.have.been.calledTwice;
     });
 
     it('Should receive an object containing only the changed parameters ' +
       'as the second argument.', () => {
-      $dummy.setAttribute('affiliationcodes', '123456789');
 
-      expect(spy.args[0][1]).to.eql({
-        affiliationCodes: '123456789',
-      });
-
-      $dummy.setAttribute('startdate', '2018-06-01');
-
-      expect(spy.args[1][1]).to.eql({
-        startDate: '2018-06-01',
-      });
-
-      $dummy.removeAttribute('affiliationcodes');
-
-      expect(spy.args[2][1]).to.eql({
-        affiliationCodes: null,
-      });
-
-      expect(spy).to.have.been.calledThrice;
     });
 
     it('Should not exclude parameters with empty or undefined values ' +
       'at the second argument.', () => {
-      $dummy.setAttribute('affiliationcodes', '123456789');
 
-      expect(spy.args[0][1]).to.eql({
-        affiliationCodes: '123456789',
-      });
-
-      $dummy.setAttribute('startdate', '');
-
-      expect(spy.args[1][1]).to.eql({
-        startDate: null,
-      });
-
-      expect(spy).to.have.been.calledTwice;
     });
   });
 });
