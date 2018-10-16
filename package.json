@@ -5,9 +5,6 @@
   "private": true,
   "flat": true,
   "scripts": {
-    "version-bump": "lerna publish --skip-git --skip-npm",
-    "prepublish-packages": "npm install",
-    "publish-packages": "lerna exec --bail=false -- npm publish",
     "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "send-coverage": "cat ./coverage/integration/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
