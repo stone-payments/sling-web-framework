@@ -12,6 +12,7 @@ export const withLoadingAndErrorHandling = (Base = class {}) =>
 
       return request
         .then((result) => {
+          this.dispatchEventAndMethod('requestsuccess');
           this.finishLoading();
           return result;
         })
