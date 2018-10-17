@@ -2,22 +2,51 @@
 	font-size: 10px;
 	line-height: 12px;
 	font-weight: 900;
-	letter-spacing: :1px;
+	letter-spacing: 1px;
 	border-radius: 15px;
 	padding: 4px 8px;
 	color: white;
 }
 
-.color-label {
-	color: white;
+.red-text-label:before,
+.yellow-text-label:before,
+.gray-text-label:before,
+.green-text-label:before,
+.purple-text-label:before {
+	content: "•";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
 }
 
-.red-label { background-color: #e74c3c; }
-.yellow-label { background-color: #f9bf09; }
-.gray-label { background-color: #c3c8d2; }
-.green-label { background-color: #2ecc71; }
-.purple-label { background-color: #8036dc; }
+/*
+	Inlines
+*/
+.red-fill-label { 
+	background-color: #e74c3c;
+}
 
+.yellow-fill-label {
+	background-color: #f9bf09;
+}
+
+.gray-fill-label {
+	background-color: #c3c8d2;
+}
+
+.green-fill-label {
+	background-color: #2ecc71;
+}
+
+.purple-fill-label {
+	background-color: #8036dc;
+}
+
+/*
+	Outlines
+*/
 .red-outline-label {
 	background-color: white;
 	border: 1px solid #e74c3c;
@@ -45,5 +74,29 @@
 .purple-outline-label {
 	background-color: white;
 	border: 1px solid #8036dc;
+	color: #8036dc;
+}
+
+/*
+	Only texts
+*/
+
+.red-text-label {
+	color: #e74c3c;
+}
+
+.yellow-text-label {
+	color: #f9bf09;
+}
+
+.gray-text-label {
+	color: #c3c8d2;
+}
+
+.green-text-label {
+	color: #2ecc71;
+}
+
+.purple-text-label {
 	color: #8036dc;
 }
