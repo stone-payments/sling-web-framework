@@ -6,6 +6,10 @@ export class Tooltip extends SlingElement {
       position: {
         type: String,
         reflectToAttribute: true,
+      },
+      tooltiptext:{
+        type: String,
+        reflectToAttribute: true,
       }
     };
   }
@@ -19,7 +23,7 @@ export class Tooltip extends SlingElement {
       
       <div class="tooltip">
       <slot></slot>
-        <span className="tooltiptext ${this.position || 'right'}">Tooltip text</span>
+        <span className="tooltiptext ${this.position || 'right'}">${this.tooltiptext}</span>
       </div>
     `;
   }
