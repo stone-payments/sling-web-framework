@@ -32,10 +32,29 @@ See on the [Wiki](https://github.com/stone-payments/sling-web-framework/wiki/Ava
 
 ## Git Workflow
 ### Committing
+We have very precise rules on how our git commit messages should be formatted. This leads to readable messages that are easy to follow when looking through the project history. We also use the git commit messages to generate our changelog and releases.
 
-Feel free to commit clear messages, in **english**, to describe every single change in your branch.
+We use [conventional commits](https://conventionalcommits.org/) as a guideline for merging commits. A typical commit message looks like this:
+`type: subject` or `type(scope): subject`
 
-We use [conventional commits](https://conventionalcommits.org/) as guidelines for merge commits.
+#### Type
+
+Must be one of the following:
+
+- **feat:** A new feature
+- **fix:** A bug fix
+- **docs:** Documentation only changes
+- **style:** Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **refactor:** A code change that neither fixes a bug nor adds a feature
+- **perf:** A code change that improves performance
+- **test:** Adding missing tests
+- **chore:** Changes to the build process or auxiliary tools and libraries such as documentation generation
+- **BREAKING CHANGE:** a commit that has the text `BREAKING CHANGE:` at the beginning of its optional body or footer section introduces a breaking API change (correlating with MAJOR in semantic versioning). A breaking change can be part of commits of any type. e.g., a fix:, feat: & chore: types would all be valid, in addition to any other type.
+
+#### Scope
+A scope may be provided to a commit’s type, to provide additional contextual information and is contained within parenthesis, e.g., feat(parser): add ability to parse arrays.
+
+Commit clear messages, in **english**, to describe every single change in your branch. We also recommend using [Commitizen CLI](http://commitizen.github.io/cz-cli/) for write better commits.
 
 ### Branching
 
