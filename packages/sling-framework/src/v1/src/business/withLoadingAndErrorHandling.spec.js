@@ -136,16 +136,41 @@ describe('withLoading', () => {
   });
 
   describe('#request()', () => {
-    it('Should handle a single request.', () => {
+    let dummy;
 
+    beforeEach(() => {
+      dummy = new Dummy();
+      dummy.requestSingle = sinon.spy();
+    });
+
+    afterEach(() => {
+      dummy.requestSingle = null;
+      dummy = null;
+    });
+
+    it('Should handle a single request.', () => {
+      const singleRequest = Promise.resolve();
+      dummy.request(singleRequest);
+
+      expect(dummy.requestSingle).to.have.been.calledOnce;
+      expect(dummy.requestSingle).to.always.have.been.calledWith(singleRequest);
     });
 
     it('Should handle many requests.', () => {
+      const singleRequest = Promise.resolve();
+      const manyRequests = [singleRequest, singleRequest, singleRequest];
+      dummy.request(manyRequests);
 
+      expect(dummy.requestSingle).to.have.been.calledThrice;
+      expect(dummy.requestSingle).to.always.have.been.calledWith(singleRequest);
     });
 
     it('Should correctly bind this.', () => {
+      dummy.requestSingle = function named() {
+        return this;
+      };
 
+      expect(dummy.request()).to.equal(dummy);
     });
   });
 });
