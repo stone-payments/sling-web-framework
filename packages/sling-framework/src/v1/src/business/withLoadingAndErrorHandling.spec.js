@@ -86,6 +86,12 @@ describe('withLoading', () => {
         .to.have.been.calledWith('startloading');
     });
 
+    it('Should not dispatch event if this.loading is more than zero.', () => {
+      dummy.loading = 5;
+      dummy.startLoading();
+      expect(dummy.dispatchEventAndMethod).not.to.have.been.called;
+    });
+
     it('Should increment this.loading.', () => {
       dummy.loading = 0;
       dummy.startLoading();
@@ -113,14 +119,6 @@ describe('withLoading', () => {
       dummy = null;
     });
 
-    it('Should dispatch event if this.loading is zero.', () => {
-      dummy.loading = 1;
-      dummy.finishLoading();
-
-      expect(dummy.dispatchEventAndMethod)
-        .to.have.been.calledWith('finishloading');
-    });
-
     it('Should decrement this.loading.', () => {
       dummy.loading = 1;
       dummy.finishLoading();
@@ -132,6 +130,22 @@ describe('withLoading', () => {
       dummy.loading = 1;
       dummy.finishLoading();
       expect(dummy.isLoading).to.be.false;
+    });
+
+    it('Should dispatch event if this.loading is zero.', () => {
+      dummy.loading = 1;
+      dummy.finishLoading();
+      expect(dummy.loading).to.equal(0);
+
+      expect(dummy.dispatchEventAndMethod)
+        .to.have.been.calledWith('finishloading');
+    });
+
+    it('Should not dispatch event if this.loading is more than zero.', () => {
+      dummy.loading = 5;
+      dummy.finishLoading();
+      expect(dummy.loading).to.equal(4);
+      expect(dummy.dispatchEventAndMethod).not.to.have.been.called;
     });
   });
 
