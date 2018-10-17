@@ -6,17 +6,7 @@ import { withRequestParams } from './withRequestParams.js';
 chai.use(sinonChai);
 const { expect } = chai;
 
-let spy;
-
 describe('withRequestParams', () => {
-  beforeEach(() => {
-    spy = sinon.spy();
-  });
-
-  afterEach(() => {
-    spy = undefined;
-  });
-
   describe('.requestParamNames', () => {
     class Empty extends withRequestParams() {}
 
@@ -81,46 +71,50 @@ describe('withRequestParams', () => {
       static get requestAttrNames() {
         return ['bassplayer', 'guitarplayer', 'drummer'];
       }
-
-      getAttribute(attrName) {
-        spy('getAttr', attrName, this);
-      }
-
-      removeAttribute(attrName) {
-        spy('removeAttr', attrName, this);
-      }
-
-      setAttribute(attrName, value) {
-        spy('setAttr', attrName, value, this);
-      }
     }
 
-    const dummy = new Dummy();
+    let dummy;
+
+    beforeEach(() => {
+      Dummy.prototype.getAttribute = sinon.spy();
+      Dummy.prototype.removeAttribute = sinon.spy();
+      Dummy.prototype.setAttribute = sinon.spy();
+      dummy = new Dummy();
+    });
+
+    afterEach(() => {
+      dummy = null;
+      Dummy.prototype.getAttribute = null;
+      Dummy.prototype.removeAttribute = null;
+      Dummy.prototype.setAttribute = null;
+    });
 
     it('Should define getters and setters.', () => {
-      let descriptor;
+      const descriptor = Object.getOwnPropertyDescriptor(dummy, 'bassplayer');
 
-      descriptor = Object.getOwnPropertyDescriptor(dummy, 'bassplayer');
-      expect(descriptor.get).to.be.a('function');
-      expect(descriptor.set).to.be.a('function');
+      descriptor.get.call(dummy);
+      expect(dummy.getAttribute).to.have.been.calledOnce;
 
-      descriptor = Object.getOwnPropertyDescriptor(dummy, 'drummer');
-      expect(descriptor.get).to.be.a('function');
-      expect(descriptor.set).to.be.a('function');
+      descriptor.set.call(dummy, 'string');
+      expect(dummy.setAttribute).to.have.been.calledOnce;
 
-      descriptor = Object.getOwnPropertyDescriptor(dummy, 'guitarplayer');
-      expect(descriptor.get).to.be.a('function');
-      expect(descriptor.set).to.be.a('function');
+      descriptor.set.call(dummy);
+      expect(dummy.removeAttribute).to.have.been.calledOnce;
     });
 
     it('Expect getters to trigger getAttribute.', () => {
       const { bassplayer, guitarplayer, drummer } = dummy;
 
-      expect(spy).to.have.been.calledThrice;
+      expect(dummy.getAttribute).to.have.been.calledThrice;
 
-      expect(spy).to.have.been.calledWith('getAttr', 'bassplayer');
-      expect(spy).to.have.been.calledWith('getAttr', 'guitarplayer');
-      expect(spy).to.have.been.calledWith('getAttr', 'drummer');
+      expect(dummy.getAttribute)
+        .to.have.been.calledWith('bassplayer');
+
+      expect(dummy.getAttribute)
+        .to.have.been.calledWith('guitarplayer');
+
+      expect(dummy.getAttribute)
+        .to.have.been.calledWith('drummer');
 
       expect(bassplayer).to.be.undefined;
       expect(guitarplayer).to.be.undefined;
@@ -132,11 +126,16 @@ describe('withRequestParams', () => {
       dummy.guitarplayer = 'Miyagi';
       dummy.drummer = 'Ed Chivers';
 
-      expect(spy).to.have.been.calledThrice;
+      expect(dummy.setAttribute).to.have.been.calledThrice;
 
-      expect(spy).to.have.been.calledWith('setAttr', 'bassplayer', 'Ben Adamo');
-      expect(spy).to.have.been.calledWith('setAttr', 'guitarplayer', 'Miyagi');
-      expect(spy).to.have.been.calledWith('setAttr', 'drummer', 'Ed Chivers');
+      expect(dummy.setAttribute)
+        .to.have.been.calledWith('bassplayer', 'Ben Adamo');
+
+      expect(dummy.setAttribute)
+        .to.have.been.calledWith('guitarplayer', 'Miyagi');
+
+      expect(dummy.setAttribute)
+        .to.have.been.calledWith('drummer', 'Ed Chivers');
     });
 
     it('Expect setters to trigger removeAttribute if passed ' +
@@ -145,56 +144,124 @@ describe('withRequestParams', () => {
       dummy.guitarplayer = null;
       dummy.drummer = undefined;
 
-      expect(spy).to.have.been.calledThrice;
+      expect(dummy.setAttribute)
+        .to.have.been.calledWith('bassplayer', false);
 
-      expect(spy).to.have.been.calledWith('setAttr', 'bassplayer', false);
-      expect(spy).to.have.been.calledWith('removeAttr', 'guitarplayer');
-      expect(spy).to.have.been.calledWith('removeAttr', 'drummer');
+      expect(dummy.removeAttribute)
+        .to.have.been.calledWith('guitarplayer');
+
+      expect(dummy.removeAttribute)
+        .to.have.been.calledWith('drummer');
     });
   });
 
   describe('#attributeChangedCallback()', () => {
-    it('Should call inherited attributeChangedCallback.', () => {
+    class Dummy extends withRequestParams() {
+      static get requestParamNames() {
+        return ['affiliationCode', 'startDate', 'finalDate'];
+      }
+    }
 
+    it('Should call inherited attributeChangedCallback.', () => {
+      class Parent {}
+      Parent.prototype.attributeChangedCallback = sinon.spy();
+
+      class Child extends withRequestParams(Parent) {}
+      const child = new Child();
+      child.attributeChangedCallback();
+
+      expect(Parent.prototype.attributeChangedCallback)
+        .to.have.been.calledOnce;
     });
 
     it('Should call requestParamsChangedCallback if a request ' +
       'param changes.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+      expect(dummy.requestParamsChangedCallback).to.have.been.called;
+    });
+
+    it('Should not call requestParamsChangedCallback if a request param ' +
+      'changes to the previous value.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+      dummy.attributeChangedCallback('startdate', 'sameDate', 'sameDate');
+      expect(dummy.requestParamsChangedCallback).not.to.have.been.called;
+    });
+
+    it('Should not call requestParamsChangedCallback if a changed attribute ' +
+      'is not a request param.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+      dummy.attributeChangedCallback('notSet', 'oldValue', 'newValue');
+      expect(dummy.requestParamsChangedCallback).not.to.have.been.called;
+    });
+
+    it('Should receive an object containing all the request parameters ' +
+      'as the first argument.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
+        startDate: '20180915',
+      });
+
+      dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
+
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
+        startDate: '20180915',
+        finalDate: '20200915',
+      });
+    });
+
+    it('Should exclude parameters with empty values ' +
+      'at the first argument.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+
+      dummy.attributeChangedCallback('startdate', '20180901', null);
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({});
+
+      dummy.attributeChangedCallback('finaldate', '20200901', '');
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({});
+
+      dummy.attributeChangedCallback('affiliationcode', '', '123456789');
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
+        affiliationCode: '123456789',
+      });
+    });
+
+    it('Should receive an object containing only the changed parameters ' +
+      'as the second argument.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
+        startDate: '20180915',
+      }, {
+        startDate: '20180915',
+      });
+
+      dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
+
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
+        startDate: '20180915',
+        finalDate: '20200915',
+      }, {
+        finalDate: '20200915',
+      });
+    });
+
+    it('Should not exclude parameters with empty or undefined values ' +
+      'at the second argument.', () => {
 
     });
 
     it('Should not break if requestParamsChangedCallback ' +
       'is not a function.', () => {
-
-    });
-
-    it('Should not call requestParamsChangedCallback if a request param ' +
-      'changes to the previous value.', () => {
-
-    });
-
-    it('Should not call requestParamsChangedCallback if a changed attribute ' +
-      'is not a request param.', () => {
-
-    });
-
-    it('Should receive an object containing all the request parameters ' +
-      'as the first argument.', () => {
-
-    });
-
-    it('Should exclude parameters with empty values ' +
-      'at the first argument.', () => {
-
-    });
-
-    it('Should receive an object containing only the changed parameters ' +
-      'as the second argument.', () => {
-
-    });
-
-    it('Should not exclude parameters with empty or undefined values ' +
-      'at the second argument.', () => {
 
     });
   });
