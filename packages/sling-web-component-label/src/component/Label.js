@@ -19,14 +19,13 @@ export class Label extends SlingElement {
   }
 
   constructor() {
-    super()
-    this.type = 'fill'
-    this.color = 'green'
-    this.size = 'small'
+    super();
+    this.type = 'fill';
+    this.color = 'green';
+    this.size = 'small';
   }
 
-  render({ disabled, type }) {
-    
+  render() {
     return html`
       <style>
         @import url('sling-web-component-label/src/index.css');
