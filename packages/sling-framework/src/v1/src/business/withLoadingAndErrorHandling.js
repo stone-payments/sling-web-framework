@@ -20,6 +20,7 @@ export const withLoadingAndErrorHandling = (Base = class {}) =>
           this.requestErrors = [...this.requestErrors, err];
           this.dispatchEventAndMethod('requesterror', { unhandledError: err });
           this.finishLoading();
+          throw err;
         });
     }
 
