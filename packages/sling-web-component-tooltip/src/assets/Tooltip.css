@@ -6,27 +6,29 @@
 /* Tooltip text */
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
-    background-color: black;
+    background-color: #0c1219;
     color: #fff;
     text-align: center;
-    padding: 5px 0;
+    padding: 8px;
     border-radius: 6px;
     position: absolute;
     z-index: 1;
     opacity: 0;
     transition: opacity 1s;
+    font-size: 12px;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+    white-space: nowrap;
 }
 
 .tooltip .tooltiptext.right{
     top: -5px;
-    left: 105%; 
+    left: 100%; 
+    margin-left: 8px;
 }
 
 .tooltip .tooltiptext.right::after {
@@ -37,12 +39,13 @@
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent black transparent transparent;
+    border-color: transparent #0c1219 transparent transparent;
 }
 
 .tooltip .tooltiptext.left{
     top: -5px;
-    right: 105%; 
+    right: 100%; 
+    margin-right: 8px;
 }
 
 .tooltip .tooltiptext.left::after {
@@ -53,14 +56,14 @@
     margin-top: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent transparent black;
+    border-color: transparent transparent transparent #0c1219;
 }
 
 .tooltip .tooltiptext.top{
-    width: 120px;
     bottom: 100%;
-    left: 50%; 
-    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .tooltip .tooltiptext.top::after {
@@ -71,15 +74,15 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: black transparent transparent transparent;
+    border-color: #0c1219 transparent transparent transparent;
 }
 
 
 .tooltip .tooltiptext.bottom {
-    width: 120px;
     top: 100%;
-    left: 50%; 
-    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-top: 8px;
+    left: 50%;
+    transform: translateX(-50%)
 }
 
 .tooltip .tooltiptext.bottom::after {
@@ -90,6 +93,5 @@
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent black transparent;
+    border-color: transparent transparent #0c1219 transparent;
 }
-
