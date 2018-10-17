@@ -253,16 +253,38 @@ describe('withRequestParams', () => {
       }, {
         finalDate: '20200915',
       });
+
+      expect(dummy.requestParams).to.deep.equal({
+        startDate: '20180915',
+        finalDate: '20200915',
+      });
     });
 
     it('Should not exclude parameters with empty or undefined values ' +
       'at the second argument.', () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+      dummy.attributeChangedCallback('startdate', '20180901', null);
 
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({}, {
+        startDate: null,
+      });
+
+      dummy.attributeChangedCallback('finaldate', '20200901', '');
+
+      expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({}, {
+        finalDate: null,
+      });
+
+      expect(dummy.requestParams).to.deep.equal({});
     });
 
     it('Should not break if requestParamsChangedCallback ' +
       'is not a function.', () => {
-
+      const dummy = new Dummy();
+      const value = dummy
+        .attributeChangedCallback('startdate', '20180901', '20200915');
+      expect(value).to.be.undefined;
     });
   });
 });

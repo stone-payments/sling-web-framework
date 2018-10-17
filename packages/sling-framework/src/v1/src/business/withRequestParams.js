@@ -1,6 +1,6 @@
 import { isFunction, toFlatEntries } from 'sling-helpers';
 
-const isValidParam = param => param != null && param !== '';
+const isValidEntry = ([, value]) => value != null && value !== '';
 
 export const withRequestParams = (Base = class {}) =>
   class extends Base {
@@ -57,7 +57,7 @@ export const withRequestParams = (Base = class {}) =>
             ...this.requestParams,
             ...changedParam,
           })
-          .filter(([, value]) => isValidParam(value))
+          .filter(isValidEntry)
           .reduce(toFlatEntries, {});
 
         this.requestParamsChangedCallback(this.requestParams, changedParam);
