@@ -11,6 +11,10 @@ export class Label extends SlingElement {
         type: String,
         reflectToAttribute: true,
       },
+      size: {
+        type: String,
+        reflectToAttribute: true,
+      },
     };
   }
 
@@ -18,6 +22,7 @@ export class Label extends SlingElement {
     super()
     this.type = 'fill'
     this.color = 'green'
+    this.size = 'small'
   }
 
   render({ disabled, type }) {
@@ -26,7 +31,7 @@ export class Label extends SlingElement {
       <style>
         @import url('sling-web-component-label/src/index.css');
       </style>
-      <span className="common-label ${this.color}-${this.type}-label"><slot></slot></span>
+      <span className="common-label ${this.size}-label ${this.color}-${this.type}-label"><slot></slot></span>
     `;
   }
 }

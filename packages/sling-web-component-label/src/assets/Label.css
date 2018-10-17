@@ -1,24 +1,24 @@
 .common-label {
-	font-size: 10px;
-	line-height: 12px;
 	font-weight: 900;
 	letter-spacing: 1px;
-	border-radius: 15px;
+	border-radius: 50px;
 	padding: 4px 8px;
 	color: white;
 }
 
-.red-text-label:before,
-.yellow-text-label:before,
-.gray-text-label:before,
-.green-text-label:before,
-.purple-text-label:before {
-	content: "•";
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 0 5px;
+.small-label {
+	font-size: 10px;
+	line-height: 12px;
+}
+
+.medium-label {
+	font-size: 11px;
+	line-height: 13px;
+}
+
+.big-label {
+	font-size: 12px;
+	line-height: 14px;
 }
 
 /*
@@ -80,6 +80,19 @@
 /*
 	Only texts
 */
+
+.red-text-label:before,
+.yellow-text-label:before,
+.gray-text-label:before,
+.green-text-label:before,
+.purple-text-label:before {
+	content: "•";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+}
 
 .red-text-label {
 	color: #e74c3c;
