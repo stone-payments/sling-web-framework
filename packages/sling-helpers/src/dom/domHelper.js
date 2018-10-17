@@ -1,5 +1,3 @@
-export { makeRequest } from './makeRequest.js';
-
 export const waitUntilEvent = (name, $el = document) =>
   new Promise((resolve) => {
     const handleEvent = () => {
