@@ -15,7 +15,6 @@ export class Tooltip extends SlingElement {
   }
 
   render() {
-    console.log(this.position);
     return html`
       <style>
         @import url('sling-web-component-tooltip/src/index.css');
