@@ -34,7 +34,7 @@ See on the [Wiki](https://github.com/stone-payments/sling-web-framework/wiki/Ava
 ### Committing
 We have very precise rules over how our git commit messages should be formatted. This leads to readable messages that are easy to follow when looking through the project history. We also use the git commit messages to generate our changelog and releases.
 
-We use [conventional commits](https://conventionalcommits.org/) as guidelines for merge commits. A typical commit message looks this:
+We use [conventional commits](https://conventionalcommits.org/) as a guideline for merging commits. A typical commit message looks like this:
 `type: subject` or `type(scope): subject`
 
 #### Type
