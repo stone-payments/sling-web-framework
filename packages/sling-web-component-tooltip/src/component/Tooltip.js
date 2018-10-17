@@ -16,7 +16,9 @@ export class Tooltip extends SlingElement {
       <style>
         @import url('sling-web-component-tooltip/src/index.css');
       </style>
-      <div class="tooltip">Hover over me
+      
+      <div class="tooltip">
+      <slot></slot>
         <span className="tooltiptext ${this.position || 'right'}">Tooltip text</span>
       </div>
     `;
