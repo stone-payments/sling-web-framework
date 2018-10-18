@@ -182,7 +182,7 @@ class StarRating extends SlingElement {
 
 Note that the `observer` key was changed to accept a method instead of a string. The result is the same: when the `rate` property changes, the `observer` method is called receiving the current and the old property values.
 
-At this point, at the application, it is be possible to listen for the `rate` event an implement the `onrate` method, like this:
+At this point, it is be possible to listen for the `rate` event an implement the `onrate` method at the application, like this:
 
 ```javascript
 document.addEventListener('rate', evt => { console.log(evt.detail) });
