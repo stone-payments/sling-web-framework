@@ -33,18 +33,18 @@ Then, we import SlingElement and html in a javascript file.
 import { SlingElement, html } from 'sling-framework';
 ```
 
-Usually, web components are javascript class that extends HTMLElement. In our case, we extend SlingElement, which enhances HTMLElement with new behaviour.
+Usually, web components are javascript classes that extend HTMLElement. In our case, we extend SlingElement, which enhances HTMLElement with new behaviour.
 
-To build a Star Rating component, we start by declaring a StartRating class that extends SlingElement.
+To build a Star Rating component, we start by declaring a StarRating class that extends SlingElement.
 
 ```javascript
-class StartRating extends SlingElement {}
+class StarRating extends SlingElement {}
 ```
 
 In the constructor, we set initial values to the properties that the component will need. In our example, the `rate` property's initial value is zero.
 
 ```javascript
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   constructor() {
     super();
     this.rate = 0;
@@ -63,7 +63,7 @@ Next, we need to tell the component how to handle the `rate` property:
 We do that by declaring a static getter called `properties`.
 
 ```javascript
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   // ommited code
 
   static get properties() {
@@ -100,7 +100,7 @@ With `observer: 'restrictRate'`, we tell the component how to react to changes i
 The `observer` method receives the current property value as the first parameter and the old property value as the second.
 
 ```javascript
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   // ommited code
 
   restrictRate(newRate, oldRate) {
@@ -117,7 +117,7 @@ So far, our component doesn't render anything. To change that, we implement the 
 Our `render` method draws five stars that are colored according to the current `rate` value.
 
 ```javascript
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   // ommited code
 
   render() {
@@ -141,7 +141,7 @@ Note that we also define that the `handleStarClick` method will be called every 
 Just like happens in [React](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56), we have to bind `this` to `handleStarClick` in the constructor.
 
 ```javascript
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   constructor() {
     super();
     this.rate = 0;
@@ -163,7 +163,7 @@ class StartRating extends SlingElement {
 At this point, the component is working as expected, but the application is not aware of what's happening inside of it. To work this out, we dispatch custom DOM events that can be observed by the application. SlingElement implements a method called `dispatchEventAndMethod` that does that.
 
 ```javascript
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   // ommited code
 
   static get properties() {
@@ -200,7 +200,7 @@ That's it. We have finished the Star Rating component. Here's the complete code:
 ```javascript
 import { SlingElement, html } from 'sling-framework';
 
-class StartRating extends SlingElement {
+class StarRating extends SlingElement {
   constructor() {
     super();
     this.rate = 0;
@@ -247,7 +247,7 @@ class StartRating extends SlingElement {
   }
 }
 
-window.customElements.define('star-rating', StartRating);
+window.customElements.define('star-rating', StarRating);
 ```
 
 ## withRequest
