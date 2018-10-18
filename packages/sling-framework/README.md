@@ -2,40 +2,40 @@
 
 The Sling Framework provides the building blocks to create Sling-based web components:
 
-#### `SlingElement`
+#### SlingElement
 
 A class based on Google's [LitElement](https://github.com/Polymer/lit-element) that provides attribute/property handling and reflecting.
 
-#### `html`
+#### html
 
 A tagged template literal utility from [lit-html](https://polymer.github.io/lit-html/) that provides an expressive API to dynamically generate html that reacts effectively to the component's state.
 
-#### `withRequest`
+#### withRequest
 
 A decorator that brings methods, properties and events for handling API requests.
 
-#### `withSetState`
+#### withSetState
 
 A decorator that exposes a method that behaves much like [React's `setState`](https://reactjs.org/docs/state-and-lifecycle.html#using-state-correctly).
 
 
 ## SlingElement and html
 
-To use the `SlingElement` class, we start by installing `sling-framework` from npm.
+To use the SlingElement class, we start by installing `sling-framework` from npm.
 
 ```bash
 npm install --save sling-framework
 ```
 
-Then, we import `SlingElement` and `html` in a javascript file.
+Then, we import SlingElement and html in a javascript file.
 
 ```javascript
 import { SlingElement, html } from 'sling-framework';
 ```
 
-Usually, web components are javascript class that extends `HTMLElement`. In our case, we extend `SlingElement`, which enhances `HTMLElement` with new behaviour.
+Usually, web components are javascript class that extends HTMLElement. In our case, we extend SlingElement, which enhances HTMLElement with new behaviour.
 
-To build a Star Rating component, we start by declaring a `StartRating` class that extends `SlingElement`.
+To build a Star Rating component, we start by declaring a StartRating class that extends SlingElement.
 
 ```javascript
 class StartRating extends SlingElement {}
@@ -80,7 +80,7 @@ class StartRating extends SlingElement {
 
 #### `type: Number`
 
-In our example, we tell the component that the `rate` property is a `Number`. The type can be any javascript primitive like `Boolean` or `String`.
+In our example, we tell the component that the `rate` property is a Number. The type can be any javascript primitive like Boolean or String.
 
 #### `reflectToAttribute: true`
 
@@ -166,7 +166,7 @@ class StartRating extends SlingElement {
 
 ### Dispatching events
 
-At this point, the component is working as expected, but the application is not aware of what's happening inside of it. To work this out, we dispatch custom DOM events that can be observed by the application. `SlingElement` implements a method called `dispatchEventAndMethod` that does that.
+At this point, the component is working as expected, but the application is not aware of what's happening inside of it. To work this out, we dispatch custom DOM events that can be observed by the application. SlingElement implements a method called `dispatchEventAndMethod` that does that.
 
 ```javascript
 class StartRating extends SlingElement {
@@ -199,7 +199,7 @@ const starRatingElement = document.querySelector('star-rating');
 starRatingElement.onrate = evt => { console.log(evt.detail) };
 ```
 
-### Final example
+### Complete example
 
 That's it. We have finished the Star Rating component. Here's the complete code:
 
@@ -258,7 +258,7 @@ window.customElements.define('star-rating', StartRating);
 
 ## withRequest
 
-The `withRequest` decorator enhances any web component with methods, properties and events for handling API requests.
+The withRequest decorator enhances any web component with methods, properties and events for handling API requests.
 
 To start using it, first, we install `sling-framework` from npm.
 
@@ -266,13 +266,13 @@ To start using it, first, we install `sling-framework` from npm.
 npm install --save sling-framework
 ```
 
-Then, we import `withRequest` in a javascript file.
+Then, we import withRequest in a javascript file.
 
 ```javascript
 import { withRequest } from 'sling-framework';
 ```
 
-Being a javasscript decorator, `withRequest` must wrap the class it enhances like this:
+Being a javasscript decorator, withRequest must wrap the class it enhances like this:
 
 ```javascript
 import { SlingElement, html, withRequest } from 'sling-framework';
