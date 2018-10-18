@@ -78,13 +78,9 @@ class StartRating extends SlingElement {
 }
 ```
 
-#### `type: Number`
+In our example, we tell the component that the `rate` property is a Number by assigning `type: Number`. The type can be any javascript primitive like Boolean or String.
 
-In our example, we tell the component that the `rate` property is a Number. The type can be any javascript primitive like Boolean or String.
-
-#### `reflectToAttribute: true`
-
-We tell the component that the `rate` property can be passed throught both html and javascript.
+We also tell the component that the `rate` property can be passed throught both html and javascript by using `reflectToAttribute: true`.
 
 ```html
 <!-- Passing rate throught html -->
@@ -99,11 +95,9 @@ starRatingElement.rate = 4;
 
 If set to false, `reflectToAttribute` tells the component that the property can only be passed throught javascript. This is useful when dealing with complex values like objects or arrays; we usually don't want those being passed throught html.
 
-#### `observer: 'restrictRate'`
+With `observer: 'restrictRate'`, we tell the component how to react to changes in the `rate` property. In our example, it should call the `restrictRate` method, that coerces the value to an integer between zero and five.
 
-We are using `observer` to  tell the component how to react to changes in the `rate` property. In our example, it should call the `restrictRate` method that coerces the value to an integer between zero and five.
-
-The `observer` method receives the new property value as the first parameter and the old property value as the second.
+The `observer` method receives the current property value as the first parameter and the old property value as the second.
 
 ```javascript
 class StartRating extends SlingElement {
@@ -186,7 +180,7 @@ class StartRating extends SlingElement {
   }
 ```
 
-Note that the `observer` key was changed to accept a method instead of a string. The result is the same: when the `rate` property changes, the `observer` method will be called receiving the new property value and the old one.
+Note that the `observer` key was changed to accept a method instead of a string. The result is the same: when the `rate` property changes, the `observer` method will be called receiving the current property value and the old one.
 
 At this point, at the application, it is be possible to listen for the `rate` event an implement the `onrate` method, like this:
 
