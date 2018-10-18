@@ -2,8 +2,11 @@
 	font-weight: 900;
 	letter-spacing: 1px;
 	border-radius: 50px;
-	padding: 4px 8px;
+	padding: 6px 10px;
 	color: white;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .small-label {
