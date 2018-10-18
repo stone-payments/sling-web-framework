@@ -16,12 +16,22 @@ describe('Tooltip', () => {
     $tooltip = undefined;
   });
 
-  it('Should reflect "position", "tooltiptext", ' +
-  'attribute to property ', () => {
+  it('Should reflect attributes to properties', () => {
     $tooltip.setAttribute('position', 'right');
     $tooltip.setAttribute('tooltiptext', 'test');
 
     expect($tooltip.position).eq('right');
     expect($tooltip.tooltiptext).eq('test');
+  });
+
+  it('Should reflect properties to attributes ', (done) => {
+    $tooltip.position = 'right';
+    $tooltip.tooltiptext = 'test';
+
+    setTimeout(() => {
+      expect($tooltip.getAttribute('position')).to.equal('right');
+      expect($tooltip.getAttribute('tooltiptext')).to.equal('test');
+      done();
+    });
   });
 });
