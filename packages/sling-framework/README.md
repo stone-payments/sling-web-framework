@@ -16,7 +16,7 @@ A decorator that brings methods, properties and events for handling API requests
 
 ### withSetState
 
-A decorator that exposes a method that behaves much like [React's `setState`](https://reactjs.org/docs/state-and-lifecycle.html#using-state-correctly).
+A decorator that exposes a method that changes the component state in a functional way.
 
 
 ## SlingElement and html
@@ -138,7 +138,7 @@ class StarRating extends SlingElement {
 
 Note that we also define that the `handleStarClick` method will be called every time a star is clicked, so that we can also react to user interaction.
 
-Just like happens in [React](https://medium.freecodecamp.org/react-binding-patterns-5-approaches-for-handling-this-92c651b5af56), we have to bind `this` to `handleStarClick` in the constructor.
+We have to bind `this` to `handleStarClick` in the constructor or it will point to the button instead of the component.
 
 ```javascript
 class StarRating extends SlingElement {
