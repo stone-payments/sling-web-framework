@@ -80,7 +80,7 @@ class StarRating extends SlingElement {
 
 In our example, we tell the component that the `rate` property is a Number by assigning `type: Number`. The type can be any javascript primitive like Boolean or String.
 
-We also tell the component that the `rate` property can be passed throught both html and javascript by using `reflectToAttribute: true`.
+We also tell the component that the `rate` property can be passed throught both html and javascript by assigning `reflectToAttribute: true`.
 
 ```html
 <!-- Passing rate throught html -->
