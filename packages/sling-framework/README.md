@@ -2,19 +2,19 @@
 
 The Sling Framework provides the building blocks to create Sling-based web components:
 
-#### SlingElement
+### SlingElement
 
 A class based on Google's [LitElement](https://github.com/Polymer/lit-element) that provides attribute/property handling and reflecting.
 
-#### html
+### html
 
 A tagged template literal utility from [lit-html](https://polymer.github.io/lit-html/) that provides an expressive API to dynamically generate html that reacts effectively to the component's state.
 
-#### withRequest
+### withRequest
 
 A decorator that brings methods, properties and events for handling API requests.
 
-#### withSetState
+### withSetState
 
 A decorator that exposes a method that behaves much like [React's `setState`](https://reactjs.org/docs/state-and-lifecycle.html#using-state-correctly).
 
