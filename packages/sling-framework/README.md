@@ -95,7 +95,7 @@ starRatingElement.rate = 4;
 
 If set to false, `reflectToAttribute` tells the component that the property can only be passed throught javascript. This is useful when dealing with complex values like objects or arrays; we usually don't want those being passed throught html.
 
-With `observer: 'restrictRate'`, we tell the component how to react to `rate` changes. In our example, the component should call the `restrictRate` method, that coerces `rate` to an integer between zero and five.
+With `observer: 'restrictRate'`, we tell the component how to react to `rate` changes. In our example, the component calls the `restrictRate` method, that coerces `rate` to an integer between zero and five.
 
 The `observer` callback receives the current and the last property values as first and second parameters, respectively.
 
@@ -138,7 +138,7 @@ class StarRating extends SlingElement {
 
 Note that we also define that the `handleStarClick` method will be called every time a star is clicked, so that we can also react to user interaction.
 
-We have to bind `this` to `handleStarClick` in the constructor or it will point to the button instead of the component.
+We have to bind `this` to `handleStarClick` in the constructor or it will point to the button instead of the parent component.
 
 ```javascript
 class StarRating extends SlingElement {
