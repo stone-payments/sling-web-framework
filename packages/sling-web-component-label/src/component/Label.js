@@ -33,14 +33,14 @@ export class Label extends SlingElement {
     this.color = 'green';
     this.size = 'small';
     this.imageName = '';
-    this.showBullet = false
+    this.showBullet = false;
   }
 
   render() {
     let image;
 
     if (this.imageName.length > 0) {
-      image = html`<sling-icon className="icons md-${this.size}" icon="${this.imageName}"></sling-icon>`
+      image = html`<sling-icon className="icons md-${this.size}" icon="${this.imageName}"></sling-icon>`;
     }
 
     return html`
