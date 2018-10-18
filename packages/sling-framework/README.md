@@ -173,7 +173,7 @@ class StarRating extends SlingElement {
         reflectToAttribute: true,
         observer(newRate, oldValue) {
           this.restrictRate(newRate);
-          this.dispatchEventAndMethod('rate', newRate);
+          this.dispatchEventAndMethod('rate', this.rate);
         },
       },
     };
@@ -214,7 +214,7 @@ class StarRating extends SlingElement {
         reflectToAttribute: true,
         observer(newRate) {
           this.restrictRate(newRate);
-          this.dispatchEventAndMethod('rate', newRate);
+          this.dispatchEventAndMethod('rate', this.rate);
         },
       },
     };
