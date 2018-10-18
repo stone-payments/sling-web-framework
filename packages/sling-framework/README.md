@@ -6,26 +6,26 @@ The Sling Framework provides the building blocks to create Sling-based web compo
 
 * `html` — A tagged template literal utility from [lit-html](https://polymer.github.io/lit-html/) that provides an expressive API to dynamically generate html that reacts effectively to the component's state.
 
-* `withRequest` – A decorator that brings methods, variables and events for handling API requests.
+* `withRequest` – A decorator that brings methods, properties and events for handling API requests.
 
 * `withSetState` – A decorator that exposes a method that behaves much like [React's `setState`](https://reactjs.org/docs/state-and-lifecycle.html#using-state-correctly).
 
 
 ## SlingElement and html
 
-We start by installing `sling-framework` from npm.
+To use the `SlingElement` class, we start by installing `sling-framework` from npm.
 
 ```bash
 npm install --save sling-framework
 ```
 
-Then, we import SlingElement and html in a javascript file.
+Then, we import `SlingElement` and `html` in a javascript file.
 
 ```javascript
 import { SlingElement, html } from 'sling-framework';
 ```
 
-Every web component is a javascript class that extends `HTMLElement`. In our case, we extend `SlingElement`, which enhances `HTMLElement` with new behaviour.
+Usually, web components are javascript class that extends `HTMLElement`. In our case, we extend `SlingElement`, which enhances `HTMLElement` with new behaviour.
 
 To build a Star Rating component, we start by declaring a `StartRating` class that extends `SlingElement`.
 
@@ -33,7 +33,7 @@ To build a Star Rating component, we start by declaring a `StartRating` class th
 class StartRating extends SlingElement {}
 ```
 
-Then, in the constructor, we set initial values to the properties that the component will need. In our example, the `rate` property's initial value is zero.
+In the constructor, we set initial values to the properties that the component will need. In our example, the `rate` property's initial value is zero.
 
 ```javascript
 class StartRating extends SlingElement {
@@ -72,11 +72,11 @@ class StartRating extends SlingElement {
 
 #### `type: Number`
 
-In the example, we are telling the component that the `rate` property is a `Number`. The type can be any javascript primitive like `Boolean` or `String`.
+In our example, we tell the component that the `rate` property is a `Number`. The type can be any javascript primitive like `Boolean` or `String`.
 
 #### `reflectToAttribute: true`
 
-We are telling the component that the `rate` property can be passed throught both html and javascript.
+We tell the component that the `rate` property can be passed throught both html and javascript.
 
 ```html
 <!-- Passing rate throught html -->
@@ -190,3 +190,101 @@ document.addEventListener('rate', evt => { console.log(evt.detail) });
 const starRatingElement = document.querySelector('star-rating');
 starRatingElement.onrate = evt => { console.log(evt.detail) };
 ```
+
+### Final example
+
+That's it. We have finished the Star Rating component. Here's the complete code:
+
+```javascript
+import { SlingElement, html } from 'sling-framework';
+
+class StartRating extends SlingElement {
+  constructor() {
+    super();
+    this.rate = 0;
+    this.handleStarClick = this.handleStarClick.bind(this);
+  }
+
+  static get properties() {
+    return {
+      rate: {
+        type: Number,
+        reflectToAttribute: true,
+        observer(newRate) {
+          this.restrictRate(newRate);
+          this.dispatchEventAndMethod('rate', newRate);
+        },
+      },
+    };
+  }
+
+  restrictRate(newRate, oldRate) {
+    if (Math.round(newRate) !== newRate || newRate < 0 || newRate > 5) {
+      this.rate = Math.round(Math.max(0, Math.min(5, newRate)));
+    }
+  }
+
+  handleStarClick(index) {
+    return () => {
+      this.rate = index;
+    };
+  }
+
+  render() {
+    return html`
+      <style>
+        button { color: grey; border: none; font-size: 32px; }
+        button.selected { color: gold; }
+      </style>
+      ${[1, 2, 3, 4, 5].map(index => html`
+        <button
+          className="${index <= this.rate ? ' selected' : ''}"
+          onclick=${this.handleStarClick(index)}>★</button>
+      `)}
+    `;
+  }
+}
+
+window.customElements.define('star-rating', StartRating);
+```
+
+## withRequest
+
+The `withRequest` decorator enhances any web component with methods, properties and events for handling API requests.
+
+To start using it, first, we install `sling-framework` from npm.
+
+```bash
+npm install --save sling-framework
+```
+
+Then, we import `withRequest` in a javascript file.
+
+```javascript
+import { withRequest } from 'sling-framework';
+```
+
+Being a javasscript decorator, `withRequest` must wrap the class it enhances like this:
+
+```javascript
+import { SlingElement, html, withRequest } from 'sling-framework';
+
+class RandomUsers extends withRequest(SlingElement) {}
+```
+
+isLoading
+requestErrors
+
+request
+requestParamsChangedCallback
+
+requestParamNames
+
+startloading
+finishloading
+requesterror
+requestsuccess
+
+## withSetState
+
+setState
