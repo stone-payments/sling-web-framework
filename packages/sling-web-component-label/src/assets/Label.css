@@ -78,14 +78,10 @@
 }
 
 /*
-	Only texts
+	Bullet
 */
 
-.red-text-label:before,
-.yellow-text-label:before,
-.gray-text-label:before,
-.green-text-label:before,
-.purple-text-label:before {
+.bullet-label-true:before {
 	content: "•";
     width: 4px;
     height: 4px;
@@ -112,4 +108,25 @@
 
 .purple-text-label {
 	color: #8036dc;
+}
+
+/*
+	Icons
+*/
+
+.icons {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.icons.md-small {
+	width: 18px;
+}
+
+.icons.md-medium {
+	width: 21px;
+}
+
+.icons.md-big {
+	width: 24px;
 }

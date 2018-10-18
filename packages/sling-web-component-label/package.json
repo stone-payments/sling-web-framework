@@ -8,6 +8,7 @@
   "author": "Stone Pagamentos",
   "dependencies": {
     "sling-framework": "^1.8.0",
-    "sling-helpers": "^1.8.0"
+    "sling-helpers": "^1.8.0",
+    "sling-web-component-icon": "^1.8.0"
   }
 }
