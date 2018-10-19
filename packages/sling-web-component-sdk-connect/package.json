@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-sdk-connect",
-  "version": "1.0.0",
+  "version": "1.8.0",
   "description": "Sling SDK Connect",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
