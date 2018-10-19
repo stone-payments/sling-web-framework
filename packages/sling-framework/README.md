@@ -80,20 +80,20 @@ class StarRating extends SlingElement {
 
 In our example, we tell the component that the `rate` property is a Number by assigning `type: Number`. The type can be any javascript primitive like Boolean or String.
 
-We also tell the component that the `rate` property can be passed throught both html and javascript by assigning `reflectToAttribute: true`.
+We also tell the component that the `rate` property can be passed through both html and javascript by assigning `reflectToAttribute: true`.
 
 ```html
-<!-- Passing rate throught html -->
+<!-- Passing rate through html -->
 <star-rating rate="4"></star-rating>
 ```
 
 ```javascript
-// Passing rate throught javascript
+// Passing rate through javascript
 const starRatingElement = document.querySelector('star-rating');
 starRatingElement.rate = 4;
 ```
 
-If set to false, `reflectToAttribute` tells the component that the property can only be passed throught javascript. This is useful when dealing with complex values like objects or arrays; we usually don't want those being passed throught html.
+If set to false, `reflectToAttribute` tells the component that the property can only be passed through javascript. This is useful when dealing with complex values like objects or arrays; we usually don't want those being passed through html.
 
 With `observer: 'restrictRate'`, we tell the component how to react to `rate` changes. In our example, the component calls the `restrictRate` method, that coerces `rate` to an integer between zero and five.
 
