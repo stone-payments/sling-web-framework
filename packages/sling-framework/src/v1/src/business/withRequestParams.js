@@ -1,8 +1,8 @@
 import { isFunction, toFlatEntries } from 'sling-helpers';
 
-const isValidParam = param => param != null && param !== '';
+const isValidEntry = ([, value]) => value != null && value !== '';
 
-export const withRequestParams = (Base = HTMLElement) =>
+export const withRequestParams = (Base = class {}) =>
   class extends Base {
     static get requestParamNames() {
       return super.requestParamNames || [];
@@ -45,7 +45,7 @@ export const withRequestParams = (Base = HTMLElement) =>
       const requestAttrIndex = requestAttrNames.indexOf(attrName);
 
       const shouldTrigger = requestAttrIndex > -1 &&
-        isFunction(this.onRequestParamChanged) &&
+        isFunction(this.requestParamsChangedCallback) &&
         oldValue !== newValue;
 
       if (shouldTrigger) {
@@ -57,10 +57,10 @@ export const withRequestParams = (Base = HTMLElement) =>
             ...this.requestParams,
             ...changedParam,
           })
-          .filter(([, value]) => isValidParam(value))
+          .filter(isValidEntry)
           .reduce(toFlatEntries, {});
 
-        this.onRequestParamChanged(this.requestParams, changedParam);
+        this.requestParamsChangedCallback(this.requestParams, changedParam);
       }
 
       if (isFunction(super.attributeChangedCallback)) {
