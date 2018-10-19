@@ -1,0 +1,135 @@
+.common-label {
+	font-weight: 900;
+	letter-spacing: 1px;
+	border-radius: 50px;
+	padding: 6px 10px;
+	color: white;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.small-label {
+	font-size: 10px;
+	line-height: 12px;
+}
+
+.medium-label {
+	font-size: 11px;
+	line-height: 13px;
+}
+
+.big-label {
+	font-size: 12px;
+	line-height: 14px;
+}
+
+/*
+	Inlines
+*/
+.red-fill-label { 
+	background-color: #e74c3c;
+}
+
+.yellow-fill-label {
+	background-color: #f9bf09;
+}
+
+.gray-fill-label {
+	background-color: #c3c8d2;
+}
+
+.green-fill-label {
+	background-color: #2ecc71;
+}
+
+.purple-fill-label {
+	background-color: #8036dc;
+}
+
+/*
+	Outlines
+*/
+.red-outline-label {
+	background-color: white;
+	border: 1px solid #e74c3c;
+	color: #e74c3c;
+}
+
+.yellow-outline-label {
+	background-color: white;
+	border: 1px solid #f9bf09;
+	color: #f9bf09;
+}
+
+.gray-outline-label {
+	background-color: white;
+	border: 1px solid #c3c8d2;
+	color: #c3c8d2;
+}
+
+.green-outline-label {
+	background-color: white;
+	border: 1px solid #2ecc71;
+	color: #2ecc71;
+}
+
+.purple-outline-label {
+	background-color: white;
+	border: 1px solid #8036dc;
+	color: #8036dc;
+}
+
+/*
+	Bullet
+*/
+
+.bullet-label-true:before {
+	content: "•";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.red-text-label {
+	color: #e74c3c;
+}
+
+.yellow-text-label {
+	color: #f9bf09;
+}
+
+.gray-text-label {
+	color: #c3c8d2;
+}
+
+.green-text-label {
+	color: #2ecc71;
+}
+
+.purple-text-label {
+	color: #8036dc;
+}
+
+/*
+	Icons
+*/
+
+.icons {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.icons.md-small {
+	width: 18px;
+}
+
+.icons.md-medium {
+	width: 21px;
+}
+
+.icons.md-big {
+	width: 24px;
+}
