@@ -74,8 +74,7 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
     "@semantic-release/changelog": "^3.0.0",
-    "@semantic-release/git": "^7.0.4",
-    "@semantic-release/npm": "^5.0.4"
+    "@semantic-release/git": "^7.0.4"
   },
   "repository": {
     "type": "git",
