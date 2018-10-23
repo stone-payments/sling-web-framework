@@ -84,6 +84,9 @@
   "bugs": {
     "url": "https://github.com/stone-payments/sling-framework/issues"
   },
+  "release": {
+    "branch": "next"
+  },
   "homepage": "https://github.com/stone-payments/sling-framework#readme",
   "resolutions": {
     "eslint-scope": "3.7.1"
