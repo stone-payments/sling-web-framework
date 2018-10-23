@@ -76,6 +76,9 @@
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.4"
   },
+  "release": {
+    "branch": "next"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/stone-payments/sling-framework.git"
