@@ -1,3 +1,3 @@
 # sling-helpers
 
-Describe sling-helpers here.
+Describe sling-helpers here :)
