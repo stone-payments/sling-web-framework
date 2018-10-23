@@ -1,7 +1,7 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "1.8.0",
+  "version": "0.0.0-semantic-released",
   "private": true,
   "flat": true,
   "scripts": {
@@ -79,7 +79,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stone-payments/sling-framework.git"
+    "url": "https://github.com/stone-payments/sling-framework.git"
   },
   "author": "Stone Pagamentos",
   "bugs": {
