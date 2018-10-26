@@ -1,7 +1,7 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "1.8.0",
+  "version": "0.0.0-semantic-released",
   "private": true,
   "flat": true,
   "scripts": {
@@ -55,7 +55,7 @@
     "lerna": "^3.4.1",
     "mocha": "^5.1.1",
     "mocha-webpack": "^2.0.0-beta.0",
-    "nyc": "^13.0.1",
+    "nyc": "^13.1.0",
     "opn": "^5.3.0",
     "postcss": "^6.0.21",
     "postcss-import": "^11.1.0",
@@ -78,9 +78,12 @@
     "nightwatch": "^0.9.21",
     "selenium-download": "^2.0.13"
   },
+  "release": {
+    "branch": "next"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stone-payments/sling-framework.git"
+    "url": "https://github.com/stone-payments/sling-framework.git"
   },
   "author": "Stone Pagamentos",
   "bugs": {
