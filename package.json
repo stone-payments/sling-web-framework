@@ -18,7 +18,9 @@
     "cafe-es5": "./node_modules/.bin/cross-env ECMA=5 node ./scripts/cafe.js",
     "prespec": "npm run lint",
     "spec": "node ./scripts/spec.js",
-    "server": "node ./scripts/server.js"
+    "server": "node ./scripts/server.js",
+    "nightwatch": "nightwatch",
+    "e2e:setup": "node selenium-setup"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -75,7 +77,9 @@
     "webpack-dev-server": "^3.1.8",
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.4",
-    "@semantic-release/npm": "^5.0.4"
+    "@semantic-release/npm": "^5.0.4",
+    "nightwatch": "^0.9.21",
+    "selenium-download": "^2.0.13"
   },
   "repository": {
     "type": "git",
@@ -88,5 +92,5 @@
   "homepage": "https://github.com/stone-payments/sling-framework#readme",
   "resolutions": {
     "eslint-scope": "3.7.1"
-  }
+  },
 }
