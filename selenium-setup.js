@@ -1,6 +1,6 @@
 const selenium = require('selenium-download');
+const path = require('path');
 
-selenium.ensure(__dirname + '/bin',  (error) => {
-  if (error) console.error(error.stack);
+selenium.ensure(path.join(__dirname, 'bin'), () => {
   process.exit(0);
 });
