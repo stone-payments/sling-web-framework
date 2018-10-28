@@ -61,27 +61,27 @@ export class BrandIcon extends HTMLElement {
 
   getSvg() {
     switch (this.brandid) {
-      case 1: // visa
+      case 1:
         return icons.VISA;
-      case 2: // mastercard
+      case 2:
         return icons.MASTERCARD;
-      case 3: // americanexpress
+      case 3:
         return icons.AMERICAN_EXPRESS;
-      case 5: // ticket
+      case 5:
         return icons.TICKET;
-      case 6: // sodexo
+      case 6:
         return icons.SODEXO;
-      case 7: // VR
+      case 7:
         return icons.VR;
-      case 8: // alelo
+      case 8:
         return icons.ALELO;
-      case 9: // hipercard
+      case 9:
         return icons.HIPERCARD;
-      case 12: // senff
+      case 12:
         return icons.SENFF;
-      case 171: // elo
+      case 171:
         return icons.ELO;
-      default: // stone
+      default:
         return icons.STONE;
     }
   }
