@@ -1,12 +1,13 @@
 {
-  "name": "sling-helpers",
-  "version": "1.10.0",
-  "description": "Sling Helpers",
+  "name": "sling-web-component-tooltip",
+  "version": "1.8.0",
+  "description": "Sling Tooltip",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "moment": "^2.22.2"
+    "sling-framework": "^1.8.0",
+    "sling-helpers": "^1.0.0"
   }
 }
