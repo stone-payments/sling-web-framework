@@ -1,8 +1,8 @@
-fixture`Getting Started`
-  .page`http://localhost:8080/`;
+module.exports = {
 
-test('My first test', async (t) => {
-  await t
-    .takeScreenshot('brand-icon.jpg');
-});
-
+  main: (browser) => {
+    browser.url('http://localhost:8080/')
+      .saveScreenshot('./reports/brand-icon.png')
+      .end();
+  },
+};
