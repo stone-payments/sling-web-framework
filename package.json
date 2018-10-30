@@ -74,7 +74,8 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
     "@semantic-release/changelog": "^3.0.0",
-    "@semantic-release/git": "^7.0.4"
+    "@semantic-release/git": "^7.0.4",
+    "puppeteer": "^1.9.0"
   },
   "release": {
     "branch": "next"
