@@ -7,7 +7,8 @@
   },
   "globals": {
     "expect": true,
-    "module": true
+    "module": true,
+    "fixture": true
   },
   "rules": {
     "import/extensions": "off",
@@ -52,12 +53,15 @@
         "props": false
       }
     ]
+ 
   },
-  "overrides": [{
-    "files": "*.{test,spec,cafe}.js",
-    "rules": {
-      "no-unused-expressions": "off",
-      "no-new-wrappers": "off"
+  "overrides": [
+    {
+      "files": "*.{test,spec,cafe}.js",
+      "rules": {
+        "no-unused-expressions": "off",
+        "no-new-wrappers": "off"
+      }
     }
-  }]
+  ]
 }
