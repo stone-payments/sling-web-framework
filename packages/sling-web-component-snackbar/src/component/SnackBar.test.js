@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { spy } from 'sinon';
 import { registerComponent } from 'sling-helpers';
 import { SnackBar } from './SnackBar.js';
