@@ -45,7 +45,9 @@ export class SnackBar extends SlingElement {
       <div className="${className}">
         <sling-icon class="emd-snackbar_icon" icon="${this.aim || 'info'}"></sling-icon>
         <div class="emd-snackbar_list">
-          <div class="emd-snackbar_item"><slot></slot></div>
+          <div class="emd-snackbar_item">
+            <slot></slot>
+          </div>
         </div>
         ${this.closeable ? html`
           <sling-button layout="text" onclick="${this.handleClick}">
