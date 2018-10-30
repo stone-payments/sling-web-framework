@@ -106,7 +106,8 @@ describe('Snackbar', () => {
   });
 
   describe('Handlers', () => {
-    it('Should call "closeclick" handler when close button is clicked', (done) => {
+    it('Should call "closeclick" handler when close '
+      + 'button is clicked', (done) => {
       $snackbar.closeable = true;
 
       setTimeout(() => {
