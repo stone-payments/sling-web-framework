@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { registerComponent } from 'sling-helpers';
 import { BrandIcon } from './BrandIcon.js';
 
@@ -73,7 +72,7 @@ describe('Brand Icon', () => {
     // Hipercard
     $brandIcon.brandid = 9;
     expect($brandIcon.getSvg().includes('hiper')).to.equal(true);
-    // Page-1 (?)
+    // Senff
     $brandIcon.brandid = 12;
     expect($brandIcon.getSvg().includes('Page-1')).to.equal(true);
     // Elo
