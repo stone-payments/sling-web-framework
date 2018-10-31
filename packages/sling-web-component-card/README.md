@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-card
+npm install sling-web-component-card
 ```
 
 ## Tag
