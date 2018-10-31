@@ -52,7 +52,7 @@ export class Card extends SlingElement {
         @import url('sling-web-component-card/src/index.css');
       </style>
       <div class="emd-card">
-        <div className="${applySlotClass('header', showHeader, !nopadding && !nopaddingheader)}" style="${this.backgroundHeader ? `background: ${this.backgroundHeader}` : ''}">
+        <div className="${applySlotClass('header', showHeader, !nopadding && !nopaddingheader)}" style="background: ${this.backgroundHeader}">
           <slot name="header" class="emd-card__slot"></slot>
         </div>
         <div className="${applySlotClass('body', showBody, !nopadding && !nopaddingbody)}">
