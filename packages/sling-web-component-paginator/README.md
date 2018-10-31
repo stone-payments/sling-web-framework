@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-paginator
+npm install sling-web-component-paginator
 ```
 
 ## Tag

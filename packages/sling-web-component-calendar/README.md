@@ -5,7 +5,7 @@ The calendar component is a simple and customizable calendar that receives an ar
  
 ## Install      
 ```
-npm instal sling-web-component-calendar
+npm install sling-web-component-calendar
 ```
   
 ## Tag

@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-login
+npm install sling-web-component-login
 ```
 
 ## Tag
