@@ -1,4 +1,16 @@
 
+<a name="1.11.0"></a>
+## 1.11.0 (2018-10-31)
+
+* chore: tests of brand icon components
+* feat: change semant-release branch
+* feat: regression tests of sling-button
+* chore: improve snackbar coverages
+* feat: update karma to use puppteer
+* docs: fix typos
+* fix: sling-input phone mask issue
+* feat: uses lerna for manual release
+
 <a name="1.10.0"></a>
 ## 1.10.0 (2018-10-22)
 
