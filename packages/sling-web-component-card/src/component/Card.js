@@ -27,6 +27,10 @@ export class Card extends SlingElement {
         type: Boolean,
         reflectToAttribute: true,
       },
+      bgHeader: {
+        type: String,
+        reflectToAttribute: true,
+      },
     };
   }
 
@@ -48,7 +52,7 @@ export class Card extends SlingElement {
         @import url('sling-web-component-card/src/index.css');
       </style>
       <div class="emd-card">
-        <div className="${applySlotClass('header', showHeader, !nopadding && !nopaddingheader)}">
+        <div className="${applySlotClass('header', showHeader, !nopadding && !nopaddingheader)}" style="${this.bgHeader ? `background: ${this.bgHeader}` : ''}">
           <slot name="header" class="emd-card__slot"></slot>
         </div>
         <div className="${applySlotClass('body', showBody, !nopadding && !nopaddingbody)}">
