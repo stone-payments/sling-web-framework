@@ -5,7 +5,7 @@ The message component is a static bar that indicates, through prevailing icons a
 ## Install
 
 ```
-npm instal sling-web-component-message
+npm install sling-web-component-message
 ```
 
 ## Tag

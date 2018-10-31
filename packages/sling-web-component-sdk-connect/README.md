@@ -3,7 +3,7 @@
 ## Install      
 
 ```
-npm instal sling-web-component-sdk-connect
+npm install sling-web-component-sdk-connect
 ```
  
  ## Tag
