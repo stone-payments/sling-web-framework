@@ -31,3 +31,6 @@ yarn-error.log*
 
 # lerna
 lerna-debug.log
+
+#selenium
+/bin

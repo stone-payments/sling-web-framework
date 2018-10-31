@@ -133,13 +133,13 @@ export class Input extends SlingElement {
               mask: '(00) 00000-0000',
             }],
             dispatch(appended, dynamicMasked) {
-              if (appended.length < 15) {
+              if ((dynamicMasked.value + appended).length < 15) {
                 return dynamicMasked.compiledMasks[0];
               }
               return dynamicMasked.compiledMasks[1];
             },
           });
-          this.maxlength = 15;
+          this.maxlength = 16;
           break;
         }
         case 'cep': {
