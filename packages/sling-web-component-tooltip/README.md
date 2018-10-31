@@ -5,7 +5,7 @@ The tooltip component is a simple and customizable tooltip that receives an text
  
 ## Install      
 ```
-npm instal sling-web-component-tooltip
+npm install sling-web-component-tooltip
 ```
   
 ## Tag

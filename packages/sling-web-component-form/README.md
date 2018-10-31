@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-form
+npm install sling-web-component-form
 ```
 
 ## Tag
