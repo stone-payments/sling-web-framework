@@ -1,4 +1,9 @@
 
+<a name="1.11.1"></a>
+## 1.11.1 (2018-10-31)
+
+* feat: change the header color from a Card element
+
 <a name="1.11.0"></a>
 ## 1.11.0 (2018-10-31)
 
