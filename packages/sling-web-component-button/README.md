@@ -3,7 +3,7 @@
 ## Install      
 
 ```
-npm instal sling-web-component-button
+npm install sling-web-component-button
 ```
  
  ## Tag

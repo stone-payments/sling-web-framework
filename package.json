@@ -1,10 +1,13 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "0.0.0-semantic-released",
+  "version": "1.11.0",
   "private": true,
   "flat": true,
   "scripts": {
+    "version-bump": "lerna publish --skip-git --skip-npm",
+    "prepublish-packages": "npm install",
+    "publish-packages": "lerna exec --bail=false -- npm publish",
     "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
     "lint": "./node_modules/.bin/eslint ./packages/**/*.js",
     "send-coverage": "cat ./coverage/integration/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
@@ -74,7 +77,8 @@
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
     "@semantic-release/changelog": "^3.0.0",
-    "@semantic-release/git": "^7.0.4"
+    "@semantic-release/git": "^7.0.4",
+    "puppeteer": "^1.9.0"
   },
   "release": {
     "branch": "next"
