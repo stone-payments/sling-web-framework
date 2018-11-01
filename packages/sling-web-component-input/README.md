@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-input 
+npm install sling-web-component-input 
 ```  
 
 ## Tag

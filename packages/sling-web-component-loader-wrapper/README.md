@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-loader-wrapper
+npm install sling-web-component-loader-wrapper
 ```
 
 ## Tag

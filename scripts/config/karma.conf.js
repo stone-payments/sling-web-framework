@@ -4,6 +4,8 @@ const getBasePath = require('../helpers/getBasePath');
 const basePath = getBasePath();
 const allPackagesPath = './packages/*';
 
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
 let reports = {
   reporters: ['mocha'],
   mochaReporter: {
