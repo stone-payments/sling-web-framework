@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-input",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "description": "Sling Input",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
@@ -8,7 +8,7 @@
   "author": "Stone Pagamentos",
   "dependencies": {
     "imask": "^4.0.0",
-    "sling-framework": "^1.11.1",
-    "sling-helpers": "^1.11.1"
+    "sling-framework": "^1.11.2",
+    "sling-helpers": "^1.11.2"
   }
 }
