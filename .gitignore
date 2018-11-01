@@ -35,5 +35,3 @@ lerna-debug.log
 # nightwatch
 reports
 bin
-#selenium
-/bin
