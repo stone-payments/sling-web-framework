@@ -31,3 +31,7 @@ yarn-error.log*
 
 # lerna
 lerna-debug.log
+
+# nightwatch
+reports
+bin
