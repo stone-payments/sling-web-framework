@@ -1,5 +1,5 @@
 {
-  "src_folders": ["packages/sling-web-component-card/src/component/card.regression.test.js"],
+  "src_folders": ["packages"],
   "output_folder": "reports",
   "custom_commands_path": "",
   "custom_assertions_path": "",
@@ -11,11 +11,12 @@
     "host": "127.0.0.1",
     "port": 4444,
     "cli_args": {
-      "webdriver.chrome.driver": "./bin/chromedriver.exe"
+      "webdriver.chrome.driver": "./bin/chromedriver"
     }
   },
   "test_settings": {
     "default": {
+      "filter" : "/*/src/component/*.regression.test.js",
       "launch_url": "",
       "silent": true,
       "desiredCapabilities": {
