@@ -1,141 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../../../scripts/helpers/injectDependencies.js"></script>
-    <link rel="stylesheet" href="index.css">
-    <title>sling-button</title>
-  </head>
-  <body ontouchstart="">
-    <sling-button disabled>Text</sling-button>
-    <sling-button layout="outline" disabled>Text</sling-button>
-    <sling-button layout="text" disabled>Text</sling-button>
-    <sling-button slim disabled>Text</sling-button>
-    <sling-button slim layout="outline" disabled>Text</sling-button>
-    <sling-button slim layout="text" disabled>Text</sling-button>
-  
-    <sling-button>Text</sling-button>
-    <sling-button layout="outline">Text</sling-button>
-    <sling-button layout="text">Text</sling-button>
-    <sling-button slim>Text</sling-button>
-    <sling-button slim layout="outline">Text</sling-button>
-    <sling-button slim layout="text">Text</sling-button>
 
-    <sling-button color="primary">Primary</sling-button>
-    <sling-button color="primary" layout="outline">Primary</sling-button>
-    <sling-button color="primary" layout="text">Primary</sling-button>
-    <sling-button slim color="primary">Primary</sling-button>
-    <sling-button slim color="primary" layout="outline">Primary</sling-button>
-    <sling-button slim color="primary" layout="text">Primary</sling-button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../../../scripts/helpers/injectDependencies.js"></script>
+  <link rel="stylesheet" href="index.css">
+  <title>sling-button</title>
+</head>
 
-    <sling-button color="success">Confirm</sling-button>
-    <sling-button color="success" layout="outline">Confirm</sling-button>
-    <sling-button color="success" layout="text">Confirm</sling-button>
-    <sling-button slim color="success">Confirm</sling-button>
-    <sling-button slim color="success" layout="outline">Confirm</sling-button>
-    <sling-button slim color="success" layout="text">Confirm</sling-button>
+<body ontouchstart="">
+  <p id="counter">0</p>
 
-    <sling-button color="danger">Cancel</sling-button>
-    <sling-button color="danger" layout="outline">Cancel</sling-button>
-    <sling-button color="danger" layout="text">Cancel</sling-button>
-    <sling-button slim color="danger">Cancel</sling-button>
-    <sling-button slim color="danger" layout="outline">Cancel</sling-button>
-    <sling-button slim color="danger" layout="text">Cancel</sling-button>
+  <div class="body">
+    <sling-button onclick="increaseCounter()" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" layout="outline" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" layout="text" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim layout="outline" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim layout="text" disabled>Text</sling-button>
 
-    <sling-button color="light">Light</sling-button>
-    <sling-button color="light" layout="outline">Light</sling-button>
-    <sling-button color="light" layout="text">Light</sling-button>
-    <sling-button slim color="light">Light</sling-button>
-    <sling-button slim color="light" layout="outline">Light</sling-button>
-    <sling-button slim color="light" layout="text">Light</sling-button>
+    <sling-button onclick="increaseCounter()">Text</sling-button>
+    <sling-button onclick="increaseCounter()" layout="outline">Text</sling-button>
+    <sling-button onclick="increaseCounter()" layout="text">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim layout="outline">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim layout="text">Text</sling-button>
 
-    <sling-button size="big" disabled>Text</sling-button>
-    <sling-button size="big" layout="outline" disabled>Text</sling-button>
-    <sling-button size="big" layout="text" disabled>Text</sling-button>
-    <sling-button slim size="big" disabled>Text</sling-button>
-    <sling-button slim size="big" layout="outline" disabled>Text</sling-button>
-    <sling-button slim size="big" layout="text" disabled>Text</sling-button>
-    
-    <sling-button size="big">Text</sling-button>
-    <sling-button size="big" layout="outline">Text</sling-button>
-    <sling-button size="big" layout="text">Text</sling-button>
-    <sling-button slim size="big">Text</sling-button>
-    <sling-button slim size="big" layout="outline">Text</sling-button>
-    <sling-button slim size="big" layout="text">Text</sling-button>
+    <sling-button onclick="increaseCounter()" color="primary">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" color="primary" layout="outline">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" color="primary" layout="text">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="primary">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="primary" layout="outline">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="primary" layout="text">Primary</sling-button>
 
-    <sling-button size="big" color="primary">Primary</sling-button>
-    <sling-button size="big" color="primary" layout="outline">Primary</sling-button>
-    <sling-button size="big" color="primary" layout="text">Primary</sling-button>
-    <sling-button slim size="big" color="primary">Primary</sling-button>
-    <sling-button slim size="big" color="primary" layout="outline">Primary</sling-button>
-    <sling-button slim size="big" color="primary" layout="text">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" color="success">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" color="success" layout="outline">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" color="success" layout="text">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="success">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="success" layout="outline">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="success" layout="text">Confirm</sling-button>
 
-    <sling-button size="big" color="success">Confirm</sling-button>
-    <sling-button size="big" color="success" layout="outline">Confirm</sling-button>
-    <sling-button size="big" color="success" layout="text">Confirm</sling-button>
-    <sling-button slim size="big" color="success">Confirm</sling-button>
-    <sling-button slim size="big" color="success" layout="outline">Confirm</sling-button>
-    <sling-button slim size="big" color="success" layout="text">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" color="danger">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" color="danger" layout="outline">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" color="danger" layout="text">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="danger">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="danger" layout="outline">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="danger" layout="text">Cancel</sling-button>
 
-    <sling-button size="big" color="danger">Cancel</sling-button>
-    <sling-button size="big" color="danger" layout="outline">Cancel</sling-button>
-    <sling-button size="big" color="danger" layout="text">Cancel</sling-button>
-    <sling-button slim size="big" color="danger">Cancel</sling-button>
-    <sling-button slim size="big" color="danger" layout="outline">Cancel</sling-button>
-    <sling-button slim size="big" color="danger" layout="text">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" color="light">Light</sling-button>
+    <sling-button onclick="increaseCounter()" color="light" layout="outline">Light</sling-button>
+    <sling-button onclick="increaseCounter()" color="light" layout="text">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="light">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="light" layout="outline">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim color="light" layout="text">Light</sling-button>
 
-    <sling-button size="big" color="light">Light</sling-button>
-    <sling-button size="big" color="light" layout="outline">Light</sling-button>
-    <sling-button size="big" color="light" layout="text">Light</sling-button>
-    <sling-button slim size="big" color="light">Light</sling-button>
-    <sling-button slim size="big" color="light" layout="outline">Light</sling-button>
-    <sling-button slim size="big" color="light" layout="text">Light</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" layout="outline" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" layout="text" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" layout="outline" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" layout="text" disabled>Text</sling-button>
 
-    <sling-button size="small" disabled>Text</sling-button>
-    <sling-button size="small" layout="outline" disabled>Text</sling-button>
-    <sling-button size="small" layout="text" disabled>Text</sling-button>
-    <sling-button slim size="small" disabled>Text</sling-button>
-    <sling-button slim size="small" layout="outline" disabled>Text</sling-button>
-    <sling-button slim size="small" layout="text" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="big">Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" layout="outline">Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" layout="text">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" layout="outline">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" layout="text">Text</sling-button>
 
-    <sling-button size="small">Text</sling-button>
-    <sling-button size="small" layout="outline">Text</sling-button>
-    <sling-button size="small" layout="text">Text</sling-button>
-    <sling-button slim size="small">Text</sling-button>
-    <sling-button slim size="small" layout="outline">Text</sling-button>
-    <sling-button slim size="small" layout="text">Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="primary">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="primary" layout="outline">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="primary" layout="text">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="primary">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="primary" layout="outline">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="primary" layout="text">Primary</sling-button>
 
-    <sling-button size="small" color="primary">Primary</sling-button>
-    <sling-button size="small" color="primary" layout="outline">Primary</sling-button>
-    <sling-button size="small" color="primary" layout="text">Primary</sling-button>
-    <sling-button slim size="small" color="primary">Primary</sling-button>
-    <sling-button slim size="small" color="primary" layout="outline">Primary</sling-button>
-    <sling-button slim size="small" color="primary" layout="text">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="success">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="success" layout="outline">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="success" layout="text">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="success">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="success" layout="outline">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="success" layout="text">Confirm</sling-button>
 
-    <sling-button size="small" color="success">Confirm</sling-button>
-    <sling-button size="small" color="success" layout="outline">Confirm</sling-button>
-    <sling-button size="small" color="success" layout="text">Confirm</sling-button>
-    <sling-button slim size="small" color="success">Confirm</sling-button>
-    <sling-button slim size="small" color="success" layout="outline">Confirm</sling-button>
-    <sling-button slim size="small" color="success" layout="text">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="danger">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="danger" layout="outline">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="danger" layout="text">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="danger">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="danger" layout="outline">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="danger" layout="text">Cancel</sling-button>
 
-    <sling-button size="small" color="danger">Cancel</sling-button>
-    <sling-button size="small" color="danger" layout="outline">Cancel</sling-button>
-    <sling-button size="small" color="danger" layout="text">Cancel</sling-button>
-    <sling-button slim size="small" color="danger">Cancel</sling-button>
-    <sling-button slim size="small" color="danger" layout="outline">Cancel</sling-button>
-    <sling-button slim size="small" color="danger" layout="text">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="light">Light</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="light" layout="outline">Light</sling-button>
+    <sling-button onclick="increaseCounter()" size="big" color="light" layout="text">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="light">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="light" layout="outline">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="big" color="light" layout="text">Light</sling-button>
 
-    <sling-button size="small" color="light">Light</sling-button>
-    <sling-button size="small" color="light" layout="outline">Light</sling-button>
-    <sling-button size="small" color="light" layout="text">Light</sling-button>
-    <sling-button slim size="small" color="light">Light</sling-button>
-    <sling-button slim size="small" color="light" layout="outline">Light</sling-button>
-    <sling-button slim size="small" color="light" layout="text">Light</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" layout="outline" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" layout="text" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" layout="outline" disabled>Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" layout="text" disabled>Text</sling-button>
 
-    <sling-button class="span" color="primary">Expandable</sling-button>
-    <sling-button slim class="span" color="primary">Expandable</sling-button>
-  </body>
+    <sling-button onclick="increaseCounter()" size="small">Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" layout="outline">Text</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" layout="text">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" layout="outline">Text</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" layout="text">Text</sling-button>
+
+    <sling-button onclick="increaseCounter()" size="small" color="primary">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="primary" layout="outline">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="primary" layout="text">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="primary">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="primary" layout="outline">Primary</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="primary" layout="text">Primary</sling-button>
+
+    <sling-button onclick="increaseCounter()" size="small" color="success">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="success" layout="outline">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="success" layout="text">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="success">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="success" layout="outline">Confirm</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="success" layout="text">Confirm</sling-button>
+
+    <sling-button onclick="increaseCounter()" size="small" color="danger">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="danger" layout="outline">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="danger" layout="text">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="danger">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="danger" layout="outline">Cancel</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="danger" layout="text">Cancel</sling-button>
+
+    <sling-button onclick="increaseCounter()" size="small" color="light">Light</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="light" layout="outline">Light</sling-button>
+    <sling-button onclick="increaseCounter()" size="small" color="light" layout="text">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="light">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="light" layout="outline">Light</sling-button>
+    <sling-button onclick="increaseCounter()" slim size="small" color="light" layout="text">Light</sling-button>
+
+    <sling-button onclick="increaseCounter()" class="span" color="primary">Expandable</sling-button>
+    <sling-button onclick="increaseCounter()" slim class="span" color="primary">Expandable</sling-button>
+  </div>
+</body>
+
+<script>
+  let counter = 0
+
+  function increaseCounter() {
+    counter++;
+    document.getElementById('counter').innerHTML = counter;
+  };
+</script>
+
 </html>
