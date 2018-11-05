@@ -1,14 +1,14 @@
 {
   "name": "sling-web-component-login",
-  "version": "1.8.0",
+  "version": "1.11.3",
   "description": "Sling Login component",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "dependencies": {
-    "sling-helpers": "^1.8.0",
-    "sling-web-component-button": "^1.8.0",
-    "sling-web-component-input": "^1.8.0"
+    "sling-helpers": "^1.11.3",
+    "sling-web-component-button": "^1.11.3",
+    "sling-web-component-input": "^1.11.3"
   }
 }

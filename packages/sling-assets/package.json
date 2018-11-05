@@ -1,6 +1,6 @@
 {
   "name": "sling-assets",
-  "version": "1.0.0",
+  "version": "1.11.3",
   "description": "Sling Assets",
   "author": "Stone Pagamentos",
   "module": "src/index.js",

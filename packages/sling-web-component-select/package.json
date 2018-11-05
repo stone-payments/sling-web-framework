@@ -1,13 +1,13 @@
 {
   "name": "sling-web-component-select",
-  "version": "1.8.0",
+  "version": "1.11.3",
   "description": "Sling Select",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-framework": "^1.8.0",
-    "sling-helpers": "^1.8.0"
+    "sling-framework": "^1.11.3",
+    "sling-helpers": "^1.11.3"
   }
 }
