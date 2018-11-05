@@ -26,8 +26,11 @@ if (os.platform() === 'win32') {
   const killNode = 'taskkill /im node.exe /F';
   exec(`${setupSelenium}`)
   exec(`call start /MIN "h" ${httpSever}`, { async: true });
-  exec(`${nightwatchBin} ${testFile} && ${killNode}`);
-} else {
+
+  setTimeout( () => {
+    exec(`${nightwatchBin} ${testFile} && ${killNode}`)
+  }, 1000);
+
   const killNode = 'kill $(ps aux | grep \'node\' | awk \'{print $2}\')';
   exec(`${setupSelenium} && ${httpSever} & ${nightwatchBin} ${testFile} && ${killNode}`);
 }
