@@ -27,10 +27,11 @@ if (os.platform() === 'win32') {
   exec(`${setupSelenium}`)
   exec(`call start /MIN "h" ${httpSever}`, { async: true });
 
-  setTimeout( () => {
-    exec(`${nightwatchBin} ${testFile} && ${killNode}`)
+  setTimeout(() => {
+    exec(`${nightwatchBin} ${testFile} && ${killNode}`);
   }, 1000);
 
+} else {
   const killNode = 'kill $(ps aux | grep \'node\' | awk \'{print $2}\')';
   exec(`${setupSelenium} && ${httpSever} & ${nightwatchBin} ${testFile} && ${killNode}`);
 }
