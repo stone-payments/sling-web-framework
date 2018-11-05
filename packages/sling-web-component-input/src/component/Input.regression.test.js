@@ -41,7 +41,7 @@ module.exports = {
             browser.assert.equal(result.value[7], '(12) 1231-2312')
             browser.assert.equal(result.value[8], '(12) 31231-2312')
             browser.assert.equal(result.value[9], 'abc@def.com')
-            browser.assert.equal(result.value[10], '12312312')
+            browser.assert.equal(result.value[10], '12312-312')
         })
         browser.saveScreenshot('./reports/input.png')
         .end();
