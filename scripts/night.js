@@ -25,7 +25,7 @@ const testFile = `packages/${scope}/src/component/${camelcase(scope).replace('sl
 if (os.platform() === 'win32') {
   const killNode = 'taskkill /im node.exe /F';
   exec(`${setupSelenium}`)
-  exec(`start /min ${httpSever}`);
+  exec(`call start /MIN "h" ${httpSever}`, { async: true });
   exec(`${nightwatchBin} ${testFile} && ${killNode}`);
 } else {
   const killNode = 'kill $(ps aux | grep \'node\' | awk \'{print $2}\')';
