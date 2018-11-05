@@ -1,7 +1,6 @@
 module.exports = {
 
   main: (browser) => {
-
     const testValues = {
       name: 'John Doe',
       email: 'john@doe.com',
