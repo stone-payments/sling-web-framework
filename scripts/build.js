@@ -26,11 +26,11 @@ forEachPackage(scope, (pkg) => {
 
     context = await getJsPathsExceptTests(`${pkg}/src`);
 
-    if (CI_ENV) {
-      await Promise.all(context.map(filePath => readFile(filePath, 'utf8')
-        .then(injectCssContent)
-        .then(safeWriteFile(filePath))));
-    }
+    // if (CI_ENV) {
+    await Promise.all(context.map(filePath => readFile(filePath, 'utf8')
+      .then(injectCssContent)
+      .then(safeWriteFile(filePath))));
+    // }
 
     // Outputs `dist/es/es6/` and `dist/es/es5/` from `src/`
 
