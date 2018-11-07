@@ -1,4 +1,5 @@
 const component = 'sling-web-component-login';
+const customCode = false;
 
 module.exports = {
 
@@ -8,7 +9,7 @@ module.exports = {
       password: 'password',
     };
 
-    browser.url('http://localhost:8080/')
+    browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
       .saveScreenshot(`./reports/${component}/${component}-start.png`)
       .execute(function (testValues) { /* eslint-disable-line*/
         const email = document.querySelector('sling-login').shadowRoot
