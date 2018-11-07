@@ -1,4 +1,4 @@
-const { exec } = require('shelljs');
+const { exec, env } = require('shelljs');
 const { join } = require('path');
 const camelcase = require('camelcase');
 const os = require('os');
@@ -14,24 +14,26 @@ if (scope === '*') {
 console.log(`Testing ${scope !== '*' ? scope : 'all packages'}\n`);
 
 const nightwatchBin = join('node_modules/.bin/nightwatch');
-const httpServerBin = join('node_modules/.bin/http-server');
+
+const webpackDevServer = join('node_modules/.bin/webpack-dev-server');
+const webpackConfig = join('scripts/config/webpack.night.config.js');
 
 const setupSelenium = 'node selenium-setup';
-const httpSever = `${httpServerBin} . -s -p 8777 -c-1`;
 
 const testFile = `packages/${scope}/src/component/${camelcase(scope).replace('slingWebComponent', '')}.regression.test.js`;
 
+env.PKG = scope;
 
 if (os.platform() === 'win32') {
   const killNode = 'taskkill /im node.exe /F';
-  exec(`${setupSelenium}`)
-  exec(`call start /MIN "h" ${httpSever}`, { async: true });
+
+  exec(`${setupSelenium}`);
+  exec(`call start /MIN "webpack" ${webpackDevServer} --config ${webpackConfig} --port 8777`, { async: true });
 
   setTimeout(() => {
     exec(`${nightwatchBin} ${testFile} && ${killNode}`);
   }, 1000);
-
 } else {
   const killNode = 'kill $(ps aux | grep \'node\' | awk \'{print $2}\')';
-  exec(`${setupSelenium} && ${httpSever} & ${nightwatchBin} ${testFile} && ${killNode}`);
+  exec(`${setupSelenium} && ${webpackDevServer} --config ${webpackConfig} --port 8777 & ${nightwatchBin} ${testFile} && ${killNode}`);
 }
