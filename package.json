@@ -14,14 +14,13 @@
     "postinstall": "lerna bootstrap",
     "build": "node ./scripts/build.js",
     "start": "node ./scripts/start.js",
+    "nightwatch": "node ./scripts/night.js",
     "pretest": "npm run lint",
     "test": "node ./scripts/test.js",
     "test-debug": "./node_modules/.bin/cross-env DEBUG=true node ./scripts/test.js",
     "prespec": "npm run lint",
     "spec": "node ./scripts/spec.js",
-    "server": "node ./scripts/server.js",
-    "nightwatch": "nightwatch",
-    "e2e:setup": "node selenium-setup"
+    "server": "node ./scripts/server.js"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -78,7 +77,7 @@
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.4",
     "@semantic-release/npm": "^5.0.4",
-    "nightwatch": "^0.9.21",
+    "nightwatch": "^1.0.11",
     "selenium-download": "^2.0.13",
     "puppeteer": "^1.9.0"
   },
