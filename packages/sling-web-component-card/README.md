@@ -21,19 +21,23 @@ npm install sling-web-component-card
 
 |Name|Type|Default Values|ReflectToAttribute|Observer|callSdk|
 |:--|:--|:--|:--:|:--|:--:|
+|backgroundheader|Boolean|**false**|:heavy_check_mark:|
 |nopadding|Boolean|**false**|:heavy_check_mark:|
 |nopaddingheader|Boolean|**false**|:heavy_check_mark:|
 |nopaddingbody|Boolean|**false**|:heavy_check_mark:|
 |nopaddingfooter|Boolean|**false**|:heavy_check_mark:|
+|nodivisors|Boolean|**false**|:heavy_check_mark:|
 
 ### Description
 
 |Name|Description|
 |:---|:---|
-|nopadding |Defines whether the entire card will have padding.|
-|nopaddingheader|Set the card's header will have padding.|
-|nopaddingbody|Defines whether the body of the card will have padding.|
-|nopaddingfooter|Sets whether the card's footer will have padding.|
+|backgroundheader|Define the background CSS property of the header.|
+|nopadding|Defines whether the card's header, body and footer will have padding.|
+|nopaddingheader|Defines whether the card's header will have padding.|
+|nopaddingbody|Defines whether the card's body will have padding.|
+|nopaddingfooter|Defines whether the card's footer will have padding.|
+|nodivisors|Sets whether the card will have lines between header, body and footer.|
 
 ## Events
 
