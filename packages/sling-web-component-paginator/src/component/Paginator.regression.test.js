@@ -1,7 +1,10 @@
+const component = 'sling-web-component-paginator';
+const customCode = false;
+
 module.exports = {
 
   main: (browser) => {
-    browser.url('http://localhost:8080/')
+    browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
       /* eslint-disable */
       .execute(function () {
         let paginatorList = document.querySelectorAll('sling-paginator')
@@ -40,7 +43,7 @@ module.exports = {
       });
 
     /* eslint-enable */
-    browser.saveScreenshot('./reports/paginator.png')
+    browser.saveScreenshot(`./reports/${component}/${component}.png`)
       .end();
   },
 };
