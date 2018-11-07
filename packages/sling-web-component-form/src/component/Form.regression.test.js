@@ -1,3 +1,6 @@
+const component = 'sling-web-component-form';
+const customCode = false;
+
 module.exports = {
 
   main: (browser) => {
@@ -9,7 +12,7 @@ module.exports = {
       cnpj: '12.345.678/9012-34',
     };
 
-    browser.url('http://localhost:8080/')
+    browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
       /* eslint-disable */
       .execute(function () {
         document.querySelector('sling-button').click()
@@ -20,7 +23,7 @@ module.exports = {
         browser.assert.equal(input.value, 'error');
       });
     });
-    browser.saveScreenshot('./reports/form-invalid.png')
+    browser.saveScreenshot(`./reports/${component}/${component}-invalid.png`)
       /* eslint-disable */
       .execute(function (testValues) {
         document.querySelector('sling-input[name="name"]').value = testValues.name
@@ -36,7 +39,7 @@ module.exports = {
         });
       })
       /* eslint-enable */
-      .saveScreenshot('./reports/form.png')
+      .saveScreenshot(`./reports/${component}/${component}.png`)
       .end();
   },
 };
