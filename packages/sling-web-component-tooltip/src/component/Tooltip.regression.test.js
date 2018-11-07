@@ -1,4 +1,4 @@
-const component = 'sling-web-component-tooptip';
+const component = 'sling-web-component-tooltip';
 const customCode = false;
 
 module.exports = {
