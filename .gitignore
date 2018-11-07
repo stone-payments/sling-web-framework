@@ -32,5 +32,6 @@ yarn-error.log*
 # lerna
 lerna-debug.log
 
-#selenium
-/bin
+# nightwatch
+reports
+bin
