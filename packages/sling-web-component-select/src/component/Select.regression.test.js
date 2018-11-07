@@ -1,6 +1,7 @@
 const component = 'sling-web-component-select';
 const customCode = false;
- module.exports = {
+
+module.exports = {
   main: (browser) => {
     browser.url(`http://localhost:8777/packages/${component}/${customCode ? 'public/regression' : 'public'}/index.html`);
     for (let i = 1; i <= 8; i++) { // eslint-disable-line
