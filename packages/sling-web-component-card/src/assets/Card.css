@@ -31,8 +31,12 @@
   display: none;
 }
 
-.emd-card__slot_visible + .emd-card__slot_visible {
+.emd-card__slot_visible ~ .emd-card__slot_visible {
   border-top: 1px solid #C3C8D2;
+}
+
+.emd-card_nodivisors .emd-card__slot_visible + .emd-card__slot_visible {
+  border-top: none;
 }
 
 .emd-card__slot_header {
