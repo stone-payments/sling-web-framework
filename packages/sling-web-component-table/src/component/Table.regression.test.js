@@ -1,9 +1,10 @@
 const component = 'sling-web-component-table';
+const customCode = false;
 
 module.exports = {
 
   main: (browser) => {
-    browser.url('http://localhost:8080')
+    browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
       .saveScreenshot(`./reports/${component}/${component}-start.png`)
       .execute(function () { /* eslint-disable-line*/
         const tableList = [];
