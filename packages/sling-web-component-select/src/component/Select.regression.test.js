@@ -3,7 +3,7 @@ const customCode = false;
 
 module.exports = {
   main: (browser) => {
-    browser.url(`http://localhost:8777/packages/${component}/${customCode ? 'public/regression' : 'public'}/index.html`);
+    browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`);
     for (let i = 1; i <= 8; i++) { // eslint-disable-line
       browser.execute(function (data) { // eslint-disable-line
         const select = document.querySelector('sling-select');
