@@ -13,6 +13,7 @@
     "send-coverage": "cat ./coverage/integration/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "postinstall": "lerna bootstrap",
     "build": "node ./scripts/build.js",
+    "build-prod": "CI_ENV=true node ./scripts/build.js",
     "start": "node ./scripts/start.js",
     "nightwatch": "node ./scripts/night.js",
     "pretest": "npm run lint",
