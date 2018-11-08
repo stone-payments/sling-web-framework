@@ -4,12 +4,12 @@ const customCode = false;
 module.exports = {
   main: (browser) => {
     browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`);
-    for (let i = 1; i <= 8; i++) { // eslint-disable-line
-      browser.execute(function (data) { // eslint-disable-line
+    for (let i = 1; i <= 8; i += 1) {
+      browser.execute(function (data) {
         const select = document.querySelector('sling-select');
         select.value = data;
         return select.shadowRoot.querySelector('select').options[data].text;
-      }, [i], function (result) { // eslint-disable-line
+      }, [i], function (result) {
         browser.assert.equal(result.value, `Option ${i}`);
       });
     }
