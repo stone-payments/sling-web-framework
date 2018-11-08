@@ -17,7 +17,7 @@ describe('Card', () => {
   });
 
   it('Should reflect "nopadding", "nopaddingheader", ' +
-  '"nopaddingbody" and "nopaddingfooter" attribute to property ', () => {
+    '"nopaddingbody" and "nopaddingfooter" attribute to property ', () => {
     $card.setAttribute('nopadding', '');
     $card.setAttribute('nopaddingheader', '');
     $card.setAttribute('nopaddingbody', '');
@@ -30,7 +30,7 @@ describe('Card', () => {
   });
 
   it('Should reflect "nopadding", "nopaddingheader", ' +
-  '"nopaddingbody" and "nopaddingfooter" property to attribute ', () => {
+    '"nopaddingbody" and "nopaddingfooter" property to attribute ', () => {
     $card.nopadding = false;
     $card.nopaddingheader = false;
     $card.nopaddingbody = false;
@@ -45,35 +45,35 @@ describe('Card', () => {
 
 describe('applySlotClass', () => {
   it('Should create properly className with card part ' +
-  'visible and padding for Card after be called', () => {
+    'visible and padding for Card after be called', () => {
     const area = 'cardPart';
     const isVisible = true;
-    const hasPadding = true;
-    const resultantClassName = applySlotClass(area, isVisible, hasPadding);
-
-    expect(resultantClassName).to.be.equals('emd-card__slot ' +
-    'emd-card__slot_cardPart emd-card__slot_visible');
-  });
-
-  it('Should create properly className with card part ' +
-  'visible and no padding for Card after be called', () => {
-    const area = 'cardPart';
-    const isVisible = true;
-    const hasPadding = false;
-    const resultantClassName = applySlotClass(area, isVisible, hasPadding);
+    const hidePadding = true;
+    const resultantClassName = applySlotClass(area, isVisible, hidePadding);
 
     expect(resultantClassName).to.be.equals('emd-card__slot ' +
     'emd-card__slot_cardPart emd-card__slot_visible emd-card__slot_nopadding');
   });
 
   it('Should create properly className with card part ' +
-  'invisible and no padding for Card after be called', () => {
+    'visible and no padding for Card after be called', () => {
     const area = 'cardPart';
-    const isVisible = false;
-    const hasPadding = false;
-    const resultantClassName = applySlotClass(area, isVisible, hasPadding);
+    const isVisible = true;
+    const hidePadding = false;
+    const resultantClassName = applySlotClass(area, isVisible, hidePadding);
 
     expect(resultantClassName).to.be.equals('emd-card__slot ' +
-    'emd-card__slot_cardPart emd-card__slot_hidden emd-card__slot_nopadding');
+    'emd-card__slot_cardPart emd-card__slot_visible');
+  });
+
+  it('Should create properly className with card part ' +
+    'invisible and no padding for Card after be called', () => {
+    const area = 'cardPart';
+    const isVisible = false;
+    const hidePadding = false;
+    const resultantClassName = applySlotClass(area, isVisible, hidePadding);
+
+    expect(resultantClassName).to.be.equals('emd-card__slot ' +
+    'emd-card__slot_cardPart emd-card__slot_hidden');
   });
 });
