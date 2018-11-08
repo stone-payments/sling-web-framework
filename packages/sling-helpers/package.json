@@ -1,6 +1,6 @@
 {
   "name": "sling-helpers",
-  "version": "1.11.4",
+  "version": "1.11.5",
   "description": "Sling Helpers",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
