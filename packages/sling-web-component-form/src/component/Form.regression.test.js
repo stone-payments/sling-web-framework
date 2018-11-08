@@ -13,32 +13,33 @@ module.exports = {
     };
 
     browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
-      /* eslint-disable */
       .execute(function () {
         document.querySelector('sling-button').click()
       }, []);
-    /* eslint-enable */
     Object.keys(testValues).forEach((key) => {
       browser.getAttribute(`sling-input[name="${key}"]`, 'validationstatus', (input) => {
         browser.assert.equal(input.value, 'error');
       });
     });
     browser.saveScreenshot(`./reports/${component}/${component}-invalid.png`)
-      /* eslint-disable */
-      .execute(function (testValues) {
-        document.querySelector('sling-input[name="name"]').value = testValues.name
-        document.querySelector('sling-input[name="email"]').value = testValues.email
-        document.querySelector('sling-input[name="phone"]').value = testValues.phone
-        document.querySelector('sling-input[name="cpf"]').value = testValues.cpf
-        document.querySelector('sling-input[name="cnpj"]').value = testValues.cnpj
-      }, [testValues], function (result) {
+      .execute(function (testValuesParams) {
+        document.querySelector('sling-input[name="name"]')
+          .value = testValuesParams.name;
+        document.querySelector('sling-input[name="email"]')
+          .value = testValuesParams.email;
+        document.querySelector('sling-input[name="phone"]')
+          .value = testValuesParams.phone;
+        document.querySelector('sling-input[name="cpf"]')
+          .value = testValuesParams.cpf;
+        document.querySelector('sling-input[name="cnpj"]')
+          .value = testValuesParams.cnpj;
+      }, [testValues], function () {
         Object.keys(testValues).forEach((key) => {
           browser.getAttribute(`sling-input[name="${key}"]`, 'validationstatus', (input) => {
             browser.assert.equal(input.value, null);
           });
         });
       })
-      /* eslint-enable */
       .saveScreenshot(`./reports/${component}/${component}.png`)
       .end();
   },
