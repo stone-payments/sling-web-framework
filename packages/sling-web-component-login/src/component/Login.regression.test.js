@@ -11,15 +11,15 @@ module.exports = {
 
     browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
       .saveScreenshot(`./reports/${component}/${component}-start.png`)
-      .execute(function (testValues) { /* eslint-disable-line*/
+      .execute(function (testParams) {
         const email = document.querySelector('sling-login').shadowRoot
           .querySelector('sling-input[id="email"]');
-        email.value = testValues.email;
+        email.value = testParams.email;
         const password = document.querySelector('sling-login').shadowRoot
           .querySelector('sling-input[id="pw"]');
-        password.value = testValues.password;
+        password.value = testParams.password;
         return { email, password };
-      }, [testValues], function (form) {/* eslint-disable-line*/
+      }, [testValues], function (form) {
         browser.elementIdAttribute(form.value.email.ELEMENT, 'value',
           (result) => {
             browser.assert.equal(result.value, testValues.email);
