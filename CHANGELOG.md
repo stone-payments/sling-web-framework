@@ -1,3 +1,7 @@
+<a name="1.11.5"></a>
+## 1.11.5 (2018-11-08)
+
+* fix: fix calendar localization
 
 <a name="1.11.1"></a>
 ## 1.11.1 (2018-10-31)
