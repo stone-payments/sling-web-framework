@@ -1,4 +1,7 @@
+import 'moment/locale/pt-br';
 import moment from 'moment/moment';
+
+moment.locale('pt-BR');
 
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;
