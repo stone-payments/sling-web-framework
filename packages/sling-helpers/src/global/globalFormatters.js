@@ -1,4 +1,7 @@
+import 'moment/locale/pt-br';
 import moment from 'moment/moment';
+
+moment.locale('pt-BR');
 
 export const defaultSdkCallDateFormat = 'YYYY-MM-DD';
 
