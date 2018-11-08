@@ -8,7 +8,7 @@ script:
   - npm run lint
   - npm test
   - npm run spec
-  - npm run build
+  - npm run build-prod
 after_success:
   - npm run send-coverage
   - npm run semantic-release

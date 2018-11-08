@@ -1,3 +1,4 @@
+import 'moment/locale/pt-br';
 import moment from 'moment/moment';
 import { html, SlingElement } from 'sling-framework';
 import { isFunction, defaultSdkCallDateFormat } from 'sling-helpers';
