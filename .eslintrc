@@ -60,7 +60,9 @@
       "files": "*.{test,spec,cafe}.js",
       "rules": {
         "no-unused-expressions": "off",
-        "no-new-wrappers": "off"
+        "no-new-wrappers": "off",
+        "func-names": "off",
+        "prefer-arrow-callback": "off"
       }
     }
   ]
