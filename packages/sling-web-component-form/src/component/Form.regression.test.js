@@ -14,7 +14,7 @@ module.exports = {
 
     browser.url(`http://localhost:8777/${customCode ? 'regression' : ''}/index.html`)
       .execute(function () {
-        document.querySelector('sling-button').click()
+        document.querySelector('sling-button').click();
       }, []);
     Object.keys(testValues).forEach((key) => {
       browser.getAttribute(`sling-input[name="${key}"]`, 'validationstatus', (input) => {
