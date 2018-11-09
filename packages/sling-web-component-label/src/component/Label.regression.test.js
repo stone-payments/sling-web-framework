@@ -1,4 +1,4 @@
-const component = 'sling-web-component-brand-icon';
+const component = 'sling-web-component-label';
 const customCode = false;
 
 module.exports = {

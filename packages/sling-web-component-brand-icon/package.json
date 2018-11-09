@@ -1,13 +1,13 @@
 {
   "name": "sling-web-component-brand-icon",
-  "version": "1.11.3",
+  "version": "1.11.5",
   "description": "Sling Brand Icon",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-framework": "^1.11.3",
-    "sling-helpers": "^1.11.3"
+    "sling-framework": "^1.11.5",
+    "sling-helpers": "^1.11.5"
   }
 }

@@ -1,5 +1,6 @@
-import sinon from 'sinon';
+import 'moment/locale/pt-br';
 import moment from 'moment/moment';
+import sinon from 'sinon';
 import { registerComponent } from 'sling-helpers';
 import { Calendar } from './Calendar.js';
 

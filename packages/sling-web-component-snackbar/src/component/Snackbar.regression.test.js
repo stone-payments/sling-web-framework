@@ -1,5 +1,6 @@
-const component = 'sling-web-component-button';
+const component = 'sling-web-component-snackbar';
 const customCode = false;
+
 module.exports = {
 
   main: (browser) => {
@@ -10,8 +11,9 @@ module.exports = {
           browser.elementIdClick(button.ELEMENT);
         });
       })
+      .saveScreenshot(`./reports/${component}/${component}-mid.png`)
+      .execute('window.scrollTo(0,document.body.scrollHeight);')
       .saveScreenshot(`./reports/${component}/${component}-end.png`)
-      .assert.containsText('#counter', '110')
       .end();
   },
 };
