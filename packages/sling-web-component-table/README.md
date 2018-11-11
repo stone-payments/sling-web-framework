@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-table
+npm install sling-web-component-table
 ```
 
  ## Tag

@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-snackbar
+npm install sling-web-component-snackbar
 ```
 
 ## Tag

@@ -6,7 +6,7 @@ The component must show the loader component while loading the data source requi
 ## Install
 
 ```
-npm instal sling-web-component-loader
+npm install sling-web-component-loader
 ```
 
 ## Tag

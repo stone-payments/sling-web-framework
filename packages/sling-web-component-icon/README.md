@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-icon
+npm install sling-web-component-icon
 ```
 
 ## Tag

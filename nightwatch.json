@@ -1,0 +1,34 @@
+{
+  "src_folders": ["./packages"],
+  "output_folder": "reports",
+  "selenium": {
+    "start_process": true,
+    "server_path": "./bin/selenium.jar",
+    "log_path": "./reports",
+    "host": "127.0.0.1",
+    "port": 4444,
+    "cli_args": {
+      "webdriver.chrome.driver": "./bin/chromedriver"
+    }
+  },
+  "test_settings": {
+    "default": {
+      "filter" : "./*.regression.test.js",
+      "silent": true,
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "chromeOptions": {
+          "args": ["window-size=1280,800", "disable-web-security", "test-type"]
+        },
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      },
+      "screenshots" : {
+        "enabled" : true,
+        "on_failure" : true,
+        "on_error" : false,
+        "path" : ""
+      }
+    }
+  }
+}

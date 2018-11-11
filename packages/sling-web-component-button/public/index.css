@@ -1,4 +1,4 @@
-body {
+.body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: grid;
@@ -13,4 +13,9 @@ body {
 .span {
   grid-column: span 3;
   width: 100%;
+}
+
+#counter{
+  position: fixed;
+  right: 5px;
 }

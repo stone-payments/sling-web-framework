@@ -1,3 +1,24 @@
+<a name="1.11.5"></a>
+## 1.11.5 (2018-11-08)
+
+* fix: fix calendar localization
+
+<a name="1.11.1"></a>
+## 1.11.1 (2018-10-31)
+
+* feat: change the header color from a Card element
+
+<a name="1.11.0"></a>
+## 1.11.0 (2018-10-31)
+
+* chore: tests of brand icon components
+* feat: change semant-release branch
+* feat: regression tests of sling-button
+* chore: improve snackbar coverages
+* feat: update karma to use puppteer
+* docs: fix typos
+* fix: sling-input phone mask issue
+* feat: uses lerna for manual release
 
 <a name="1.10.0"></a>
 ## 1.10.0 (2018-10-22)
