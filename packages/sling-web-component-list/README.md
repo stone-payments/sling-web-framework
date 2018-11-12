@@ -5,7 +5,7 @@ Sling Card Basic Component.
 ## Install
 
 ```
-npm instal sling-web-component-list
+npm install sling-web-component-list
 ```
 
 ## Tag

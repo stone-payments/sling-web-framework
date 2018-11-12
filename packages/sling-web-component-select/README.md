@@ -3,7 +3,7 @@
 ## Install      
 
 ```
-npm instal sling-web-component-select
+npm install sling-web-component-select
 ```
  
  ## Tag

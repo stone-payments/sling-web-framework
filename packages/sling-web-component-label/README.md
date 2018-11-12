@@ -3,7 +3,7 @@
 ## Install
 
 ```
-npm instal sling-web-component-label
+npm install sling-web-component-label
 ```
 
 ## Tag
