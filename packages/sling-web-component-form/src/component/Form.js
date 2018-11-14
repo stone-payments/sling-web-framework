@@ -4,10 +4,10 @@ const isFormField = target =>
   ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT']
     .includes(target.nodeName);
 
-const getFieldId = target => target.getAttribute('name') ||
-  target.name ||
-  target.getAttribute('id') ||
-  target.id;
+const getFieldId = field => field.getAttribute('name') ||
+  field.name ||
+  field.getAttribute('id') ||
+  field.id;
 
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
@@ -21,8 +21,14 @@ export class Form extends withEventDispatch(HTMLElement) {
       <slot></slot>
     `;
 
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+
+    this.formdata = {
+      initialValues: {},
+      values: {},
+      dirty: false,
+    };
   }
 
   connectedCallback() {
@@ -30,7 +36,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       super.connectedCallback();
     }
 
-    this.addEventListener('input', this.handleUpdate);
+    this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
 
     Promise.resolve().then(() => {
@@ -43,7 +49,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       super.disconnectedCallback();
     }
 
-    this.removeEventListener('input', this.handleUpdate);
+    this.removeEventListener('input', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
@@ -72,12 +78,34 @@ export class Form extends withEventDispatch(HTMLElement) {
       throw new Error('All fields must have "name" or "id".');
     }
 
-    const initialValues = this.fields
-      .map(target => ({ [getFieldId(target)]: target.value }))
-      .reduce((result, current) => ({ ...result, ...current }), {});
+    this.fields
+      .filter(field => field.value != null)
+      .forEach((field) => {
+        this.updateFormData(field);
+      });
 
     this.formdata = {
-      ...initialValues,
+      ...this.formdata,
+      initialValues: {
+        ...this.formdata.values,
+      },
+    };
+
+    console.log(this.formdata);
+  }
+
+  updateFormData(field) {
+    const fieldId = getFieldId(field);
+
+    const values = {
+      ...this.formdata.values,
+      [fieldId]: field.value,
+    };
+
+    this.formdata = {
+      ...this.formdata,
+      values,
+      dirty: Object.keys(values).length > 0,
     };
   }
 
@@ -85,14 +113,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     console.log(this, target, 'blur');
   }
 
-  handleUpdate({ target }) {
-    const fieldId = getFieldId(target);
-
-    if (fieldId != null) {
-      this.formdata = {
-        ...this.formdata,
-        [fieldId]: target.value,
-      };
-    }
+  handleInput({ target }) {
+    this.updateFormData(target);
   }
 }
