@@ -1,107 +1,88 @@
-import { html, SlingElement } from 'sling-framework';
+import { withEventDispatch } from 'sling-framework';
 
 const isFormField = target =>
-  ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT'].includes(target.nodeName);
+  ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT']
+    .includes(target.nodeName);
 
 const getFieldId = target => target.getAttribute('name') ||
   target.name ||
   target.getAttribute('id') ||
   target.id;
 
-const removeErrorsFrom = (target) => {
-  target.validationstatus = null;
-  target.validationmessage = null;
-};
-
-const applyErrorsTo = (target, message) => {
-  if (message != null) {
-    target.validationstatus = 'error';
-    target.validationmessage = `${message}.`;
-  } else {
-    removeErrorsFrom(target);
-  }
-};
-
-export class Form extends SlingElement {
+export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
     super();
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.updateErrorsAndShow = this.updateErrorsAndShow.bind(this);
-    this.fields = [];
-  }
+    this.attachShadow({ mode: 'open' });
 
-  static get properties() {
-    return {
-      formdata: {
-        type: Object,
-        observer: 'dispatchFormUpdateEvent',
-      },
-      validation: {
-        type: Array,
-        value: [],
-      },
-    };
+    this.shadowRoot.innerHTML = `
+      <style>
+        @import url('sling-web-component-form/src/index.css');
+      </style>
+      <slot></slot>
+    `;
+
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   connectedCallback() {
-    super.connectedCallback();
-    this.initForm();
+    if (typeof super.connectedCallback === 'function') {
+      super.connectedCallback();
+    }
 
     this.addEventListener('input', this.handleUpdate);
-    this.addEventListener('click', this.handleClick, true);
     this.addEventListener('blur', this.handleBlur, true);
+
+    Promise.resolve().then(() => {
+      this.initForm();
+    });
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
+    if (typeof super.disconnectedCallback === 'function') {
+      super.disconnectedCallback();
+    }
+
     this.removeEventListener('input', this.handleUpdate);
-    this.removeEventListener('click', this.handleClick, true);
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
+  get formdata() {
+    return this.__formdata;
+  }
+
+  set formdata(value) {
+    const hasValueChanged = this.formdata !== value;
+
+    this.__formdata = value;
+
+    if (hasValueChanged) {
+      this.dispatchEventAndMethod('formupdate', this.formdata);
+    }
+  }
+
   initForm() {
-    this.fields = Array.from(this.children).filter(isFormField);
+    this.fields = Array
+      .from(this.querySelectorAll('*'))
+      .filter(isFormField);
+
     const allFieldsHaveNameOrId = this.fields.every(getFieldId);
 
     if (!allFieldsHaveNameOrId) {
-      throw new Error('Todos os campos devem ter "name" ou "id".');
+      throw new Error('All fields must have "name" or "id".');
     }
 
-    this.formdata = this.fields
-      .map((target) => {
-        const fieldId = getFieldId(target);
-        return (fieldId)
-          ? { [fieldId]: target.value }
-          : {};
-      })
+    const initialValues = this.fields
+      .map(target => ({ [getFieldId(target)]: target.value }))
       .reduce((result, current) => ({ ...result, ...current }), {});
-  }
 
-  updateErrorsAndShow(target) {
-    const [message] = this.validateField(target)
-      .map(assertion => assertion.error);
-
-    applyErrorsTo(target, message);
-  }
-
-  handleClick({ target }) {
-    const { type } = target;
-
-    if (type === 'submit') {
-      if (this.isFormValid()) {
-        this.dispatchEventAndMethod('formsubmit', this.formdata);
-      } else {
-        this.fields.forEach(this.updateErrorsAndShow);
-      }
-    }
+    this.formdata = {
+      ...initialValues,
+    };
   }
 
   handleBlur({ target }) {
-    if (target.value != null && target.value !== '') {
-      this.updateErrorsAndShow(target);
-    }
+    console.log(this, target, 'blur');
   }
 
   handleUpdate({ target }) {
@@ -113,40 +94,5 @@ export class Form extends SlingElement {
         [fieldId]: target.value,
       };
     }
-
-    removeErrorsFrom(target);
-  }
-
-  isFormValid() {
-    const { validation = [] } = this;
-
-    return validation
-      .map(assertion => assertion(this.formdata))
-      .every(({ isValid }) => isValid);
-  }
-
-  validateField(target) {
-    const { validation = [] } = this;
-    const fieldId = getFieldId(target);
-
-    return validation
-      .filter(assertion => !assertion(this.formdata).isValid &&
-        assertion(this.formdata).target === fieldId)
-      .map(assertion => assertion(this.formdata));
-  }
-
-  dispatchFormUpdateEvent(newValue, oldValue) {
-    if (newValue !== oldValue) {
-      this.dispatchEventAndMethod('formupdate', this.formdata);
-    }
-  }
-
-  render() {
-    return html`
-      <style>
-        @import url('sling-web-component-form/src/index.css');
-      </style>
-      <slot id="inside"></slot>
-    `;
   }
 }

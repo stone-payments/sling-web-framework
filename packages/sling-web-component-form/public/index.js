@@ -1,24 +1,31 @@
 import 'sling-web-component-input';
 import 'sling-web-component-button';
 
-import {
-  isNotEmpty,
-  isValidEmail,
-  isValidPhone,
-  isValidCPF,
-  isValidCNPJ,
-} from 'sling-helpers';
+const form = document.querySelector('sling-form');
+const debug = document.getElementById('debug');
 
-const $form = document.querySelector('sling-form');
+form.addEventListener('formupdate', (evt) => {
+  debug.innerHTML = JSON.stringify(evt.target.formdata, null, 2);
+});
 
-$form.validation = [
-  isNotEmpty('name'),
-  isNotEmpty('email'),
-  isValidEmail('email'),
-  isNotEmpty('phone'),
-  isValidPhone('phone'),
-  isNotEmpty('cpf'),
-  isValidCPF('cpf'),
-  isNotEmpty('cnpj'),
-  isValidCNPJ('cnpj'),
-];
+export const desiredResult = {
+  values: {
+    email: 'contato@',
+  },
+  errors: {
+    email: 'email must be a valid email',
+  },
+  touched: {
+    email: true,
+  },
+  isSubmitting: false,
+  isValidating: false,
+  submitCount: 0,
+  dirty: true,
+  isValid: false,
+  initialValues: {
+    email: '',
+  },
+  validateOnChange: true,
+  validateOnBlur: true,
+};

@@ -9,12 +9,39 @@
 </head>
 <body>
   <sling-form>
-    <sling-input name="name" type="text" label="Nome"></sling-input>
-    <sling-input name="email" type="email" label="E-mail"></sling-input>
-    <sling-input name="phone" type="phone" label="Telefone com DDD" placeholder="(00) 0000-0000"></sling-input>
-    <sling-input name="cpf" type="cpf" label="CPF"></sling-input>
-    <sling-input name="cnpj" type="cnpj" label="CNPJ"></sling-input>
-    <sling-button type="submit" layout="outline" color="success">Enviar</sling-button>
+    <label>
+      <h4>Nome de usuário</h4>
+      <sling-input name="username" type="text"></sling-input>
+    </label>
+
+    <h4>Telefone</h4>
+
+    <label>
+      <span>Celular</span>
+      <sling-input name="cellphone" type="text"></sling-input>
+    </label>
+
+    <label>
+      <span>Casa</span>
+      <sling-input name="homephone" type="text"></sling-input>
+    </label>
+
+    <label>
+      <span>Work</span>
+      <sling-input name="workphone" type="text"></sling-input>
+    </label>
+
+    <label>
+      <h4>Valor</h4>
+      <sling-input name="value" type="money"></sling-input>
+    </label>
+
+    <label>
+      <h4>Pre Fetch</h4>
+      <sling-input name="prefetch" type="text" value="Seal"></sling-input>
+    </label>
   </sling-form>
+
+  <pre id="debug"></pre>
 </body>
 </html>
