@@ -2,30 +2,36 @@ import 'sling-web-component-input';
 import 'sling-web-component-button';
 
 const form = document.querySelector('sling-form');
+const userNameField = document.querySelector('sling-input[name=username]');
 const debug = document.getElementById('debug');
 
 form.addEventListener('formupdate', (evt) => {
   debug.innerHTML = JSON.stringify(evt.target.formdata, null, 2);
 });
 
-export const desiredResult = {
-  values: {
-    email: 'contato@',
-  },
-  errors: {
-    email: 'email must be a valid email',
-  },
-  touched: {
-    email: true,
-  },
-  isSubmitting: false,
-  isValidating: false,
-  submitCount: 0,
-  dirty: true,
-  isValid: false,
-  initialValues: {
-    email: '',
-  },
-  validateOnChange: true,
-  validateOnBlur: true,
+const validateForm = (values) => {
+  const errors = {};
+
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.cellphone && !values.homephone) {
+    errors.phone = 'Fill in at least one phone number';
+  }
+
+  return errors;
 };
+
+const validateUserName = (value) => {
+  if (value === 'admin') {
+    return 'Please do not use admin!';
+  }
+
+  return undefined;
+};
+
+form.validate = validateForm;
+userNameField.validate = validateUserName;

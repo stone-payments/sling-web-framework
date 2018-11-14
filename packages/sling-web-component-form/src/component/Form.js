@@ -1,4 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
+import { isFunction, isPromise } from 'sling-helpers';
 
 const isFormField = target =>
   ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT']
@@ -23,16 +24,21 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.updateValue = this.updateValue.bind(this);
+    this.updateErrors = this.updateErrors.bind(this);
 
     this.formdata = {
       initialValues: {},
+      errors: {},
       values: {},
+      touched: {},
       dirty: false,
+      isValid: false,
     };
   }
 
   connectedCallback() {
-    if (typeof super.connectedCallback === 'function') {
+    if (isFunction(super.connectedCallback)) {
       super.connectedCallback();
     }
 
@@ -45,7 +51,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   disconnectedCallback() {
-    if (typeof super.disconnectedCallback === 'function') {
+    if (isFunction(super.disconnectedCallback)) {
       super.disconnectedCallback();
     }
 
@@ -68,21 +74,17 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   initForm() {
-    this.fields = Array
+    const fields = Array
       .from(this.querySelectorAll('*'))
       .filter(isFormField);
 
-    const allFieldsHaveNameOrId = this.fields.every(getFieldId);
+    const allFieldsHaveNameOrId = fields.every(getFieldId);
 
     if (!allFieldsHaveNameOrId) {
       throw new Error('All fields must have "name" or "id".');
     }
 
-    this.fields
-      .filter(field => field.value != null)
-      .forEach((field) => {
-        this.updateFormData(field);
-      });
+    fields.forEach(this.updateValue);
 
     this.formdata = {
       ...this.formdata,
@@ -90,30 +92,107 @@ export class Form extends withEventDispatch(HTMLElement) {
         ...this.formdata.values,
       },
     };
-
-    console.log(this.formdata);
   }
 
-  updateFormData(field) {
+  updateValue(field) {
     const fieldId = getFieldId(field);
 
     const values = {
       ...this.formdata.values,
-      [fieldId]: field.value,
+      [fieldId]: field.value || '',
     };
 
     this.formdata = {
       ...this.formdata,
       values,
-      dirty: Object.keys(values).length > 0,
     };
   }
 
+  updateTouched(field) {
+    const fieldId = getFieldId(field);
+
+    if (!this.formdata.touched[fieldId]) {
+      this.formdata = {
+        ...this.formdata,
+        touched: {
+          ...this.formdata.touched,
+          [fieldId]: true,
+        },
+      };
+    }
+  }
+
+  updateDirty(dirty) {
+    if (dirty !== this.formdata.dirty) {
+      this.formdata = {
+        ...this.formdata,
+        dirty,
+      };
+    }
+  }
+
+  updateErrors(errors) {
+    if (errors) {
+      this.formdata = {
+        ...this.formdata,
+        errors,
+        isValid: Object.keys(errors).length === 0,
+      };
+    }
+  }
+
+  applyValidation(field) {
+    const validateFn = field
+      ? field.validate
+      : this.validate;
+
+    const values = field
+      ? this.formdata.values[getFieldId(field)]
+      : this.formdata.values;
+
+    if (isFunction(validateFn)) {
+      const maybeErrors = validateFn(values);
+
+      if (isPromise(maybeErrors)) {
+        maybeErrors.catch((err) => {
+          const errors = field
+            ? { [getFieldId(field)]: err }
+            : err;
+
+          this.updateErrors(errors);
+        });
+      } else {
+        const errors = field
+          ? { [getFieldId(field)]: maybeErrors }
+          : maybeErrors;
+
+        this.updateErrors(errors);
+      }
+    }
+  }
+
+  validateForm() {
+    this.applyValidation();
+  }
+
+  validateField(field) {
+    this.applyValidation(field);
+  }
+
   handleBlur({ target }) {
-    console.log(this, target, 'blur');
+    if (isFormField(target)) {
+      this.updateDirty(true);
+      this.updateTouched(target);
+      this.validateForm();
+      this.validateField(target);
+    }
   }
 
   handleInput({ target }) {
-    this.updateFormData(target);
+    if (isFormField(target)) {
+      this.updateValue(target);
+      this.validateForm();
+      this.validateField(target);
+    }
   }
 }
