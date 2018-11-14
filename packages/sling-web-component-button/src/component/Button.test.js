@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import { registerComponent } from 'sling-helpers';
 import { Button } from './Button.js';
 
@@ -40,6 +41,31 @@ describe('Button', () => {
     setTimeout(() => {
       expect($button.hasAttribute('layout')).to.equal(false);
       done();
+    });
+  });
+
+  describe('Has "disabled" attribute', () => {
+    beforeEach(() => {
+      $button.disabled = true;
+    });
+
+    afterEach(() => {
+      $button.disabled = false;
+    });
+
+    it('Should not call "click" event handler when inner content ' +
+    'is clicked.', (done) => {
+      const $innerContent = document.createElement('span');
+      const clickSpy = sinon.spy();
+
+      $button.appendChild($innerContent);
+      $button.addEventListener('click', clickSpy);
+      $innerContent.click();
+
+      setTimeout(() => {
+        expect(clickSpy.called).to.equal(false);
+        done();
+      });
     });
   });
 });
