@@ -23,7 +23,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     `;
 
     this.handleInput = this.handleInput.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.updateValue = this.updateValue.bind(this);
@@ -35,7 +34,6 @@ export class Form extends withEventDispatch(HTMLElement) {
       errors: {},
       values: {},
       touched: {},
-      focused: {},
       dirty: false,
       isValid: false,
     };
@@ -48,7 +46,6 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
-    this.addEventListener('focus', this.handleFocus, true);
     this.addEventListener('blur', this.handleBlur, true);
 
     Promise.resolve().then(() => {
@@ -63,7 +60,6 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
-    this.removeEventListener('focus', this.handleFocus, true);
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
@@ -143,18 +139,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     };
   }
 
-  updateFocused(field, focus) {
-    const fieldId = getFieldId(field);
-
-    this.state = {
-      ...this.state,
-      focused: {
-        ...this.state.focused,
-        [fieldId]: focus || undefined,
-      },
-    };
-  }
-
   validateForm() {
     if (isFunction(this.validation)) {
       const errors = this.validation(this.state.values);
@@ -202,12 +186,6 @@ export class Form extends withEventDispatch(HTMLElement) {
   handleClick({ target }) {
     if (target.type === 'submit') {
       this.submitForm();
-    }
-  }
-
-  handleFocus({ target }) {
-    if (isFormField(target)) {
-      this.updateFocused(target, true);
     }
   }
 
