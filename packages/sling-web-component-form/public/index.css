@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Heebo:400,500');
 
 body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
   font-family: 'Heebo', sans-serif;
 }
 

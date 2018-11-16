@@ -5,8 +5,12 @@ const form = document.querySelector('sling-form');
 const userNameField = document.querySelector('sling-input[name=username]');
 const debug = document.getElementById('debug');
 
-form.addEventListener('formupdate', (evt) => {
-  debug.innerHTML = JSON.stringify(evt.target.formdata, null, 2);
+form.addEventListener('formupdate', ({ detail }) => {
+  debug.innerHTML = JSON.stringify(detail, null, 2);
+});
+
+form.addEventListener('formsubmit', ({ detail }) => {
+  console.log(JSON.stringify(detail, null, 2));
 });
 
 const validateForm = (values) => {

@@ -1,5 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, isPromise, toFlatEntries } from 'sling-helpers';
+import { isFunction } from 'sling-helpers';
 
 const isFormField = target =>
   ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT']
@@ -24,8 +24,8 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.updateValue = this.updateValue.bind(this);
-    this.updateErrors = this.updateErrors.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.validateField = this.validateField.bind(this);
 
@@ -44,6 +44,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       super.connectedCallback();
     }
 
+    this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
 
@@ -57,6 +58,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       super.disconnectedCallback();
     }
 
+    this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
   }
@@ -96,6 +98,8 @@ export class Form extends withEventDispatch(HTMLElement) {
         ...this.formdata.values,
       },
     };
+
+    this.validateForm();
   }
 
   updateValue(field) {
@@ -135,16 +139,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
   }
 
-  updateErrors(errors) {
-    if (errors) {
-      this.formdata = {
-        ...this.formdata,
-        errors,
-        isValid: Object.keys(errors).length === 0,
-      };
-    }
-  }
-
   updateIsValid() {
     const hasNoErrors = Object
       .values(this.formdata.errors)
@@ -170,6 +164,8 @@ export class Form extends withEventDispatch(HTMLElement) {
 
       this.fields.forEach(this.validateField);
     }
+
+    this.updateIsValid();
   }
 
   validateField(field) {
@@ -187,6 +183,22 @@ export class Form extends withEventDispatch(HTMLElement) {
         errors,
       };
     }
+
+    this.updateIsValid();
+  }
+
+  submitForm() {
+    this.validateForm();
+
+    if (this.formdata.isValid) {
+      this.dispatchEventAndMethod('formsubmit', this.formdata.values);
+    }
+  }
+
+  handleClick({ target }) {
+    if (target.type === 'submit') {
+      this.submitForm();
+    }
   }
 
   handleBlur({ target }) {
@@ -194,7 +206,6 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateDirty(true);
       this.updateTouched(target);
       this.validateForm();
-      this.updateIsValid();
     }
   }
 
@@ -202,7 +213,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     if (isFormField(target)) {
       this.updateValue(target);
       this.validateForm();
-      this.updateIsValid();
     }
   }
 }
