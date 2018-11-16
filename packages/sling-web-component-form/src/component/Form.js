@@ -2,7 +2,7 @@ import { withEventDispatch } from 'sling-framework';
 import { isFunction } from 'sling-helpers';
 
 const isFormField = target =>
-  ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT']
+  ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT', 'TEXTAREA']
     .includes(target.nodeName);
 
 const getFieldId = field => field.getAttribute('name') ||
