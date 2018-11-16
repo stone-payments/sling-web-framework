@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="169px" height="149px" viewBox="0 0 169 149" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>amex-logo</title>
-    <desc>Created with Sketch.</desc>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+export const AMERICAN_EXPRESS =
+`<svg width="100%" height="100%" viewBox="0 0 169 149">
+    <g id="amex-logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="SVG" transform="translate(-708.000000, -2266.000000)">
-            <g id="amex-logo" transform="translate(708.000000, 2266.000000)">
+            <g transform="translate(708.000000, 2266.000000)">
                 <g id="Group-3" transform="translate(19.000000, 0.000000)">
                     <g id="Fill-1-Clipped">
                         <mask id="mask-2" fill="white">
@@ -29,4 +26,5 @@
             </g>
         </g>
     </g>
-</svg>
+  </svg>
+`;
