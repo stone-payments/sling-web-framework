@@ -191,7 +191,6 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   handleBlur({ target }) {
     if (isFormField(target)) {
-      this.updateFocused(target, false);
       this.updateDirty(true);
       this.updateTouched(target);
       this.validateForm();
