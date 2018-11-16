@@ -4,29 +4,39 @@ import 'sling-web-component-input';
 import 'sling-web-component-button';
 
 export const TestBusinessFormView = ({
-  touched,
-  errors,
+  touched = {},
+  errors = {},
   validateUserName,
+  validateEmail,
+  validateForm,
+  isValid,
 }) => html`
-  <sling-form>
+  <sling-form
+    validation="${validateForm}">
     <label>
       <h4>Nome de usuário</h4>
       <sling-input
         name="username"
         type="text"
-        validate="${validateUserName}"></sling-input>
+        validation="${validateUserName}"></sling-input>
     </label>
 
     ${touched.username && errors.username ? html`
-      <div>
-        ${errors.username}
-      </div>
+      <p>${errors.username}</p>
     ` : ''}
 
     <label>
       <h4>E-mail</h4>
-      <sling-input name="email" type="text"></sling-input>
+      <sling-input
+        name="email"
+        type="email"
+        validation="${validateEmail}"
+        ></sling-input>
     </label>
+
+    ${touched.email && errors.email ? html`
+      <p>${errors.email}</p>
+    ` : ''}
 
     <h4>Telefone</h4>
 
@@ -41,11 +51,20 @@ export const TestBusinessFormView = ({
     </label>
 
     <label>
+      <span>Trabalho</span>
+      <sling-input name="workphone" type="text"></sling-input>
+    </label>
+
+    ${touched.workphone && errors.phone ? html`
+      <p>${errors.phone}</p>
+    ` : ''}
+
+    <label>
       <h4>Valor</h4>
       <sling-input name="value" type="money"></sling-input>
     </label>
 
-    <sling-button type="submit">Enviar</sling-button>
+    <sling-button type="submit" disabled="${!isValid}">Enviar</sling-button>
   </sling-form>
 
   <pre id="debug"></pre>

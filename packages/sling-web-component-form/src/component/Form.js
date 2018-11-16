@@ -29,7 +29,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.validateForm = this.validateForm.bind(this);
     this.validateField = this.validateField.bind(this);
 
-    this.formdata = {
+    this.state = {
       initialValues: {},
       errors: {},
       values: {},
@@ -69,17 +69,17 @@ export class Form extends withEventDispatch(HTMLElement) {
       .filter(isFormField);
   }
 
-  get formdata() {
-    return this.__formdata;
+  get state() {
+    return this.__state;
   }
 
-  set formdata(value) {
-    const hasChanged = this.formdata !== value;
+  set state(value) {
+    const hasChanged = this.state !== value;
 
-    this.__formdata = value;
+    this.__state = value;
 
     if (hasChanged) {
-      this.dispatchEventAndMethod('formupdate', this.formdata);
+      this.dispatchEventAndMethod('formupdate', this.state);
     }
   }
 
@@ -92,10 +92,10 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.fields.forEach(this.updateValue);
 
-    this.formdata = {
-      ...this.formdata,
+    this.state = {
+      ...this.state,
       initialValues: {
-        ...this.formdata.values,
+        ...this.state.values,
       },
     };
 
@@ -106,12 +106,12 @@ export class Form extends withEventDispatch(HTMLElement) {
     const fieldId = getFieldId(field);
 
     const values = {
-      ...this.formdata.values,
+      ...this.state.values,
       [fieldId]: field.value || '',
     };
 
-    this.formdata = {
-      ...this.formdata,
+    this.state = {
+      ...this.state,
       values,
     };
   }
@@ -119,11 +119,11 @@ export class Form extends withEventDispatch(HTMLElement) {
   updateTouched(field) {
     const fieldId = getFieldId(field);
 
-    if (!this.formdata.touched[fieldId]) {
-      this.formdata = {
-        ...this.formdata,
+    if (!this.state.touched[fieldId]) {
+      this.state = {
+        ...this.state,
         touched: {
-          ...this.formdata.touched,
+          ...this.state.touched,
           [fieldId]: true,
         },
       };
@@ -131,9 +131,9 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   updateDirty(dirty) {
-    if (dirty !== this.formdata.dirty) {
-      this.formdata = {
-        ...this.formdata,
+    if (dirty !== this.state.dirty) {
+      this.state = {
+        ...this.state,
         dirty,
       };
     }
@@ -141,30 +141,29 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   updateIsValid() {
     const hasNoErrors = Object
-      .values(this.formdata.errors)
+      .values(this.state.errors)
       .filter(value => value != null)
       .length === 0;
 
-    const isValid = hasNoErrors && this.formdata.dirty;
+    const isValid = hasNoErrors && this.state.dirty;
 
-    this.formdata = {
-      ...this.formdata,
+    this.state = {
+      ...this.state,
       isValid,
     };
   }
 
   validateForm() {
     if (isFunction(this.validation)) {
-      const errors = this.validation(this.formdata.values);
+      const errors = this.validation(this.state.values);
 
-      this.formdata = {
-        ...this.formdata,
+      this.state = {
+        ...this.state,
         errors,
       };
-
-      this.fields.forEach(this.validateField);
     }
 
+    this.fields.forEach(this.validateField);
     this.updateIsValid();
   }
 
@@ -174,12 +173,12 @@ export class Form extends withEventDispatch(HTMLElement) {
       const error = field.validation(field.value);
 
       const errors = {
-        ...this.formdata.errors,
+        ...this.state.errors,
         [fieldId]: error,
       };
 
-      this.formdata = {
-        ...this.formdata,
+      this.state = {
+        ...this.state,
         errors,
       };
     }
@@ -190,8 +189,8 @@ export class Form extends withEventDispatch(HTMLElement) {
   submitForm() {
     this.validateForm();
 
-    if (this.formdata.isValid) {
-      this.dispatchEventAndMethod('formsubmit', this.formdata.values);
+    if (this.state.isValid) {
+      this.dispatchEventAndMethod('formsubmit', this.state.values);
     }
   }
 

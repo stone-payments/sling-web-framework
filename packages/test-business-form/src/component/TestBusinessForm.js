@@ -1,18 +1,43 @@
+import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
+import { withForm } from './withForm.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
 
 const validateUserName = value => (value === 'admin'
-  ? 'Please do not use admin!'
+  ? 'Please do not use admin'
   : undefined);
 
-export const TestBusinessForm = Base => class extends Base {
-  render() {
-    const { formdata } = this.shadowRoot.querySelector('sling-form');
+const validateEmail = value => (!isValidEmail(value)
+  ? 'Please enter a valid e-mail'
+  : undefined);
 
-    console.log(formdata);
+const validateForm = (values) => {
+  const errors = {};
+
+  if (!values.cellphone && !values.workphone && !values.homephone) {
+    errors.phone = 'Please enter at least one valid phone number';
+  }
+
+  return errors;
+};
+
+export const TestBusinessForm = Base => class extends withForm(Base) {
+  static get properties() {
+    return {
+      formState: {
+        type: Object,
+        reflectToAttribute: false,
+      },
+    };
+  }
+
+  render() {
+    const { formState } = this;
 
     return TestBusinessFormView({
-      ...formdata,
+      ...formState,
       validateUserName,
+      validateEmail,
+      validateForm,
     });
   }
 };
