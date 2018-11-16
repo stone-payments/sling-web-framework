@@ -33,5 +33,5 @@ const validateUserName = (value) => {
   return undefined;
 };
 
-form.validate = validateForm;
-userNameField.validate = validateUserName;
+form.validation = validateForm;
+userNameField.validation = validateUserName;
