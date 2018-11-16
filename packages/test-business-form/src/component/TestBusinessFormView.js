@@ -4,13 +4,21 @@ import 'sling-web-component-input';
 import 'sling-web-component-button';
 
 export const TestBusinessFormView = ({
-  touched = {},
-  errors = {},
+  formState,
+  errors,
+  touched,
+  isValid,
   validateUserName,
   validateEmail,
   validateForm,
-  isValid,
 }) => html`
+  <style>
+    :host {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+    }
+  </style>
   <sling-form
     validation="${validateForm}">
     <label>
@@ -67,5 +75,5 @@ export const TestBusinessFormView = ({
     <sling-button type="submit" disabled="${!isValid}">Enviar</sling-button>
   </sling-form>
 
-  <pre id="debug"></pre>
+  <pre id="debug">${JSON.stringify(formState, null, 2)}</pre>
 `;

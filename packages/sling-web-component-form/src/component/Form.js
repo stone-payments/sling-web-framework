@@ -23,6 +23,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     `;
 
     this.handleInput = this.handleInput.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.updateValue = this.updateValue.bind(this);
@@ -34,6 +35,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       errors: {},
       values: {},
       touched: {},
+      focused: {},
       dirty: false,
       isValid: false,
     };
@@ -46,6 +48,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
+    this.addEventListener('focus', this.handleFocus, true);
     this.addEventListener('blur', this.handleBlur, true);
 
     Promise.resolve().then(() => {
@@ -60,6 +63,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
+    this.removeEventListener('focus', this.handleFocus, true);
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
@@ -73,13 +77,13 @@ export class Form extends withEventDispatch(HTMLElement) {
     return this.__state;
   }
 
-  set state(value) {
-    const hasChanged = this.state !== value;
+  set state(state) {
+    const hasChanged = this.state !== state;
 
-    this.__state = value;
+    this.__state = state;
 
     if (hasChanged) {
-      this.dispatchEventAndMethod('formupdate', this.state);
+      this.dispatchEventAndMethod('formupdate', state);
     }
   }
 
@@ -153,6 +157,18 @@ export class Form extends withEventDispatch(HTMLElement) {
     };
   }
 
+  updateFocused(field, focus) {
+    const fieldId = getFieldId(field);
+
+    this.state = {
+      ...this.state,
+      focused: {
+        ...this.state.focused,
+        [fieldId]: focus || undefined,
+      },
+    };
+  }
+
   validateForm() {
     if (isFunction(this.validation)) {
       const errors = this.validation(this.state.values);
@@ -161,10 +177,11 @@ export class Form extends withEventDispatch(HTMLElement) {
         ...this.state,
         errors,
       };
+
+      this.updateIsValid();
     }
 
     this.fields.forEach(this.validateField);
-    this.updateIsValid();
   }
 
   validateField(field) {
@@ -200,8 +217,15 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
   }
 
+  handleFocus({ target }) {
+    if (isFormField(target)) {
+      this.updateFocused(target, true);
+    }
+  }
+
   handleBlur({ target }) {
     if (isFormField(target)) {
+      this.updateFocused(target, false);
       this.updateDirty(true);
       this.updateTouched(target);
       this.validateForm();

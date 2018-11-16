@@ -8,6 +8,7 @@ export const withForm = Base => class extends Base {
       errors: {},
       values: {},
       touched: {},
+      focused: {},
       dirty: false,
       isValid: false,
     };
