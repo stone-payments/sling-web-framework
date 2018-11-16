@@ -1,3 +1,12 @@
+<a name="1.11.6"></a>
+## 1.11.6 (2018-11-14)
+
+* fix: Expose svg logos on sling-assets.
+* fix: Expose withEventDispatch on Sling Framework.
+* fix: add regression tests for Label and Snackbar.
+* fix: fix Button so that it does not dispatch the click event when disabled.
+
+
 <a name="1.11.5"></a>
 ## 1.11.5 (2018-11-08)
 
