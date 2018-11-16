@@ -10,7 +10,7 @@ module.exports = {
         const tableList = [];
         const tables = document.querySelectorAll('sling-table');
         tables.forEach(e =>
-          tableList.push(e.shadowRoot.querySelectorAll('tr'),
+          tableList.push(e.shadowRoot.querySelectorAll('tbody tr'),
           ));
         return tableList;
       }, [], function (tableList) {
