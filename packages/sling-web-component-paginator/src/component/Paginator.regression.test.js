@@ -23,26 +23,20 @@ module.exports = {
 
         return { leftArrows, rightArrows, labelButtons: labelButtonsList };
       }, [], function (result) {
-        // clicks all right arrows several times
+        // clicks all right arrows, several times
         result.value.rightArrows.forEach((arrow) => {
           for (let i = 0; i < 15; i += 1) {
             browser.elementIdClick(arrow.ELEMENT);
           }
         });
 
-        // clicks all left arrows several times
+        // clicks all left arrows, several times
         result.value.leftArrows.forEach((arrow) => {
           for (let i = 0; i < 15; i += 1) {
             browser.elementIdClick(arrow.ELEMENT);
           }
         });
-
-        // clicks all labels several times
-        result.value.labelButtons.forEach((labelButton) => {
-          browser.elementIdClick(labelButton.ELEMENT);
-        });
       })
-
       .saveScreenshot(`./reports/${component}/${component}.png`)
       .end();
   },
