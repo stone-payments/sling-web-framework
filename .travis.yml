@@ -1,5 +1,10 @@
 sudo: false
 language: node_js
+addons:
+  sonarcloud:
+    organization: "sling"
+    token:
+      secure: ${SONAR_TOKEN}
 notifications:
   email: false
 node_js:
