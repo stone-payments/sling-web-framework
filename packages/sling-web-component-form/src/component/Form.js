@@ -73,20 +73,6 @@ export class Form extends withEventDispatch(HTMLElement) {
       .filter(isFormField);
   }
 
-  get state() {
-    return this.__state;
-  }
-
-  set state(state) {
-    const hasChanged = this.state !== state;
-
-    this.__state = state;
-
-    if (hasChanged) {
-      this.dispatchEventAndMethod('formupdate', state);
-    }
-  }
-
   initForm() {
     const allFieldsHaveNameOrId = this.fields.every(getFieldId);
 
@@ -182,6 +168,8 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
 
     this.fields.forEach(this.validateField);
+
+    this.dispatchEventAndMethod('formupdate', this.state);
   }
 
   validateField(field) {

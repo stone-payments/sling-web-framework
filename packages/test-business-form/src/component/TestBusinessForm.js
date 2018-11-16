@@ -2,13 +2,9 @@ import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
 import { withForm } from './withForm.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
 
-const validateUserName = (value, oldValue) => {
-  console.log(value, oldValue);
-
-  return value === 'admin'
-    ? 'Please do not use admin'
-    : undefined;
-};
+const validateUserName = value => (value === 'admin'
+  ? 'Please do not use admin'
+  : undefined);
 
 const validateEmail = value => (!isValidEmail(value)
   ? 'Please enter a valid e-mail'
