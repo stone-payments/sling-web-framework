@@ -8,6 +8,8 @@ export const TestBusinessFormView = ({
   errors,
   touched,
   isValid,
+  isValidating,
+  isSubmitting,
   validateUserName,
   validateEmailAsync,
   validateFormAsync,
@@ -21,6 +23,8 @@ export const TestBusinessFormView = ({
   </style>
   <sling-form
     validation="${validateFormAsync}">
+    <h4>Form${isValidating ? ' validating' : ''}</h4>
+
     <label>
       <h4>Nome de usuário</h4>
       <sling-input
@@ -72,7 +76,9 @@ export const TestBusinessFormView = ({
       <sling-input name="value" type="money"></sling-input>
     </label>
 
-    <sling-button type="submit" disabled="${!isValid}">Enviar</sling-button>
+    <sling-button type="submit" disabled="${!isValid || isSubmitting}">
+      Enviar
+    </sling-button>
   </sling-form>
 
   <pre id="debug">${JSON.stringify(formState, null, 2)}</pre>

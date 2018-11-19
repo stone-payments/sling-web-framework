@@ -26,6 +26,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.updateValue = this.updateValue.bind(this);
+    this.updateTouched = this.updateTouched.bind(this);
     this.validateForm = this.validateForm.bind(this);
 
     this.state = {
@@ -35,6 +36,9 @@ export class Form extends withEventDispatch(HTMLElement) {
       touched: {},
       dirty: false,
       isValid: false,
+      isSubmitting: false,
+      isValidating: false,
+      submitCount: 0,
     };
   }
 
@@ -47,9 +51,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
 
-    Promise.resolve().then(() => {
-      this.initForm();
-    });
+    this.initForm();
   }
 
   disconnectedCallback() {
@@ -66,6 +68,14 @@ export class Form extends withEventDispatch(HTMLElement) {
     return Array
       .from(this.querySelectorAll('*'))
       .filter(isFormField);
+  }
+
+  dispatchFormUpdate() {
+    this.dispatchEventAndMethod('formupdate', this.state);
+  }
+
+  dispatchFormSubmit() {
+    this.dispatchEventAndMethod('formsubmit', this.state.values);
   }
 
   async initForm() {
@@ -85,7 +95,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     };
 
     await this.validateForm();
-    this.dispatchEventAndMethod('formupdate', this.state);
   }
 
   updateValue(field) {
@@ -117,12 +126,10 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   updateDirty(dirty) {
-    if (dirty !== this.state.dirty) {
-      this.state = {
-        ...this.state,
-        dirty,
-      };
-    }
+    this.state = {
+      ...this.state,
+      dirty,
+    };
   }
 
   updateIsValid() {
@@ -139,8 +146,32 @@ export class Form extends withEventDispatch(HTMLElement) {
     };
   }
 
+  updateIsSubmitting(isSubmitting) {
+    this.state = {
+      ...this.state,
+      isSubmitting,
+    };
+  }
+
+  updateIsValidating(isValidating) {
+    this.state = {
+      ...this.state,
+      isValidating,
+    };
+  }
+
+  incrementSubmitCount() {
+    this.state = {
+      ...this.state,
+      submitCount: this.state.submitCount + 1,
+    };
+  }
+
   async validateForm() {
     let formErrors = {};
+
+    this.updateIsValidating(true);
+    this.dispatchFormUpdate();
 
     if (isFunction(this.validation)) {
       try {
@@ -162,20 +193,34 @@ export class Form extends withEventDispatch(HTMLElement) {
     };
 
     this.updateIsValid();
+    this.updateIsValidating(false);
+    this.dispatchFormUpdate();
   }
 
-  async validateField(field) {
-    const error = await this.constructor.getFieldError(field);
+  async validateField(fieldId) {
+    const field = this.fields
+      .find(fi => getFieldId(fi) === fieldId);
 
-    this.state = {
-      ...this.state,
-      errors: {
-        ...this.state.errors,
-        ...error,
-      },
-    };
+    if (field) {
+      this.updateIsValidating(true);
+      this.dispatchFormUpdate();
 
-    this.updateIsValid();
+      const error = await this.constructor.getFieldError(field);
+
+      this.state = {
+        ...this.state,
+        errors: {
+          ...this.state.errors,
+          ...error,
+        },
+      };
+
+      this.updateIsValid();
+      this.updateIsValidating(false);
+      this.dispatchFormUpdate();
+    } else {
+      throw new Error(`The field ${fieldId} does not exist.`);
+    }
   }
 
   static async getFieldError(field) {
@@ -196,10 +241,18 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   async submitForm() {
+    this.fields.forEach(this.updateTouched);
+    this.updateIsSubmitting(true);
+    this.incrementSubmitCount();
+    this.dispatchFormUpdate();
+
     await this.validateForm();
 
     if (this.state.isValid) {
-      this.dispatchEventAndMethod('formsubmit', this.state.values);
+      this.dispatchFormSubmit();
+    } else {
+      this.updateIsSubmitting(false);
+      this.dispatchFormUpdate();
     }
   }
 
@@ -209,12 +262,16 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
   }
 
+  finishSubmission() {
+    this.updateIsSubmitting(false);
+    this.dispatchFormUpdate();
+  }
+
   async handleBlur({ target }) {
     if (isFormField(target)) {
       this.updateDirty(true);
       this.updateTouched(target);
       await this.validateForm();
-      this.dispatchEventAndMethod('formupdate', this.state);
     }
   }
 
@@ -222,7 +279,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     if (isFormField(target)) {
       this.updateValue(target);
       await this.validateForm();
-      this.dispatchEventAndMethod('formupdate', this.state);
     }
   }
 }

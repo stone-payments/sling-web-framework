@@ -54,7 +54,14 @@ export const TestBusinessForm = Base => class extends withForm(Base) {
 
   render() {
     const { formState } = this;
-    const { values, errors, touched, isValid } = formState;
+    const {
+      values,
+      errors,
+      touched,
+      isValid,
+      isValidating,
+      isSubmitting,
+    } = formState;
 
     return TestBusinessFormView({
       formState,
@@ -62,6 +69,8 @@ export const TestBusinessForm = Base => class extends withForm(Base) {
       errors,
       touched,
       isValid,
+      isValidating,
+      isSubmitting,
       validateUserName,
       validateEmail,
       validateEmailAsync,
