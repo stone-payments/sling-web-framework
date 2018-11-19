@@ -2,15 +2,24 @@ import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
 import { withForm } from './withForm.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
 
-const validateUserName = value => (value === 'admin'
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+export const validateUserName = value => (value === 'admin'
   ? 'Please do not use admin'
   : undefined);
 
-const validateEmail = value => (!isValidEmail(value)
+export const validateEmail = value => (!isValidEmail(value)
   ? 'Please enter a valid e-mail'
   : undefined);
 
-const validateForm = (values) => {
+export const validateEmailAsync = value => sleep(500)
+  .then(() => {
+    if (!isValidEmail(value)) {
+      throw new Error('Please enter a valid e-mail');
+    }
+  });
+
+export const validateForm = (values) => {
   const errors = {};
 
   if (!values.cellphone && !values.workphone && !values.homephone) {
@@ -19,6 +28,19 @@ const validateForm = (values) => {
 
   return errors;
 };
+
+export const validateFormAsync = values => Promise.resolve()
+  .then(() => {
+    const errors = {};
+
+    if (!values.cellphone && !values.workphone && !values.homephone) {
+      errors.phone = 'Please enter at least one valid phone number';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      throw errors;
+    }
+  });
 
 export const TestBusinessForm = Base => class extends withForm(Base) {
   static get properties() {
@@ -42,7 +64,9 @@ export const TestBusinessForm = Base => class extends withForm(Base) {
       isValid,
       validateUserName,
       validateEmail,
+      validateEmailAsync,
       validateForm,
+      validateFormAsync,
     });
   }
 };

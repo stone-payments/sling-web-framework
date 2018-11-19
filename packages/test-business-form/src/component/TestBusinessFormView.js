@@ -9,8 +9,8 @@ export const TestBusinessFormView = ({
   touched,
   isValid,
   validateUserName,
-  validateEmail,
-  validateForm,
+  validateEmailAsync,
+  validateFormAsync,
 }) => html`
   <style>
     :host {
@@ -20,7 +20,7 @@ export const TestBusinessFormView = ({
     }
   </style>
   <sling-form
-    validation="${validateForm}">
+    validation="${validateFormAsync}">
     <label>
       <h4>Nome de usuário</h4>
       <sling-input
@@ -38,7 +38,7 @@ export const TestBusinessFormView = ({
       <sling-input
         name="email"
         type="email"
-        validation="${validateEmail}"
+        validation="${validateEmailAsync}"
         ></sling-input>
     </label>
 

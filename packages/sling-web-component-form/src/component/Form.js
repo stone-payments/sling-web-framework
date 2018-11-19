@@ -1,5 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction } from 'sling-helpers';
+import { isFunction, toFlatObject } from 'sling-helpers';
 
 const isFormField = target =>
   ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT', 'TEXTAREA']
@@ -27,7 +27,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.handleClick = this.handleClick.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.validateForm = this.validateForm.bind(this);
-    this.validateField = this.validateField.bind(this);
 
     this.state = {
       initialValues: {},
@@ -69,7 +68,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       .filter(isFormField);
   }
 
-  initForm() {
+  async initForm() {
     const allFieldsHaveNameOrId = this.fields.every(getFieldId);
 
     if (!allFieldsHaveNameOrId) {
@@ -85,7 +84,8 @@ export class Form extends withEventDispatch(HTMLElement) {
       },
     };
 
-    this.validateForm();
+    await this.validateForm();
+    this.dispatchEventAndMethod('formupdate', this.state);
   }
 
   updateValue(field) {
@@ -139,44 +139,64 @@ export class Form extends withEventDispatch(HTMLElement) {
     };
   }
 
-  validateForm() {
+  async validateForm() {
+    let formErrors = {};
+
     if (isFunction(this.validation)) {
-      const errors = this.validation(this.state.values);
-
-      this.state = {
-        ...this.state,
-        errors,
-      };
-
-      this.updateIsValid();
+      try {
+        formErrors = await Promise.resolve(this.validation(this.state.values));
+      } catch (err) {
+        formErrors = (err.constructor === Error) ? err.message : err;
+      }
     }
 
-    this.fields.forEach(this.validateField);
+    const fieldErrors = await Promise.all(this.fields
+      .map(this.constructor.getFieldError));
 
-    this.dispatchEventAndMethod('formupdate', this.state);
-  }
-
-  validateField(field) {
-    if (isFunction(field.validation)) {
-      const fieldId = getFieldId(field);
-      const error = field.validation(field.value);
-
-      const errors = {
-        ...this.state.errors,
-        [fieldId]: error,
-      };
-
-      this.state = {
-        ...this.state,
-        errors,
-      };
-    }
+    this.state = {
+      ...this.state,
+      errors: {
+        ...formErrors,
+        ...fieldErrors.reduce(toFlatObject, {}),
+      },
+    };
 
     this.updateIsValid();
   }
 
-  submitForm() {
-    this.validateForm();
+  async validateField(field) {
+    const error = await this.constructor.getFieldError(field);
+
+    this.state = {
+      ...this.state,
+      errors: {
+        ...this.state.errors,
+        ...error,
+      },
+    };
+
+    this.updateIsValid();
+  }
+
+  static async getFieldError(field) {
+    if (isFunction(field.validation)) {
+      let error;
+      const fieldId = getFieldId(field);
+
+      try {
+        error = await Promise.resolve(field.validation(field.value));
+      } catch (err) {
+        error = (err.constructor === Error) ? err.message : err;
+      }
+
+      return { [fieldId]: error };
+    }
+
+    return {};
+  }
+
+  async submitForm() {
+    await this.validateForm();
 
     if (this.state.isValid) {
       this.dispatchEventAndMethod('formsubmit', this.state.values);
@@ -189,18 +209,20 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
   }
 
-  handleBlur({ target }) {
+  async handleBlur({ target }) {
     if (isFormField(target)) {
       this.updateDirty(true);
       this.updateTouched(target);
-      this.validateForm();
+      await this.validateForm();
+      this.dispatchEventAndMethod('formupdate', this.state);
     }
   }
 
-  handleInput({ target }) {
+  async handleInput({ target }) {
     if (isFormField(target)) {
       this.updateValue(target);
-      this.validateForm();
+      await this.validateForm();
+      this.dispatchEventAndMethod('formupdate', this.state);
     }
   }
 }
