@@ -10,6 +10,23 @@ const getFieldId = field => field.getAttribute('name') ||
   field.getAttribute('id') ||
   field.id;
 
+const getFieldError = async (field) => {
+  if (isFunction(field.validation)) {
+    let error;
+    const fieldId = getFieldId(field);
+
+    try {
+      error = await Promise.resolve(field.validation(field.value));
+    } catch (err) {
+      error = (err.constructor === Error) ? err.message : err;
+    }
+
+    return { [fieldId]: error };
+  }
+
+  return {};
+};
+
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
     super();
@@ -182,7 +199,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
 
     const fieldErrors = await Promise.all(this.fields
-      .map(this.constructor.getFieldError));
+      .map(getFieldError));
 
     this.state = {
       ...this.state,
@@ -205,7 +222,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateIsValidating(true);
       this.dispatchFormUpdate();
 
-      const error = await this.constructor.getFieldError(field);
+      const error = await getFieldError(field);
 
       this.state = {
         ...this.state,
@@ -221,23 +238,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     } else {
       throw new Error(`The field ${fieldId} does not exist.`);
     }
-  }
-
-  static async getFieldError(field) {
-    if (isFunction(field.validation)) {
-      let error;
-      const fieldId = getFieldId(field);
-
-      try {
-        error = await Promise.resolve(field.validation(field.value));
-      } catch (err) {
-        error = (err.constructor === Error) ? err.message : err;
-      }
-
-      return { [fieldId]: error };
-    }
-
-    return {};
   }
 
   async submitForm() {
