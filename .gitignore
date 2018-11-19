@@ -35,3 +35,6 @@ lerna-debug.log
 # nightwatch
 reports
 bin
+
+# sonar cloud
+.scannerwork
