@@ -2,32 +2,6 @@ import { set } from 'dot-prop-immutable';
 import { withEventDispatch } from 'sling-framework';
 import { isFunction, toFlatObject } from 'sling-helpers';
 
-const isFormField = target =>
-  ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT', 'TEXTAREA']
-    .includes(target.nodeName);
-
-const getFieldId = field => field.getAttribute('name') ||
-  field.name ||
-  field.getAttribute('id') ||
-  field.id;
-
-const getFieldError = async (field) => {
-  if (isFunction(field.validation)) {
-    let error;
-    const fieldId = getFieldId(field);
-
-    try {
-      error = await Promise.resolve(field.validation(field.value));
-    } catch (err) {
-      error = (err.constructor === Error) ? err.message : err;
-    }
-
-    return { [fieldId]: error };
-  }
-
-  return {};
-};
-
 export const INITIAL_STATE = {
   errors: {},
   values: {},
@@ -83,10 +57,39 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
+  static isFormField(target) {
+    return ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT', 'TEXTAREA']
+      .includes(target.nodeName);
+  }
+
+  static getFieldId(field) {
+    return field.getAttribute('name') ||
+      field.name ||
+      field.getAttribute('id') ||
+      field.id;
+  }
+
+  static async getFieldError(field) {
+    if (isFunction(field.validation)) {
+      let error;
+      const fieldId = this.getFieldId(field);
+
+      try {
+        error = await Promise.resolve(field.validation(field.value));
+      } catch (err) {
+        error = (err.constructor === Error) ? err.message : err;
+      }
+
+      return { [fieldId]: error };
+    }
+
+    return {};
+  }
+
   get fields() {
     return Array
       .from(this.querySelectorAll('*'))
-      .filter(isFormField);
+      .filter(this.constructor.isFormField);
   }
 
   get values() {
@@ -131,7 +134,8 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   async initForm() {
-    const allFieldsHaveNameOrId = this.fields.every(getFieldId);
+    const allFieldsHaveNameOrId = this.fields
+      .every(this.constructor.getFieldId);
 
     if (!allFieldsHaveNameOrId) {
       throw new Error('All fields must have "name" or "id".');
@@ -141,22 +145,13 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   updateValue(field) {
-    const fieldId = getFieldId(field);
-
-    const values = {
-      ...this.state.values,
-      [fieldId]: field.value || '',
-    };
-
-    this.state = set(this.state, 'values', values);
+    const fieldId = this.constructor.getFieldId(field);
+    this.state = set(this.state, `values.${fieldId}`, field.value || '');
   }
 
   updateTouched(field) {
-    const fieldId = getFieldId(field);
-
-    if (!this.state.touched[fieldId]) {
-      this.state = set(this.state, `touched.${fieldId}`, true);
-    }
+    const fieldId = this.constructor.getFieldId(field);
+    this.state = set(this.state, `touched.${fieldId}`, true);
   }
 
   updateDirty(dirty) {
@@ -169,9 +164,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       .filter(value => value != null)
       .length === 0;
 
-    const isValid = hasNoErrors && this.state.dirty;
-
-    this.state = set(this.state, 'isValid', isValid);
+    this.state = set(this.state, 'isValid', hasNoErrors && this.state.dirty);
   }
 
   updateIsSubmitting(isSubmitting) {
@@ -201,7 +194,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
 
     const fieldErrors = await Promise.all(this.fields
-      .map(getFieldError));
+      .map(this.constructor.getFieldError.bind(this.constructor)));
 
     this.state = set(this.state, 'errors', {
       ...formErrors,
@@ -215,13 +208,13 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   async validateField(fieldId) {
     const field = this.fields
-      .find(fi => getFieldId(fi) === fieldId);
+      .find(fi => this.constructor.getFieldId(fi) === fieldId);
 
     if (field) {
       this.updateIsValidating(true);
       this.dispatchFormUpdate();
 
-      const error = await getFieldError(field);
+      const error = await this.constructor.getFieldError(field);
 
       this.state = set(this.state, 'errors', {
         ...this.state.errors,
@@ -264,7 +257,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   async handleBlur({ target }) {
-    if (isFormField(target)) {
+    if (this.constructor.isFormField(target)) {
       this.updateDirty(true);
       this.updateTouched(target);
 
@@ -275,7 +268,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   async handleInput({ target }) {
-    if (isFormField(target)) {
+    if (this.constructor.isFormField(target)) {
       this.updateValue(target);
 
       if (!this.skipvalidationonchange) {
