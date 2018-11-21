@@ -1,3 +1,4 @@
+import { set } from 'dot-prop-immutable';
 import { withEventDispatch } from 'sling-framework';
 import { isFunction, toFlatObject } from 'sling-helpers';
 
@@ -93,11 +94,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   set values(values) {
-    this.state = {
-      ...this.state,
-      values,
-    };
-
+    this.state = set(this.state, 'values', values);
     this.dispatchFormUpdate();
   }
 
@@ -151,31 +148,19 @@ export class Form extends withEventDispatch(HTMLElement) {
       [fieldId]: field.value || '',
     };
 
-    this.state = {
-      ...this.state,
-      values,
-    };
+    this.state = set(this.state, 'values', values);
   }
 
   updateTouched(field) {
     const fieldId = getFieldId(field);
 
     if (!this.state.touched[fieldId]) {
-      this.state = {
-        ...this.state,
-        touched: {
-          ...this.state.touched,
-          [fieldId]: true,
-        },
-      };
+      this.state = set(this.state, `touched.${fieldId}`, true);
     }
   }
 
   updateDirty(dirty) {
-    this.state = {
-      ...this.state,
-      dirty,
-    };
+    this.state = set(this.state, 'dirty', dirty);
   }
 
   updateIsValid() {
@@ -186,31 +171,19 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     const isValid = hasNoErrors && this.state.dirty;
 
-    this.state = {
-      ...this.state,
-      isValid,
-    };
+    this.state = set(this.state, 'isValid', isValid);
   }
 
   updateIsSubmitting(isSubmitting) {
-    this.state = {
-      ...this.state,
-      isSubmitting,
-    };
+    this.state = set(this.state, 'isSubmitting', isSubmitting);
   }
 
   updateIsValidating(isValidating) {
-    this.state = {
-      ...this.state,
-      isValidating,
-    };
+    this.state = set(this.state, 'isValidating', isValidating);
   }
 
   incrementSubmitCount() {
-    this.state = {
-      ...this.state,
-      submitCount: this.state.submitCount + 1,
-    };
+    this.state = set(this.state, 'submitCount', this.state.submitCount + 1);
   }
 
   async validateForm() {
@@ -230,13 +203,10 @@ export class Form extends withEventDispatch(HTMLElement) {
     const fieldErrors = await Promise.all(this.fields
       .map(getFieldError));
 
-    this.state = {
-      ...this.state,
-      errors: {
-        ...formErrors,
-        ...fieldErrors.reduce(toFlatObject, {}),
-      },
-    };
+    this.state = set(this.state, 'errors', {
+      ...formErrors,
+      ...fieldErrors.reduce(toFlatObject, {}),
+    });
 
     this.updateIsValid();
     this.updateIsValidating(false);
@@ -253,13 +223,10 @@ export class Form extends withEventDispatch(HTMLElement) {
 
       const error = await getFieldError(field);
 
-      this.state = {
-        ...this.state,
-        errors: {
-          ...this.state.errors,
-          ...error,
-        },
-      };
+      this.state = set(this.state, 'errors', {
+        ...this.state.errors,
+        ...error,
+      });
 
       this.updateIsValid();
       this.updateIsValidating(false);
