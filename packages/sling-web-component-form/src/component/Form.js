@@ -101,11 +101,11 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.dispatchFormUpdate();
   }
 
-  get skipValidationOnChange() {
+  get skipvalidationonchange() {
     return this.hasAttribute('skipvalidationonchange');
   }
 
-  set skipValidationOnChange(value) {
+  set skipvalidationonchange(value) {
     if (value != null && value !== false) {
       this.setAttribute('skipvalidationonchange', '');
     } else {
@@ -113,11 +113,11 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
   }
 
-  get skipValidationOnBlur() {
+  get skipvalidationonblur() {
     return this.hasAttribute('skipvalidationonblur');
   }
 
-  set skipValidationOnBlur(value) {
+  set skipvalidationonblur(value) {
     if (value != null && value !== false) {
       this.setAttribute('skipvalidationonblur', '');
     } else {
@@ -301,7 +301,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateDirty(true);
       this.updateTouched(target);
 
-      if (!this.skipValidationOnBlur) {
+      if (!this.skipvalidationonblur) {
         await this.validateForm();
       }
     }
@@ -311,7 +311,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     if (isFormField(target)) {
       this.updateValue(target);
 
-      if (!this.skipValidationOnChange) {
+      if (!this.skipvalidationonchange) {
         await this.validateForm();
       }
     }

@@ -26,8 +26,6 @@ export const TestBusinessFormView = ({
 
   <sling-form
     validation="${validateFormAsync}"
-    skipvalidationonchange
-    skipvalidationonblur
     onformupdate="${handleFormUpdate}">
     <h4>Form${isValidating ? ' validating' : ''}</h4>
 
