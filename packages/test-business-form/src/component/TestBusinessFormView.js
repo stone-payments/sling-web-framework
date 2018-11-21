@@ -4,7 +4,7 @@ import 'sling-web-component-input';
 import 'sling-web-component-button';
 
 export const TestBusinessFormView = ({
-  formState,
+  form,
   errors,
   touched,
   isValid,
@@ -15,6 +15,7 @@ export const TestBusinessFormView = ({
   validateEmailAsync,
   validateFormAsync,
   handleFormUpdate,
+  handleFormSubmission,
 }) => html`
   <style>
     :host {
@@ -26,7 +27,8 @@ export const TestBusinessFormView = ({
 
   <sling-form
     validation="${validateFormAsync}"
-    onformupdate="${handleFormUpdate}">
+    onformupdate="${handleFormUpdate}"
+    onformsubmit="${handleFormSubmission}">
     <h4>Form${isValidating ? ' validating' : ''}</h4>
 
     <label>
@@ -100,5 +102,5 @@ export const TestBusinessFormView = ({
     </sling-button>
   </sling-form>
 
-  <pre id="debug">${JSON.stringify(formState, null, 2)}</pre>
+  <pre id="debug">${JSON.stringify(form, null, 2)}</pre>
 `;

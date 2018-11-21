@@ -30,9 +30,14 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.handleClick = this.handleClick.bind(this);
     this.updateValue = this.updateValue.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
-    this.validateForm = this.validateForm.bind(this);
 
-    this.state = INITIAL_STATE;
+    this.state = {
+      ...INITIAL_STATE,
+      validateForm: this.validateForm.bind(this),
+      validateField: this.validateField.bind(this),
+      submitForm: this.submitForm.bind(this),
+      finishSubmission: this.finishSubmission.bind(this),
+    };
   }
 
   connectedCallback() {
@@ -129,8 +134,8 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.dispatchEventAndMethod('formupdate', this.state);
   }
 
-  dispatchFormSubmit() {
-    this.dispatchEventAndMethod('formsubmit', this.state.values);
+  dispatchFormSubmission() {
+    this.dispatchEventAndMethod('formsubmit');
   }
 
   async initForm() {
@@ -225,7 +230,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateIsValidating(false);
       this.dispatchFormUpdate();
     } else {
-      throw new Error(`The field ${fieldId} does not exist.`);
+      throw new Error(`The field "${fieldId}" does not exist.`);
     }
   }
 
@@ -237,23 +242,26 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     await this.validateForm();
 
-    if (this.state.isValid) {
-      this.dispatchFormSubmit();
-    } else {
-      this.updateIsSubmitting(false);
-      this.dispatchFormUpdate();
-    }
-  }
-
-  handleClick({ target }) {
-    if (target.type === 'submit') {
-      this.submitForm();
-    }
+    return new Promise((resolve, reject) => {
+      if (this.state.isValid) {
+        resolve(this.state.values);
+      } else {
+        this.updateIsSubmitting(false);
+        this.dispatchFormUpdate();
+        reject(this.state.errors);
+      }
+    });
   }
 
   finishSubmission() {
     this.updateIsSubmitting(false);
     this.dispatchFormUpdate();
+  }
+
+  handleClick({ target }) {
+    if (target.type === 'submit') {
+      this.dispatchFormSubmission();
+    }
   }
 
   async handleBlur({ target }) {

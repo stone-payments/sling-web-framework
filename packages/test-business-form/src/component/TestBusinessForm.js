@@ -45,13 +45,14 @@ export const validateFormAsync = values => Promise.resolve()
 export const TestBusinessForm = Base => class extends Base {
   constructor() {
     super();
-    this.formState = initialFormState;
+    this.form = initialFormState;
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
+    this.handleFormSubmission = this.handleFormSubmission.bind(this);
   }
 
   static get properties() {
     return {
-      formState: {
+      form: {
         type: Object,
         reflectToAttribute: false,
       },
@@ -59,21 +60,33 @@ export const TestBusinessForm = Base => class extends Base {
   }
 
   handleFormUpdate({ detail }) {
-    this.formState = detail;
+    this.form = detail;
+  }
+
+  handleFormSubmission() {
+    this.form.submitForm()
+      .then((values) => {
+        console.log('valid', values);
+      })
+      .catch((errors) => {
+        console.log('invalid', errors);
+      })
+      .then(this.form.finishSubmission);
   }
 
   render() {
-    const { formState, handleFormUpdate } = this;
+    const { form, handleFormUpdate, handleFormSubmission } = this;
 
     return TestBusinessFormView({
-      formState,
-      ...formState,
+      form,
+      ...form,
       validateUserName,
       validateEmail,
       validateEmailAsync,
       validateForm,
       validateFormAsync,
       handleFormUpdate,
+      handleFormSubmission,
     });
   }
 };
