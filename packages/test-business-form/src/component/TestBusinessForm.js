@@ -1,4 +1,4 @@
-import { INITIAL_STATE } from 'sling-web-component-form';
+import { INITIAL_STATE as initialFormState } from 'sling-web-component-form';
 import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
 
@@ -45,7 +45,7 @@ export const validateFormAsync = values => Promise.resolve()
 export const TestBusinessForm = Base => class extends Base {
   constructor() {
     super();
-    this.formState = INITIAL_STATE;
+    this.formState = initialFormState;
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
   }
 
