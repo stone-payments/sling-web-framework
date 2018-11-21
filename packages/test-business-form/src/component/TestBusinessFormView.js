@@ -10,9 +10,11 @@ export const TestBusinessFormView = ({
   isValid,
   isValidating,
   isSubmitting,
+  values,
   validateUserName,
   validateEmailAsync,
   validateFormAsync,
+  handleFormUpdate,
 }) => html`
   <style>
     :host {
@@ -21,8 +23,12 @@ export const TestBusinessFormView = ({
       grid-gap: 20px;
     }
   </style>
+
   <sling-form
-    validation="${validateFormAsync}">
+    validation="${validateFormAsync}"
+    skipvalidationonchange
+    skipvalidationonblur
+    onformupdate="${handleFormUpdate}">
     <h4>Form${isValidating ? ' validating' : ''}</h4>
 
     <label>
@@ -30,6 +36,7 @@ export const TestBusinessFormView = ({
       <sling-input
         name="username"
         type="text"
+        value="${values.username}"
         validation="${validateUserName}"></sling-input>
     </label>
 
@@ -42,8 +49,8 @@ export const TestBusinessFormView = ({
       <sling-input
         name="email"
         type="email"
-        validation="${validateEmailAsync}"
-        ></sling-input>
+        value="${values.email}"
+        validation="${validateEmailAsync}"></sling-input>
     </label>
 
     ${touched.email && errors.email ? html`
@@ -54,17 +61,26 @@ export const TestBusinessFormView = ({
 
     <label>
       <span>Celular</span>
-      <sling-input name="cellphone" type="text"></sling-input>
+      <sling-input
+        name="cellphone"
+        type="text"
+        value="${values.cellphone}"></sling-input>
     </label>
 
     <label>
       <span>Casa</span>
-      <sling-input name="homephone" type="text"></sling-input>
+      <sling-input
+        name="homephone"
+        type="text"
+        value="${values.homephone}"></sling-input>
     </label>
 
     <label>
       <span>Trabalho</span>
-      <sling-input name="workphone" type="text"></sling-input>
+      <sling-input
+        name="workphone"
+        type="text"
+        value="${values.workphone}"></sling-input>
     </label>
 
     ${touched.workphone && errors.phone ? html`
@@ -73,10 +89,15 @@ export const TestBusinessFormView = ({
 
     <label>
       <h4>Valor</h4>
-      <sling-input name="value" type="money"></sling-input>
+      <sling-input
+        name="value"
+        type="money"
+        value="${values.money}"></sling-input>
     </label>
 
-    <sling-button type="submit" disabled="${!isValid || isSubmitting}">
+    <sling-button
+      type="submit"
+      disabled="${!isValid || isSubmitting}">
       Enviar
     </sling-button>
   </sling-form>

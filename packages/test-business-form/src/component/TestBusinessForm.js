@@ -1,5 +1,5 @@
+import { INITIAL_STATE } from 'sling-web-component-form';
 import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
-import { withForm } from './withForm.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -42,7 +42,13 @@ export const validateFormAsync = values => Promise.resolve()
     }
   });
 
-export const TestBusinessForm = Base => class extends withForm(Base) {
+export const TestBusinessForm = Base => class extends Base {
+  constructor() {
+    super();
+    this.formState = INITIAL_STATE;
+    this.handleFormUpdate = this.handleFormUpdate.bind(this);
+  }
+
   static get properties() {
     return {
       formState: {
@@ -52,30 +58,22 @@ export const TestBusinessForm = Base => class extends withForm(Base) {
     };
   }
 
+  handleFormUpdate({ detail }) {
+    this.formState = detail;
+  }
+
   render() {
-    const { formState } = this;
-    const {
-      values,
-      errors,
-      touched,
-      isValid,
-      isValidating,
-      isSubmitting,
-    } = formState;
+    const { formState, handleFormUpdate } = this;
 
     return TestBusinessFormView({
       formState,
-      values,
-      errors,
-      touched,
-      isValid,
-      isValidating,
-      isSubmitting,
+      ...formState,
       validateUserName,
       validateEmail,
       validateEmailAsync,
       validateForm,
       validateFormAsync,
+      handleFormUpdate,
     });
   }
 };

@@ -6,12 +6,15 @@ const userNameField = document.querySelector('sling-input[name=username]');
 const debug = document.getElementById('debug');
 
 form.addEventListener('formupdate', ({ detail }) => {
+  console.log('formupdate', detail);
   debug.innerHTML = JSON.stringify(detail, null, 2);
 });
 
 form.addEventListener('formsubmit', ({ detail }) => {
   console.log(JSON.stringify(detail, null, 2));
 });
+
+console.log('direct selection', form.state);
 
 const validateForm = (values) => {
   const errors = {};

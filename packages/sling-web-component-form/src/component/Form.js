@@ -27,6 +27,17 @@ const getFieldError = async (field) => {
   return {};
 };
 
+export const INITIAL_STATE = {
+  errors: {},
+  values: {},
+  touched: {},
+  dirty: false,
+  isValid: false,
+  isSubmitting: false,
+  isValidating: false,
+  submitCount: 0,
+};
+
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
     super();
@@ -46,17 +57,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.updateTouched = this.updateTouched.bind(this);
     this.validateForm = this.validateForm.bind(this);
 
-    this.state = {
-      initialValues: {},
-      errors: {},
-      values: {},
-      touched: {},
-      dirty: false,
-      isValid: false,
-      isSubmitting: false,
-      isValidating: false,
-      submitCount: 0,
-    };
+    this.state = INITIAL_STATE;
   }
 
   connectedCallback() {
@@ -87,6 +88,43 @@ export class Form extends withEventDispatch(HTMLElement) {
       .filter(isFormField);
   }
 
+  get values() {
+    return this.state.values;
+  }
+
+  set values(values) {
+    this.state = {
+      ...this.state,
+      values,
+    };
+
+    this.dispatchFormUpdate();
+  }
+
+  get skipValidationOnChange() {
+    return this.hasAttribute('skipvalidationonchange');
+  }
+
+  set skipValidationOnChange(value) {
+    if (value != null && value !== false) {
+      this.setAttribute('skipvalidationonchange', '');
+    } else {
+      this.removeAttribute('skipvalidationonchange');
+    }
+  }
+
+  get skipValidationOnBlur() {
+    return this.hasAttribute('skipvalidationonblur');
+  }
+
+  set skipValidationOnBlur(value) {
+    if (value != null && value !== false) {
+      this.setAttribute('skipvalidationonblur', '');
+    } else {
+      this.removeAttribute('skipvalidationonblur');
+    }
+  }
+
   dispatchFormUpdate() {
     this.dispatchEventAndMethod('formupdate', this.state);
   }
@@ -103,15 +141,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     }
 
     this.fields.forEach(this.updateValue);
-
-    this.state = {
-      ...this.state,
-      initialValues: {
-        ...this.state.values,
-      },
-    };
-
-    await this.validateForm();
   }
 
   updateValue(field) {
@@ -271,14 +300,20 @@ export class Form extends withEventDispatch(HTMLElement) {
     if (isFormField(target)) {
       this.updateDirty(true);
       this.updateTouched(target);
-      await this.validateForm();
+
+      if (!this.skipValidationOnBlur) {
+        await this.validateForm();
+      }
     }
   }
 
   async handleInput({ target }) {
     if (isFormField(target)) {
       this.updateValue(target);
-      await this.validateForm();
+
+      if (!this.skipValidationOnChange) {
+        await this.validateForm();
+      }
     }
   }
 }
