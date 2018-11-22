@@ -1,4 +1,3 @@
-import { INITIAL_STATE as initialFormState } from 'sling-web-component-form';
 import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
 
@@ -22,7 +21,8 @@ export const validateEmailAsync = value => sleep(500)
 export const validateForm = (values) => {
   const errors = {};
 
-  if (!values.cellphone && !values.workphone && !values.homephone) {
+  if (!values.phone ||
+    (!values.phone.cell && !values.phone.home && !values.phone.work)) {
     errors.phone = 'Please enter at least one valid phone number';
   }
 
@@ -33,7 +33,8 @@ export const validateFormAsync = values => Promise.resolve()
   .then(() => {
     const errors = {};
 
-    if (!values.cellphone && !values.workphone && !values.homephone) {
+    if (!values.phone ||
+      (!values.phone.cell && !values.phone.home && !values.phone.work)) {
       errors.phone = 'Please enter at least one valid phone number';
     }
 
@@ -45,7 +46,6 @@ export const validateFormAsync = values => Promise.resolve()
 export const TestBusinessForm = Base => class extends Base {
   constructor() {
     super();
-    this.form = initialFormState;
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
   }

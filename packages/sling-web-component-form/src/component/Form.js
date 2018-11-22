@@ -1,17 +1,6 @@
-import { set } from 'dot-prop-immutable';
 import { withEventDispatch } from 'sling-framework';
 import { isFunction, toFlatObject } from 'sling-helpers';
-
-export const INITIAL_STATE = {
-  errors: {},
-  values: {},
-  touched: {},
-  dirty: false,
-  isValid: false,
-  isSubmitting: false,
-  isValidating: false,
-  submitCount: 0,
-};
+import { setIn, mergeDeep } from '../helpers/immutableHelper.js';
 
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
@@ -32,7 +21,14 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.updateTouched = this.updateTouched.bind(this);
 
     this.state = {
-      ...INITIAL_STATE,
+      errors: {},
+      values: {},
+      touched: {},
+      dirty: false,
+      isValid: false,
+      isSubmitting: false,
+      isValidating: false,
+      submitCount: 0,
       validateForm: this.validateForm.bind(this),
       validateField: this.validateField.bind(this),
       submitForm: this.submitForm.bind(this),
@@ -60,6 +56,26 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
+  }
+
+  async initForm() {
+    const allFieldsHaveNameOrId = this.fields
+      .every(this.constructor.getFieldId);
+
+    if (!allFieldsHaveNameOrId) {
+      throw new Error('All fields must have "name" or "id".');
+    }
+
+    const fieldValues = this.fields.reduce((result, field) => {
+      const fieldId = this.constructor.getFieldId(field);
+      return setIn(result, fieldId, field.value || '');
+    }, {});
+
+    const userValues = this.initialvalues;
+    this.state.values = mergeDeep(fieldValues, userValues);
+
+    await Promise.resolve(); /* avoids LitElement warning */
+    this.dispatchFormUpdate();
   }
 
   static isFormField(target) {
@@ -102,7 +118,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   set values(values) {
-    this.state = set(this.state, 'values', values);
+    this.state = setIn(this.state, 'values', values);
     this.dispatchFormUpdate();
   }
 
@@ -138,29 +154,18 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.dispatchEventAndMethod('formsubmit');
   }
 
-  async initForm() {
-    const allFieldsHaveNameOrId = this.fields
-      .every(this.constructor.getFieldId);
-
-    if (!allFieldsHaveNameOrId) {
-      throw new Error('All fields must have "name" or "id".');
-    }
-
-    this.fields.forEach(this.updateValue);
-  }
-
   updateValue(field) {
     const fieldId = this.constructor.getFieldId(field);
-    this.state = set(this.state, `values.${fieldId}`, field.value || '');
+    this.state = setIn(this.state, `values.${fieldId}`, field.value || '');
   }
 
   updateTouched(field) {
     const fieldId = this.constructor.getFieldId(field);
-    this.state = set(this.state, `touched.${fieldId}`, true);
+    this.state = setIn(this.state, `touched.${fieldId}`, true);
   }
 
   updateDirty(dirty) {
-    this.state = set(this.state, 'dirty', dirty);
+    this.state = setIn(this.state, 'dirty', dirty);
   }
 
   updateIsValid() {
@@ -169,19 +174,19 @@ export class Form extends withEventDispatch(HTMLElement) {
       .filter(value => value != null)
       .length === 0;
 
-    this.state = set(this.state, 'isValid', hasNoErrors && this.state.dirty);
+    this.state = setIn(this.state, 'isValid', hasNoErrors && this.state.dirty);
   }
 
   updateIsSubmitting(isSubmitting) {
-    this.state = set(this.state, 'isSubmitting', isSubmitting);
+    this.state = setIn(this.state, 'isSubmitting', isSubmitting);
   }
 
   updateIsValidating(isValidating) {
-    this.state = set(this.state, 'isValidating', isValidating);
+    this.state = setIn(this.state, 'isValidating', isValidating);
   }
 
   incrementSubmitCount() {
-    this.state = set(this.state, 'submitCount', this.state.submitCount + 1);
+    this.state = setIn(this.state, 'submitCount', this.state.submitCount + 1);
   }
 
   async validateForm() {
@@ -201,7 +206,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     const fieldErrors = await Promise.all(this.fields
       .map(this.constructor.getFieldError.bind(this.constructor)));
 
-    this.state = set(this.state, 'errors', {
+    this.state = setIn(this.state, 'errors', {
       ...formErrors,
       ...fieldErrors.reduce(toFlatObject, {}),
     });
@@ -221,7 +226,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
       const error = await this.constructor.getFieldError(field);
 
-      this.state = set(this.state, 'errors', {
+      this.state = setIn(this.state, 'errors', {
         ...this.state.errors,
         ...error,
       });

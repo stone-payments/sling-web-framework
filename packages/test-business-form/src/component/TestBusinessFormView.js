@@ -3,16 +3,22 @@ import 'sling-web-component-form';
 import 'sling-web-component-input';
 import 'sling-web-component-button';
 
+const initialValues = {
+  username: 'leofavre',
+  phone: { cell: '39043' },
+  laser: ['10', '20', '30'],
+};
+
 export const TestBusinessFormView = ({
   form,
-  errors,
-  touched,
+  values = {},
+  errors = {},
+  touched = {},
   isValid,
   isValidating,
   isSubmitting,
-  values,
   validateUserName,
-  validateEmailAsync,
+  validateEmail,
   validateFormAsync,
   handleFormUpdate,
   handleFormSubmission,
@@ -26,6 +32,7 @@ export const TestBusinessFormView = ({
   </style>
 
   <sling-form
+    initialvalues="${initialValues}"
     validation="${validateFormAsync}"
     onformupdate="${handleFormUpdate}"
     onformsubmit="${handleFormSubmission}">
@@ -50,7 +57,7 @@ export const TestBusinessFormView = ({
         name="email"
         type="email"
         value="${values.email}"
-        validation="${validateEmailAsync}"></sling-input>
+        validation="${validateEmail}"></sling-input>
     </label>
 
     ${touched.email && errors.email ? html`
@@ -62,38 +69,45 @@ export const TestBusinessFormView = ({
     <label>
       <span>Celular</span>
       <sling-input
-        name="cellphone"
+        name="phone.cell"
         type="text"
-        value="${values.cellphone}"></sling-input>
+        value="${values.phone && values.phone.cell}"></sling-input>
     </label>
 
     <label>
       <span>Casa</span>
       <sling-input
-        name="homephone"
+        name="phone.home"
         type="text"
-        value="${values.homephone}"></sling-input>
+        value="${values.phone && values.phone.home}"></sling-input>
     </label>
 
     <label>
       <span>Trabalho</span>
       <sling-input
-        name="workphone"
+        name="phone.work"
         type="text"
-        value="${values.workphone}"></sling-input>
+        value="${values.phone && values.phone.work}"></sling-input>
     </label>
 
-    ${touched.workphone && errors.phone ? html`
+    ${touched.phone && touched.phone.work && errors.phone ? html`
       <p>${errors.phone}</p>
     ` : ''}
 
     <label>
       <h4>Valor</h4>
       <sling-input
-        name="value"
+        name="money"
         type="money"
         value="${values.money}"></sling-input>
     </label>
+
+    ${[0, 1, 2].map(idx => html`
+      <sling-input
+        name="laser[${idx}]"
+        type="text"
+        value="${values.laser && values.laser[idx]}"></sling-input>
+    `)}
 
     <sling-button
       type="submit"
