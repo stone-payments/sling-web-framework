@@ -1,6 +1,6 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, toFlatObject } from 'sling-helpers';
-import { setIn, mergeDeep } from '../helpers/immutableHelper.js';
+import { isFunction } from 'sling-helpers';
+import { setIn, mergeDeep, isDeeplyEmpty } from '../helpers/immutableHelper.js';
 
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
@@ -101,7 +101,7 @@ export class Form extends withEventDispatch(HTMLElement) {
         error = (err.constructor === Error) ? err.message : err;
       }
 
-      return { [fieldId]: error };
+      return setIn({}, fieldId, error);
     }
 
     return {};
@@ -169,12 +169,8 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   updateIsValid() {
-    const hasNoErrors = Object
-      .values(this.state.errors)
-      .filter(value => value != null)
-      .length === 0;
-
-    this.state = setIn(this.state, 'isValid', hasNoErrors && this.state.dirty);
+    this.state = setIn(this.state, 'isValid',
+      isDeeplyEmpty(this.state.errors) && this.state.dirty);
   }
 
   updateIsSubmitting(isSubmitting) {
@@ -208,7 +204,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.state = setIn(this.state, 'errors', {
       ...formErrors,
-      ...fieldErrors.reduce(toFlatObject, {}),
+      ...fieldErrors.reduce((result, obj) => mergeDeep(result, obj), {}),
     });
 
     this.updateIsValid();
