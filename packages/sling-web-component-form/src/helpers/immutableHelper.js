@@ -18,3 +18,19 @@ export const getIn = (obj, path) => {
   const normalizedPath = toPath(path);
   return timmGetIn(obj, normalizedPath);
 };
+
+export const isDeeplyEmpty = items => Object
+  .values(items)
+  .map((value) => {
+    if (typeof value === 'object') {
+      return isDeeplyEmpty(value);
+    }
+
+    if (Array.isArray(value)) {
+      return value.every(isDeeplyEmpty);
+    }
+
+    return value == null;
+  })
+  .filter(hasError => !hasError)
+  .length === 0;
