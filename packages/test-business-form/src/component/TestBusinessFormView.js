@@ -6,19 +6,19 @@ import 'sling-web-component-button';
 export const TestBusinessFormView = ({
   values = {},
   errors = {},
-  touched = {},
   isValid,
   isSubmitting,
-  validateTakenUsername,
+  validateRequiredField,
   validateRequiredEmail,
   validateOptionalPhone,
   validateForm,
   handleFormUpdate,
   handleFormSubmission,
+  friends,
+  addFriend,
+  removeFriend,
 }) => html`
   <sling-form
-    skipvalidationonchange
-    skipvalidationonblur
     validation="${validateForm}"
     onformupdate="${handleFormUpdate}"
     onformsubmit="${handleFormSubmission}">
@@ -28,10 +28,10 @@ export const TestBusinessFormView = ({
         name="username"
         type="text"
         value="${values.username}"
-        validation="${validateTakenUsername}"></sling-input>
+        validation="${validateRequiredField}"></sling-input>
     </label>
 
-    ${touched.username && errors.username ? html`
+    ${errors.username ? html`
       <p>${errors.username}</p>
     ` : ''}
 
@@ -44,13 +44,13 @@ export const TestBusinessFormView = ({
         validation="${validateRequiredEmail}"></sling-input>
     </label>
 
-    ${touched.email && errors.email ? html`
+    ${errors.email ? html`
       <p>${errors.email}</p>
     ` : ''}
 
     <h4>Telefone(s)</h4>
 
-    ${touched.phone && touched.phone.work && errors.onePhoneMinimum ? html`
+    ${errors.onePhoneMinimum ? html`
       <p>${errors.onePhoneMinimum}</p>
     ` : ''}
 
@@ -63,7 +63,7 @@ export const TestBusinessFormView = ({
         validation="${validateOptionalPhone}"></sling-input>
     </label>
 
-    ${touched.phone && touched.phone.personal && errors.phone && errors.phone.personal ? html`
+    ${errors.phone && errors.phone.personal ? html`
       <p>${errors.phone.personal}</p>
     ` : ''}
 
@@ -76,9 +76,37 @@ export const TestBusinessFormView = ({
         validation="${validateOptionalPhone}"></sling-input>
     </label>
 
-    ${touched.phone && touched.phone.work && errors.phone && errors.phone.work ? html`
+    ${errors.phone && errors.phone.work ? html`
       <p>${errors.phone.work}</p>
     ` : ''}
+  
+    <h4>Amigos</h4>
+    <sling-button
+      style="width: 150px;"
+      type="button"
+      onclick="${() => addFriend()}">
+      Adicionar amigo
+    </sling-button>
+
+    ${friends.map(id => html`
+      <sling-input
+        style="width: calc(100% - 200px); float: left;"
+        name="friends[${id}].name"
+        type="text"
+        value="${values.friends && values.friends[id] && values.friends[id].name}"
+        validation="${validateRequiredField}"></sling-input>
+      
+      <sling-button
+        style="width: 150px; float: right;"
+        type="button"
+        onclick="${() => removeFriend(id)}">
+        Remover amigo
+      </sling-button>
+
+      ${errors.friends && errors.friends[id] && errors.friends[id].name ? html`
+        <p>${errors.friends[id].name}</p>
+      ` : ''}
+    `)}
 
     <sling-button
       type="submit"

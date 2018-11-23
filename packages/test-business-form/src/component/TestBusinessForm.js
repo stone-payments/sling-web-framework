@@ -4,20 +4,23 @@ import * as validations from './validations.js';
 export const TestBusinessForm = Base => class extends Base {
   constructor() {
     super();
+    this.friends = [];
+    this.currentFriend = 0;
+
+    this.addFriend = this.addFriend.bind(this);
+    this.removeFriend = this.removeFriend.bind(this);
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    const form = this.shadowRoot.querySelector('sling-form');
-    console.log(form.state);
   }
 
   static get properties() {
     return {
       form: {
         type: Object,
+        reflectToAttribute: false,
+      },
+      friends: {
+        type: Array,
         reflectToAttribute: false,
       },
     };
@@ -38,15 +41,33 @@ export const TestBusinessForm = Base => class extends Base {
       .then(this.form.finishSubmission);
   }
 
+  addFriend() {
+    this.currentFriend += 1;
+    this.friends = [...this.friends, this.currentFriend];
+  }
+
+  removeFriend(id) {
+    this.friends = this.friends.filter(friend => friend !== id);
+  }
+
   render() {
-    console.log('render');
-    const { form, handleFormUpdate, handleFormSubmission } = this;
+    const {
+      form,
+      friends,
+      handleFormUpdate,
+      handleFormSubmission,
+      addFriend,
+      removeFriend,
+    } = this;
 
     return TestBusinessFormView({
       ...form,
       ...validations,
       handleFormUpdate,
       handleFormSubmission,
+      friends,
+      addFriend,
+      removeFriend,
     });
   }
 };
