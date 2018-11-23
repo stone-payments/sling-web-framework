@@ -1,4 +1,5 @@
 import { setIn as timmSetIn, getIn as timmGetIn } from 'timm';
+import isPlainObject from 'is-plain-object';
 
 export { mergeDeep } from 'timm';
 
@@ -22,7 +23,7 @@ export const getIn = (obj, path) => {
 export const isDeeplyEmpty = items => Object
   .values(items)
   .map((value) => {
-    if (typeof value === 'object') {
+    if (isPlainObject(value)) {
       return isDeeplyEmpty(value);
     }
 

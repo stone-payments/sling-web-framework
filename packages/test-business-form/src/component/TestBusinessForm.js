@@ -8,6 +8,12 @@ export const TestBusinessForm = Base => class extends Base {
     this.handleFormSubmission = this.handleFormSubmission.bind(this);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    const form = this.shadowRoot.querySelector('sling-form');
+    console.log(form.state);
+  }
+
   static get properties() {
     return {
       form: {
@@ -33,6 +39,7 @@ export const TestBusinessForm = Base => class extends Base {
   }
 
   render() {
+    console.log('render');
     const { form, handleFormUpdate, handleFormSubmission } = this;
 
     return TestBusinessFormView({

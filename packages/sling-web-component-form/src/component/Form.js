@@ -59,13 +59,6 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   async initForm() {
-    const allFieldsHaveNameOrId = this.fields
-      .every(this.constructor.getFieldId);
-
-    if (!allFieldsHaveNameOrId) {
-      throw new Error('All fields must have "name" or "id".');
-    }
-
     const fieldValues = this.fields.reduce((result, field) => {
       const fieldId = this.constructor.getFieldId(field);
       return setIn(result, fieldId, field.value || '');
@@ -90,8 +83,8 @@ export class Form extends withEventDispatch(HTMLElement) {
       field.id;
   }
 
-  static async getFieldError(field, customValidationFn) {
-    const validationFn = customValidationFn || field.validation;
+  static async getFieldError(field) {
+    const validationFn = field.validation;
 
     if (isFunction(validationFn)) {
       let error;
@@ -103,7 +96,7 @@ export class Form extends withEventDispatch(HTMLElement) {
         error = (err.constructor === Error) ? err.message : err;
       }
 
-      return setIn({}, fieldId, error);
+      return setIn({}, fieldId, error || null);
     }
 
     return {};
@@ -214,7 +207,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.dispatchFormUpdate();
   }
 
-  async validateField(fieldId, customValidationFn) {
+  async validateField(fieldId) {
     const field = this.fields
       .find(fi => this.constructor.getFieldId(fi) === fieldId);
 
@@ -222,8 +215,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateIsValidating(true);
       this.dispatchFormUpdate();
 
-      const error = await this.constructor
-        .getFieldError(field, customValidationFn);
+      const error = await this.constructor.getFieldError(field);
 
       this.state = setIn(this.state, 'errors', {
         ...this.state.errors,
@@ -275,6 +267,8 @@ export class Form extends withEventDispatch(HTMLElement) {
 
       if (!this.skipvalidationonblur) {
         await this.validateForm();
+      } else {
+        this.dispatchFormUpdate();
       }
     }
   }
@@ -285,6 +279,8 @@ export class Form extends withEventDispatch(HTMLElement) {
 
       if (!this.skipvalidationonchange) {
         await this.validateForm();
+      } else {
+        this.dispatchFormUpdate();
       }
     }
   }

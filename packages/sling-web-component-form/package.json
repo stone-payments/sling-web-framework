@@ -7,6 +7,7 @@
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
+    "is-plain-object": "^2.0.4",
     "sling-framework": "^1.11.5",
     "sling-helpers": "^1.11.5",
     "sling-web-component-button": "^1.11.5",
