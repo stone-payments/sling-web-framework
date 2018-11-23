@@ -1,47 +1,5 @@
-import { isValidEmail } from 'sling-helpers/src/form/isValidEmail.js';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-export const validateUserName = value => (value === 'admin'
-  ? 'Please do not use admin'
-  : undefined);
-
-export const validateEmail = value => (!isValidEmail(value)
-  ? 'Please enter a valid e-mail'
-  : undefined);
-
-export const validateEmailAsync = value => sleep(500)
-  .then(() => {
-    if (!isValidEmail(value)) {
-      throw new Error('Please enter a valid e-mail');
-    }
-  });
-
-export const validateForm = (values) => {
-  const errors = {};
-
-  if (!values.phone ||
-    (!values.phone.cell && !values.phone.home && !values.phone.work)) {
-    errors.phone = 'Please enter at least one valid phone number';
-  }
-
-  return errors;
-};
-
-export const validateFormAsync = values => Promise.resolve()
-  .then(() => {
-    const errors = {};
-
-    if (!values.phone ||
-      (!values.phone.cell && !values.phone.home && !values.phone.work)) {
-      errors.phone = 'Please enter at least one valid phone number';
-    }
-
-    if (Object.keys(errors).length > 0) {
-      throw errors;
-    }
-  });
+import * as validations from './validations.js';
 
 export const TestBusinessForm = Base => class extends Base {
   constructor() {
@@ -59,8 +17,8 @@ export const TestBusinessForm = Base => class extends Base {
     };
   }
 
-  handleFormUpdate({ detail }) {
-    this.form = detail;
+  handleFormUpdate(evt) {
+    this.form = evt.detail;
   }
 
   handleFormSubmission() {
@@ -78,13 +36,8 @@ export const TestBusinessForm = Base => class extends Base {
     const { form, handleFormUpdate, handleFormSubmission } = this;
 
     return TestBusinessFormView({
-      form,
       ...form,
-      validateUserName,
-      validateEmail,
-      validateEmailAsync,
-      validateForm,
-      validateFormAsync,
+      ...validations,
       handleFormUpdate,
       handleFormSubmission,
     });
