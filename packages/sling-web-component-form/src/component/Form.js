@@ -90,13 +90,15 @@ export class Form extends withEventDispatch(HTMLElement) {
       field.id;
   }
 
-  static async getFieldError(field) {
-    if (isFunction(field.validation)) {
+  static async getFieldError(field, customValidationFn) {
+    const validationFn = customValidationFn || field.validation;
+
+    if (isFunction(validationFn)) {
       let error;
       const fieldId = this.getFieldId(field);
 
       try {
-        error = await Promise.resolve(field.validation(field.value));
+        error = await Promise.resolve(validationFn(field.value));
       } catch (err) {
         error = (err.constructor === Error) ? err.message : err;
       }
@@ -212,7 +214,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.dispatchFormUpdate();
   }
 
-  async validateField(fieldId) {
+  async validateField(fieldId, customValidationFn) {
     const field = this.fields
       .find(fi => this.constructor.getFieldId(fi) === fieldId);
 
@@ -220,7 +222,8 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateIsValidating(true);
       this.dispatchFormUpdate();
 
-      const error = await this.constructor.getFieldError(field);
+      const error = await this.constructor
+        .getFieldError(field, customValidationFn);
 
       this.state = setIn(this.state, 'errors', {
         ...this.state.errors,
