@@ -14,7 +14,6 @@ export const TestBusinessFormView = ({
   validateForm,
   handleFormUpdate,
   handleFormSubmission,
-  friends,
   addFriend,
   removeFriend,
 }) => html`
@@ -80,31 +79,34 @@ export const TestBusinessFormView = ({
       <p>${errors.phone.work}</p>
     ` : ''}
   
-    <h4>Amigos</h4>
-    <sling-button
-      style="width: 150px;"
-      type="button"
-      onclick="${() => addFriend()}">
-      Adicionar amigo
-    </sling-button>
-
-    ${friends.map(id => html`
-      <sling-input
-        style="width: calc(100% - 200px); float: left;"
-        name="friends[${id}].name"
-        type="text"
-        value="${values.friends && values.friends[id] && values.friends[id].name}"
-        validation="${validateRequiredField}"></sling-input>
-      
+    <h4>
+      Amigos
       <sling-button
-        style="width: 150px; float: right;"
         type="button"
-        onclick="${() => removeFriend(id)}">
-        Remover amigo
+        onclick="${addFriend}">
+        Adicionar
       </sling-button>
+    </h4>
 
-      ${errors.friends && errors.friends[id] && errors.friends[id].name ? html`
-        <p>${errors.friends[id].name}</p>
+    ${JSON.stringify(values)}
+
+    ${values.friends && values.friends.map((friend, index) => html`
+      <label style="display: grid; grid-template-columns: 4fr 1fr">
+        <span style="grid-column: 1 / span 2">Nome do amigo</span>
+        <sling-input
+          name="friends[${index}].name"
+          type="text"
+          value="${friend && friend.name}"
+          validation="${validateRequiredField}"></sling-input>
+        <sling-button
+          type="button"
+          onclick="${removeFriend(index)}">
+          Remover amigo
+        </sling-button>
+      </label>
+
+      ${errors.friends && errors.friends[index] && errors.friends[index].name ? html`
+        <p>${errors.friends[index].name}</p>
       ` : ''}
     `)}
 

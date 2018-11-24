@@ -4,9 +4,6 @@ import * as validations from './validations.js';
 export const TestBusinessForm = Base => class extends Base {
   constructor() {
     super();
-    this.friends = [];
-    this.currentFriend = 0;
-
     this.addFriend = this.addFriend.bind(this);
     this.removeFriend = this.removeFriend.bind(this);
     this.handleFormUpdate = this.handleFormUpdate.bind(this);
@@ -17,10 +14,6 @@ export const TestBusinessForm = Base => class extends Base {
     return {
       form: {
         type: Object,
-        reflectToAttribute: false,
-      },
-      friends: {
-        type: Array,
         reflectToAttribute: false,
       },
     };
@@ -42,18 +35,26 @@ export const TestBusinessForm = Base => class extends Base {
   }
 
   addFriend() {
-    this.currentFriend += 1;
-    this.friends = [...this.friends, this.currentFriend];
+    this.form.values.friends = [
+      ...this.form.values.friends || [],
+      { name: '' },
+    ];
+
+    this.form.updateForm();
   }
 
-  removeFriend(id) {
-    this.friends = this.friends.filter(friend => friend !== id);
+  removeFriend(index) {
+    return () => {
+      this.form.values.friends = this.form.values.friends
+        .filter((_, idx) => idx !== index);
+
+      this.form.updateForm();
+    };
   }
 
   render() {
     const {
       form,
-      friends,
       handleFormUpdate,
       handleFormSubmission,
       addFriend,
@@ -65,7 +66,6 @@ export const TestBusinessForm = Base => class extends Base {
       ...validations,
       handleFormUpdate,
       handleFormSubmission,
-      friends,
       addFriend,
       removeFriend,
     });

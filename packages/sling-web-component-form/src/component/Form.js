@@ -31,6 +31,7 @@ export class Form extends withEventDispatch(HTMLElement) {
       submitCount: 0,
       validateForm: this.validateForm.bind(this),
       validateField: this.validateField.bind(this),
+      updateForm: this.updateForm.bind(this),
       submitForm: this.submitForm.bind(this),
       finishSubmission: this.finishSubmission.bind(this),
     };
@@ -142,7 +143,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   dispatchFormUpdate() {
-    this.dispatchEventAndMethod('formupdate', this.state);
+    this.dispatchEventAndMethod('formupdate', { ...this.state });
   }
 
   dispatchFormSubmission() {
@@ -228,6 +229,10 @@ export class Form extends withEventDispatch(HTMLElement) {
     } else {
       throw new Error(`The field "${fieldId}" does not exist.`);
     }
+  }
+
+  updateForm() {
+    this.dispatchFormUpdate();
   }
 
   async submitForm() {
