@@ -88,8 +88,6 @@ export const TestBusinessFormView = ({
       </sling-button>
     </h4>
 
-    ${JSON.stringify(values)}
-
     ${values.friends && values.friends.map((friend, index) => html`
       <label style="display: grid; grid-template-columns: 4fr 1fr">
         <span style="grid-column: 1 / span 2">Nome do amigo</span>
