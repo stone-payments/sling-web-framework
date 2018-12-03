@@ -57,46 +57,30 @@ export const touchField = path => ({
   path,
 });
 
-export const applyValidation = (validator, input) => {
-  const maybeError = validator(input);
+export const validateFieldOrFields = (validator, input, path) => (dispatch) => {
+  let maybeError = validator(input);
 
   if (isPromise(maybeError)) {
-    return maybeError
+    maybeError = maybeError
       .catch(untreatedError => (untreatedError.constructor === Error
         ? untreatedError.message
         : untreatedError));
   }
 
-  return maybeError;
-};
-
-export const validateSingleField = (path, validator, value) => (dispatch) => {
-  const maybeError = applyValidation(validator, value);
-
   if (isPromise(maybeError)) {
     dispatch(incrementValidationCount());
 
     maybeError.then((error) => {
-      dispatch(setFieldError(path, error));
+      dispatch(path
+        ? setFieldError(path, error)
+        : setFieldErrors(error));
+
       dispatch(decrementValidationCount());
     });
   } else {
-    dispatch(setFieldError(path, maybeError));
-  }
-};
-
-export const validateCombinedFields = (validator, values) => (dispatch) => {
-  const maybeErrors = applyValidation(validator, values);
-
-  if (isPromise(maybeErrors)) {
-    dispatch(incrementValidationCount());
-
-    maybeErrors.then((errors) => {
-      dispatch(setFieldErrors(errors));
-      dispatch(decrementValidationCount());
-    });
-  } else {
-    dispatch(setFieldErrors(maybeErrors));
+    dispatch(path
+      ? setFieldError(path, maybeError)
+      : setFieldErrors(maybeError));
   }
 };
 
