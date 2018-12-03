@@ -112,15 +112,3 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       return state;
   }
 };
-
-let myState = FormReducer();
-
-myState = FormReducer(myState, setFieldError('name', 'Campo obrigatório'));
-myState = FormReducer(myState, setFieldError('phone.home', 'Campo'));
-myState = FormReducer(myState, setFieldErrors({ email: 'Doodle' }));
-myState = FormReducer(myState, setFieldErrors({ name: null }));
-myState = FormReducer(myState, setFieldErrors({ email: 'My libido' }));
-myState = FormReducer(myState, setFieldError('email', 'Campo obrigatório'));
-myState = FormReducer(myState, setFieldErrors({ phone: { home: 'Need' } }));
-
-myState; // ?
