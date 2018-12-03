@@ -58,25 +58,22 @@ export const touchField = path => ({
 });
 
 export const validateFieldOrFields = (validator, input, path) => (dispatch) => {
-  let maybeError = validator(input);
-
-  if (isPromise(maybeError)) {
-    maybeError = maybeError
-      .catch(untreatedError => (untreatedError.constructor === Error
-        ? untreatedError.message
-        : untreatedError));
-  }
+  const maybeError = validator(input);
 
   if (isPromise(maybeError)) {
     dispatch(incrementValidationCount());
 
-    maybeError.then((error) => {
-      dispatch(path
-        ? setFieldError(path, error)
-        : setFieldErrors(error));
+    maybeError
+      .catch(untreatedError => (untreatedError.constructor === Error
+        ? untreatedError.message
+        : untreatedError))
+      .then((error) => {
+        dispatch(path
+          ? setFieldError(path, error)
+          : setFieldErrors(error));
+      });
 
-      dispatch(decrementValidationCount());
-    });
+    dispatch(decrementValidationCount());
   } else {
     dispatch(path
       ? setFieldError(path, maybeError)
