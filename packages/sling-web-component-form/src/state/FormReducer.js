@@ -1,10 +1,7 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { setIn, mergeDeep, isDeeplyEmpty } from '../helpers/immutableHelper.js';
 
 const isFunction = arg => typeof arg === 'function';
 const isPromise = arg => arg && arg.then && isFunction(arg.then);
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const INITIAL_STATE = {
   dirty: false,
@@ -35,11 +32,11 @@ export const setDirty = dirty => ({
   dirty,
 });
 
-export const incrementValidationCount = () => ({
+const incrementValidationCount = () => ({
   type: INCREMENT_VALIDATION_COUNT,
 });
 
-export const decrementValidationCount = () => ({
+const decrementValidationCount = () => ({
   type: DECREMENT_VALIDATION_COUNT,
 });
 
@@ -51,13 +48,13 @@ export const finishSubmission = () => ({
   type: FINISH_SUBMISSION,
 });
 
-export const setFieldLevelError = (path, error) => ({
+const setFieldLevelError = (path, error) => ({
   type: SET_FIELD_LEVEL_ERROR,
   path,
   error,
 });
 
-export const setFormLevelErrors = errors => ({
+const setFormLevelErrors = errors => ({
   type: SET_FORM_LEVEL_ERRORS,
   errors,
 });
@@ -74,7 +71,7 @@ export const setFieldTouched = (path, touched) => ({
   touched,
 });
 
-export const applyValidation = (validator, input, path) => (dispatch) => {
+const applyValidation = (validator, input, path) => (dispatch) => {
   const maybeError = validator(input);
 
   if (isPromise(maybeError)) {
@@ -104,16 +101,16 @@ export const validateFieldLevel = (path, validator, value) =>
 export const validateFormLevel = (validator, values) =>
   applyValidation(validator, values);
 
-export const combineErrors = state => setIn(state, 'errors',
+const combineErrors = state => setIn(state, 'errors',
   mergeDeep(state.formLevelErrors, state.fieldLevelErrors));
 
-export const updateIsValidating = state => setIn(state, 'isValidating',
+const updateIsValidating = state => setIn(state, 'isValidating',
   state.validationCount > 0);
 
-export const updateIsValid = state => setIn(state, 'isValid',
+const updateIsValid = state => setIn(state, 'isValid',
   !state.isValidating && isDeeplyEmpty(state.errors));
 
-export const incrementSubmitCount = state => setIn(state, 'submitCount',
+const incrementSubmitCount = state => setIn(state, 'submitCount',
   state.submitCount + 1);
 
 export const FormReducer = (state = INITIAL_STATE, action = {}) => {
@@ -161,61 +158,3 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       return state;
   }
 };
-
-// TESTS
-
-const syncFieldValidator = value => (value === 'admin'
-  ? 'Não use admin'
-  : undefined);
-
-const syncFormValidator = (values) => {
-  const errors = {};
-
-  if (values.phone == null && values.cell == null) {
-    errors.minPhone = 'Preencha ao menos um telefone';
-  }
-
-  return errors;
-};
-
-const asyncFieldValidator = value => sleep(300).then(() => {
-  if (value === 'admin') {
-    throw new Error('Não use admin');
-  }
-});
-
-const asyncFormValidator = values => sleep(300).then(() => {
-  const errors = {};
-
-  if (values.phone == null && values.cell == null) {
-    errors.minPhone = 'Preencha ao menos um telefone';
-  }
-
-  if (Object.values(errors).length > 0) {
-    throw errors;
-  }
-});
-
-const store = createStore(
-  FormReducer,
-  applyMiddleware(thunk),
-);
-
-let changes = 0;
-
-store.subscribe(() => {
-  changes += 1;
-});
-
-store.dispatch(validateFieldLevel('name', asyncFieldValidator, 'admin'));
-store.dispatch(validateFieldLevel('email', asyncFieldValidator, 'laser'));
-store.dispatch(validateFieldLevel('website', asyncFieldValidator, 'laser'));
-
-changes; // ?
-
-store.getState(); // ?
-
-sleep(500).then(() => {
-  store.getState(); // ?
-  changes; // ?
-});
