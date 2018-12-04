@@ -95,10 +95,10 @@ const applyValidation = (validator, input, path) => (dispatch) => {
   }
 };
 
-export const validateFieldLevel = (path, validator, value) =>
+export const validateFieldLevel = ({ path, validator, value }) =>
   applyValidation(validator, value, path);
 
-export const validateFormLevel = (validator, values) =>
+export const validateFormLevel = ({ validator, values }) =>
   applyValidation(validator, values);
 
 const combineErrors = state => setIn(state, 'errors',
@@ -119,14 +119,14 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       return setIn(state, 'dirty', !!action.dirty);
 
     case INCREMENT_VALIDATION_COUNT:
-      return updateIsValid(updateIsValidating(
+      return updateIsValidating(
         setIn(state, 'validationCount', state.validationCount + 1),
-      ));
+      );
 
     case DECREMENT_VALIDATION_COUNT:
-      return updateIsValid(updateIsValidating(
+      return updateIsValidating(
         setIn(state, 'validationCount', state.validationCount - 1),
-      ));
+      );
 
     case START_SUBMISSION:
       return !state.isSubmitting
@@ -139,14 +139,14 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
         : state;
 
     case SET_FIELD_LEVEL_ERROR:
-      return combineErrors(
+      return updateIsValid(combineErrors(
         setIn(state, `fieldLevelErrors.${action.path}`, action.error || null),
-      );
+      ));
 
     case SET_FORM_LEVEL_ERRORS:
-      return combineErrors(
+      return updateIsValid(combineErrors(
         setIn(state, 'formLevelErrors', action.errors || {}),
-      );
+      ));
 
     case SET_FIELD_VALUE:
       return setIn(state, `values.${action.path}`, action.value);

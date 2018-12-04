@@ -35,20 +35,21 @@ export const TestBusinessForm = Base => class extends Base {
   }
 
   addFriend() {
-    this.form.values.friends = [
-      ...this.form.values.friends || [],
-      { name: '' },
-    ];
-
-    this.form.updateForm();
+    this.form.values = {
+      ...this.form.values,
+      friends: [
+        ...this.form.values.friends || [],
+        { name: '' },
+      ],
+    };
   }
 
   removeFriend(index) {
     return () => {
-      this.form.values.friends = this.form.values.friends
-        .filter((_, idx) => idx !== index);
-
-      this.form.updateForm();
+      this.form.values = {
+        ...this.form.values,
+        friends: this.form.values.friends.filter((_, idx) => idx !== index),
+      };
     };
   }
 
