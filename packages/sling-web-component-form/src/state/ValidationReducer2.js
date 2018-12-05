@@ -163,7 +163,7 @@ formValidator.onValidationComplete = ({ isValid }) => console.log(isValid);
   formValidator.validate(() =>
     atFieldLevel(validateTakenUsername, 'admin', 'name'), 'name');
 
-  await sleep(30);
+  await sleep(300);
 
   formValidator.validate(() =>
     atFieldLevel(validateTakenUsername, 'zadmin', 'name'), 'name');
