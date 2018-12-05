@@ -6,20 +6,26 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const FORM_LEVEL = '__FORM_LEVEL__';
 
-const formValidator = {
-  pending: {},
-  isExecuting: {},
+class FormValidator {
+  constructor() {
+    this.pending = {};
+    this.isExecuting = {};
+  }
+
   get isValidating() {
     return Object.values(this.isExecuting).some(val => val === true);
-  },
+  }
+
   validate(validatorThunk, path = FORM_LEVEL) {
     this.queue(validatorThunk, path);
     this.executeNext(path);
-  },
+  }
+
   queue(validatorThunk, path) {
     this.pending[path] = this.pending[path] || [];
     this.pending[path].push(validatorThunk);
-  },
+  }
+
   async executeNext(path, errors = {}) {
     if (!this.isExecuting[path]) {
       if (this.pending[path].length > 0) {
@@ -37,16 +43,15 @@ const formValidator = {
         } else if (isFunction(this.onFieldLevelValidationComplete)) {
           this.onFieldLevelValidationComplete({ errors, path });
         }
-
-        if (!this.isValidating) {
-          if (isFunction(this.onValidationComplete)) {
-            this.onValidationComplete();
-          }
+        if (!this.isValidating && isFunction(this.onValidationComplete)) {
+          this.onValidationComplete();
         }
       }
     }
-  },
-};
+  }
+}
+
+const formValidator = new FormValidator();
 
 formValidator.onFormLevelValidationComplete = ({ errors }) =>
   console.log('acabei form level!', errors);
