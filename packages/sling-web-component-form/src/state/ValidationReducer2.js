@@ -2,88 +2,146 @@ import { setIn } from '../helpers/immutableHelper.js';
 
 const isFunction = arg => typeof arg === 'function';
 const isPromise = arg => arg && arg.then && isFunction(arg.then);
-const isFalse = val => val === false;
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const GENERAL = '__GENERAL__';
+const FORM_LEVEL = '__FORM_LEVEL__';
 
 const formValidator = {
   pending: {},
   isExecuting: {},
   get isValidating() {
-    return !Object.values(this.isExecuting).every(isFalse);
+    return Object.values(this.isExecuting).some(val => val === true);
   },
-  validate(validatorFn, value, path = GENERAL) {
-    this.queue(validatorFn, value, path);
+  validate(validatorThunk, path = FORM_LEVEL) {
+    this.queue(validatorThunk, path);
     this.executeNext(path);
   },
-  queue(validatorFn, value, path) {
+  queue(validatorThunk, path) {
     this.pending[path] = this.pending[path] || [];
-    this.pending[path].push(() => validatorFn(value));
+    this.pending[path].push(validatorThunk);
   },
-  async executeNext(path) {
+  async executeNext(path, errors = {}) {
     if (!this.isExecuting[path]) {
       if (this.pending[path].length > 0) {
         this.isExecuting[path] = true;
-        const nextValidatorFn = this.pending[path].pop();
+        const nextValidatorThunk = this.pending[path].pop();
         this.pending[path] = [];
-        await nextValidatorFn();
+        const nextErrors = await nextValidatorThunk();
         this.isExecuting[path] = false;
-        this.executeNext(path);
+        this.executeNext(path, nextErrors);
       } else {
-        console.log([path, 'validations finished']);
+        if (path === FORM_LEVEL) {
+          if (isFunction(this.onFormLevelValidationComplete)) {
+            this.onFormLevelValidationComplete({ errors });
+          }
+        } else if (isFunction(this.onFieldLevelValidationComplete)) {
+          this.onFieldLevelValidationComplete({ errors, path });
+        }
 
         if (!this.isValidating) {
-          console.log('stopped validation');
+          if (isFunction(this.onValidationComplete)) {
+            this.onValidationComplete();
+          }
         }
       }
     }
   },
 };
 
+formValidator.onFormLevelValidationComplete = ({ errors }) =>
+  console.log('acabei form level!', errors);
+
+formValidator.onFieldLevelValidationComplete = ({ errors, path }) =>
+  console.log(`acabei field level: ${path}!`, errors);
+
+formValidator.onValidationComplete = () => console.log('acabei!');
+
 const treatError = error =>
   (error.constructor === Error ? error.message : error);
 
-const validateWithErrorWrapper = wrapperFn => (validatorFn, value, path) => {
+const atLevel = wrapperFn => (validatorFn, value, path) => {
   if (validatorFn == null) return {};
 
   const maybeError = validatorFn(value);
 
   return (isPromise(maybeError))
     ? maybeError.catch(treatError).then(wrapperFn(path))
-    : wrapperFn(path)(maybeError);
+    : Promise.resolve(wrapperFn(path)(maybeError));
 };
 
-const validateAtFieldLevel = (...args) => {
+const atFieldLevel = (...args) => {
   const wrapperFn = path => errorStr => setIn({}, path, errorStr || null);
-  return validateWithErrorWrapper(wrapperFn)(...args);
+  return atLevel(wrapperFn)(...args);
 };
 
-const validateAtFormLevel = (...args) => {
+const atFormLevel = (...args) => {
   const wrapperFn = () => errorObj => errorObj || {};
-  return validateWithErrorWrapper(wrapperFn)(...args);
+  return atLevel(wrapperFn)(...args);
 };
 
 // TESTS
 
-const firstValidator = value => new Promise((resolve) => {
-  setTimeout(() => { console.log(`faster ${value}`); resolve(); }, 1000);
+const validateTakenUsername = value => sleep(200).then(() => {
+  if (value === 'admin' || value === 'leofavre' || value === 'user') {
+    throw new Error('This username is already taken');
+  }
 });
 
-const secondValidator = value => new Promise((resolve) => {
-  setTimeout(() => { console.log(`longer ${value}`); resolve(); }, 2000);
-});
+const validateRequiredField = value => (!value
+  ? 'This field is required'
+  : undefined);
 
-const thirdValidator = (value) => {
-  console.log(`immediate ${value}`);
+const validateForm = (values) => {
+  const errors = {};
+
+  if (!values.phone || (!values.phone.personal && !values.phone.work)) {
+    errors.onePhoneMinimum = 'Please enter at least one phone number';
+  }
+
+  return errors;
 };
 
-formValidator.validate(firstValidator, '1admin', 'name');
-formValidator.validate(secondValidator, '1zadmin', 'name');
-formValidator.validate(firstValidator, '1admin', 'name');
-formValidator.validate(thirdValidator, '2zadmin', 'email');
-formValidator.validate(secondValidator, '2admin', 'email');
-formValidator.validate(firstValidator, '2zadmin', 'email');
-formValidator.validate(secondValidator, '3admin', 'email');
-formValidator.validate(firstValidator, '3zadmin', 'email');
-formValidator.validate(secondValidator, '4admin', 'name');
-formValidator.validate(thirdValidator, '4zadmin', 'name');
+formValidator.validate(() =>
+  atFieldLevel(validateTakenUsername, 'a', 'name'), 'name');
+
+formValidator.validate(() =>
+  atFieldLevel(validateTakenUsername, 'ad', 'name'), 'name');
+
+formValidator.validate(() =>
+  atFieldLevel(validateTakenUsername, 'adm', 'name'), 'name');
+
+formValidator.validate(() =>
+  atFieldLevel(validateTakenUsername, 'admi', 'name'), 'name');
+
+formValidator.validate(() =>
+  atFieldLevel(validateTakenUsername, 'admin', 'name'), 'name');
+
+formValidator.validate(() =>
+  atFieldLevel(validateTakenUsername, 'zadmin', 'name'), 'name');
+
+formValidator.validate(() =>
+  atFieldLevel(validateRequiredField, '', 'email'), 'email');
+
+formValidator.validate(() =>
+  atFieldLevel(validateRequiredField, 'leo', 'email'), 'email');
+
+formValidator.validate(() =>
+  atFieldLevel(validateRequiredField, 'leo@leo', 'email'), 'email');
+
+formValidator.validate(() =>
+  atFieldLevel(validateRequiredField, 'leo@leofa', 'email'), 'email');
+
+formValidator.validate(() =>
+  atFieldLevel(validateRequiredField, 'leo@leofavre', 'email'), 'email');
+
+formValidator.validate(() =>
+  atFormLevel(validateForm, {}));
+
+formValidator.validate(() =>
+  atFormLevel(validateForm, { phone: { personal: 'a' } }));
+
+formValidator.validate(() =>
+  atFormLevel(validateForm, { phone: { personal: 'alter' } }));
+
+formValidator.validate(() =>
+  atFormLevel(validateForm, { phone: { personal: 'altern8' } }));
