@@ -1,3 +1,5 @@
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { setIn, mergeDeep, isDeeplyEmpty } from '../helpers/immutableHelper.js';
 
 const isFunction = arg => typeof arg === 'function';
@@ -101,6 +103,38 @@ export const validateFieldLevel = ({ path, validator, value }) =>
 export const validateFormLevel = ({ validator, values }) =>
   applyValidation(validator, values);
 
+const validateFreakingFieldLevel = (base = {}, { validator, value, path }) => {
+  if (validator == null) return base;
+
+  const maybeError = validator(value);
+
+  if (isPromise(maybeError)) {
+    return maybeError
+      .catch(untreatedError => (untreatedError.constructor === Error
+        ? untreatedError.message
+        : untreatedError))
+      .then(error => setIn(base, path, error || null));
+  }
+
+  return setIn(base, path, maybeError || null);
+};
+
+const validateFreakingFormLevel = ({ validator, values }) => {
+  if (validator == null) return {};
+
+  const maybeError = validator(values);
+
+  if (isPromise(maybeError)) {
+    return maybeError
+      .catch(untreatedError => (untreatedError.constructor === Error
+        ? untreatedError.message
+        : untreatedError))
+      .then(error => error || {});
+  }
+
+  return maybeError || {};
+};
+
 const combineErrors = state => setIn(state, 'errors',
   mergeDeep(state.formLevelErrors, state.fieldLevelErrors));
 
@@ -158,3 +192,33 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       return state;
   }
 };
+
+const store = createStore(FormReducer, applyMiddleware(thunk));
+
+store.getState(); // ?
+
+const mock = {
+  fieldErrors: {
+    email: null,
+  },
+  formErrors: {},
+};
+
+validateFreakingFieldLevel(mock.fieldErrors, {
+  validator: value => (value === 'admin' ? 'Não use admin' : undefined),
+  value: 'ozadmin',
+  path: 'name',
+}); // ?
+
+validateFreakingFormLevel({
+  validator: values => (values.name === 'admin'
+    ? { name: 'Não use admin' }
+    : undefined),
+  values: { name: 'ozadmin' },
+}); // ?
+
+// field level
+// objeto original, validator que recebe string e retorna string, valor string, path.
+
+// form level
+// validador que recebe objeto e retorna objeto, valores objeto.
