@@ -1,4 +1,4 @@
-import { setIn } from '../helpers/immutableHelper.js';
+import { setIn, isDeeplyEmpty } from '../helpers/immutableHelper.js';
 
 const isFunction = arg => typeof arg === 'function';
 const isPromise = arg => arg && arg.then && isFunction(arg.then);
@@ -9,11 +9,24 @@ const FORM_LEVEL = '__FORM_LEVEL__';
 class FormValidator {
   constructor() {
     this.pending = {};
-    this.isExecuting = {};
+    this.isValidatingLevel = {};
+    this.fieldLevelErrors = {};
+    this.formLevelErrors = {};
   }
 
   get isValidating() {
-    return Object.values(this.isExecuting).some(val => val === true);
+    return Object.values(this.isValidatingLevel).some(val => val === true);
+  }
+
+  get isValid() {
+    return isDeeplyEmpty(this.errors);
+  }
+
+  get errors() {
+    return {
+      ...this.formLevelErrors,
+      ...this.fieldLevelErrors,
+    };
   }
 
   validate(validatorThunk, path = FORM_LEVEL) {
@@ -26,48 +39,52 @@ class FormValidator {
     this.pending[path].push(validatorThunk);
   }
 
-  async executeNext(path, errors = {}) {
-    if (!this.isExecuting[path]) {
+  async executeNext(path, levelErrors = {}) {
+    if (!this.isValidatingLevel[path]) {
       if (this.pending[path].length > 0) {
-        this.isExecuting[path] = true;
+        this.isValidatingLevel[path] = true;
         const nextValidatorThunk = this.pending[path].pop();
         this.pending[path] = [];
         const nextErrors = await nextValidatorThunk();
-        this.isExecuting[path] = false;
+        this.isValidatingLevel[path] = false;
         this.executeNext(path, nextErrors);
       } else {
         if (path === FORM_LEVEL) {
-          if (isFunction(this.onFormLevelValidationComplete)) {
-            this.onFormLevelValidationComplete({ errors });
-          }
-        } else if (isFunction(this.onFieldLevelValidationComplete)) {
-          this.onFieldLevelValidationComplete({ errors, path });
+          this.formLevelErrors = levelErrors;
+        } else {
+          this.fieldLevelErrors = {
+            ...this.fieldLevelErrors,
+            ...levelErrors,
+          };
         }
+
+        const result = {
+          errors: this.errors,
+          isValidating: this.isValidating,
+          isValid: this.isValid,
+        };
+
+        if (isFunction(this.onPartialValidationComplete)) {
+          this.onPartialValidationComplete(result);
+        }
+
         if (!this.isValidating && isFunction(this.onValidationComplete)) {
-          this.onValidationComplete();
+          this.onValidationComplete(result);
         }
       }
     }
   }
 }
 
-const formValidator = new FormValidator();
-
-formValidator.onFormLevelValidationComplete = ({ errors }) =>
-  console.log('acabei form level!', errors);
-
-formValidator.onFieldLevelValidationComplete = ({ errors, path }) =>
-  console.log(`acabei field level: ${path}!`, errors);
-
-formValidator.onValidationComplete = () => console.log('acabei!');
-
 const treatError = error =>
   (error.constructor === Error ? error.message : error);
 
-const atLevel = wrapperFn => (validatorFn, value, path) => {
+const atLevel = wrapperFn => async (validatorFn, value, path) => {
   if (validatorFn == null) return {};
 
   const maybeError = validatorFn(value);
+
+  await sleep(50); // avoids too much processing while typing
 
   return (isPromise(maybeError))
     ? maybeError.catch(treatError).then(wrapperFn(path))
@@ -84,7 +101,8 @@ const atFormLevel = (...args) => {
   return atLevel(wrapperFn)(...args);
 };
 
-// TESTS
+
+// VALIDATION FUNCTIONS
 
 const validateTakenUsername = value => sleep(200).then(() => {
   if (value === 'admin' || value === 'leofavre' || value === 'user') {
@@ -106,47 +124,97 @@ const validateForm = (values) => {
   return errors;
 };
 
-formValidator.validate(() =>
-  atFieldLevel(validateTakenUsername, 'a', 'name'), 'name');
 
-formValidator.validate(() =>
-  atFieldLevel(validateTakenUsername, 'ad', 'name'), 'name');
+// MUST BE INSTANTIATED
 
-formValidator.validate(() =>
-  atFieldLevel(validateTakenUsername, 'adm', 'name'), 'name');
+const formValidator = new FormValidator();
 
-formValidator.validate(() =>
-  atFieldLevel(validateTakenUsername, 'admi', 'name'), 'name');
 
-formValidator.validate(() =>
-  atFieldLevel(validateTakenUsername, 'admin', 'name'), 'name');
+// MUST BE IMPLEMENTED
 
-formValidator.validate(() =>
-  atFieldLevel(validateTakenUsername, 'zadmin', 'name'), 'name');
+formValidator.onPartialValidationComplete = ({ errors }) => console.log(errors);
 
-formValidator.validate(() =>
-  atFieldLevel(validateRequiredField, '', 'email'), 'email');
+formValidator.onValidationComplete = ({ isValid }) => console.log(isValid);
 
-formValidator.validate(() =>
-  atFieldLevel(validateRequiredField, 'leo', 'email'), 'email');
 
-formValidator.validate(() =>
-  atFieldLevel(validateRequiredField, 'leo@leo', 'email'), 'email');
+// TYPING SIMULATION
 
-formValidator.validate(() =>
-  atFieldLevel(validateRequiredField, 'leo@leofa', 'email'), 'email');
+(async () => {
+  formValidator.validate(() =>
+    atFieldLevel(validateTakenUsername, 'a', 'name'), 'name');
 
-formValidator.validate(() =>
-  atFieldLevel(validateRequiredField, 'leo@leofavre', 'email'), 'email');
+  await sleep(30);
 
-formValidator.validate(() =>
-  atFormLevel(validateForm, {}));
+  formValidator.validate(() =>
+    atFieldLevel(validateTakenUsername, 'ad', 'name'), 'name');
 
-formValidator.validate(() =>
-  atFormLevel(validateForm, { phone: { personal: 'a' } }));
+  await sleep(30);
 
-formValidator.validate(() =>
-  atFormLevel(validateForm, { phone: { personal: 'alter' } }));
+  formValidator.validate(() =>
+    atFieldLevel(validateTakenUsername, 'adm', 'name'), 'name');
 
-formValidator.validate(() =>
-  atFormLevel(validateForm, { phone: { personal: 'altern8' } }));
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateTakenUsername, 'admi', 'name'), 'name');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateTakenUsername, 'admin', 'name'), 'name');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateTakenUsername, 'zadmin', 'name'), 'name');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateRequiredField, '', 'email'), 'email');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateRequiredField, 'leo', 'email'), 'email');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateRequiredField, 'leo@leo', 'email'), 'email');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateRequiredField, 'leo@leofa', 'email'), 'email');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFieldLevel(validateRequiredField, 'leo@leofavre', 'email'), 'email');
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFormLevel(validateForm, {}));
+
+  await sleep(300);
+
+  formValidator.validate(() =>
+    atFormLevel(validateForm, { phone: { personal: 'a' } }));
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFormLevel(validateForm, { phone: { personal: 'alter' } }));
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFormLevel(validateForm, { phone: { personal: 'altern8' } }));
+
+  await sleep(30);
+
+  formValidator.validate(() =>
+    atFormLevel(validateForm, { phone: { personal: 'altern8 express2' } }));
+})();
