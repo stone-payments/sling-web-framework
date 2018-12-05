@@ -35,31 +35,25 @@ const treatAsyncError = untreatedError => (untreatedError.constructor === Error
   : untreatedError);
 
 const validateAtFieldLevel = ({ validator, value, path }) => {
-  if (validator == null) return undefined;
+  if (validator == null) return {};
 
+  const wrapError = error => setIn({}, path, error || null);
   const maybeError = validator(value);
 
-  if (isPromise(maybeError)) {
-    return maybeError
-      .catch(treatAsyncError)
-      .then(error => setIn({}, path, error || null));
-  }
-
-  return setIn({}, path, maybeError || null);
+  return (isPromise(maybeError))
+    ? maybeError.catch(treatAsyncError).then(wrapError)
+    : wrapError(maybeError);
 };
 
 const validateAtFormLevel = ({ validator, values }) => {
   if (validator == null) return {};
 
+  const wrapError = error => error || {};
   const maybeError = validator(values);
 
-  if (isPromise(maybeError)) {
-    return maybeError
-      .catch(treatAsyncError)
-      .then(error => error || {});
-  }
-
-  return maybeError || {};
+  return (isPromise(maybeError))
+    ? maybeError.catch(treatAsyncError).then(wrapError)
+    : wrapError(maybeError);
 };
 
 export const validateFormAndFields = (...args) =>
@@ -78,6 +72,8 @@ export const validateFormAndFields = (...args) =>
 
     fieldLevelErrors = mergeDeep(getState().fieldLevelErrors,
       ...fieldLevelErrors);
+
+    fieldLevelErrors; // ?
 
     const errors = mergeDeep(formLevelErrors, fieldLevelErrors);
 
@@ -136,8 +132,16 @@ store.getState(); // ?
 
 store.dispatch(validateFormAndFields(
   { validator: syncForm, values: { laser: 'admin' } },
-  { validator: syncField, value: 'admin', path: 'name' },
-  { validator: asyncField, value: 'admin', path: 'email' },
+  [
+    { validator: asyncField, value: 'admin', path: 'name' },
+  ],
+));
+
+store.dispatch(validateFormAndFields(
+  { validator: syncForm, values: { laser: 'zadmin' } },
+  [
+    { validator: syncField, value: 'zadmin', path: 'name' },
+  ],
 ));
 
 store.getState(); // ?
