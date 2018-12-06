@@ -12,6 +12,7 @@ export const TestBusinessFormView = ({
   validateRequiredEmail,
   validateOptionalPhone,
   validateForm,
+  validateTakenUsername,
   handleFormUpdate,
   handleFormSubmission,
   addFriend,
@@ -27,7 +28,7 @@ export const TestBusinessFormView = ({
         name="username"
         type="text"
         value="${values.username}"
-        validation="${validateRequiredField}"></sling-input>
+        validation="${validateTakenUsername}"></sling-input>
     </label>
 
     ${errors.username ? html`

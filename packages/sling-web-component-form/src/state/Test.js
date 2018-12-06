@@ -1,4 +1,4 @@
-import { sleep } from 'sling-helpers/src';
+import { sleep } from 'sling-helpers';
 
 import {
   validateField,

@@ -1,4 +1,4 @@
-import { isFunction, isDeeplyEmpty } from 'sling-helpers/src';
+import { isFunction, mergeDeep, isDeeplyEmpty } from 'sling-helpers';
 
 const FORM_LEVEL = '__FORM_LEVEL__';
 
@@ -19,10 +19,7 @@ export class FormValidator {
   }
 
   get errors() {
-    return {
-      ...this.formLevelErrors,
-      ...this.fieldLevelErrors,
-    };
+    return mergeDeep(this.formLevelErrors, this.fieldLevelErrors);
   }
 
   validate(validatorThunk, path = FORM_LEVEL) {
@@ -56,10 +53,7 @@ export class FormValidator {
         if (path === FORM_LEVEL) {
           this.formLevelErrors = levelErrors;
         } else {
-          this.fieldLevelErrors = {
-            ...this.fieldLevelErrors,
-            ...levelErrors,
-          };
+          this.fieldLevelErrors = mergeDeep(this.fieldLevelErrors, levelErrors);
         }
 
         if (isFunction(this.onValidationComplete)) {

@@ -1,15 +1,15 @@
 export { makeRequest } from './makeRequest.js';
 
-export const waitUntilEvent = (name, $el = document) =>
+export const waitUntilEvent = (name, domEl = document) =>
   new Promise((resolve) => {
     const handleEvent = () => {
-      $el.removeEventListener(name, handleEvent);
+      domEl.removeEventListener(name, handleEvent);
       resolve();
     };
-    $el.addEventListener(name, handleEvent);
+    domEl.addEventListener(name, handleEvent);
   });
 
-export const waitUntilTagIsAppended = (name, $el) =>
+export const waitUntilTagIsAppended = (name, domEl) =>
   new Promise((resolve) => {
     let observer;
 
@@ -29,7 +29,7 @@ export const waitUntilTagIsAppended = (name, $el) =>
 
     observer = new MutationObserver(handleMutations);
 
-    observer.observe($el, {
+    observer.observe(domEl, {
       childList: true,
       subtree: true,
     });
@@ -38,5 +38,13 @@ export const waitUntilTagIsAppended = (name, $el) =>
 export const registerComponent = (name, DefinitionClass) => {
   if (window.customElements.get(name) == null) {
     window.customElements.define(name, DefinitionClass);
+  }
+};
+
+export const setAttr = (domEl, attrName, value) => {
+  if (value != null && value !== false) {
+    domEl.setAttribute(attrName, '');
+  } else {
+    domEl.removeAttribute(attrName);
   }
 };

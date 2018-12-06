@@ -1,14 +1,12 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, isPromise, setIn } from 'sling-helpers/src';
+import { isFunction, setAttr, setIn, mergeDeep } from 'sling-helpers';
 
 import {
-  FormReducer,
-  setDirty,
-  setFieldTouched,
-  setFieldValue,
-  validateFieldLevel,
-  validateFormLevel,
-} from '../state/FormReducer.js';
+  validateField,
+  validateForm,
+  onValidationStart,
+  onValidationComplete,
+} from '../state/FormActions.js';
 
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
@@ -26,36 +24,26 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
-    this.neueState = FormReducer();
-  }
+    this.state = {
+      dirty: false,
+      errors: {},
+      isValid: false,
+      isValidating: false,
+      isSubmitting: false,
+      submitCount: 0,
+      values: {},
+      touched: {},
+    };
 
-  dispatchAction(action) {
-    let resolvedAction = action;
-    const getState = () => this.neueState;
+    onValidationStart(({ isValidating }) => {
+      if (this.state.isValidating !== isValidating) {
+        this.updateState('isValidating', isValidating);
+      }
+    });
 
-    if (isFunction(resolvedAction)) {
-      resolvedAction = action(this.dispatchAction.bind(this), getState);
-    }
-
-    if (isPromise(resolvedAction)) {
-      resolvedAction.then((asyncAction) => {
-        this.neueState = FormReducer(getState(), asyncAction);
-      });
-    }
-
-    this.neueState = FormReducer(getState(), resolvedAction);
-  }
-
-  get neueState() {
-    return this._neueState;
-  }
-
-  set neueState(value) {
-    if (this._neueState !== value) {
-      console.log(value);
-      this._neueState = value;
-      this.dispatchFormUpdate();
-    }
+    onValidationComplete((result) => {
+      this.state = { ...this.state, ...result };
+    });
   }
 
   connectedCallback() {
@@ -66,7 +54,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
-
     this.initForm();
   }
 
@@ -80,11 +67,22 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
-  initForm() {
-    this.fields.forEach((field) => {
+  updateState(path, value) {
+    const resolvedPath = isFunction(path) ? path() : path;
+    this.state = setIn(this.state, resolvedPath, value);
+  }
+
+  async initForm() {
+    const fieldValues = this.fields.reduce((result, field) => {
       const fieldId = this.constructor.getFieldId(field);
-      this.dispatchAction(setFieldValue(fieldId, field.value));
+      return setIn(result, fieldId, field.value || '');
     }, {});
+
+    const userValues = this.initialvalues;
+
+    await Promise.resolve(); // this avoids a LitElement warning
+
+    this.updateState('values', mergeDeep(fieldValues, userValues));
   }
 
   static isFormField(target) {
@@ -99,37 +97,29 @@ export class Form extends withEventDispatch(HTMLElement) {
       field.id;
   }
 
-  static async getFieldError(field) {
-    const validationFn = field.validation;
-
-    if (isFunction(validationFn)) {
-      let error;
-      const fieldId = this.getFieldId(field);
-
-      try {
-        error = await Promise.resolve(validationFn(field.value));
-      } catch (err) {
-        error = (err.constructor === Error) ? err.message : err;
-      }
-
-      return setIn({}, fieldId, error || null);
-    }
-
-    return {};
-  }
-
   get fields() {
     return Array
       .from(this.querySelectorAll('*'))
       .filter(this.constructor.isFormField);
   }
 
+  get state() {
+    return this.__state;
+  }
+
+  set state(newState) {
+    if (this.__state !== newState) {
+      this.__state = newState;
+      this.dispatchEventAndMethod('formupdate', this.state);
+    }
+  }
+
   get values() {
-    return this.neueState.values;
+    return this.state.values;
   }
 
   set values(values) {
-    this.neueState = setIn(this.neueState, 'values', values);
+    this.updateState('values', values);
   }
 
   get skipvalidationonchange() {
@@ -137,11 +127,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   set skipvalidationonchange(value) {
-    if (value != null && value !== false) {
-      this.setAttribute('skipvalidationonchange', '');
-    } else {
-      this.removeAttribute('skipvalidationonchange');
-    }
+    setAttr(this, 'skipvalidationonchange', value);
   }
 
   get skipvalidationonblur() {
@@ -149,74 +135,57 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   set skipvalidationonblur(value) {
-    if (value != null && value !== false) {
-      this.setAttribute('skipvalidationonblur', '');
-    } else {
-      this.removeAttribute('skipvalidationonblur');
+    setAttr(this, 'skipvalidationonblur', value);
+  }
+
+  getFieldById(fieldId) {
+    return this.fields.find(field =>
+      this.constructor.getFieldId(field) === fieldId);
+  }
+
+  validateFieldByElement(field) {
+    validateField(
+      field.validation,
+      field.value,
+      this.constructor.getFieldId(field),
+    );
+  }
+
+  validateField(fieldId) {
+    this.validateFieldByElement(this.getFieldById(fieldId));
+  }
+
+  validateForm() {
+    validateForm(this.validation, this.state.values);
+  }
+
+  handleClick({ target: field }) {
+    if (field.type === 'submit') {
+      console.log(this, 'submit', field);
     }
   }
 
-  dispatchFormUpdate() {
-    this.dispatchEventAndMethod('formupdate', this.neueState);
-  }
-
-  dispatchFormSubmission() {
-    this.dispatchEventAndMethod('formsubmit');
-  }
-
-  neueValidateFormAndField(field) {
-    this.dispatchAction(validateFieldLevel({
-      path: this.constructor.getFieldId(field),
-      value: field.value,
-      validator: field.validation,
-    }));
-
-    this.dispatchAction(validateFormLevel({
-      values: this.neueState.values,
-      validator: this.validation,
-    }));
-  }
-
-  neueValidateFormAndAllFields() {
-    this.fields.forEach((field) => {
-      this.dispatchAction(validateFieldLevel({
-        path: this.constructor.getFieldId(field),
-        value: field.value,
-        validator: field.validation,
-      }));
-    });
-
-    this.dispatchAction(validateFormLevel({
-      values: this.neueState.values,
-      validator: this.validation,
-    }));
-  }
-
-  handleClick({ target }) {
-    if (target.type === 'submit') {
-      this.dispatchFormSubmission();
-    }
-  }
-
-  handleBlur({ target }) {
-    if (this.constructor.isFormField(target)) {
-      const fieldId = this.constructor.getFieldId(target);
-      this.dispatchAction(setDirty(true));
-      this.dispatchAction(setFieldTouched(fieldId, true));
+  handleBlur({ target: field }) {
+    if (this.constructor.isFormField(field)) {
+      const fieldId = this.constructor.getFieldId(field);
+      this.updateState('dirty', true);
+      this.updateState(`touched.${fieldId}`, true);
 
       if (!this.skipvalidationonblur) {
-        this.neueValidateFormAndField(target);
+        this.validateFieldByElement(field);
+        this.validateForm();
       }
     }
   }
 
-  handleInput({ target }) {
-    if (this.constructor.isFormField(target)) {
-      const fieldId = this.constructor.getFieldId(target);
-      this.dispatchAction(setFieldValue(fieldId, target.value));
+  handleInput({ target: field }) {
+    if (this.constructor.isFormField(field)) {
+      const fieldId = this.constructor.getFieldId(field);
+      this.updateState(`values.${fieldId}`, field.value);
 
       if (!this.skipvalidationonchange) {
-        this.neueValidateFormAndField(target);
+        this.validateFieldByElement(field);
+        this.validateForm();
       }
     }
   }
