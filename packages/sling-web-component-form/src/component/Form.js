@@ -131,6 +131,34 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.updateState('values', values);
   }
 
+  get dirty() {
+    return this.state.dirty;
+  }
+
+  get errors() {
+    return this.state.errors;
+  }
+
+  get touched() {
+    return this.state.touched;
+  }
+
+  get isValid() {
+    return this.state.isValid;
+  }
+
+  get isValidating() {
+    return this.state.isValidating;
+  }
+
+  get isSubmitting() {
+    return this.state.isSubmitting;
+  }
+
+  get submitCount() {
+    return this.state.submitCount;
+  }
+
   get skipvalidationonchange() {
     return this.hasAttribute('skipvalidationonchange');
   }
