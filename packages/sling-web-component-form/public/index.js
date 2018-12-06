@@ -5,8 +5,8 @@ const form = document.querySelector('sling-form');
 const userNameField = document.querySelector('sling-input[name=username]');
 const debug = document.getElementById('debug');
 
-form.addEventListener('formupdate', ({ detail }) => {
-  console.log('formupdate', detail);
+form.addEventListener('update', ({ detail }) => {
+  console.log('update', detail);
   debug.innerHTML = JSON.stringify(detail, null, 2);
 });
 

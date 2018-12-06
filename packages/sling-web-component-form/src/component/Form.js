@@ -46,9 +46,9 @@ export class Form extends withEventDispatch(HTMLElement) {
 
       if (this.state.isSubmitting && !this.state.isValidating) {
         if (this.state.isValid) {
-          this.dispatchEventAndMethod('formsubmitsuccess', this.state.values);
+          this.dispatchEventAndMethod('submitsuccess', this.state.values);
         } else {
-          this.dispatchEventAndMethod('formsubmiterror', this.state.errors);
+          this.dispatchEventAndMethod('submiterror', this.state.errors);
         }
       }
     });
@@ -119,7 +119,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   set state(newState) {
     if (this.__state !== newState) {
       this.__state = newState;
-      this.dispatchEventAndMethod('formupdate', this.state);
+      this.dispatchEventAndMethod('update', this.state);
     }
   }
 

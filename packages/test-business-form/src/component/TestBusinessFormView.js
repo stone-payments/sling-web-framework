@@ -20,8 +20,8 @@ export const TestBusinessFormView = ({
 }) => html`
   <sling-form
     validation="${validateForm}"
-    onformupdate="${handleFormUpdate}"
-    onformsubmitsuccess="${handleFormSubmitSucess}">
+    onupdate="${handleFormUpdate}"
+    onsubmitsuccess="${handleFormSubmitSucess}">
     <label>
       <h4>Apelido</h4>
       <sling-input

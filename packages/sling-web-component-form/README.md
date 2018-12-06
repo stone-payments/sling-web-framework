@@ -42,7 +42,7 @@ npm install sling-web-component-form
 * **formsubmit**
 **Description:** Event triggered every time that the form is submitted.     
 
-* **formupdate**
+* **update**
 **Description:** Event triggered when any value of the form is changed.     
 
 ### Use
