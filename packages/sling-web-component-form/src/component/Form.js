@@ -1,6 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, isPromise } from 'sling-helpers';
-import { setIn, mergeDeep, isDeeplyEmpty } from '../helpers/immutableHelper.js';
+import { isFunction, isPromise, setIn } from 'sling-helpers/src';
 
 import {
   FormReducer,

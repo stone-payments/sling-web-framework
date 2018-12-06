@@ -7,6 +7,8 @@
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "moment": "^2.22.2"
+    "is-plain-object": "^2.0.4",
+    "moment": "^2.22.2",
+    "timm": "^1.6.1"
   }
 }

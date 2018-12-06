@@ -1,0 +1,67 @@
+import { isFunction, isDeeplyEmpty } from 'sling-helpers/src';
+
+const FORM_LEVEL = '__FORM_LEVEL__';
+
+export class FormValidator {
+  constructor() {
+    this.pending = {};
+    this.isValidatingLevel = {};
+    this.fieldLevelErrors = {};
+    this.formLevelErrors = {};
+  }
+
+  get isValidating() {
+    return Object.values(this.isValidatingLevel).some(val => val === true);
+  }
+
+  get isValid() {
+    return isDeeplyEmpty(this.errors);
+  }
+
+  get errors() {
+    return {
+      ...this.formLevelErrors,
+      ...this.fieldLevelErrors,
+    };
+  }
+
+  validate(validatorThunk, path = FORM_LEVEL) {
+    this.queue(validatorThunk, path);
+    this.executeNext(path);
+  }
+
+  queue(validatorThunk, path) {
+    this.pending[path] = this.pending[path] || [];
+    this.pending[path].push(validatorThunk);
+  }
+
+  async executeNext(path, levelErrors = {}) {
+    if (!this.isValidatingLevel[path]) {
+      if (this.pending[path].length > 0) {
+        this.isValidatingLevel[path] = true;
+        const nextValidatorThunk = this.pending[path].pop();
+        this.pending[path] = [];
+        const nextErrors = await nextValidatorThunk();
+        this.isValidatingLevel[path] = false;
+        this.executeNext(path, nextErrors);
+      } else {
+        if (path === FORM_LEVEL) {
+          this.formLevelErrors = levelErrors;
+        } else {
+          this.fieldLevelErrors = {
+            ...this.fieldLevelErrors,
+            ...levelErrors,
+          };
+        }
+
+        if (isFunction(this.onValidation)) {
+          this.onValidation({
+            errors: this.errors,
+            isValidating: this.isValidating,
+            isValid: this.isValid,
+          });
+        }
+      }
+    }
+  }
+}
