@@ -1,5 +1,7 @@
 import { setIn } from 'sling-helpers/src';
 
+export * from './FormActions.js';
+
 const INITIAL_STATE = {
   dirty: false,
   errors: {},

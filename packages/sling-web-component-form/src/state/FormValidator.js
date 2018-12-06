@@ -41,9 +41,9 @@ export class FormValidator {
         this.isValidatingLevel[path] = true;
         const nextValidatorThunk = this.pending[path].pop();
         this.pending[path] = [];
-        const nextErrors = await nextValidatorThunk();
+        const nextLevelErrors = await nextValidatorThunk();
         this.isValidatingLevel[path] = false;
-        this.executeNext(path, nextErrors);
+        this.executeNext(path, nextLevelErrors);
       } else {
         if (path === FORM_LEVEL) {
           this.formLevelErrors = levelErrors;
