@@ -43,6 +43,14 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     onValidationComplete((result) => {
       this.state = { ...this.state, ...result };
+
+      if (this.state.isSubmitting && !this.state.isValidating) {
+        if (this.state.isValid) {
+          this.dispatchEventAndMethod('formsubmitsuccess', this.state.values);
+        } else {
+          this.dispatchEventAndMethod('formsubmiterror', this.state.errors);
+        }
+      }
     });
   }
 
@@ -54,6 +62,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
+
     this.initForm();
   }
 
@@ -159,17 +168,41 @@ export class Form extends withEventDispatch(HTMLElement) {
     validateForm(this.validation, this.state.values);
   }
 
+  touchField(field) {
+    const fieldId = this.constructor.getFieldId(field);
+    this.updateState(`touched.${fieldId}`, true);
+  }
+
+  submitForm() {
+    if (!this.state.isSubmitting) {
+      this.updateState('isSubmitting', true);
+      this.updateState('submitCount', this.state.submitCount + 1);
+
+      this.fields.forEach((field) => {
+        this.touchField(field);
+        this.validateFieldByElement(field);
+      });
+
+      this.validateForm();
+    }
+  }
+
+  finishSubmission() {
+    if (this.state.isSubmitting) {
+      this.updateState('isSubmitting', false);
+    }
+  }
+
   handleClick({ target: field }) {
     if (field.type === 'submit') {
-      console.log(this, 'submit', field);
+      this.submitForm();
     }
   }
 
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
-      const fieldId = this.constructor.getFieldId(field);
       this.updateState('dirty', true);
-      this.updateState(`touched.${fieldId}`, true);
+      this.touchField(field);
 
       if (!this.skipvalidationonblur) {
         this.validateFieldByElement(field);

@@ -14,14 +14,14 @@ export const TestBusinessFormView = ({
   validateForm,
   validateTakenUsername,
   handleFormUpdate,
-  handleFormSubmission,
+  handleFormSubmitSucess,
   addFriend,
   removeFriend,
 }) => html`
   <sling-form
     validation="${validateForm}"
     onformupdate="${handleFormUpdate}"
-    onformsubmit="${handleFormSubmission}">
+    onformsubmitsuccess="${handleFormSubmitSucess}">
     <label>
       <h4>Apelido</h4>
       <sling-input
