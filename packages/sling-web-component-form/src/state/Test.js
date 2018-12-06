@@ -1,5 +1,11 @@
 import { sleep } from 'sling-helpers/src';
-import { validateField, validateForm, onFormValidation } from './FormActions.js';
+
+import {
+  validateField,
+  validateForm,
+  onValidationStart,
+  onValidationComplete,
+} from './FormActions.js';
 
 // VALIDATION FUNCTIONS
 
@@ -26,7 +32,8 @@ const validateGroupedFields = (values) => {
 
 // MUST BE IMPLEMENTED
 
-onFormValidation(console.log);
+onValidationStart(() => console.log('started'));
+onValidationComplete(console.log);
 
 
 // TYPING SIMULATION

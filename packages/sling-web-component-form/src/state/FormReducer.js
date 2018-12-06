@@ -19,6 +19,7 @@ const FINISH_SUBMISSION = 'FINISH_SUBMISSION';
 const UPDATE_VALIDATION = 'UPDATE_VALIDATION';
 const SET_FIELD_VALUE = 'SET_FIELD_VALUE';
 const SET_FIELD_TOUCHED = 'SET_FIELD_TOUCHED';
+const SET_IS_VALIDATING = 'SET_IS_VALIDATING';
 
 export const setDirty = dirty => ({
   type: SET_DIRTY,
@@ -33,6 +34,11 @@ export const finishSubmission = () => ({
   type: FINISH_SUBMISSION,
 });
 
+export const updateValidation = validation => ({
+  type: UPDATE_VALIDATION,
+  ...validation,
+});
+
 export const setFieldValue = (path, value) => ({
   type: SET_FIELD_VALUE,
   path,
@@ -45,9 +51,9 @@ export const setFieldTouched = (path, touched) => ({
   touched,
 });
 
-export const updateValidation = validation => ({
-  type: UPDATE_VALIDATION,
-  ...validation,
+export const setIsValidating = isValidating => ({
+  type: SET_IS_VALIDATING,
+  isValidating,
 });
 
 const incrementSubmitCount = state => setIn(state, 'submitCount',
@@ -58,9 +64,9 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
     case UPDATE_VALIDATION:
       return {
         ...state,
-        errors: action.errors,
-        isValid: action.isValid,
-        isValidating: action.isValidating,
+        errors: action.errors || state.errors,
+        isValid: action.isValid || state.isValid,
+        isValidating: action.isValidating || state.isValidating,
       };
 
     case SET_DIRTY:
@@ -77,6 +83,9 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
 
     case SET_FIELD_TOUCHED:
       return setIn(state, `touched.${action.path}`, !!action.touched);
+
+    case SET_IS_VALIDATING:
+      return setIn(state, 'isValidating', !!action.isValidating);
 
     default:
       return state;

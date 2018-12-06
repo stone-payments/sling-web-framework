@@ -26,6 +26,14 @@ export class FormValidator {
   }
 
   validate(validatorThunk, path = FORM_LEVEL) {
+    if (isFunction(this.onValidationStart)) {
+      this.onValidationStart({
+        errors: this.errors,
+        isValidating: this.isValidating,
+        isValid: this.isValid,
+      });
+    }
+
     this.queue(validatorThunk, path);
     this.executeNext(path);
   }
@@ -54,8 +62,8 @@ export class FormValidator {
           };
         }
 
-        if (isFunction(this.onValidation)) {
-          this.onValidation({
+        if (isFunction(this.onValidationComplete)) {
+          this.onValidationComplete({
             errors: this.errors,
             isValidating: this.isValidating,
             isValid: this.isValid,

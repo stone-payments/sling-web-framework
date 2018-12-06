@@ -34,6 +34,10 @@ export const validateField = (validatorFn, valueStr, path) =>
 export const validateForm = (validatorFn, valueObj) =>
   formValidator.validate(() => atFormLevel(validatorFn, valueObj));
 
-export const onFormValidation = (fn) => {
-  formValidator.onValidation = fn;
+export const onValidationStart = (fn) => {
+  formValidator.onValidationStart = fn;
+};
+
+export const onValidationComplete = (fn) => {
+  formValidator.onValidationComplete = fn;
 };
