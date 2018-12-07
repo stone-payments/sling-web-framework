@@ -65,8 +65,8 @@
 
 .emd-btn.emd-btn_layout_outline,
 .emd-btn.emd-btn_layout_text {
-  color: #27a75f;
-  fill: #27a75f;
+  color: var(--sling-button-text-color,var(--sling-button-border-color));
+  fill: var(--sling-button-text-color,var(--sling-button-border-color));
 }
 
 .emd-btn.emd-btn_layout_outline:hover,
@@ -76,14 +76,7 @@
 .emd-btn.emd-btn_layout_text:focus,
 .emd-btn.emd-btn_layout_text:active {
   box-shadow:none;
-}
-
-.emd-btn.emd-btn_layout_outline:hover,
-.emd-btn.emd-btn_layout_outline:active
-.emd-btn.emd-btn_layout_text:active
-.emd-btn.emd-btn_layout_text:active
-{
-  filter: brightness(80%)
+  filter: brightness(70%);
 }
 
 .emd-btn.emd-btn_layout_outline:active {
