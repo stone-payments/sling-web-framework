@@ -50,8 +50,8 @@
 .emd-btn {
   border-color: #2d3844;
   background-color: var(--sling-button-background-color,#2d3844);
-  color: #fff;
-  fill: #fff;
+  color: var(--sling-button-text-color,#fff);
+  fill: var(--sling-button-text-color,#fff);
 }
 
 .emd-btn:hover,
