@@ -54,14 +54,8 @@
   fill: var(--sling-button-text-color,#fff);
 }
 
-.emd-btn:hover,
-.emd-btn:focus,
 .emd-btn:active {
-  border-color: #0c1219;
-}
-
-.emd-btn:active {
-  background-color: #0c1219;
+  filter: brightness(80%);
 }
 
 .emd-btn.emd-btn_layout_outline,
