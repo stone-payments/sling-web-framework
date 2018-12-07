@@ -48,7 +48,7 @@
 /* default */
 
 .emd-btn {
-  border-color: #2d3844;
+  border-color: var(--sling-button-border-color,#2d3844);
   background-color: var(--sling-button-background-color,#2d3844);
   color: var(--sling-button-text-color,#fff);
   fill: var(--sling-button-text-color,#fff);
