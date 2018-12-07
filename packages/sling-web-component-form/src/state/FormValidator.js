@@ -36,14 +36,6 @@ export class FormValidator {
     return isDeeplyEmpty(this.errors);
   }
 
-  addFieldId(fieldId) {
-    this.state[fieldId] = this.state[fieldId] || { ...INITIAL_STATE };
-  }
-
-  removeFieldId(fieldId) {
-    delete this.state[fieldId];
-  }
-
   validate(validatorThunk, fieldId = FORM) {
     if (isFunction(this.onValidationStart)) {
       this.onValidationStart({
@@ -58,34 +50,36 @@ export class FormValidator {
   }
 
   queue(validatorThunk, fieldId) {
-    this.addFieldId(fieldId);
+    this.state[fieldId] = this.state[fieldId] || { ...INITIAL_STATE };
     this.state[fieldId].pending.push(validatorThunk);
   }
 
-  async executeNext(fieldId, error = {}) {
-    if (!this.state[fieldId].isValidating) {
-      if (this.state[fieldId].pending.length > 0) {
-        this.state[fieldId].isValidating = true;
+  async executeNext(fieldId, error = null) {
+    if (!this.state[fieldId] || this.state[fieldId].isValidating) {
+      return undefined;
+    }
 
-        const nextValidator = this.state[fieldId].pending.pop();
-        this.state[fieldId].pending = [];
+    if (this.state[fieldId].pending.length > 0) {
+      const nextValidator = this.state[fieldId].pending.pop();
+      this.state[fieldId].pending = [];
 
-        const nextError = await nextValidator();
+      this.state[fieldId].isValidating = true;
+      const nextError = await nextValidator();
+      this.state[fieldId].isValidating = false;
 
-        this.state[fieldId].isValidating = false;
+      this.executeNext(fieldId, nextError);
+    } else {
+      this.state[fieldId].error = error;
 
-        this.executeNext(fieldId, nextError);
-      } else {
-        this.state[fieldId].error = error;
-
-        if (isFunction(this.onValidationComplete)) {
-          this.onValidationComplete({
-            errors: this.errors,
-            isValidating: this.isValidating,
-            isValid: this.isValid,
-          });
-        }
+      if (isFunction(this.onValidationComplete)) {
+        this.onValidationComplete({
+          errors: this.errors,
+          isValidating: this.isValidating,
+          isValid: this.isValid,
+        });
       }
     }
+
+    return undefined;
   }
 }
