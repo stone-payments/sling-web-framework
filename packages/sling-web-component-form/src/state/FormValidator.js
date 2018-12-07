@@ -28,12 +28,20 @@ export class FormValidator {
   }
 
   get isValidating() {
-    return Object.keys(this.state).some(fieldId =>
-      fieldId.isValidating === true);
+    return Object.values(this.state)
+      .some(({ isValidating }) => isValidating === true);
   }
 
   get isValid() {
     return isDeeplyEmpty(this.errors);
+  }
+
+  addFieldId(fieldId) {
+    this.state[fieldId] = this.state[fieldId] || { ...INITIAL_STATE };
+  }
+
+  removeFieldId(fieldId) {
+    delete this.state[fieldId];
   }
 
   validate(validatorThunk, fieldId = FORM) {
@@ -50,7 +58,7 @@ export class FormValidator {
   }
 
   queue(validatorThunk, fieldId) {
-    this.state[fieldId] = this.state[fieldId] || { ...INITIAL_STATE };
+    this.addFieldId(fieldId);
     this.state[fieldId].pending.push(validatorThunk);
   }
 

@@ -7,6 +7,7 @@ export const TestBusinessFormView = ({
   values = {},
   errors = {},
   isValid,
+  isValidating,
   isSubmitting,
   validateRequiredField,
   validateRequiredEmail,
@@ -111,7 +112,7 @@ export const TestBusinessFormView = ({
 
     <sling-button
       type="submit"
-      disabled="${!isValid || isSubmitting}">
+      disabled="${isValidating || !isValid || isSubmitting}">
       Enviar
     </sling-button>
   </sling-form>
