@@ -131,16 +131,24 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.updateState('values', values);
   }
 
-  get dirty() {
-    return this.state.dirty;
-  }
-
   get errors() {
     return this.state.errors;
   }
 
+  set errors(values) {
+    this.updateState('errors', values);
+  }
+
   get touched() {
     return this.state.touched;
+  }
+
+  set touched(values) {
+    this.updateState('touched', values);
+  }
+
+  get dirty() {
+    return this.state.dirty;
   }
 
   get isValid() {

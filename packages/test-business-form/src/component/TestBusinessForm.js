@@ -10,6 +10,11 @@ export const TestBusinessForm = Base => class extends Base {
     this.handleFormSubmitSucess = this.handleFormSubmitSucess.bind(this);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.formElement = this.shadowRoot.querySelector('sling-form');
+  }
+
   static get properties() {
     return {
       form: {
@@ -28,20 +33,49 @@ export const TestBusinessForm = Base => class extends Base {
   }
 
   addFriend() {
-    this.form.values = {
-      ...this.form.values,
+    this.formElement.values = {
+      ...this.formElement.values,
       friends: [
-        ...this.form.values.friends || [],
+        ...this.formElement.values.friends || [],
         { name: '' },
+      ],
+    };
+
+    this.formElement.errors = {
+      ...this.formElement.errors,
+      friends: [
+        ...this.formElement.errors.friends || [],
+        { name: null },
+      ],
+    };
+
+    this.formElement.touched = {
+      ...this.formElement.touched,
+      friends: [
+        ...this.formElement.touched.friends || [],
+        { name: false },
       ],
     };
   }
 
   removeFriend(index) {
     return () => {
-      this.form.values = {
-        ...this.form.values,
-        friends: this.form.values.friends.filter((_, idx) => idx !== index),
+      this.formElement.values = {
+        ...this.formElement.values,
+        friends: this.formElement.values
+          .friends.filter((_, idx) => idx !== index),
+      };
+
+      this.formElement.errors = {
+        ...this.formElement.errors,
+        friends: this.formElement.errors
+          .friends.filter((_, idx) => idx !== index),
+      };
+
+      this.formElement.touched = {
+        ...this.formElement.touched,
+        friends: this.formElement.touched
+          .friends.filter((_, idx) => idx !== index),
       };
     };
   }
