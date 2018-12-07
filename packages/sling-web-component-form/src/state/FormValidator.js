@@ -74,6 +74,8 @@ export class FormValidator {
 
       if (isFunction(this.onValidationComplete)) {
         this.onValidationComplete({
+          fieldId: (fieldId === FORM) ? null : fieldId,
+          error,
           errors: this.errors,
           isValidating: this.isValidating,
           isValid: this.isValid,

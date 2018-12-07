@@ -44,6 +44,12 @@ export class Form extends withEventDispatch(HTMLElement) {
     onValidationComplete((result) => {
       this.state = { ...this.state, ...result };
 
+      console.log([
+        result.fieldId,
+        result.error,
+        this.fields.map(this.constructor.getFieldId).includes(result.fieldId),
+      ]);
+
       if (this.state.isSubmitting && !this.state.isValidating) {
         if (this.state.isValid) {
           this.dispatchEventAndMethod('submitsuccess', this.state.values);
