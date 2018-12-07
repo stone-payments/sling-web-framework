@@ -33,7 +33,8 @@ export class FormValidator {
   }
 
   get isValid() {
-    return isDeeplyEmpty(this.errors);
+    return isDeeplyEmpty(Object.values(this.state)
+      .map(field => field.error));
   }
 
   validate(validatorThunk, fieldId = FORM) {
