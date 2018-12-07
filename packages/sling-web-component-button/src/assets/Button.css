@@ -49,7 +49,7 @@
 
 .emd-btn {
   border-color: #2d3844;
-  background-color: #2d3844;
+  background-color: var(--sling-button-background-color,#2d3844);
   color: #fff;
   fill: #fff;
 }
