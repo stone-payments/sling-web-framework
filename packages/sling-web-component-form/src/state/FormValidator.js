@@ -1,28 +1,42 @@
-import { isFunction, mergeDeep, isDeeplyEmpty } from 'sling-helpers';
+import { isFunction, setIn, mergeDeep, isDeeplyEmpty } from 'sling-helpers';
 
-const FORM_LEVEL = '__FORM_LEVEL__';
+const FORM = '__FORM__';
+
+const INITIAL_STATE = {
+  pending: [],
+  isValidating: false,
+  error: null,
+};
 
 export class FormValidator {
   constructor() {
-    this.pending = {};
-    this.isValidatingLevel = {};
-    this.fieldLevelErrors = {};
-    this.formLevelErrors = {};
+    this.state = {};
+  }
+
+  get errors() {
+    const fieldErrors = Object
+      .entries(this.state)
+      .filter(([fieldId]) => fieldId !== FORM)
+      .reduce((result, [fieldId, { error }]) =>
+        setIn(result, fieldId, error), {});
+
+    const formErrors = this.state[FORM]
+      ? this.state[FORM].error || {}
+      : {};
+
+    return mergeDeep(formErrors, fieldErrors);
   }
 
   get isValidating() {
-    return Object.values(this.isValidatingLevel).some(val => val === true);
+    return Object.keys(this.state).some(fieldId =>
+      fieldId.isValidating === true);
   }
 
   get isValid() {
     return isDeeplyEmpty(this.errors);
   }
 
-  get errors() {
-    return mergeDeep(this.formLevelErrors, this.fieldLevelErrors);
-  }
-
-  validate(validatorThunk, path = FORM_LEVEL) {
+  validate(validatorThunk, fieldId = FORM) {
     if (isFunction(this.onValidationStart)) {
       this.onValidationStart({
         errors: this.errors,
@@ -31,30 +45,30 @@ export class FormValidator {
       });
     }
 
-    this.queue(validatorThunk, path);
-    this.executeNext(path);
+    this.queue(validatorThunk, fieldId);
+    this.executeNext(fieldId);
   }
 
-  queue(validatorThunk, path) {
-    this.pending[path] = this.pending[path] || [];
-    this.pending[path].push(validatorThunk);
+  queue(validatorThunk, fieldId) {
+    this.state[fieldId] = this.state[fieldId] || { ...INITIAL_STATE };
+    this.state[fieldId].pending.push(validatorThunk);
   }
 
-  async executeNext(path, levelErrors = {}) {
-    if (!this.isValidatingLevel[path]) {
-      if (this.pending[path].length > 0) {
-        this.isValidatingLevel[path] = true;
-        const nextValidatorThunk = this.pending[path].pop();
-        this.pending[path] = [];
-        const nextLevelErrors = await nextValidatorThunk();
-        this.isValidatingLevel[path] = false;
-        this.executeNext(path, nextLevelErrors);
+  async executeNext(fieldId, error = {}) {
+    if (!this.state[fieldId].isValidating) {
+      if (this.state[fieldId].pending.length > 0) {
+        this.state[fieldId].isValidating = true;
+
+        const nextValidator = this.state[fieldId].pending.pop();
+        this.state[fieldId].pending = [];
+
+        const nextError = await nextValidator();
+
+        this.state[fieldId].isValidating = false;
+
+        this.executeNext(fieldId, nextError);
       } else {
-        if (path === FORM_LEVEL) {
-          this.formLevelErrors = levelErrors;
-        } else {
-          this.fieldLevelErrors = mergeDeep(this.fieldLevelErrors, levelErrors);
-        }
+        this.state[fieldId].error = error;
 
         if (isFunction(this.onValidationComplete)) {
           this.onValidationComplete({

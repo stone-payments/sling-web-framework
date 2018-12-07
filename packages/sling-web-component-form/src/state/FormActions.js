@@ -1,4 +1,4 @@
-import { isPromise, setIn } from 'sling-helpers';
+import { isPromise } from 'sling-helpers';
 import { FormValidator } from './FormValidator.js';
 
 const formValidator = new FormValidator();
@@ -8,7 +8,7 @@ const treatError = error =>
 
 const atLevel = wrapperFn => async (validatorFn, value, path) => {
   if (validatorFn == null) {
-    return {};
+    return undefined;
   }
 
   const error = validatorFn(value);
@@ -19,7 +19,7 @@ const atLevel = wrapperFn => async (validatorFn, value, path) => {
 };
 
 const atFieldLevel = (...args) => {
-  const wrapperFn = path => errorStr => setIn({}, path, errorStr || null);
+  const wrapperFn = () => errorStr => errorStr || null;
   return atLevel(wrapperFn)(...args);
 };
 
