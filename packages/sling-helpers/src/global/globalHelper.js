@@ -5,7 +5,7 @@ import isPlainObject from 'is-plain-object';
 
 moment.locale('pt-BR');
 
-export { mergeDeep } from 'timm';
+export { omit, set, mergeDeep } from 'timm';
 
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;
