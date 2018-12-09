@@ -1,9 +1,9 @@
-import { setIn, isDeeplyEmpty, omit, isPromise } from 'sling-helpers/src';
+import { setIn, isDeeplyEmpty, omit, isPromise, toFlatEntries } from 'sling-helpers/src';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import CancelablePromise from 'cancelable-promise';
 
-export const FORM = Symbol('FORM');
+export const FORM = '__FORM__';
 
 const INITIAL_FIELD_STATE = {
   error: null,
@@ -138,8 +138,9 @@ const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
 
 const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
   const field = getState()[fieldId];
+  const fieldExists = field != null;
 
-  if (field != null) {
+  if (fieldExists) {
     const { validation: previousValidation } = field;
 
     if (previousValidation) {
@@ -168,15 +169,22 @@ export const validateForm = (validatorFn, obj) =>
 
 // SELECTORS
 
-export const selectIsValid = state => isDeeplyEmpty(state[FORM].error) &&
-  Object.values(state).every(({ error }) => error == null);
+const getForm = state => state[FORM];
 
-export const selectIsValidating = state => state[FORM].isValidating === true ||
-  Object.values(state).some(({ isValidating }) => isValidating === true);
+const getFields = state => Object
+  .entries(state)
+  .filter(([key]) => key !== FORM)
+  .reduce(toFlatEntries, {});
 
-export const selectUserState = (state) => {
-  const form = state[FORM];
-  const fieldEntries = Object.entries(state);
+export const getIsValid = state => isDeeplyEmpty(getForm(state).error) &&
+  Object.values(getFields(state)).every(value => value.error == null);
+
+export const getIsValidating = state =>
+  Object.values(state).some(value => value.isValidating === true);
+
+export const getUserState = (state) => {
+  const form = getForm(state);
+  const fieldEntries = Object.entries(getFields(state));
 
   const errors = {
     ...form.error,
@@ -193,12 +201,13 @@ export const selectUserState = (state) => {
   const isValidatingField = fieldEntries.reduce((result, [fieldId, obj]) =>
     setIn(result, fieldId, obj.isValidating), {});
 
-  const isValid = selectIsValid(state);
+  const isValid = getIsValid(state);
 
-  const isValidating = selectIsValidating(state);
+  const isValidating = getIsValidating(state);
 
   return { errors, values, touched, isValid, isValidating, isValidatingField };
 };
+
 
 // TESTS
 
@@ -215,7 +224,7 @@ store.subscribe(() => {
 
   if (previousState !== currentState) {
     console.log(currentState);
-    console.log(selectUserState(currentState));
+    console.log(getUserState(currentState));
   }
 
   previousState = currentState;
