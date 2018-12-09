@@ -76,10 +76,9 @@ export const byIdReducer = (state = INITIAL_BY_ID_STATE, action = {}) => {
 
   switch (action.type) {
     case ADD_FIELD:
-      return {
-        ...state,
-        [action.fieldId]: { ...INITIAL_FIELD_STATE },
-      };
+      return (state[action.fieldId] == null)
+        ? { ...state, [action.fieldId]: { ...INITIAL_FIELD_STATE } }
+        : state;
 
     case REMOVE_FIELD:
       return omit(state, action.fieldId);
@@ -312,7 +311,7 @@ setTimeout(() => {
     username: 'malamala',
     friends: ['lupalupa'],
   }));
-}, 10000);
+}, 100);
 
 isDeeplyEmpty({}); // ?
 isDeeplyEmpty([]); // ?
