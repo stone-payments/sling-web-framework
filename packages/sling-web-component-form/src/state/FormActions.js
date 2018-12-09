@@ -15,7 +15,7 @@ const atLevel = wrapperFn => async (validatorFn, value, fieldId) => {
 
   return (isPromise(error))
     ? error.catch(treatError).then(wrapperFn(fieldId))
-    : Promise.resolve(wrapperFn(fieldId)(error));
+    : Promise.resolve(wrapperFn(fieldId)(treatError(error)));
 };
 
 const atFieldLevel = (...args) => {

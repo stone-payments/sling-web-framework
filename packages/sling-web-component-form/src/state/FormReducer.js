@@ -63,6 +63,15 @@ export const finishValidation = (fieldId, error) => ({
 });
 
 export const FormReducer = (state = INITIAL_STATE, action = {}) => {
+  const updateField = (obj, condition = true) => {
+    const { fieldId } = action;
+    const field = state[fieldId];
+
+    return (condition)
+      ? { ...state, [fieldId]: { ...field, ...obj } }
+      : state;
+  };
+
   switch (action.type) {
     case ADD_FIELD:
       return {
@@ -74,43 +83,31 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       return omit(state, action.fieldId);
 
     case UPDATE_FIELD_VALUE:
-      return {
-        ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
-          value: action.value,
-        },
-      };
+      return updateField(
+        { value: action.value },
+        state[action.fieldId] != null &&
+          state[action.fieldId].value !== action.value,
+      );
 
     case UPDATE_FIELD_TOUCHED:
-      return {
-        ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
-          touched: action.touched,
-        },
-      };
+      return updateField(
+        { touched: action.touched },
+        state[action.fieldId] != null &&
+          state[action.fieldId].touched !== action.touched,
+      );
 
     case START_VALIDATION:
-      return {
-        ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
-          isValidating: true,
-          validation: action.validation,
-        },
-      };
+      return updateField({
+        isValidating: true,
+        validation: action.validation,
+      });
 
     case FINISH_VALIDATION:
-      return {
-        ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
-          isValidating: false,
-          validation: null,
-          error: action.error,
-        },
-      };
+      return updateField({
+        isValidating: false,
+        validation: null,
+        error: action.error,
+      });
 
     default:
       return state;
@@ -119,6 +116,27 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
 
 const makeCancelable = promise =>
   new CancelablePromise(resolve => resolve(promise));
+
+export const validate = (fieldId, validation) => (dispatch, getState) => {
+  const field = getState()[fieldId];
+
+  if (field != null) {
+    const { validation: previousValidation } = field;
+
+    if (previousValidation) {
+      previousValidation.cancel();
+    }
+
+    const nextValidation = makeCancelable(validation);
+    dispatch(startValidation(fieldId, nextValidation));
+
+    nextValidation.then((error) => {
+      dispatch(finishValidation(fieldId, error));
+    });
+  }
+};
+
+// TESTS
 
 const fakeValidator = () =>
   new Promise((resolve) => {
@@ -130,28 +148,29 @@ const anotherFakeValidator = () =>
     setTimeout(() => resolve('Other error occourred'), 1000);
   });
 
-export const validate = (fieldId, validation) => (dispatch, getState) => {
-  const { validation: previousValidation } = getState()[fieldId];
-
-  if (previousValidation) {
-    previousValidation.cancel();
-  }
-
-  const nextValidation = makeCancelable(validation);
-  dispatch(startValidation(fieldId, nextValidation));
-
-  nextValidation.then((error) => {
-    dispatch(finishValidation(fieldId, error));
-  });
-};
-
 const store = createStore(FormReducer, applyMiddleware(thunk));
 
+let previousState = INITIAL_STATE;
+
 store.subscribe(() => {
-  store.getState(); // ?
+  const currentState = store.getState();
+  console.log(previousState !== currentState);
+
+  if (previousState !== currentState) {
+    console.log(currentState);
+  }
+
+  previousState = currentState;
 });
 
 store.dispatch(addField('last.but[0]'));
+store.dispatch(addField('last.but[1]'));
+
+store.dispatch(updateFieldValue('last.but[0]', 100));
+store.dispatch(updateFieldValue('last.but[0]', 100));
+store.dispatch(updateFieldValue('last.but[0]', 100));
+
 store.dispatch(validate('last.but[0]', fakeValidator()));
 store.dispatch(validate('last.but[0]', anotherFakeValidator()));
+store.dispatch(validate('last.but[1]', fakeValidator()));
 store.dispatch(validate(FORM, fakeValidator()));
