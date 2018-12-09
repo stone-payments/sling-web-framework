@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import CancelablePromise from 'cancelable-promise';
 
-const FORM_LEVEL = Symbol('FORM_LEVEL');
+const FORM = Symbol('FORM');
 
 const INITIAL_FIELD_STATE = {
   error: null,
@@ -14,7 +14,7 @@ const INITIAL_FIELD_STATE = {
 };
 
 const INITIAL_STATE = {
-  [FORM_LEVEL]: {
+  [FORM]: {
     error: null,
     isValidating: false,
     validation: null,
@@ -125,6 +125,11 @@ const fakeValidator = () =>
     setTimeout(() => resolve('An error occourred'), 2000);
   });
 
+const anotherFakeValidator = () =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve('Other error occourred'), 1000);
+  });
+
 export const validate = (fieldId, validation) => (dispatch, getState) => {
   const { validation: previousValidation } = getState()[fieldId];
 
@@ -148,4 +153,5 @@ store.subscribe(() => {
 
 store.dispatch(addField('last.but[0]'));
 store.dispatch(validate('last.but[0]', fakeValidator()));
-store.dispatch(validate('last.but[0]', fakeValidator()));
+store.dispatch(validate('last.but[0]', anotherFakeValidator()));
+store.dispatch(validate(FORM, fakeValidator()));
