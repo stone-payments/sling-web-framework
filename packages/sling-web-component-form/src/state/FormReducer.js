@@ -38,13 +38,13 @@ export const removeField = fieldId => ({
   fieldId,
 });
 
-export const updateFieldValue = (fieldId, value) => ({
+export const updatePropValue = (fieldId, value) => ({
   type: UPDATE_FIELD_VALUE,
   fieldId,
   value,
 });
 
-export const updateFieldTouched = (fieldId, touched) => ({
+export const updatePropTouched = (fieldId, touched) => ({
   type: UPDATE_FIELD_TOUCHED,
   fieldId,
   touched,
@@ -62,15 +62,17 @@ const finishValidation = (fieldId, error) => ({
   error,
 });
 
-export const byIdReducer = (state = INITIAL_BY_ID_STATE, action = {}) => {
-  const updateField = (obj, condition = true) => {
-    const { fieldId } = action;
-    const field = state[fieldId];
+const updatePropHelper = (state, action) => (obj, condition = true) => {
+  const { fieldId } = action;
+  const field = state[fieldId];
 
-    return (condition)
-      ? { ...state, [fieldId]: { ...field, ...obj } }
-      : state;
-  };
+  return (condition)
+    ? { ...state, [fieldId]: { ...field, ...obj } }
+    : state;
+};
+
+export const byIdReducer = (state = INITIAL_BY_ID_STATE, action = {}) => {
+  const updateProp = updatePropHelper(state, action);
 
   switch (action.type) {
     case ADD_FIELD:
@@ -83,27 +85,27 @@ export const byIdReducer = (state = INITIAL_BY_ID_STATE, action = {}) => {
       return omit(state, action.fieldId);
 
     case UPDATE_FIELD_VALUE:
-      return updateField(
+      return updateProp(
         { value: action.value },
         state[action.fieldId] != null &&
           state[action.fieldId].value !== action.value,
       );
 
     case UPDATE_FIELD_TOUCHED:
-      return updateField(
+      return updateProp(
         { touched: action.touched },
         state[action.fieldId] != null &&
           state[action.fieldId].touched !== action.touched,
       );
 
     case START_VALIDATION:
-      return updateField({
+      return updateProp({
         isValidating: true,
         validation: action.validation,
       });
 
     case FINISH_VALIDATION:
-      return updateField({
+      return updateProp({
         isValidating: false,
         validation: null,
         error: action.error,
@@ -139,7 +141,7 @@ const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
 const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
   const getField = (id) => {
     const state = getState();
-    return state.byId ? state.byId[id] : state[id];
+    return (state.byId != null) ? state.byId[id] : state[id];
   };
 
   const field = getField(fieldId);
@@ -181,13 +183,13 @@ const onlyFields = state => Object
   .filter(([key]) => key !== FORM)
   .reduce(toFlatEntries, {});
 
-export const getIsValid = state => isDeeplyEmpty(onlyForm(state).error) &&
+const getIsValid = state => isDeeplyEmpty(onlyForm(state).error) &&
   Object.values(onlyFields(state)).every(value => value.error == null);
 
-export const getIsValidating = state =>
+const getIsValidating = state =>
   Object.values(state).some(value => value.isValidating === true);
 
-export const getParsedState = (state) => {
+const getParsedState = (state) => {
   const form = onlyForm(state);
   const fieldEntries = Object.entries(onlyFields(state));
 
@@ -217,14 +219,54 @@ export const getParsedState = (state) => {
 // FORM REDUCER
 
 const INITIAL_STATE = {
+  dirty: false,
+  submitCount: 0,
+  isSubmitting: false,
   byId: byIdReducer(),
-  parsed: getParsedState(byIdReducer()),
+  ...getParsedState(byIdReducer()),
 };
 
+const UPDATE_DIRTY = Symbol('UPDATE_DIRTY');
+const START_SUBMISSION = Symbol('START_SUBMISSION');
+const FINISH_SUBMISSION = Symbol('FINISH_SUBMISSION');
+
+export const updateDirty = dirty => ({
+  type: UPDATE_DIRTY,
+  dirty,
+});
+
+export const startSubmission = () => ({
+  type: START_SUBMISSION,
+});
+
+export const finishSubmission = () => ({
+  type: FINISH_SUBMISSION,
+});
+
 const formReducer = (state = INITIAL_STATE, action = {}) => {
-  const byId = byIdReducer(state.byId, action);
+  const previousById = state.byId;
+  const byId = byIdReducer(previousById, action);
   const parsed = getParsedState(byId);
-  return { byId, parsed };
+  const nextState = { ...state, byId, ...parsed };
+  const { submitCount } = nextState;
+
+  switch (action.type) {
+    case UPDATE_DIRTY:
+      return { ...nextState, dirty: action.dirty };
+
+    case START_SUBMISSION:
+      return (!state.isSubmitting)
+        ? { ...nextState, submitCount: submitCount + 1, isSubmitting: true }
+        : state;
+
+    case FINISH_SUBMISSION:
+      return (state.isSubmitting)
+        ? { ...nextState, isSubmitting: false }
+        : state;
+
+    default:
+      return (previousById !== byId) ? nextState : state;
+  }
 };
 
 
@@ -240,13 +282,20 @@ store.subscribe(() => {
   console.log(store.getState());
 });
 
+store.dispatch(updateDirty(true));
+store.dispatch(startSubmission());
+store.dispatch(finishSubmission());
+
 store.dispatch(addField('username'));
 store.dispatch(validateField('username', requiredField, ''));
 
 store.dispatch(addField('friend[0]'));
 store.dispatch(validateField('friend[0]', requiredField, ''));
 
-store.dispatch(updateFieldValue('username', '100'));
+store.dispatch(updatePropValue('username', '100'));
+store.dispatch(updatePropValue('username', '100'));
+store.dispatch(updatePropValue('username', '100'));
+store.dispatch(updatePropValue('username', '100'));
 store.dispatch(validateField('username', requiredField, '100'));
 
 isDeeplyEmpty({}); // ?
