@@ -137,7 +137,12 @@ const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
 const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
 
 const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
-  const field = getState().byId[fieldId];
+  const getField = (id) => {
+    const state = getState();
+    return state.byId ? state.byId[id] : state[id];
+  };
+
+  const field = getField(fieldId);
   const fieldExists = field != null;
 
   if (fieldExists) {
@@ -151,7 +156,7 @@ const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
     dispatch(startValidation(fieldId, nextValidation));
 
     nextValidation.then((error) => {
-      const fieldStillExists = getState().byId[fieldId] != null;
+      const fieldStillExists = getField(fieldId) != null;
 
       if (fieldStillExists) {
         dispatch(finishValidation(fieldId, error));
@@ -232,8 +237,7 @@ const requiredField = value => (!value
 const store = createStore(formReducer, applyMiddleware(thunk));
 
 store.subscribe(() => {
-  console.log(store.getState().byId);
-  console.log(store.getState().parsed);
+  console.log(store.getState());
 });
 
 store.dispatch(addField('username'));
@@ -242,8 +246,6 @@ store.dispatch(validateField('username', requiredField, ''));
 store.dispatch(addField('friend[0]'));
 store.dispatch(validateField('friend[0]', requiredField, ''));
 
-store.dispatch(updateFieldValue('username', '100'));
-store.dispatch(updateFieldValue('username', '100'));
 store.dispatch(updateFieldValue('username', '100'));
 store.dispatch(validateField('username', requiredField, '100'));
 
