@@ -226,9 +226,15 @@ const INITIAL_STATE = {
   ...getParsedState(byIdReducer()),
 };
 
+const UPDATE_VALUES = Symbol('UPDATE_VALUES');
 const UPDATE_DIRTY = Symbol('UPDATE_DIRTY');
 const START_SUBMISSION = Symbol('START_SUBMISSION');
 const FINISH_SUBMISSION = Symbol('FINISH_SUBMISSION');
+
+export const updateValues = values => ({
+  type: UPDATE_VALUES,
+  values,
+});
 
 export const updateDirty = dirty => ({
   type: UPDATE_DIRTY,
@@ -251,6 +257,9 @@ const formReducer = (state = INITIAL_STATE, action = {}) => {
   const { submitCount } = nextState;
 
   switch (action.type) {
+    case UPDATE_VALUES:
+      return { ...nextState, values: action.values };
+
     case UPDATE_DIRTY:
       return { ...nextState, dirty: action.dirty };
 
@@ -289,14 +298,21 @@ store.dispatch(finishSubmission());
 store.dispatch(addField('username'));
 store.dispatch(validateField('username', requiredField, ''));
 
-store.dispatch(addField('friend[0]'));
-store.dispatch(validateField('friend[0]', requiredField, ''));
+store.dispatch(addField('friends[0]'));
+store.dispatch(validateField('friends[0]', requiredField, ''));
 
 store.dispatch(updatePropValue('username', '100'));
 store.dispatch(updatePropValue('username', '100'));
 store.dispatch(updatePropValue('username', '100'));
 store.dispatch(updatePropValue('username', '100'));
 store.dispatch(validateField('username', requiredField, '100'));
+
+setTimeout(() => {
+  store.dispatch(updateValues({
+    username: 'malamala',
+    friends: ['lupalupa'],
+  }));
+}, 10000);
 
 isDeeplyEmpty({}); // ?
 isDeeplyEmpty([]); // ?
