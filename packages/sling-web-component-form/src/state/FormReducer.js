@@ -1,9 +1,9 @@
-import { setIn, isDeeplyEmpty, omit } from 'sling-helpers/src';
+import { setIn, isDeeplyEmpty, omit, isPromise } from 'sling-helpers/src';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import CancelablePromise from 'cancelable-promise';
 
-const FORM = Symbol('FORM');
+export const FORM = Symbol('FORM');
 
 const INITIAL_FIELD_STATE = {
   error: null,
@@ -50,13 +50,13 @@ export const updateFieldTouched = (fieldId, touched) => ({
   touched,
 });
 
-export const startValidation = (fieldId, validation) => ({
+const startValidation = (fieldId, validation) => ({
   type: START_VALIDATION,
   fieldId,
   validation,
 });
 
-export const finishValidation = (fieldId, error) => ({
+const finishValidation = (fieldId, error) => ({
   type: FINISH_VALIDATION,
   fieldId,
   error,
@@ -80,8 +80,6 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       };
 
     case REMOVE_FIELD:
-      // console.log(state);
-      // console.log(omit(state, action.fieldId));
       return omit(state, action.fieldId);
 
     case UPDATE_FIELD_VALUE:
@@ -116,10 +114,29 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
   }
 };
 
+
+// VALIDATION
+
 const makeCancelable = promise =>
   new CancelablePromise(resolve => resolve(promise));
 
-export const validate = (fieldId, validationThunk) => (dispatch, getState) => {
+const treatError = error =>
+  (error && error.constructor === Error ? error.message : error);
+
+const atLevel = wrapperFn => async (validatorFn, value) => {
+  if (validatorFn == null) return wrapperFn(undefined);
+  const error = validatorFn(value);
+
+  return (isPromise(error))
+    ? error.catch(treatError).then(wrapperFn)
+    : Promise.resolve(wrapperFn(treatError(error)));
+};
+
+const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
+
+const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
+
+const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
   const field = getState()[fieldId];
 
   if (field != null) {
@@ -129,7 +146,7 @@ export const validate = (fieldId, validationThunk) => (dispatch, getState) => {
       previousValidation.cancel();
     }
 
-    const nextValidation = makeCancelable(validationThunk());
+    const nextValidation = makeCancelable(validatorThunk());
     dispatch(startValidation(fieldId, nextValidation));
 
     nextValidation.then((error) => {
@@ -141,6 +158,15 @@ export const validate = (fieldId, validationThunk) => (dispatch, getState) => {
     });
   }
 };
+
+export const validateField = (fieldId, validatorFn, str) =>
+  validate(fieldId, () => atFieldLevel(validatorFn, str));
+
+export const validateForm = (validatorFn, obj) =>
+  validate(FORM, () => atFormLevel(validatorFn, obj));
+
+
+// SELECTORS
 
 export const selectIsValid = state => isDeeplyEmpty(state[FORM].error) &&
   Object.values(state).every(({ error }) => error == null);
@@ -176,17 +202,9 @@ export const selectUserState = (state) => {
 
 // TESTS
 
-const fakeValidator = () =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve('Some error'), 2000);
-  });
-
-const anotherFakeValidator = () =>
-  new Promise((resolve) => {
-    setTimeout(() => resolve('Another error'), 1000);
-  });
-
-const fakeFormValidator = () => Promise.resolve({ lalala: 'Yeah error' });
+const requiredField = value => (!value
+  ? 'This field is required'
+  : undefined);
 
 const store = createStore(FormReducer, applyMiddleware(thunk));
 
@@ -204,14 +222,10 @@ store.subscribe(() => {
 });
 
 store.dispatch(addField('last[0]'));
+store.dispatch(validateField('last[0]', requiredField, ''));
+
 store.dispatch(addField('last[1]'));
+store.dispatch(validateField('last[1]', requiredField, ''));
 
 store.dispatch(updateFieldValue('last[0]', '100'));
-store.dispatch(updateFieldValue('last[0]', '100'));
-store.dispatch(updateFieldValue('last[0]', '100'));
-
-store.dispatch(validate('last[0]', fakeValidator));
-store.dispatch(validate('last[0]', anotherFakeValidator));
-store.dispatch(validate('last[1]', fakeValidator));
-store.dispatch(removeField('last[1]'));
-store.dispatch(validate(FORM, fakeFormValidator));
+store.dispatch(validateField('last[0]', requiredField, '100'));
