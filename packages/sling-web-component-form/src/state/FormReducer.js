@@ -1,4 +1,4 @@
-import { setIn, omit } from 'sling-helpers/src';
+import { omit } from 'sling-helpers/src';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -22,12 +22,8 @@ const INITIAL_STATE = {
 
 const ADD_FIELD = Symbol('ADD_FIELD');
 const REMOVE_FIELD = Symbol('REMOVE_FIELD');
-const UPDATE_FIELD_ERROR = Symbol('UPDATE_FIELD_ERROR');
-const UPDATE_FIELD_IS_VALIDATING = Symbol('UPDATE_FIELD_IS_VALIDATING');
-const UPDATE_FIELD_VALIDATION = Symbol('UPDATE_FIELD_VALIDATION');
 const UPDATE_FIELD_VALUE = Symbol('UPDATE_FIELD_VALUE');
 const UPDATE_FIELD_TOUCHED = Symbol('UPDATE_FIELD_TOUCHED');
-
 const START_VALIDATION = Symbol('START_VALIDATION');
 const FINISH_VALIDATION = Symbol('FINISH_VALIDATION');
 
@@ -39,24 +35,6 @@ export const addField = fieldId => ({
 export const removeField = fieldId => ({
   type: REMOVE_FIELD,
   fieldId,
-});
-
-export const updateFieldError = (fieldId, error) => ({
-  type: UPDATE_FIELD_ERROR,
-  fieldId,
-  error,
-});
-
-export const updateFieldIsValidating = (fieldId, isValidating) => ({
-  type: UPDATE_FIELD_IS_VALIDATING,
-  fieldId,
-  isValidating,
-});
-
-export const updateFieldValidation = (fieldId, validation) => ({
-  type: UPDATE_FIELD_VALIDATION,
-  fieldId,
-  validation,
 });
 
 export const updateFieldValue = (fieldId, value) => ({
@@ -84,37 +62,54 @@ export const finishValidation = (fieldId, error) => ({
 });
 
 export const FormReducer = (state = INITIAL_STATE, action = {}) => {
-  const updateHelper = (fieldId, value) => ({
-    ...state,
-    [fieldId]: value,
-  });
-
   switch (action.type) {
     case ADD_FIELD:
-      return updateHelper(action.fieldId, { ...INITIAL_FIELD_STATE });
+      return {
+        ...state,
+        [action.fieldId]: { ...INITIAL_FIELD_STATE },
+      };
 
     case REMOVE_FIELD:
       return omit(state, action.fieldId);
 
-    case UPDATE_FIELD_ERROR:
-      return updateHelper(action.fieldId,
-        setIn(state[action.fieldId], 'error', action.error));
-
-    case UPDATE_FIELD_IS_VALIDATING:
-      return updateHelper(action.fieldId,
-        setIn(state[action.fieldId], 'isValidating', action.isValidating));
-
-    case UPDATE_FIELD_VALIDATION:
-      return updateHelper(action.fieldId,
-        setIn(state[action.fieldId], 'validation', action.validation));
-
     case UPDATE_FIELD_VALUE:
-      return updateHelper(action.fieldId,
-        setIn(state[action.fieldId], 'value', action.value));
+      return {
+        ...state,
+        [action.fieldId]: {
+          ...state[action.fieldId],
+          value: action.value,
+        },
+      };
 
     case UPDATE_FIELD_TOUCHED:
-      return updateHelper(action.fieldId,
-        setIn(state[action.fieldId], 'touched', action.touched));
+      return {
+        ...state,
+        [action.fieldId]: {
+          ...state[action.fieldId],
+          touched: action.touched,
+        },
+      };
+
+    case START_VALIDATION:
+      return {
+        ...state,
+        [action.fieldId]: {
+          ...state[action.fieldId],
+          isValidating: true,
+          validation: action.validation,
+        },
+      };
+
+    case FINISH_VALIDATION:
+      return {
+        ...state,
+        [action.fieldId]: {
+          ...state[action.fieldId],
+          isValidating: false,
+          validation: null,
+          error: action.error,
+        },
+      };
 
     default:
       return state;
@@ -160,15 +155,11 @@ export const validate = (fieldId, validation) => (dispatch, getState) => {
     previousValidation.cancel();
   }
 
-  const nextValidation = makeCancelable(validation());
-
-  dispatch(updateFieldIsValidating(fieldId, true));
-  dispatch(updateFieldValidation(fieldId, nextValidation));
+  const nextValidation = makeCancelable(validation);
+  dispatch(startValidation(fieldId, nextValidation));
 
   nextValidation.then((error) => {
-    dispatch(updateFieldError(fieldId, error));
-    dispatch(updateFieldValidation(fieldId, null));
-    dispatch(updateFieldIsValidating(fieldId, false));
+    dispatch(finishValidation(fieldId, error));
   });
 };
 
@@ -179,8 +170,5 @@ store.subscribe(() => {
 });
 
 store.dispatch(addField('last.but[0]'));
-store.dispatch(validate('last.but[0]', fakeValidator));
-
-setTimeout(() => {
-  store.dispatch(validate('last.but[0]', fakeValidator));
-}, 500);
+store.dispatch(validate('last.but[0]', fakeValidator()));
+store.dispatch(validate('last.but[0]', fakeValidator()));
