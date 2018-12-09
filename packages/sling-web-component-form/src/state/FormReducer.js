@@ -1,4 +1,4 @@
-import { omit } from 'sling-helpers/src';
+import { setIn, isDeeplyEmpty, omit } from 'sling-helpers/src';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import CancelablePromise from 'cancelable-promise';
@@ -80,6 +80,8 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
       };
 
     case REMOVE_FIELD:
+      // console.log(state);
+      // console.log(omit(state, action.fieldId));
       return omit(state, action.fieldId);
 
     case UPDATE_FIELD_VALUE:
@@ -131,22 +133,60 @@ export const validate = (fieldId, validationThunk) => (dispatch, getState) => {
     dispatch(startValidation(fieldId, nextValidation));
 
     nextValidation.then((error) => {
-      dispatch(finishValidation(fieldId, error));
+      const fieldStillExists = getState()[fieldId] != null;
+
+      if (fieldStillExists) {
+        dispatch(finishValidation(fieldId, error));
+      }
     });
   }
+};
+
+export const selectIsValid = state => isDeeplyEmpty(state[FORM].error) &&
+  Object.values(state).every(({ error }) => error == null);
+
+export const selectIsValidating = state => state[FORM].isValidating === true ||
+  Object.values(state).some(({ isValidating }) => isValidating === true);
+
+export const selectUserState = (state) => {
+  const form = state[FORM];
+  const fieldEntries = Object.entries(state);
+
+  const errors = {
+    ...form.error,
+    ...fieldEntries.reduce((result, [fieldId, obj]) =>
+      setIn(result, `${fieldId}`, obj.error), {}),
+  };
+
+  const values = fieldEntries.reduce((result, [fieldId, obj]) =>
+    setIn(result, fieldId, obj.value), {});
+
+  const touched = fieldEntries.reduce((result, [fieldId, obj]) =>
+    setIn(result, fieldId, obj.touched), {});
+
+  const isValidatingField = fieldEntries.reduce((result, [fieldId, obj]) =>
+    setIn(result, fieldId, obj.isValidating), {});
+
+  const isValid = selectIsValid(state);
+
+  const isValidating = selectIsValidating(state);
+
+  return { errors, values, touched, isValid, isValidating, isValidatingField };
 };
 
 // TESTS
 
 const fakeValidator = () =>
   new Promise((resolve) => {
-    setTimeout(() => resolve('An error occourred'), 2000);
+    setTimeout(() => resolve('Some error'), 2000);
   });
 
 const anotherFakeValidator = () =>
   new Promise((resolve) => {
-    setTimeout(() => resolve('Other error occourred'), 1000);
+    setTimeout(() => resolve('Another error'), 1000);
   });
+
+const fakeFormValidator = () => Promise.resolve({ lalala: 'Yeah error' });
 
 const store = createStore(FormReducer, applyMiddleware(thunk));
 
@@ -154,23 +194,24 @@ let previousState = INITIAL_STATE;
 
 store.subscribe(() => {
   const currentState = store.getState();
-  console.log(previousState !== currentState);
 
   if (previousState !== currentState) {
     console.log(currentState);
+    console.log(selectUserState(currentState));
   }
 
   previousState = currentState;
 });
 
-store.dispatch(addField('last.but[0]'));
-store.dispatch(addField('last.but[1]'));
+store.dispatch(addField('last[0]'));
+store.dispatch(addField('last[1]'));
 
-store.dispatch(updateFieldValue('last.but[0]', 100));
-store.dispatch(updateFieldValue('last.but[0]', 100));
-store.dispatch(updateFieldValue('last.but[0]', 100));
+store.dispatch(updateFieldValue('last[0]', '100'));
+store.dispatch(updateFieldValue('last[0]', '100'));
+store.dispatch(updateFieldValue('last[0]', '100'));
 
-store.dispatch(validate('last.but[0]', fakeValidator));
-store.dispatch(validate('last.but[0]', anotherFakeValidator));
-store.dispatch(validate('last.but[1]', fakeValidator));
-store.dispatch(validate(FORM, fakeValidator));
+store.dispatch(validate('last[0]', fakeValidator));
+store.dispatch(validate('last[0]', anotherFakeValidator));
+store.dispatch(validate('last[1]', fakeValidator));
+store.dispatch(removeField('last[1]'));
+store.dispatch(validate(FORM, fakeFormValidator));

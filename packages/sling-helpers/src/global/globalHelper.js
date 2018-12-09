@@ -5,7 +5,7 @@ import isPlainObject from 'is-plain-object';
 
 moment.locale('pt-BR');
 
-export { omit, set, mergeDeep } from 'timm';
+export { omit, mergeDeep } from 'timm';
 
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;
@@ -115,18 +115,19 @@ export const getIn = (obj, path) => {
   return timmGetIn(obj, normalizedPath);
 };
 
-export const isDeeplyEmpty = items => Object
-  .values(items)
-  .map((value) => {
-    if (isPlainObject(value)) {
-      return isDeeplyEmpty(value);
-    }
+export const isDeeplyEmpty = items => (items == null) ||
+  Object
+    .values(items)
+    .map((value) => {
+      if (isPlainObject(value)) {
+        return isDeeplyEmpty(value);
+      }
 
-    if (Array.isArray(value)) {
-      return value.every(isDeeplyEmpty);
-    }
+      if (Array.isArray(value)) {
+        return value.every(isDeeplyEmpty);
+      }
 
-    return value == null;
-  })
-  .filter(hasError => !hasError)
-  .length === 0;
+      return value == null;
+    })
+    .filter(hasError => !hasError)
+    .length === 0;
