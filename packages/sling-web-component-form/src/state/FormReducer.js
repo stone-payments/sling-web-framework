@@ -117,7 +117,7 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
 const makeCancelable = promise =>
   new CancelablePromise(resolve => resolve(promise));
 
-export const validate = (fieldId, validation) => (dispatch, getState) => {
+export const validate = (fieldId, validationThunk) => (dispatch, getState) => {
   const field = getState()[fieldId];
 
   if (field != null) {
@@ -127,7 +127,7 @@ export const validate = (fieldId, validation) => (dispatch, getState) => {
       previousValidation.cancel();
     }
 
-    const nextValidation = makeCancelable(validation);
+    const nextValidation = makeCancelable(validationThunk());
     dispatch(startValidation(fieldId, nextValidation));
 
     nextValidation.then((error) => {
@@ -170,7 +170,7 @@ store.dispatch(updateFieldValue('last.but[0]', 100));
 store.dispatch(updateFieldValue('last.but[0]', 100));
 store.dispatch(updateFieldValue('last.but[0]', 100));
 
-store.dispatch(validate('last.but[0]', fakeValidator()));
-store.dispatch(validate('last.but[0]', anotherFakeValidator()));
-store.dispatch(validate('last.but[1]', fakeValidator()));
-store.dispatch(validate(FORM, fakeValidator()));
+store.dispatch(validate('last.but[0]', fakeValidator));
+store.dispatch(validate('last.but[0]', anotherFakeValidator));
+store.dispatch(validate('last.but[1]', fakeValidator));
+store.dispatch(validate(FORM, fakeValidator));
