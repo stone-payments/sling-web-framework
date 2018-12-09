@@ -13,7 +13,7 @@ const INITIAL_FIELD_STATE = {
   touched: false,
 };
 
-const INITIAL_STATE = {
+const INITIAL_BY_ID_STATE = {
   [FORM]: {
     error: null,
     isValidating: false,
@@ -62,7 +62,7 @@ const finishValidation = (fieldId, error) => ({
   error,
 });
 
-export const FormReducer = (state = INITIAL_STATE, action = {}) => {
+export const byIdReducer = (state = INITIAL_BY_ID_STATE, action = {}) => {
   const updateField = (obj, condition = true) => {
     const { fieldId } = action;
     const field = state[fieldId];
@@ -137,7 +137,7 @@ const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
 const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
 
 const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
-  const field = getState()[fieldId];
+  const field = getState().byId[fieldId];
   const fieldExists = field != null;
 
   if (fieldExists) {
@@ -151,7 +151,7 @@ const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
     dispatch(startValidation(fieldId, nextValidation));
 
     nextValidation.then((error) => {
-      const fieldStillExists = getState()[fieldId] != null;
+      const fieldStillExists = getState().byId[fieldId] != null;
 
       if (fieldStillExists) {
         dispatch(finishValidation(fieldId, error));
@@ -169,22 +169,22 @@ export const validateForm = (validatorFn, obj) =>
 
 // SELECTORS
 
-const getForm = state => state[FORM];
+const onlyForm = state => state[FORM];
 
-const getFields = state => Object
+const onlyFields = state => Object
   .entries(state)
   .filter(([key]) => key !== FORM)
   .reduce(toFlatEntries, {});
 
-export const getIsValid = state => isDeeplyEmpty(getForm(state).error) &&
-  Object.values(getFields(state)).every(value => value.error == null);
+export const getIsValid = state => isDeeplyEmpty(onlyForm(state).error) &&
+  Object.values(onlyFields(state)).every(value => value.error == null);
 
 export const getIsValidating = state =>
   Object.values(state).some(value => value.isValidating === true);
 
-export const getUserState = (state) => {
-  const form = getForm(state);
-  const fieldEntries = Object.entries(getFields(state));
+export const getParsedState = (state) => {
+  const form = onlyForm(state);
+  const fieldEntries = Object.entries(onlyFields(state));
 
   const errors = {
     ...form.error,
@@ -209,32 +209,46 @@ export const getUserState = (state) => {
 };
 
 
+// FORM REDUCER
+
+const INITIAL_STATE = {
+  byId: byIdReducer(),
+  parsed: getParsedState(byIdReducer()),
+};
+
+const formReducer = (state = INITIAL_STATE, action = {}) => {
+  const byId = byIdReducer(state.byId, action);
+  const parsed = getParsedState(byId);
+  return { byId, parsed };
+};
+
+
 // TESTS
 
 const requiredField = value => (!value
   ? 'This field is required'
   : undefined);
 
-const store = createStore(FormReducer, applyMiddleware(thunk));
-
-let previousState = INITIAL_STATE;
+const store = createStore(formReducer, applyMiddleware(thunk));
 
 store.subscribe(() => {
-  const currentState = store.getState();
-
-  if (previousState !== currentState) {
-    console.log(currentState);
-    console.log(getUserState(currentState));
-  }
-
-  previousState = currentState;
+  console.log(store.getState().byId);
+  console.log(store.getState().parsed);
 });
 
-store.dispatch(addField('last[0]'));
-store.dispatch(validateField('last[0]', requiredField, ''));
+store.dispatch(addField('username'));
+store.dispatch(validateField('username', requiredField, ''));
 
-store.dispatch(addField('last[1]'));
-store.dispatch(validateField('last[1]', requiredField, ''));
+store.dispatch(addField('friend[0]'));
+store.dispatch(validateField('friend[0]', requiredField, ''));
 
-store.dispatch(updateFieldValue('last[0]', '100'));
-store.dispatch(validateField('last[0]', requiredField, '100'));
+store.dispatch(updateFieldValue('username', '100'));
+store.dispatch(updateFieldValue('username', '100'));
+store.dispatch(updateFieldValue('username', '100'));
+store.dispatch(validateField('username', requiredField, '100'));
+
+isDeeplyEmpty({}); // ?
+isDeeplyEmpty([]); // ?
+isDeeplyEmpty(null); // ?
+isDeeplyEmpty(undefined); // ?
+isDeeplyEmpty({ a: { b: null }, c: [null, undefined] }); // ?
