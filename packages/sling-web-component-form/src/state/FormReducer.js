@@ -62,17 +62,15 @@ const finishValidation = (fieldId, error) => ({
   error,
 });
 
-const updatePropHelper = (state, action) => (obj, condition = true) => {
-  const { fieldId } = action;
-  const field = state[fieldId];
-
-  return (condition)
-    ? { ...state, [fieldId]: { ...field, ...obj } }
-    : state;
-};
-
 export const byIdReducer = (state = INITIAL_BY_ID_STATE, action = {}) => {
-  const updateProp = updatePropHelper(state, action);
+  const updateProp = (obj, condition = true) => {
+    const { fieldId } = action;
+    const field = state[fieldId];
+
+    return (condition)
+      ? { ...state, [fieldId]: { ...field, ...obj } }
+      : state;
+  };
 
   switch (action.type) {
     case ADD_FIELD:
