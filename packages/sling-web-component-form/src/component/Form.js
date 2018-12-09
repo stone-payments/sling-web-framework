@@ -7,6 +7,8 @@ import {
   updateDirty,
   updateFieldTouched,
   updateFieldValue,
+  validateField as _validateField,
+  validateForm as _validateForm,
 } from '../state/FormReducer.js';
 
 import {
@@ -67,7 +69,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   dispatchAction(action) {
     let resolvedAction = action;
-    const getState = () => this.state;
+    const getState = () => this.STATE;
 
     if (isFunction(resolvedAction)) {
       resolvedAction = action(this.dispatchAction.bind(this), getState);
@@ -233,12 +235,30 @@ export class Form extends withEventDispatch(HTMLElement) {
     );
   }
 
+  _validateFieldByElement(field) {
+    console.log([
+      this.constructor.getFieldId(field),
+      field.validation,
+      field.value,
+    ]);
+
+    this.dispatchAction(_validateField(
+      this.constructor.getFieldId(field),
+      field.validation,
+      field.value,
+    ));
+  }
+
   validateField(fieldId) {
     this.validateFieldByElement(this.getFieldById(fieldId));
   }
 
   validateForm() {
     validateForm(this.validation, this.state.values);
+  }
+
+  _validateForm() {
+    this.dispatchAction(_validateForm(this.validation, this.STATE.values));
   }
 
   touchField(field) {
@@ -282,6 +302,9 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.touchField(field);
 
       if (!this.skipvalidationonblur) {
+        this._validateFieldByElement(field);
+        this._validateForm();
+
         this.validateFieldByElement(field);
         this.validateForm();
       }
@@ -298,6 +321,9 @@ export class Form extends withEventDispatch(HTMLElement) {
       this.updateState(`values.${fieldId}`, field.value);
 
       if (!this.skipvalidationonchange) {
+        this._validateFieldByElement(field);
+        this._validateForm();
+
         this.validateFieldByElement(field);
         this.validateForm();
       }
