@@ -1,6 +1,7 @@
 import { omit } from 'sling-helpers/src';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import CancelablePromise from 'cancelable-promise';
 
 const FORM_LEVEL = Symbol('FORM_LEVEL');
 
@@ -116,32 +117,8 @@ export const FormReducer = (state = INITIAL_STATE, action = {}) => {
   }
 };
 
-const makeCancelable = (promise) => {
-  const CANCELED = Symbol('CANCELED');
-
-  const canceler = {
-    sleep(fn) { this.fn = fn; },
-    cancel() { if (this.fn) { this.fn(); } },
-  };
-
-  return {
-    then(callback) {
-      Promise
-        .race([
-          new Promise(resolve => canceler.sleep(() => resolve(CANCELED))),
-          new Promise(resolve => resolve(promise)),
-        ])
-        .then((maybePromise) => {
-          if (maybePromise !== CANCELED) {
-            callback(maybePromise);
-          }
-        });
-    },
-    cancel() {
-      canceler.cancel();
-    },
-  };
-};
+const makeCancelable = promise =>
+  new CancelablePromise(resolve => resolve(promise));
 
 const fakeValidator = () =>
   new Promise((resolve) => {
