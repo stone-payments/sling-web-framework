@@ -236,12 +236,6 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   _validateFieldByElement(field) {
-    console.log([
-      this.constructor.getFieldId(field),
-      field.validation,
-      field.value,
-    ]);
-
     this.dispatchAction(_validateField(
       this.constructor.getFieldId(field),
       field.validation,
