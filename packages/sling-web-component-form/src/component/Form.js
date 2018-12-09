@@ -1,5 +1,13 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, setAttr, setIn, mergeDeep } from 'sling-helpers';
+import { isFunction, setAttr, setIn, mergeDeep, isPromise } from 'sling-helpers';
+
+import {
+  formReducer,
+  addField,
+  updateDirty,
+  updateFieldTouched,
+  updateFieldValue,
+} from '../state/FormReducer.js';
 
 import {
   validateField,
@@ -35,6 +43,9 @@ export class Form extends withEventDispatch(HTMLElement) {
       touched: {},
     };
 
+    this.REDUCER = formReducer;
+    this.STATE = this.REDUCER();
+
     onValidationStart(({ isValidating }) => {
       if (this.state.isValidating !== isValidating) {
         this.updateState('isValidating', isValidating);
@@ -52,6 +63,25 @@ export class Form extends withEventDispatch(HTMLElement) {
         }
       }
     });
+  }
+
+  dispatchAction(action) {
+    let resolvedAction = action;
+    const getState = () => this.state;
+
+    if (isFunction(resolvedAction)) {
+      resolvedAction = action(this.dispatchAction.bind(this), getState);
+    }
+
+    if (isPromise(resolvedAction)) {
+      return resolvedAction.then((asyncAction) => {
+        this.STATE = this.REDUCER(this.STATE, asyncAction);
+        return this.STATE;
+      });
+    }
+
+    this.STATE = this.REDUCER(this.STATE, resolvedAction);
+    return this.STATE;
   }
 
   connectedCallback() {
@@ -82,6 +112,13 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   async initForm() {
+    this.fields.forEach((field) => {
+      const fieldId = this.constructor.getFieldId(field);
+      this.dispatchAction(addField(fieldId));
+    });
+
+    console.log(this.STATE);
+
     const fieldValues = this.fields.reduce((result, field) => {
       const fieldId = this.constructor.getFieldId(field);
       return setIn(result, fieldId, field.value || '');
@@ -237,6 +274,10 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
+      const fieldId = this.constructor.getFieldId(field);
+      this.dispatchAction(updateDirty(true));
+      this.dispatchAction(updateFieldTouched(fieldId, true));
+
       this.updateState('dirty', true);
       this.touchField(field);
 
@@ -252,6 +293,8 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
+      this.dispatchAction(updateFieldValue(fieldId, field.value));
+
       this.updateState(`values.${fieldId}`, field.value);
 
       if (!this.skipvalidationonchange) {

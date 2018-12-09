@@ -1,6 +1,4 @@
 import { setIn, isDeeplyEmpty, omit, isPromise, toFlatEntries } from 'sling-helpers/src';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import CancelablePromise from 'cancelable-promise';
 
 export const FORM = '__FORM__';
@@ -38,13 +36,13 @@ export const removeField = fieldId => ({
   fieldId,
 });
 
-export const updatePropValue = (fieldId, value) => ({
+export const updateFieldValue = (fieldId, value) => ({
   type: UPDATE_FIELD_VALUE,
   fieldId,
   value,
 });
 
-export const updatePropTouched = (fieldId, touched) => ({
+export const updateFieldTouched = (fieldId, touched) => ({
   type: UPDATE_FIELD_TOUCHED,
   fieldId,
   touched,
@@ -246,7 +244,7 @@ export const finishSubmission = () => ({
   type: FINISH_SUBMISSION,
 });
 
-const formReducer = (state = INITIAL_STATE, action = {}) => {
+export const formReducer = (state = INITIAL_STATE, action = {}) => {
   const previousById = state.byId;
   const byId = byIdReducer(previousById, action);
   const parsed = getParsedState(byId);
@@ -258,7 +256,9 @@ const formReducer = (state = INITIAL_STATE, action = {}) => {
       return { ...nextState, values: action.values };
 
     case UPDATE_DIRTY:
-      return { ...nextState, dirty: action.dirty };
+      return (state.dirty !== action.dirty)
+        ? { ...nextState, dirty: action.dirty }
+        : state;
 
     case START_SUBMISSION:
       return (!state.isSubmitting)
@@ -274,45 +274,3 @@ const formReducer = (state = INITIAL_STATE, action = {}) => {
       return (previousById !== byId) ? nextState : state;
   }
 };
-
-
-// TESTS
-
-const requiredField = value => (!value
-  ? 'This field is required'
-  : undefined);
-
-const store = createStore(formReducer, applyMiddleware(thunk));
-
-store.subscribe(() => {
-  console.log(store.getState());
-});
-
-store.dispatch(updateDirty(true));
-store.dispatch(startSubmission());
-store.dispatch(finishSubmission());
-
-store.dispatch(addField('username'));
-store.dispatch(validateField('username', requiredField, ''));
-
-store.dispatch(addField('friends[0]'));
-store.dispatch(validateField('friends[0]', requiredField, ''));
-
-store.dispatch(updatePropValue('username', '100'));
-store.dispatch(updatePropValue('username', '100'));
-store.dispatch(updatePropValue('username', '100'));
-store.dispatch(updatePropValue('username', '100'));
-store.dispatch(validateField('username', requiredField, '100'));
-
-setTimeout(() => {
-  store.dispatch(updateValues({
-    username: 'malamala',
-    friends: ['lupalupa'],
-  }));
-}, 100);
-
-isDeeplyEmpty({}); // ?
-isDeeplyEmpty([]); // ?
-isDeeplyEmpty(null); // ?
-isDeeplyEmpty(undefined); // ?
-isDeeplyEmpty({ a: { b: null }, c: [null, undefined] }); // ?
