@@ -63,10 +63,14 @@
   box-shadow: 0 4px 18px 0 var(--sling-button-background-color,#2d3844);
 }
 
-.emd-btn.emd-btn_layout_outline,
-.emd-btn.emd-btn_layout_text {
+.emd-btn.emd-btn_layout_outline {
   color: var(--sling-button-text-color,var(--sling-button-border-color));
   fill: var(--sling-button-text-color,var(--sling-button-border-color));
+}
+
+.emd-btn.emd-btn_layout_text{
+  color: var(--sling-button-text-color,#2d3844);
+  fill: var(--sling-button-text-color,#2d3844);
 }
 
 .emd-btn.emd-btn_layout_outline:hover,
