@@ -60,7 +60,7 @@
 
 .emd-btn:hover,
 .emd-btn:focus {
-  box-shadow: 0 4px 18px 0 var(--sling-button-background-color,#2d3844);
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
 }
 
 .emd-btn.emd-btn_layout_outline {
@@ -96,11 +96,6 @@
   fill: #fff;
 }
 
-.emd-btn_color_primary:hover,
-.emd-btn_color_primary:focus,
-.emd-btn_color_primary:active {
-  box-shadow: 0 4px 18px 0 var(--sling-button-primary-highlight-color, #7aa436);
-}
 
 .emd-btn_color_primary:active {
   background-color: var(--sling-button-primary-highlight-color, #7aa436);
@@ -135,11 +130,7 @@
   fill: #fff;
 }
 
-.emd-btn_color_success:hover,
-.emd-btn_color_success:focus,
-.emd-btn_color_success:active {
-  box-shadow: 0 4px 18px 0 #27a75f;
-}
+
 
 .emd-btn_color_success:active {
   background-color: #27a75f;
@@ -174,11 +165,7 @@
   fill: #fff;
 }
 
-.emd-btn_color_danger:hover,
-.emd-btn_color_danger:focus,
-.emd-btn_color_danger:active {
-  box-shadow: 0 4px 18px 0 #bb4035;
-}
+
 
 .emd-btn_color_danger:active {
   background-color: #bb4035;
@@ -213,11 +200,6 @@
   fill: #ebebf0;
 }
 
-.emd-btn_color_light:hover,
-.emd-btn_color_light:focus,
-.emd-btn_color_light:active {
-  box-shadow: 0 4px 18px 0 #ebebf0;
-}
 
 .emd-btn_color_light:active {
   background-color: #fff;
