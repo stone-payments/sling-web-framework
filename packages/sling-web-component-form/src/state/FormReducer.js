@@ -21,18 +21,12 @@ const INITIAL_STATE = {
 };
 
 const UPDATE_VALUES = Symbol('UPDATE_VALUES');
-const UPDATE_DIRTY = Symbol('UPDATE_DIRTY');
 const START_SUBMISSION = Symbol('START_SUBMISSION');
 const FINISH_SUBMISSION = Symbol('FINISH_SUBMISSION');
 
 export const updateValues = values => ({
   type: UPDATE_VALUES,
   values,
-});
-
-export const updateDirty = dirty => ({
-  type: UPDATE_DIRTY,
-  dirty,
 });
 
 export const startSubmission = () => ({
@@ -53,11 +47,6 @@ export const formReducer = (state = INITIAL_STATE, action = {}) => {
   switch (action.type) {
     case UPDATE_VALUES:
       return { ...nextState, values: action.values };
-
-    case UPDATE_DIRTY:
-      return (state.dirty !== action.dirty)
-        ? { ...nextState, dirty: action.dirty }
-        : state;
 
     case START_SUBMISSION:
       return (!state.isSubmitting)

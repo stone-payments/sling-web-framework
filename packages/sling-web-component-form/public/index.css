@@ -9,4 +9,5 @@ body {
 
 body > * {
   margin: 20px;
+  align-self: flex-start;
 }

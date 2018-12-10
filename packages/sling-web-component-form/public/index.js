@@ -24,7 +24,7 @@ const validateForm = (values) => {
   const errors = {};
 
   if (!values.phone || (!values.phone.cell && !values.phone.home)) {
-    errors.phone = 'Fill in at least one phone number';
+    errors.phoneMinimum = 'Fill in at least one phone number';
   }
 
   return errors;

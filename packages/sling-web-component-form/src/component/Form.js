@@ -4,7 +4,6 @@ import { isFunction, setAttr, getIn, setIn, isPromise, omit } from 'sling-helper
 import {
   formReducer,
   addField,
-  updateDirty,
   updateFieldTouched,
   updateFieldValue,
   startSubmission,
@@ -59,7 +58,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
 
-    this.updateFields();
+    this.initForm();
   }
 
   disconnectedCallback() {
@@ -70,20 +69,6 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
-  }
-
-  updateFields(values) {
-    this.fields.forEach((field) => {
-      const fieldId = this.constructor.getFieldId(field);
-      this.dispatchAction(addField(fieldId));
-
-      const previousValue = field.value;
-      const nextValue = getIn(values, fieldId);
-
-      if (nextValue != null && previousValue !== nextValue) {
-        field.value = nextValue;
-      }
-    });
   }
 
   static isFormField(target) {
@@ -105,13 +90,13 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   get state() {
-    return this.__state;
+    return this._state;
   }
 
   set state(nextState) {
-    if (this.__state !== nextState) {
-      this.__state = nextState;
-      this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
+    if (this._state !== nextState) {
+      this._state = nextState;
+      this.dispatchUpdateEvent();
 
       const { isValidating, isValid, isSubmitting, values, errors } = nextState;
 
@@ -182,17 +167,37 @@ export class Form extends withEventDispatch(HTMLElement) {
     setAttr(this, 'skipvalidationonblur', value);
   }
 
+  async initForm() {
+    this.updateFields();
+    await Promise.resolve(); // avoids a LitElement warning;
+    this.dispatchUpdateEvent();
+  }
+
+  dispatchUpdateEvent() {
+    this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
+  }
+
+  updateFields(values) {
+    this.fields.forEach((field) => {
+      const fieldId = this.constructor.getFieldId(field);
+      this.dispatchAction(addField(fieldId));
+
+      if (values != null) {
+        const previousValue = field.value;
+        const nextValue = getIn(values, fieldId);
+
+        if (nextValue == null) {
+          field.value = '';
+        } else if (previousValue !== nextValue) {
+          field.value = nextValue;
+        }
+      }
+    });
+  }
+
   getFieldById(fieldId) {
     return this.fields.find(field =>
       this.constructor.getFieldId(field) === fieldId);
-  }
-
-  validateFieldByElement(field) {
-    this.dispatchAction(validateField(
-      this.constructor.getFieldId(field),
-      field.validation,
-      field.value,
-    ));
   }
 
   validateField(fieldId) {
@@ -203,15 +208,28 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.dispatchAction(validateForm(this.validation, this.state.values));
   }
 
-  touchField(field) {
+  validateFieldByElement(field) {
+    this.dispatchAction(validateField(
+      this.constructor.getFieldId(field),
+      field.validation,
+      field.value,
+    ));
+  }
+
+  touchFieldByElement(field) {
     const fieldId = this.constructor.getFieldId(field);
     this.dispatchAction(updateFieldTouched(fieldId, true));
+  }
+
+  updateFieldValueByElement(field) {
+    const fieldId = this.constructor.getFieldId(field);
+    this.dispatchAction(updateFieldValue(fieldId, field.value));
   }
 
   submitForm() {
     if (!this.state.isSubmitting) {
       this.fields.forEach((field) => {
-        this.touchField(field);
+        this.touchFieldByElement(field);
         this.validateFieldByElement(field);
       });
 
@@ -234,8 +252,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
-      this.dispatchAction(updateDirty(true));
-      this.touchField(field);
+      this.touchFieldByElement(field);
 
       if (!this.skipvalidationonblur) {
         this.validateFieldByElement(field);
@@ -246,8 +263,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   handleInput({ target: field }) {
     if (this.constructor.isFormField(field)) {
-      const fieldId = this.constructor.getFieldId(field);
-      this.dispatchAction(updateFieldValue(fieldId, field.value));
+      this.updateFieldValueByElement(field);
 
       if (!this.skipvalidationonchange) {
         this.validateFieldByElement(field);
