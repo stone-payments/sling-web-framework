@@ -23,7 +23,7 @@ form.addEventListener('submiterror', ({ detail }) => {
 const validateForm = (values) => {
   const errors = {};
 
-  if (!values.cellphone && !values.homephone) {
+  if (!values.phone || (!values.phone.cell && !values.phone.home)) {
     errors.phone = 'Fill in at least one phone number';
   }
 

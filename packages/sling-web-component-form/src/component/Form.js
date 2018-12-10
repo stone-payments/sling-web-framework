@@ -1,5 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, setAttr, isPromise, omit } from 'sling-helpers';
+import { isFunction, setAttr, getIn, setIn, isPromise, omit } from 'sling-helpers';
 
 import {
   formReducer,
@@ -59,7 +59,7 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
 
-    this.initForm();
+    this.updateFields();
   }
 
   disconnectedCallback() {
@@ -72,10 +72,17 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
-  async initForm() {
+  updateFields(values) {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
       this.dispatchAction(addField(fieldId));
+
+      const previousValue = field.value;
+      const nextValue = getIn(values, fieldId);
+
+      if (nextValue != null && previousValue !== nextValue) {
+        field.value = nextValue;
+      }
     });
   }
 
@@ -101,12 +108,12 @@ export class Form extends withEventDispatch(HTMLElement) {
     return this.__state;
   }
 
-  set state(newState) {
-    if (this.__state !== newState) {
-      this.__state = newState;
+  set state(nextState) {
+    if (this.__state !== nextState) {
+      this.__state = nextState;
       this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
 
-      const { isValidating, isValid, isSubmitting, values, errors } = newState;
+      const { isValidating, isValid, isSubmitting, values, errors } = nextState;
 
       if (isSubmitting && !isValidating) {
         if (isValid) {
@@ -120,6 +127,11 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   get values() {
     return this.state.values;
+  }
+
+  set values(nextValues) {
+    this.state = setIn(this.state, 'values', nextValues);
+    this.updateFields(nextValues);
   }
 
   get errors() {
@@ -140,6 +152,10 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   get isValidating() {
     return this.state.isValidating;
+  }
+
+  get isValidatingField() {
+    return this.state.isValidatingField;
   }
 
   get isSubmitting() {
