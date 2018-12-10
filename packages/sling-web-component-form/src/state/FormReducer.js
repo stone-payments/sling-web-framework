@@ -12,6 +12,8 @@ export {
   finishValidation,
 } from './byIdReducer.js';
 
+export { onlyForm, onlyFields } from './formSelectors.js';
+
 const INITIAL_STATE = {
   dirty: false,
   submitCount: 0,

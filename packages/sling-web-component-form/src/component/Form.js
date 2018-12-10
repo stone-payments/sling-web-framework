@@ -1,9 +1,20 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, setAttr, getIn, setIn, isPromise, omit } from 'sling-helpers';
+
+import {
+  isFunction,
+  setAttr,
+  getIn,
+  setIn,
+  isPromise,
+  omit,
+  unique,
+} from 'sling-helpers';
 
 import {
   formReducer,
   addField,
+  removeField,
+  onlyFields,
   updateFieldTouched,
   updateFieldValue,
   startSubmission,
@@ -49,19 +60,22 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.state = this.reducer(this.state, resolvedAction);
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     if (isFunction(super.connectedCallback)) {
       super.connectedCallback();
     }
 
     const fn = this.childrenUpdated.bind(this);
     this._mo = new MutationObserver(fn);
-    this._mo.observe(this, { childList: true });
+    this._mo.observe(this, { childList: true, subtree: true });
     fn();
 
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
+
+    await Promise.resolve(); // avoids a LitElement warning;
+    this.dispatchUpdateEvent();
   }
 
   disconnectedCallback() {
@@ -76,10 +90,8 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
-  async childrenUpdated() {
-    this.updateFields();
-    await Promise.resolve(); // avoids a LitElement warning;
-    this.dispatchUpdateEvent();
+  childrenUpdated() {
+    this.syncDomAndStateFields();
   }
 
   static isFormField(target) {
@@ -127,7 +139,18 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   set values(nextValues) {
     this.state = setIn(this.state, 'values', nextValues);
-    this.updateFields(nextValues);
+
+    this.fields.forEach((field) => {
+      const fieldId = this.constructor.getFieldId(field);
+      const previousValue = field.value;
+      const nextValue = getIn(nextValues, fieldId);
+
+      if (nextValue == null) {
+        field.value = '';
+      } else if (previousValue !== nextValue) {
+        field.value = nextValue;
+      }
+    });
   }
 
   get errors() {
@@ -179,23 +202,24 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   dispatchUpdateEvent() {
-    this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
+    this.dispatchEventAndMethod('update', this.state);
   }
 
-  updateFields(values) {
-    this.fields.forEach((field) => {
-      const fieldId = this.constructor.getFieldId(field);
-      this.dispatchAction(addField(fieldId));
+  syncDomAndStateFields() {
+    const domFieldIds = this.fields.map(this.constructor.getFieldId);
+    const stateFieldIds = Object.keys(onlyFields(this.state.byId));
+    const fieldIds = unique(domFieldIds, stateFieldIds);
 
-      if (values != null) {
-        const previousValue = field.value;
-        const nextValue = getIn(values, fieldId);
+    fieldIds.forEach((fieldId) => {
+      const notInState = !stateFieldIds.includes(fieldId);
+      const notInDom = !domFieldIds.includes(fieldId);
 
-        if (nextValue == null) {
-          field.value = '';
-        } else if (previousValue !== nextValue) {
-          field.value = nextValue;
-        }
+      if (notInState) {
+        this.dispatchAction(addField(fieldId));
+      }
+
+      if (notInDom) {
+        this.dispatchAction(removeField(fieldId));
       }
     });
   }

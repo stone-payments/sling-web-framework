@@ -131,3 +131,6 @@ export const isDeeplyEmpty = items => (items == null) ||
     })
     .filter(hasError => !hasError)
     .length === 0;
+
+export const unique = (...arrays) => [...new Set(arrays
+  .reduce((result, arr) => [...result, ...arr], []))];

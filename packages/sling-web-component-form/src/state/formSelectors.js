@@ -3,7 +3,7 @@ import { FORM } from './constant.js';
 
 const onlyForm = state => state[FORM];
 
-const onlyFields = state => Object
+export const onlyFields = state => Object
   .entries(state)
   .filter(([key]) => key !== FORM)
   .reduce(toFlatEntries, {});
