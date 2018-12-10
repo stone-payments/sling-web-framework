@@ -1,3 +1,4 @@
+import { sleep } from 'sling-helpers';
 import 'sling-web-component-input';
 import 'sling-web-component-button';
 
@@ -6,24 +7,21 @@ const userNameField = document.querySelector('sling-input[name=username]');
 const debug = document.getElementById('debug');
 
 form.addEventListener('update', ({ detail }) => {
-  console.log('update', detail);
   debug.innerHTML = JSON.stringify(detail, null, 2);
 });
 
-form.addEventListener('formsubmit', ({ detail }) => {
+form.addEventListener('submitsuccess', ({ detail }) => {
   console.log(JSON.stringify(detail, null, 2));
+  form.finishSubmission();
 });
 
-console.log('direct selection', form.state);
+form.addEventListener('submiterror', ({ detail }) => {
+  console.log(JSON.stringify(detail, null, 2));
+  form.finishSubmission();
+});
 
 const validateForm = (values) => {
   const errors = {};
-
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
 
   if (!values.cellphone && !values.homephone) {
     errors.phone = 'Fill in at least one phone number';
@@ -32,7 +30,9 @@ const validateForm = (values) => {
   return errors;
 };
 
-const validateUserName = (value) => {
+const validateUserName = async (value) => {
+  await sleep(500);
+
   if (value === 'admin') {
     return 'Please do not use admin!';
   }

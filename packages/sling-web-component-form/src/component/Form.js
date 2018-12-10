@@ -1,5 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
-import { isFunction, setAttr, setIn, mergeDeep, isPromise } from 'sling-helpers';
+import { isFunction, setAttr, isPromise, omit } from 'sling-helpers';
 
 import {
   formReducer,
@@ -7,16 +7,11 @@ import {
   updateDirty,
   updateFieldTouched,
   updateFieldValue,
-  validateField as _validateField,
-  validateForm as _validateForm,
-} from '../state/FormReducer.js';
-
-import {
+  startSubmission,
+  finishSubmission,
   validateField,
   validateForm,
-  onValidationStart,
-  onValidationComplete,
-} from '../state/FormActions.js';
+} from '../state/formReducer.js';
 
 export class Form extends withEventDispatch(HTMLElement) {
   constructor() {
@@ -34,56 +29,25 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
-    this.state = {
-      dirty: false,
-      errors: {},
-      isValid: false,
-      isValidating: false,
-      isSubmitting: false,
-      submitCount: 0,
-      values: {},
-      touched: {},
-    };
-
-    this.REDUCER = formReducer;
-    this.STATE = this.REDUCER();
-
-    onValidationStart(({ isValidating }) => {
-      if (this.state.isValidating !== isValidating) {
-        this.updateState('isValidating', isValidating);
-      }
-    });
-
-    onValidationComplete((result) => {
-      this.state = { ...this.state, ...result };
-
-      if (this.state.isSubmitting && !this.state.isValidating) {
-        if (this.state.isValid) {
-          this.dispatchEventAndMethod('submitsuccess', this.state.values);
-        } else {
-          this.dispatchEventAndMethod('submiterror', this.state.errors);
-        }
-      }
-    });
+    this.reducer = formReducer;
+    this.state = this.reducer();
   }
 
   dispatchAction(action) {
     let resolvedAction = action;
-    const getState = () => this.STATE;
+    const getState = () => this.state;
 
     if (isFunction(resolvedAction)) {
       resolvedAction = action(this.dispatchAction.bind(this), getState);
     }
 
     if (isPromise(resolvedAction)) {
-      return resolvedAction.then((asyncAction) => {
-        this.STATE = this.REDUCER(this.STATE, asyncAction);
-        return this.STATE;
+      resolvedAction.then((asyncAction) => {
+        this.state = this.reducer(this.state, asyncAction);
       });
     }
 
-    this.STATE = this.REDUCER(this.STATE, resolvedAction);
-    return this.STATE;
+    this.state = this.reducer(this.state, resolvedAction);
   }
 
   connectedCallback() {
@@ -108,31 +72,11 @@ export class Form extends withEventDispatch(HTMLElement) {
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
-  updateState(path, value) {
-    const resolvedPath = isFunction(path) ? path() : path;
-    this.state = setIn(this.state, resolvedPath, value);
-  }
-
   async initForm() {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      field.addEventListener('lala', evt =>
-        console.log([evt.type, evt.target, evt.detail]));
       this.dispatchAction(addField(fieldId));
     });
-
-    console.log(this.STATE);
-
-    const fieldValues = this.fields.reduce((result, field) => {
-      const fieldId = this.constructor.getFieldId(field);
-      return setIn(result, fieldId, field.value || '');
-    }, {});
-
-    const userValues = this.initialvalues;
-
-    await Promise.resolve(); // this avoids a LitElement warning
-
-    this.updateState('values', mergeDeep(fieldValues, userValues));
   }
 
   static isFormField(target) {
@@ -160,7 +104,17 @@ export class Form extends withEventDispatch(HTMLElement) {
   set state(newState) {
     if (this.__state !== newState) {
       this.__state = newState;
-      this.dispatchEventAndMethod('update', this.state);
+      this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
+
+      const { isValidating, isValid, isSubmitting, values, errors } = newState;
+
+      if (isSubmitting && !isValidating) {
+        if (isValid) {
+          this.dispatchEventAndMethod('submitsuccess', values);
+        } else {
+          this.dispatchEventAndMethod('submiterror', errors);
+        }
+      }
     }
   }
 
@@ -168,24 +122,12 @@ export class Form extends withEventDispatch(HTMLElement) {
     return this.state.values;
   }
 
-  set values(values) {
-    this.updateState('values', values);
-  }
-
   get errors() {
     return this.state.errors;
   }
 
-  set errors(values) {
-    this.updateState('errors', values);
-  }
-
   get touched() {
     return this.state.touched;
-  }
-
-  set touched(values) {
-    this.updateState('touched', values);
   }
 
   get dirty() {
@@ -230,15 +172,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   validateFieldByElement(field) {
-    validateField(
-      field.validation,
-      field.value,
-      this.constructor.getFieldId(field),
-    );
-  }
-
-  _validateFieldByElement(field) {
-    this.dispatchAction(_validateField(
+    this.dispatchAction(validateField(
       this.constructor.getFieldId(field),
       field.validation,
       field.value,
@@ -250,35 +184,29 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   validateForm() {
-    validateForm(this.validation, this.state.values);
-  }
-
-  _validateForm() {
-    this.dispatchAction(_validateForm(this.validation, this.STATE.values));
+    this.dispatchAction(validateForm(this.validation, this.state.values));
   }
 
   touchField(field) {
     const fieldId = this.constructor.getFieldId(field);
-    this.updateState(`touched.${fieldId}`, true);
+    this.dispatchAction(updateFieldTouched(fieldId, true));
   }
 
   submitForm() {
     if (!this.state.isSubmitting) {
-      this.updateState('isSubmitting', true);
-      this.updateState('submitCount', this.state.submitCount + 1);
-
       this.fields.forEach((field) => {
         this.touchField(field);
         this.validateFieldByElement(field);
       });
 
       this.validateForm();
+      this.dispatchAction(startSubmission());
     }
   }
 
   finishSubmission() {
     if (this.state.isSubmitting) {
-      this.updateState('isSubmitting', false);
+      this.dispatchAction(finishSubmission());
     }
   }
 
@@ -290,17 +218,10 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
-      const fieldId = this.constructor.getFieldId(field);
       this.dispatchAction(updateDirty(true));
-      this.dispatchAction(updateFieldTouched(fieldId, true));
-
-      this.updateState('dirty', true);
       this.touchField(field);
 
       if (!this.skipvalidationonblur) {
-        this._validateFieldByElement(field);
-        this._validateForm();
-
         this.validateFieldByElement(field);
         this.validateForm();
       }
@@ -308,23 +229,11 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   handleInput({ target: field }) {
-    console.log([this.constructor.getFieldId(field), field.value]);
-
-    this.fields.forEach(fi => fi.dispatchEvent(new CustomEvent('lala', {
-      bubbles: false,
-      detail: this.STATE,
-    })));
-
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
       this.dispatchAction(updateFieldValue(fieldId, field.value));
 
-      this.updateState(`values.${fieldId}`, field.value);
-
       if (!this.skipvalidationonchange) {
-        this._validateFieldByElement(field);
-        this._validateForm();
-
         this.validateFieldByElement(field);
         this.validateForm();
       }
