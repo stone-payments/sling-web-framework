@@ -116,6 +116,8 @@ export class Form extends withEventDispatch(HTMLElement) {
   async initForm() {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
+      field.addEventListener('lala', evt =>
+        console.log([evt.type, evt.target, evt.detail]));
       this.dispatchAction(addField(fieldId));
     });
 
@@ -307,6 +309,11 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   handleInput({ target: field }) {
     console.log([this.constructor.getFieldId(field), field.value]);
+
+    this.fields.forEach(fi => fi.dispatchEvent(new CustomEvent('lala', {
+      bubbles: false,
+      detail: this.STATE,
+    })));
 
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
