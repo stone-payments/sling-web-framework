@@ -54,11 +54,14 @@ export class Form extends withEventDispatch(HTMLElement) {
       super.connectedCallback();
     }
 
+    const fn = this.childrenUpdated.bind(this);
+    this._mo = new MutationObserver(fn);
+    this._mo.observe(this, { childList: true });
+    fn();
+
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
-
-    this.initForm();
   }
 
   disconnectedCallback() {
@@ -66,9 +69,17 @@ export class Form extends withEventDispatch(HTMLElement) {
       super.disconnectedCallback();
     }
 
+    this._mo.disconnect();
+
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
+  }
+
+  async childrenUpdated() {
+    this.updateFields();
+    await Promise.resolve(); // avoids a LitElement warning;
+    this.dispatchUpdateEvent();
   }
 
   static isFormField(target) {
@@ -165,12 +176,6 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   set skipvalidationonblur(value) {
     setAttr(this, 'skipvalidationonblur', value);
-  }
-
-  async initForm() {
-    this.updateFields();
-    await Promise.resolve(); // avoids a LitElement warning;
-    this.dispatchUpdateEvent();
   }
 
   dispatchUpdateEvent() {
