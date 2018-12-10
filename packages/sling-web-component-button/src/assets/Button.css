@@ -257,10 +257,14 @@
 .emd-btn_disabled:hover,
 .emd-btn_disabled:focus,
 .emd-btn_disabled:active,
+.emd-btn_disabled.emd-btn_layout_outline:hover,
+.emd-btn_disabled.emd-btn_layout_outline:focus,
+.emd-btn_disabled.emd-btn_layout_outline:active,
 .emd-btn_disabled.emd-btn_layout_text:hover,
 .emd-btn_disabled.emd-btn_layout_text:focus,
 .emd-btn_disabled.emd-btn_layout_text:active {
   box-shadow: none;
+  filter: none;
 }
 
 /* outline and text */
