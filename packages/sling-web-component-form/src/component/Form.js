@@ -121,7 +121,13 @@ export class Form extends withEventDispatch(HTMLElement) {
       this._state = nextState;
       this.dispatchUpdateEvent();
 
-      const { isValidating, isValid, isSubmitting, values, errors } = nextState;
+      const {
+        isValidating,
+        isValid,
+        isSubmitting,
+        values,
+        errors,
+      } = nextState;
 
       if (isSubmitting && !isValidating) {
         if (isValid) {
@@ -202,7 +208,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   dispatchUpdateEvent() {
-    this.dispatchEventAndMethod('update', this.state);
+    this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
   }
 
   syncDomAndStateFields() {

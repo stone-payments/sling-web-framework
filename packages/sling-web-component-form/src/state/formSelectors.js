@@ -1,7 +1,7 @@
 import { setIn, toFlatEntries, isDeeplyEmpty } from 'sling-helpers';
 import { FORM } from './constant.js';
 
-const onlyForm = state => state[FORM];
+export const onlyForm = state => state[FORM];
 
 export const onlyFields = state => Object
   .entries(state)

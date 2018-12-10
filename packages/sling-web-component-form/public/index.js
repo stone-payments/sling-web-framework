@@ -11,12 +11,12 @@ form.addEventListener('update', ({ detail }) => {
 });
 
 form.addEventListener('submitsuccess', ({ detail }) => {
-  console.log(JSON.stringify(detail, null, 2));
+  console.log('SUCCESS', JSON.stringify(detail, null, 2));
   form.finishSubmission();
 });
 
 form.addEventListener('submiterror', ({ detail }) => {
-  console.log(JSON.stringify(detail, null, 2));
+  console.log('ERRORS', JSON.stringify(detail, null, 2));
   form.finishSubmission();
 });
 
