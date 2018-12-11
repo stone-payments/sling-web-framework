@@ -3,7 +3,6 @@ import { withEventDispatch } from 'sling-framework';
 import {
   isFunction,
   setAttr,
-  getIn,
   isPromise,
   omit,
   unique,
@@ -25,7 +24,6 @@ import {
 
 const FORM_FIELD_TYPES = [
   'SLING-FIELD',
-  'SLING-FIELD-ERROR',
   'SLING-INPUT',
   'SLING-SELECT',
   'INPUT',
@@ -103,7 +101,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
   }
 
   childrenUpdated() {
-    this.syncDomAndStateFields();
+    this.syncStateToDomFields();
   }
 
   static isFormField(target) {
@@ -219,7 +217,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
     this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
   }
 
-  syncDomAndStateFields() {
+  syncStateToDomFields() {
     const domFieldIds = this.fields.map(this.constructor.getFieldId);
     const stateFieldIds = Object.keys(onlyFields(this.state.byId));
     const fieldIds = unique(domFieldIds, stateFieldIds);
