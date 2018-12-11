@@ -41,10 +41,11 @@ export const registerComponent = (name, DefinitionClass) => {
   }
 };
 
-export const setAttr = (domEl, attrName, value) => {
-  if (value != null && value !== false) {
-    domEl.setAttribute(attrName, '');
-  } else {
+export const setAttr = (domEl, attrName, attrValue) => {
+  if (!attrValue && attrValue !== 0 && attrValue !== '') {
     domEl.removeAttribute(attrName);
+  } else {
+    const parsedAttribute = (attrValue === true) ? '' : attrValue;
+    domEl.setAttribute(attrName, parsedAttribute);
   }
 };
