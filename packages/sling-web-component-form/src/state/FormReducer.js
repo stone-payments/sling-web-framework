@@ -1,6 +1,5 @@
-import { mergeDeep } from 'sling-helpers';
 import { byIdReducer } from './byIdReducer.js';
-import { parseState, getEmptyValues } from './formSelectors.js';
+import { parseState } from './formSelectors.js';
 
 export { validateField, validateForm } from './formValidation.js';
 
@@ -9,6 +8,7 @@ export {
   removeField,
   updateFieldValue,
   updateFieldTouched,
+  updateValues,
   startValidation,
   finishValidation,
 } from './byIdReducer.js';
@@ -23,14 +23,8 @@ const INITIAL_STATE = {
   ...parseState(byIdReducer()),
 };
 
-const UPDATE_VALUES = Symbol('UPDATE_VALUES');
 const START_SUBMISSION = Symbol('START_SUBMISSION');
 const FINISH_SUBMISSION = Symbol('FINISH_SUBMISSION');
-
-export const updateValues = values => ({
-  type: UPDATE_VALUES,
-  values,
-});
 
 export const startSubmission = () => ({
   type: START_SUBMISSION,
@@ -48,12 +42,6 @@ export const formReducer = (state = INITIAL_STATE, action = {}) => {
   const { submitCount } = nextState;
 
   switch (action.type) {
-    case UPDATE_VALUES:
-      return {
-        ...nextState,
-        values: mergeDeep(getEmptyValues(state.byId), action.values),
-      };
-
     case START_SUBMISSION:
       return (!state.isSubmitting)
         ? { ...nextState, submitCount: submitCount + 1, isSubmitting: true }

@@ -159,14 +159,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      const previousValue = field.value;
-      const nextValue = getIn(nextValues, fieldId);
-
-      if (nextValue == null) {
-        field.value = '';
-      } else if (previousValue !== nextValue) {
-        field.value = nextValue;
-      }
+      field.value = this.state.byId[fieldId].value;
     });
   }
 
