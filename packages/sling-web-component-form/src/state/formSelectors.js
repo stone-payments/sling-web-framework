@@ -8,6 +8,10 @@ export const onlyFields = state => Object
   .filter(([key]) => key !== FORM)
   .reduce(toFlatEntries, {});
 
+export const getEmptyValues = state => Object
+  .keys(onlyFields(state))
+  .reduce((result, fieldId) => setIn(result, fieldId, ''), {});
+
 const parseDirty = state => Object.values(onlyFields(state))
   .some(item => item.value || item.touched);
 

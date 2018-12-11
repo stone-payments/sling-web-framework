@@ -4,7 +4,6 @@ import {
   isFunction,
   setAttr,
   getIn,
-  setIn,
   isPromise,
   omit,
   unique,
@@ -17,6 +16,7 @@ import {
   onlyFields,
   updateFieldTouched,
   updateFieldValue,
+  updateValues,
   startSubmission,
   finishSubmission,
   validateField,
@@ -155,7 +155,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
   }
 
   set values(nextValues) {
-    this.state = setIn(this.state, 'values', nextValues);
+    this.dispatchAction(updateValues(nextValues));
 
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
