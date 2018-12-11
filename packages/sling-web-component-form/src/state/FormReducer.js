@@ -1,5 +1,5 @@
 import { byIdReducer } from './byIdReducer.js';
-import { getParsedState } from './formSelectors.js';
+import { parseState } from './formSelectors.js';
 
 export { validateField, validateForm } from './formValidation.js';
 
@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   submitCount: 0,
   isSubmitting: false,
   byId: byIdReducer(),
-  ...getParsedState(byIdReducer()),
+  ...parseState(byIdReducer()),
 };
 
 const UPDATE_VALUES = Symbol('UPDATE_VALUES');
@@ -42,7 +42,7 @@ export const finishSubmission = () => ({
 export const formReducer = (state = INITIAL_STATE, action = {}) => {
   const previousById = state.byId;
   const byId = byIdReducer(previousById, action);
-  const parsed = getParsedState(byId);
+  const parsed = parseState(byId);
   const nextState = { ...state, byId, ...parsed };
   const { submitCount } = nextState;
 
