@@ -1,8 +1,6 @@
 import { setAttr } from 'sling-helpers';
 import { withRequired } from './withRequired.js';
 
-const same = arg => arg;
-
 const BOOLEAN_PROPS = [
   'autocomplete',
   'disabled',
@@ -59,7 +57,7 @@ export const Field = Base => class extends Base {
   }
 
   get validation() {
-    const validatorFn = this._validation || this.defaultValidation || same;
+    const validatorFn = this._validation || this.defaultValidation;
 
     return (this.hasAttribute('required'))
       ? withRequired(validatorFn)
