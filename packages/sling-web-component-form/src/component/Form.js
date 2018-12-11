@@ -46,6 +46,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleFormUpdate = this.handleFormUpdate.bind(this);
 
     this.reducer = formReducer;
     this.state = this.reducer();
@@ -80,8 +81,8 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
-    this.addEventListener('change', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
+    this.addEventListener('update', this.handleFormUpdate);
 
     await Promise.resolve(); // avoids a LitElement warning;
     this.dispatchUpdateEvent();
@@ -96,8 +97,8 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
-    this.removeEventListener('change', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
+    this.removeEventListener('update', this.handleFormUpdate);
   }
 
   childrenUpdated() {
@@ -129,22 +130,6 @@ export const Form = Base => class extends withEventDispatch(Base) {
     if (this._state !== nextState) {
       this._state = nextState;
       this.dispatchUpdateEvent();
-
-      const {
-        isValidating,
-        isValid,
-        isSubmitting,
-        values,
-        errors,
-      } = nextState;
-
-      if (isSubmitting && !isValidating) {
-        if (isValid) {
-          this.dispatchEventAndMethod('submitsuccess', values);
-        } else {
-          this.dispatchEventAndMethod('submiterror', errors);
-        }
-      }
     }
   }
 
@@ -282,6 +267,24 @@ export const Form = Base => class extends withEventDispatch(Base) {
   finishSubmission() {
     if (this.state.isSubmitting) {
       this.dispatchAction(finishSubmission());
+    }
+  }
+
+  handleFormUpdate() {
+    const {
+      isValidating,
+      isValid,
+      isSubmitting,
+      values,
+      errors,
+    } = this.state;
+
+    if (isSubmitting && !isValidating) {
+      if (isValid) {
+        this.dispatchEventAndMethod('submitsuccess', values);
+      } else {
+        this.dispatchEventAndMethod('submiterror', errors);
+      }
     }
   }
 
