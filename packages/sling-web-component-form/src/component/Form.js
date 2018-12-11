@@ -23,7 +23,17 @@ import {
   validateForm,
 } from '../state/formReducer.js';
 
-export class Form extends withEventDispatch(HTMLElement) {
+const FORM_FIELD_TYPES = [
+  'SLING-FIELD',
+  'SLING-FIELD-ERROR',
+  'SLING-INPUT',
+  'SLING-SELECT',
+  'INPUT',
+  'SELECT',
+  'TEXTAREA',
+];
+
+export const Form = Base => class extends withEventDispatch(Base) {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -72,6 +82,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.addEventListener('click', this.handleClick);
     this.addEventListener('input', this.handleInput);
+    this.addEventListener('change', this.handleInput);
     this.addEventListener('blur', this.handleBlur, true);
 
     await Promise.resolve(); // avoids a LitElement warning;
@@ -87,6 +98,7 @@ export class Form extends withEventDispatch(HTMLElement) {
 
     this.removeEventListener('click', this.handleClick);
     this.removeEventListener('input', this.handleInput);
+    this.removeEventListener('change', this.handleInput);
     this.removeEventListener('blur', this.handleBlur, true);
   }
 
@@ -95,8 +107,7 @@ export class Form extends withEventDispatch(HTMLElement) {
   }
 
   static isFormField(target) {
-    return ['SLING-INPUT', 'SLING-SELECT', 'INPUT', 'SELECT', 'TEXTAREA']
-      .includes(target.nodeName);
+    return FORM_FIELD_TYPES.includes(target.nodeName);
   }
 
   static getFieldId(field) {
@@ -181,6 +192,10 @@ export class Form extends withEventDispatch(HTMLElement) {
 
   get isValidatingField() {
     return this.state.isValidatingField;
+  }
+
+  get validatedAtLeastOnce() {
+    return this.state.validatedAtLeastOnce;
   }
 
   get isSubmitting() {
@@ -306,4 +321,4 @@ export class Form extends withEventDispatch(HTMLElement) {
       }
     }
   }
-}
+};

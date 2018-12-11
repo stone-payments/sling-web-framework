@@ -1,9 +1,9 @@
 import { sleep } from 'sling-helpers';
-import 'sling-web-component-input';
+import 'sling-web-component-field';
 import 'sling-web-component-button';
 
 const form = document.querySelector('sling-form');
-const userNameField = document.querySelector('sling-input[name=username]');
+const userNameField = document.querySelector('[name=username]');
 const debug = document.getElementById('debug');
 
 form.addEventListener('update', ({ detail }) => {

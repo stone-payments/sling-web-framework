@@ -4,6 +4,7 @@ import { FORM } from './constant.js';
 const INITIAL_FIELD_STATE = {
   error: null,
   isValidating: false,
+  validatedAtLeastOnce: false,
   validation: null,
   value: '',
   touched: false,
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   [FORM]: {
     error: null,
     isValidating: false,
+    validatedAtLeastOnce: false,
     validation: null,
   },
 };
@@ -102,6 +104,7 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
     case FINISH_VALIDATION:
       return updateField({
         isValidating: false,
+        validatedAtLeastOnce: true,
         validation: null,
         error: action.error,
       });

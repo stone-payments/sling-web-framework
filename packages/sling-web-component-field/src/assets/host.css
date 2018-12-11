@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+:host([validationstatus="success"]) .emd-field {
+  border: 1px solid #2ECC71;
+}
+
+:host([validationstatus="error"]) .emd-field {
+  border: 1px solid #E74C3C;
+}
+
+/* for compatibility */
+
+sling-field {
+  display: block;
+}
+
+sling-field[validationstatus="success"] .emd-field {
+  border: 1px solid #2ECC71;
+}
+
+sling-field[validationstatus="error"] .emd-field {
+  border: 1px solid #E74C3C;
+}
