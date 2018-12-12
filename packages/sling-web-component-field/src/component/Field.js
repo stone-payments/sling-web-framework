@@ -58,7 +58,8 @@ export const Field = Base => class extends Base {
   }
 
   get validation() {
-    const validatorFn = this._validation || this.defaultValidation;
+    const noop = () => undefined;
+    const validatorFn = this._validation || this.defaultValidation || noop;
 
     return (this.hasAttribute('required'))
       ? withRequired(validatorFn)

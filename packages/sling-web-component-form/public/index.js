@@ -1,12 +1,12 @@
 import { sleep } from 'sling-helpers';
 import 'sling-web-component-field';
+import 'sling-web-component-field-message';
 import 'sling-web-component-select';
 import 'sling-web-component-button';
 
 const form = document.querySelector('sling-form');
 const userNameField = document.querySelector('[name=username]');
 const debug = document.getElementById('debug');
-const selector = document.querySelector('sling-select');
 
 form.addEventListener('update', ({ detail }) => {
   debug.innerHTML = JSON.stringify(detail, null, 2);
@@ -21,41 +21,6 @@ form.addEventListener('submiterror', ({ detail }) => {
   console.log('ERRORS', JSON.stringify(detail, null, 2));
   form.finishSubmission();
 });
-
-const selectorData = [
-  {
-    name: 'Option 1',
-    id: 1,
-  },
-  {
-    name: 'Option 2',
-    id: 2,
-  },
-  {
-    name: 'Option 3',
-    id: 3,
-  },
-  {
-    name: 'Option 4',
-    id: 4,
-  },
-  {
-    name: 'Option 5',
-    id: 5,
-  },
-  {
-    name: 'Option 6',
-    id: 6,
-  },
-  {
-    name: 'Option 7',
-    id: 7,
-  },
-  {
-    name: 'Option 8',
-    id: 8,
-  },
-];
 
 const validateForm = (values) => {
   const errors = {};
@@ -79,4 +44,3 @@ const validateUserName = async (value) => {
 
 form.validation = validateForm;
 userNameField.validation = validateUserName;
-selector.srcoptions = selectorData;

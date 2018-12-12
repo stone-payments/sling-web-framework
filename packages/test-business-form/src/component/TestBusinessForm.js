@@ -1,5 +1,5 @@
+import * as validations from './customValidations';
 import { TestBusinessFormView } from './TestBusinessFormView.js';
-import * as validations from './validations.js';
 
 export const TestBusinessForm = Base => class extends Base {
   connectedCallback() {

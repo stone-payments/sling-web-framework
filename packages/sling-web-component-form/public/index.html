@@ -11,39 +11,43 @@
   <sling-form>
     <label>
       <h4>Nome de usuário</h4>
-      <sling-field name="username" type="text"></sling-field>
+      <sling-field autocomplete="off" name="username" type="text" required></sling-field>
+      <sling-field-message name="username"></sling-field-message>
     </label>
 
     <label>
       <h4>E-mail</h4>
-      <sling-field name="email" type="email"></sling-field>
+      <sling-field autocomplete="off" name="email" type="email" required></sling-field>
+      <sling-field-message name="email"></sling-field-message>
     </label>
 
     <label>
       <h4>CPF</h4>
-      <sling-field name="cpf" type="cpf"></sling-field>
+      <sling-field autocomplete="off" name="cpf" type="cpf" required></sling-field>
+      <sling-field-message name="cpf"></sling-field-message>
     </label>
 
     <label>
       <h4>CNPJ</h4>
-      <sling-field name="cnpj" type="cnpj"></sling-field>
+      <sling-field autocomplete="off" name="cnpj" type="cnpj" required></sling-field>
+      <sling-field-message name="cnpj"></sling-field-message>
+    </label>
+
+    <div>
+      <h4>Telefones</h4>
+      <sling-field-message name="phoneMinimum"></sling-field-message>
+    </div>
+
+    <label>
+      <h3>Celular</h3>
+      <sling-field autocomplete="off" name="phone.cell" type="tel"></sling-field>
+      <sling-field-message name="phone.cell"></sling-field-message>
     </label>
 
     <label>
-      <h4>Select</h4>
-      <sling-select name="selector"></sling-select>
-    </label>
-
-    <h4>Telefones</h4>
-
-    <label>
-      <span>Celular</span>
-      <sling-field name="phone.cell" type="tel"></sling-field>
-    </label>
-
-    <label>
-      <span>Casa</span>
-      <sling-field name="phone.home" type="tel"></sling-field>
+      <h3>Casa</h3>
+      <sling-field autocomplete="off" name="phone.home" type="tel"></sling-field>
+      <sling-field-message name="phone.home"></sling-field-message>
     </label>
 
     <sling-button type="submit">Enviar</sling-button>

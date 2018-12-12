@@ -6,6 +6,7 @@ import {
   isPromise,
   omit,
   unique,
+  getIn,
 } from 'sling-helpers';
 
 import {
@@ -29,6 +30,10 @@ const FORM_FIELD_TYPES = [
   'INPUT',
   'SELECT',
   'TEXTAREA',
+];
+
+const FORM_FIELD_MESSAGE_TYPES = [
+  'SLING-FIELD-MESSAGE',
 ];
 
 export const Form = Base => class extends withEventDispatch(Base) {
@@ -124,6 +129,10 @@ export const Form = Base => class extends withEventDispatch(Base) {
     return FORM_FIELD_TYPES.includes(target.nodeName);
   }
 
+  static isFormFieldMessage(target) {
+    return FORM_FIELD_MESSAGE_TYPES.includes(target.nodeName);
+  }
+
   static getFieldId(field) {
     return field.getAttribute('name') ||
       field.name ||
@@ -135,6 +144,12 @@ export const Form = Base => class extends withEventDispatch(Base) {
     return Array
       .from(this.querySelectorAll('*'))
       .filter(this.constructor.isFormField);
+  }
+
+  get fieldMessages() {
+    return Array
+      .from(this.querySelectorAll('*'))
+      .filter(this.constructor.isFormFieldMessage);
   }
 
   get state() {
@@ -213,6 +228,11 @@ export const Form = Base => class extends withEventDispatch(Base) {
       this.constructor.getFieldId(field) === fieldId);
   }
 
+  getFieldMessageById(fieldId) {
+    return this.fieldMessages.find(field =>
+      this.constructor.getFieldId(field) === fieldId);
+  }
+
   validateField(fieldId) {
     this.validateFieldByElement(this.getFieldById(fieldId));
   }
@@ -258,18 +278,11 @@ export const Form = Base => class extends withEventDispatch(Base) {
   }
 
   handleFormUpdate() {
-    const {
-      byId,
-      isValidating,
-      isValid,
-      isSubmitting,
-      values,
-      errors,
-    } = this.state;
+    const { byId } = this.state;
 
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      const { value, error, touched } = byId[fieldId];
+      const { value, error, touched, isValidating } = byId[fieldId];
 
       field.value = value;
       field.validating = isValidating;
@@ -278,6 +291,19 @@ export const Form = Base => class extends withEventDispatch(Base) {
         field.validationstatus = error ? 'error' : 'success';
       }
     });
+
+    this.fieldMessages.forEach((fieldMessage) => {
+      const fieldId = this.constructor.getFieldId(fieldMessage);
+      const relatedField = this.getFieldById(fieldId);
+      const { touched, isValidating } = byId[fieldId] || {};
+      const error = getIn(this.state.errors, fieldId);
+
+      if (!relatedField || (touched && !isValidating)) {
+        fieldMessage.message = error || '';
+      }
+    });
+
+    const { isValid, isValidating, isSubmitting, values, errors } = this.state;
 
     if (isSubmitting && !isValidating) {
       if (isValid) {

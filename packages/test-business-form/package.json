@@ -11,6 +11,7 @@
     "sling-helpers": "^1.11.5",
     "sling-web-component-form": "^1.11.5",
     "sling-web-component-field": "^1.0.0",
+    "sling-web-component-field-message": "^1.0.0",
     "sling-web-component-button": "^1.11.5"
   }
 }
