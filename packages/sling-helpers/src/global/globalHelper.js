@@ -134,3 +134,7 @@ export const isDeeplyEmpty = items => (items == null) ||
 
 export const unique = (...arrays) => [...new Set(arrays
   .reduce((result, arr) => [...result, ...arr], []))];
+
+export const compose = (...fns) =>
+  fns.reduceRight((prevFn, nextFn) =>
+    (...args) => nextFn(prevFn(...args)), value => value);
