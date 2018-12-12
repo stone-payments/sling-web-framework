@@ -4,7 +4,10 @@ import 'sling-web-component-field';
 import 'sling-web-component-field-message';
 import 'sling-web-component-button';
 
+const till = (index = 0) => Array.from(Array(index).keys());
+
 export const TestBusinessFormView = ({
+  friendsCount,
   validatePhones,
   validateUsernameAvailability,
 }) => html`
@@ -14,25 +17,25 @@ export const TestBusinessFormView = ({
   <sling-form validation="${validatePhones}">
     <label>
       <h4>Nome de usuário</h4>
-      <sling-field validation="${validateUsernameAvailability}" autocomplete="off" name="username" type="text" required></sling-field>
+      <sling-field validation="${validateUsernameAvailability}" name="username" type="text" required></sling-field>
       <sling-field-message name="username"></sling-field-message>
     </label>
 
     <label>
       <h4>E-mail</h4>
-      <sling-field autocomplete="off" name="email" type="email" required></sling-field>
+      <sling-field name="email" type="email" required></sling-field>
       <sling-field-message name="email"></sling-field-message>
     </label>
 
     <label>
       <h4>CPF</h4>
-      <sling-field autocomplete="off" name="cpf" type="cpf" required></sling-field>
+      <sling-field name="cpf" type="cpf" required></sling-field>
       <sling-field-message name="cpf"></sling-field-message>
     </label>
 
     <label>
       <h4>CNPJ</h4>
-      <sling-field autocomplete="off" name="cnpj" type="cnpj" required></sling-field>
+      <sling-field name="cnpj" type="cnpj" required></sling-field>
       <sling-field-message name="cnpj"></sling-field-message>
     </label>
 
@@ -43,15 +46,34 @@ export const TestBusinessFormView = ({
 
     <label>
       <h3>Celular</h3>
-      <sling-field autocomplete="off" name="phone.cell" type="tel"></sling-field>
+      <sling-field name="phone.cell" type="tel"></sling-field>
       <sling-field-message name="phone.cell"></sling-field-message>
     </label>
 
     <label>
       <h3>Casa</h3>
-      <sling-field autocomplete="off" name="phone.home" type="tel"></sling-field>
+      <sling-field name="phone.home" type="tel"></sling-field>
       <sling-field-message name="phone.home"></sling-field-message>
     </label>
+  
+    ${friendsCount ? html`
+      <div>
+        <h4>Amigos</h4>
+      </div>
+    ` : ''}
+
+    ${till(friendsCount).map(index => html`
+      <label>
+        <h3>Nome</h3>
+        <sling-field name="friends[${index}].name" type="text" required></sling-field>
+        <sling-field-message name="friends[${index}].name"></sling-field-message>
+      </label>
+      <label>
+        <h3>Telefone</h3>
+        <sling-field name="friends[${index}].phone" type="tel" required></sling-field>
+        <sling-field-message name="friends[${index}].phone"></sling-field-message>
+      </label>
+    `)}
 
     <sling-button type="submit">Enviar</sling-button>
   </sling-form>

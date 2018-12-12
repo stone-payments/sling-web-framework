@@ -90,6 +90,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
     this.addEventListener('update', this.handleFormUpdate);
 
     await Promise.resolve(); // avoids a LitElement warning;
+    this.validateForm();
     this.dispatchUpdateEvent();
   }
 
@@ -220,7 +221,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
   }
 
   dispatchUpdateEvent() {
-    this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
+    this.dispatchEventAndMethod('update', this.state, 'byId');
   }
 
   getFieldById(fieldId) {
@@ -282,7 +283,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      const { value, error, touched, isValidating } = byId[fieldId];
+      const { value, error, touched, isValidating } = byId[fieldId] || {};
 
       field.value = value;
       field.validating = isValidating;

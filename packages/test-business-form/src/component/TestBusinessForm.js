@@ -5,9 +5,24 @@ export const TestBusinessForm = Base => class extends Base {
   connectedCallback() {
     super.connectedCallback();
     this.formElement = this.shadowRoot.querySelector('sling-form');
+    this.friendsCount = 0;
+  }
+
+  static get properties() {
+    return {
+      friendsCount: {
+        type: Number,
+        reflectToAttribute: false,
+      },
+    };
   }
 
   render() {
-    return TestBusinessFormView({ ...validations });
+    const { friendsCount } = this;
+
+    return TestBusinessFormView({
+      ...validations,
+      friendsCount,
+    });
   }
 };
