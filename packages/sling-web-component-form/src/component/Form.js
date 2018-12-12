@@ -74,7 +74,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
       super.connectedCallback();
     }
 
-    const fn = this.childrenUpdated.bind(this);
+    const fn = this.childrenUpdatedCallback.bind(this);
     this._mo = new MutationObserver(fn);
     this._mo.observe(this, { childList: true, subtree: true });
     fn();
@@ -101,8 +101,23 @@ export const Form = Base => class extends withEventDispatch(Base) {
     this.removeEventListener('update', this.handleFormUpdate);
   }
 
-  childrenUpdated() {
-    this.syncStateToDomFields();
+  childrenUpdatedCallback() {
+    const domFieldIds = this.fields.map(this.constructor.getFieldId);
+    const stateFieldIds = Object.keys(onlyFields(this.state.byId));
+    const fieldIds = unique(domFieldIds, stateFieldIds);
+
+    fieldIds.forEach((fieldId) => {
+      const notInState = !stateFieldIds.includes(fieldId);
+      const notInDom = !domFieldIds.includes(fieldId);
+
+      if (notInState) {
+        this.dispatchAction(addField(fieldId));
+      }
+
+      if (notInDom) {
+        this.dispatchAction(removeField(fieldId));
+      }
+    });
   }
 
   static isFormField(target) {
@@ -193,25 +208,6 @@ export const Form = Base => class extends withEventDispatch(Base) {
     this.dispatchEventAndMethod('update', omit(this.state, 'byId'));
   }
 
-  syncStateToDomFields() {
-    const domFieldIds = this.fields.map(this.constructor.getFieldId);
-    const stateFieldIds = Object.keys(onlyFields(this.state.byId));
-    const fieldIds = unique(domFieldIds, stateFieldIds);
-
-    fieldIds.forEach((fieldId) => {
-      const notInState = !stateFieldIds.includes(fieldId);
-      const notInDom = !domFieldIds.includes(fieldId);
-
-      if (notInState) {
-        this.dispatchAction(addField(fieldId));
-      }
-
-      if (notInDom) {
-        this.dispatchAction(removeField(fieldId));
-      }
-    });
-  }
-
   getFieldById(fieldId) {
     return this.fields.find(field =>
       this.constructor.getFieldId(field) === fieldId);
@@ -275,7 +271,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
       const fieldId = this.constructor.getFieldId(field);
       const { value, error, touched } = byId[fieldId];
 
-      field.value = value;
+      // field.value = value;
       field.validating = isValidating;
 
       if (touched && !isValidating) {

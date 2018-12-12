@@ -1,8 +1,8 @@
 import { validateEmail } from './validateEmail.js';
 
 export const withEmail = Base => class extends Base {
-  attributeChangedCallback(attrName, previousValue, nextValue) {
-    super.attributeChangedCallback(attrName, previousValue, nextValue);
+  attributeChangedCallback(attrName, ...args) {
+    super.attributeChangedCallback(attrName, ...args);
 
     if (attrName === 'type' && this.type === 'email') {
       this.defaultValidation = validateEmail;
