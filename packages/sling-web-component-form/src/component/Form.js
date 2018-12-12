@@ -139,11 +139,6 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
   set values(nextValues) {
     this.dispatchAction(updateValues(nextValues));
-
-    this.fields.forEach((field) => {
-      const fieldId = this.constructor.getFieldId(field);
-      field.value = this.state.byId[fieldId].value;
-    });
   }
 
   get errors() {
@@ -272,12 +267,18 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
   handleFormUpdate() {
     const {
+      byId,
       isValidating,
       isValid,
       isSubmitting,
       values,
       errors,
     } = this.state;
+
+    this.fields.forEach((field) => {
+      const fieldId = this.constructor.getFieldId(field);
+      field.value = byId[fieldId].value;
+    });
 
     if (isSubmitting && !isValidating) {
       if (isValid) {
