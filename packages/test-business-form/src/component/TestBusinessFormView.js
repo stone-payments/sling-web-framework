@@ -1,6 +1,6 @@
 import { html } from 'sling-framework';
 import 'sling-web-component-form';
-import 'sling-web-component-input';
+import 'sling-web-component-field';
 import 'sling-web-component-button';
 
 export const TestBusinessFormView = ({
@@ -13,36 +13,36 @@ export const TestBusinessFormView = ({
     validation="${validateForm}">
     <label>
       <h4>Apelido</h4>
-      <sling-input
+      <sling-field
         name="username"
         type="text"
-        validation="${validateTakenUsername}"></sling-input>
+        validation="${validateTakenUsername}"></sling-field>
     </label>
 
     <label>
       <h4>E-mail</h4>
-      <sling-input
+      <sling-field
         name="email"
         type="email"
-        validation="${validateRequiredEmail}"></sling-input>
+        validation="${validateRequiredEmail}"></sling-field>
     </label>
 
     <h4>Telefone(s)</h4>
 
     <label>
       <span>Pessoal</span>
-      <sling-input
+      <sling-field
         name="phone.personal"
-        type="phone"
-        validation="${validateOptionalPhone}"></sling-input>
+        type="tel"
+        validation="${validateOptionalPhone}"></sling-field>
     </label>
 
     <label>
       <span>Trabalho</span>
-      <sling-input
+      <sling-field
         name="phone.work"
-        type="phone"
-        validation="${validateOptionalPhone}"></sling-input>
+        type="tel"
+        validation="${validateOptionalPhone}"></sling-field>
     </label>
 
     <sling-button
