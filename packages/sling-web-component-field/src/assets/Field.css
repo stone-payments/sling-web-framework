@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.emd-field:hover {
+.emd-field:hover, {
   border: 1px solid #96A0AF;
   color: #96A0AF;
 }
@@ -24,7 +24,7 @@
 }
 
 .emd-field:focus {
-  border: 1px solid #95C93D;
-  color: #2D3844;
+  border: 1px solid #96A0AF;
+  color: #96A0AF;
   outline: none;
 }

@@ -277,7 +277,13 @@ export const Form = Base => class extends withEventDispatch(Base) {
 
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      field.value = byId[fieldId].value;
+      const { value, error, touched } = byId[fieldId];
+
+      field.value = value;
+
+      if (touched) {
+        field.validationstatus = error ? 'error' : 'success';
+      }
     });
 
     if (isSubmitting && !isValidating) {
