@@ -1,5 +1,5 @@
 export const isValidCnpj = (arg = '') => {
-  let strCNPJ = arg;
+  let strCnpj = arg;
 
   let size;
   let numbers;
@@ -7,32 +7,32 @@ export const isValidCnpj = (arg = '') => {
   let pos;
   let result;
 
-  strCNPJ = strCNPJ.replace(/\D/g, '');
+  strCnpj = strCnpj.replace(/\D/g, '');
 
-  if (strCNPJ === '') {
+  if (strCnpj === '') {
     return false;
   }
 
-  if (strCNPJ.length !== 14) {
+  if (strCnpj.length !== 14) {
     return false;
   }
 
-  if (strCNPJ === '00000000000000' ||
-    strCNPJ === '11111111111111' ||
-    strCNPJ === '22222222222222' ||
-    strCNPJ === '33333333333333' ||
-    strCNPJ === '44444444444444' ||
-    strCNPJ === '55555555555555' ||
-    strCNPJ === '66666666666666' ||
-    strCNPJ === '77777777777777' ||
-    strCNPJ === '88888888888888' ||
-    strCNPJ === '99999999999999') {
+  if (strCnpj === '00000000000000' ||
+    strCnpj === '11111111111111' ||
+    strCnpj === '22222222222222' ||
+    strCnpj === '33333333333333' ||
+    strCnpj === '44444444444444' ||
+    strCnpj === '55555555555555' ||
+    strCnpj === '66666666666666' ||
+    strCnpj === '77777777777777' ||
+    strCnpj === '88888888888888' ||
+    strCnpj === '99999999999999') {
     return false;
   }
 
-  size = strCNPJ.length - 2;
-  numbers = strCNPJ.substring(0, size);
-  const digits = strCNPJ.substring(size);
+  size = strCnpj.length - 2;
+  numbers = strCnpj.substring(0, size);
+  const digits = strCnpj.substring(size);
 
   sum = 0;
   pos = size - 7;
@@ -55,7 +55,7 @@ export const isValidCnpj = (arg = '') => {
   }
 
   size += 1;
-  numbers = strCNPJ.substring(0, size);
+  numbers = strCnpj.substring(0, size);
   sum = 0;
   pos = size - 7;
 
