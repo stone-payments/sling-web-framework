@@ -1,11 +1,10 @@
 import CancelablePromise from 'cancelable-promise';
-import { isPromise, sleep } from 'sling-helpers';
+import { isPromise } from 'sling-helpers';
 import { startValidation, finishValidation } from './byIdReducer.js';
 import { FORM } from './constant.js';
 
 const makeCancelable = promise =>
-  new CancelablePromise(() => sleep(3000))
-    .then(() => promise);
+  new CancelablePromise(resolve => resolve(promise));
 
 const treatError = error =>
   (error && error.constructor === Error ? error.message : error);
