@@ -70,7 +70,7 @@ export const Field = Base => class extends Base {
 
   attributeChangedCallback(attrName, previousValue, nextValue) {
     if (PROPS.includes(attrName) && previousValue !== nextValue) {
-      this.inputElement.setAttribute(attrName, nextValue);
+      this.inputElement[attrName] = nextValue;
     }
   }
 
@@ -83,6 +83,6 @@ export const Field = Base => class extends Base {
   }
 
   handleInput(evt) {
-    this.setAttribute('value', evt.target.value);
+    this.value = evt.target.value;
   }
 };
