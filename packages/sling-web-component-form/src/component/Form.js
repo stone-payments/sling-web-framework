@@ -165,10 +165,6 @@ export const Form = Base => class extends withEventDispatch(Base) {
     return this.state.isValidatingField;
   }
 
-  get validatedAtLeastOnce() {
-    return this.state.validatedAtLeastOnce;
-  }
-
   get isSubmitting() {
     return this.state.isSubmitting;
   }
@@ -280,8 +276,9 @@ export const Form = Base => class extends withEventDispatch(Base) {
       const { value, error, touched } = byId[fieldId];
 
       field.value = value;
+      field.validating = isValidating;
 
-      if (touched) {
+      if (touched && !isValidating) {
         field.validationstatus = error ? 'error' : 'success';
       }
     });

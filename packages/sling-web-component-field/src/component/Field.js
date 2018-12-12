@@ -6,6 +6,7 @@ const BOOLEAN_PROPS = [
   'disabled',
   'required',
   'readonly',
+  'validating',
 ];
 
 const STRING_PROPS = [
@@ -13,8 +14,8 @@ const STRING_PROPS = [
   'name',
   'id',
   'placeholder',
-  'validationstatus',
   'value',
+  'validationstatus',
 ];
 
 const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS];
