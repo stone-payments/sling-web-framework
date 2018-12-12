@@ -5,7 +5,7 @@ export const withEmail = Base => class extends Base {
     super.attributeChangedCallback(attrName, ...args);
 
     if (attrName === 'type' && this.type === 'email') {
-      this.updateDefaultValidation(validateEmail);
+      this.updateDefaultValidationAndMask(validateEmail);
     }
   }
 };

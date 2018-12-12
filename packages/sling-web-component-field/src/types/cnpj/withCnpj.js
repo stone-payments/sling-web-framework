@@ -6,8 +6,7 @@ export const withCnpj = Base => class extends Base {
     super.attributeChangedCallback(attrName, ...args);
 
     if (attrName === 'type' && this.type === 'cnpj') {
-      this.updateDefaultValidation(validateCnpj);
-      this.updateMask(maskCnpj);
+      this.updateDefaultValidationAndMask(validateCnpj, maskCnpj);
     }
   }
 };

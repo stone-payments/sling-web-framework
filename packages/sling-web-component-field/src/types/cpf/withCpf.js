@@ -6,8 +6,7 @@ export const withCpf = Base => class extends Base {
     super.attributeChangedCallback(attrName, ...args);
 
     if (attrName === 'type' && this.type === 'cpf') {
-      this.updateDefaultValidation(validateCpf);
-      this.updateMask(maskCpf);
+      this.updateDefaultValidationAndMask(validateCpf, maskCpf);
     }
   }
 };

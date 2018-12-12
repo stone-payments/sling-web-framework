@@ -6,8 +6,7 @@ export const withTel = Base => class extends Base {
     super.attributeChangedCallback(attrName, ...args);
 
     if (attrName === 'type' && this.type === 'tel') {
-      this.updateDefaultValidation(validateTel);
-      this.updateMask(maskTel);
+      this.updateDefaultValidationAndMask(validateTel, maskTel);
     }
   }
 };

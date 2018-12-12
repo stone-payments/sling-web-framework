@@ -83,6 +83,19 @@ export const Field = Base => class extends Base {
     this.inputElement.removeEventListener('input', this.handleInput);
   }
 
+  updateDefaultValidationAndMask(validatorFn, maskFn) {
+    const noop = () => undefined;
+    this.defaultValidation = isFunction(validatorFn) ? validatorFn : noop;
+
+    if (this.mask && isFunction(this.mask.destroy)) {
+      this.mask.destroy();
+    }
+
+    if (isFunction(maskFn)) {
+      this.mask = maskFn(this.inputElement);
+    }
+  }
+
   updateDefaultValidation(validatorFn) {
     this.defaultValidation = validatorFn;
   }
