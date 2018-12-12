@@ -73,11 +73,11 @@ export class Select extends SlingElement {
           name="${this.name}"
           size="${this.size}"
           value="${this.value}">
-          <option value="" disabled hidden selected="${this.value == null}">
+          <option value="" disabled hidden selected="${this.value == null || this.value === ''}">
             ${this.placeholder || 'Select a value'}
           </option>
           ${srcoptions.map(option => html`
-            <option value="${option.id}" selected="${String(option.id) === String(this.value)}">
+            <option value="${option.id}" selected="${String(option.id) === this.value}">
               ${option.name}
             </option>
           `)}

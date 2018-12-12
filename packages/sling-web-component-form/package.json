@@ -11,6 +11,7 @@
     "sling-framework": "^1.11.5",
     "sling-helpers": "^1.11.5",
     "sling-web-component-button": "^1.11.5",
+    "sling-web-component-select": "^1.11.5",
     "sling-web-component-field": "^1.0.0"
   }
 }
