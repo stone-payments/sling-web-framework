@@ -1,4 +1,4 @@
-import { setAttr } from 'sling-helpers';
+import { setAttr, isFunction } from 'sling-helpers';
 import { withRequired } from './withRequired.js';
 
 const BOOLEAN_PROPS = [
@@ -81,6 +81,18 @@ export const Field = Base => class extends Base {
 
   disconnectedCallback() {
     this.inputElement.removeEventListener('input', this.handleInput);
+  }
+
+  updateDefaultValidation(validatorFn) {
+    this.defaultValidation = validatorFn;
+  }
+
+  updateMask(maskFn) {
+    if (this.mask && isFunction(this.mask.destroy)) {
+      this.mask.destroy();
+    }
+
+    this.mask = maskFn(this.inputElement);
   }
 
   handleInput(evt) {

@@ -271,7 +271,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
       const fieldId = this.constructor.getFieldId(field);
       const { value, error, touched } = byId[fieldId];
 
-      // field.value = value;
+      field.value = value;
       field.validating = isValidating;
 
       if (touched && !isValidating) {
