@@ -1,0 +1,19 @@
+sling-icon {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+sling-icon.small {
+  width: 18px;
+  height: 18px;
+}
+
+a {
+  padding: 16px 16px 16px 42px;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  color: #2d3844;
+}

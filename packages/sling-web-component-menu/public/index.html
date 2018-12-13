@@ -9,6 +9,76 @@
     <title>sling-menu</title>
   </head>
   <body>
-    <sling-menu></sling-menu>
+    <h2>Menu Aberto</h2>
+    <sling-menu layout="vertical" size="medium">
+        <sling-menu-item href="http://google.com" aim="info" active>Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item aim="info">
+            <span slot="title">Risos</span>
+            <sling-menu>
+              <sling-menu-item href="http://pinto.com" aim="info">Pinto</sling-menu-item>
+              <sling-menu-item href="http://pudim.com" aim="info">Pudim</sling-menu-item>
+              <sling-menu-item menu aim="info">
+                <span slot="title">Titulo</span>
+                <sling-menu>
+                  <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                  <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                  <sling-menu-item menu aim="info">
+                      <span slot="title">Titulo</span>
+                      <sling-menu>
+                        <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                        <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                        <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                        <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                      </sling-menu>
+                  </sling-menu-item>
+                  <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                  <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+                </sling-menu>
+            </sling-menu-item>
+              <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+              <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+              <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+              <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+              <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+            </sling-menu>
+        </sling-menu-item>
+    </sling-menu>
+
+    <h2>Menu Horizontal</h2>
+    <sling-menu layout="horizontal" size="small">
+        <sling-menu-item href="http://google.com" aim="info" active>Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+    </sling-menu>
+
+    <h2>Menu Vertical - Apenas Icones</h2>
+    <sling-menu layout="vertical" size="small" icononly>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+    </sling-menu>
+
+    <h2>Menu Horizontal - Apenas Icones</h2>
+    <sling-menu layout="horizontal" size="small" icononly>
+        <sling-menu-item href="http://google.com" aim="info" active>Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+        <sling-menu-item href="http://google.com" aim="info">Google</sling-menu-item>
+        <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
+    </sling-menu>
   </body>
 </html>
