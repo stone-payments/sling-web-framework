@@ -16,7 +16,7 @@ import {
   onlyFields,
   updateFieldTouched,
   updateFieldValue,
-  updateValues,
+  setValues,
   startSubmission,
   finishSubmission,
   validateField,
@@ -169,7 +169,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
   }
 
   set values(nextValues) {
-    this.dispatchAction(updateValues(nextValues));
+    this.dispatchAction(setValues(nextValues));
   }
 
   get errors() {

@@ -1,4 +1,4 @@
-import { omit, getIn } from 'sling-helpers';
+import { omit, flatten, toFlatEntries } from 'sling-helpers/src';
 import { FORM } from './constant.js';
 
 const INITIAL_FIELD_STATE = {
@@ -21,7 +21,7 @@ const ADD_FIELD = Symbol('ADD_FIELD');
 const REMOVE_FIELD = Symbol('REMOVE_FIELD');
 const UPDATE_FIELD_VALUE = Symbol('UPDATE_FIELD_VALUE');
 const UPDATE_FIELD_TOUCHED = Symbol('UPDATE_FIELD_TOUCHED');
-const UPDATE_VALUES = Symbol('UPDATE_VALUES');
+const SET_VALUES = Symbol('SET_VALUES');
 const START_VALIDATION = Symbol('START_VALIDATION');
 const FINISH_VALIDATION = Symbol('FINISH_VALIDATION');
 
@@ -47,8 +47,8 @@ export const updateFieldTouched = (fieldId, touched) => ({
   touched,
 });
 
-export const updateValues = values => ({
-  type: UPDATE_VALUES,
+export const setValues = values => ({
+  type: SET_VALUES,
   values,
 });
 
@@ -72,6 +72,14 @@ const updatePropWithCondition = (state, action) => (obj, condition = true) => {
     ? { ...state, [fieldId]: { ...field, ...obj } }
     : state;
 };
+
+const parseUserValues = userValues => Object
+  .entries(flatten(userValues))
+  .map(([fieldId, value]) => [fieldId, {
+    ...INITIAL_FIELD_STATE,
+    value,
+  }])
+  .reduce(toFlatEntries, {});
 
 export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
   const updateField = updatePropWithCondition(state, action);
@@ -99,15 +107,11 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
           state[action.fieldId].touched !== action.touched,
       );
 
-    case UPDATE_VALUES:
-      return Object
-        .entries(state)
-        .reduce((result, [fieldId, obj]) => ({
-          ...result,
-          [fieldId]: (fieldId === FORM)
-            ? obj
-            : { ...obj, value: getIn(action.values, fieldId) || '' },
-        }), {});
+    case SET_VALUES:
+      return {
+        [FORM]: state[FORM],
+        ...parseUserValues(action.values),
+      };
 
     case START_VALIDATION:
       return updateField({

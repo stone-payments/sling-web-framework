@@ -8,7 +8,7 @@ export {
   removeField,
   updateFieldValue,
   updateFieldTouched,
-  updateValues,
+  setValues,
   startValidation,
   finishValidation,
 } from './byIdReducer.js';
