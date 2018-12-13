@@ -49,7 +49,7 @@
 }
 
 .emd-pag__button_type_arrow {
-  color: #95C93D;
+  color: #0DB14B;
 }
 
 .emd-pag__button_type_ellipsis,
@@ -73,14 +73,14 @@
   left: 0px;
   right: 0px;
   height: 2px;
-  background-color: #95C93D;
+  background-color: #0DB14B;
 }
 
 .emd-pag__button svg {
   display: inline-block;
   width: 18px;
   height: 18px;
-  fill: #95C93D;
+  fill: #0DB14B;
 }
 
 .emd-pag__button:hover svg {
