@@ -10,6 +10,7 @@ import {
 export const TestLitForm = Base => class extends withForm(Base) {
   constructor() {
     super();
+
     this.setValues({
       username: '',
       friends: ['augusto', 'alberto'],
@@ -21,24 +22,16 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
     return html`
       <input
-        type="text"
         name="username"
-        value="${values.username}"
         validation="${validateNotAdmin}"
-        oninput="${this.handleInput}"
-        onblur="${this.handleInput}"
       />
-    
+
       <p>${errors.username}</p>
 
       ${values.friends && values.friends.map((_, index) => html`
         <input
-          type="text"
           name="friends[${index}]"
-          value="${values.friends[index]}"
           validation="${validateRequired}"
-          oninput="${this.handleInput}"
-          onblur="${this.handleInput}"
         />
 
         <p>${errors.friends[index]}</p>

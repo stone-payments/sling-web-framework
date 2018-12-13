@@ -82,7 +82,7 @@ const parseUserValues = userValues => Object
   .reduce(toFlatEntries, {});
 
 export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
-  const updateField = updatePropWithCondition(state, action);
+  const updateFieldState = updatePropWithCondition(state, action);
 
   switch (action.type) {
     case ADD_FIELD:
@@ -94,14 +94,14 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       return omit(state, action.fieldId);
 
     case UPDATE_FIELD_VALUE:
-      return updateField(
+      return updateFieldState(
         { value: action.value },
         state[action.fieldId] != null &&
           state[action.fieldId].value !== action.value,
       );
 
     case UPDATE_FIELD_TOUCHED:
-      return updateField(
+      return updateFieldState(
         { touched: action.touched },
         state[action.fieldId] != null &&
           state[action.fieldId].touched !== action.touched,
@@ -114,13 +114,13 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       };
 
     case START_VALIDATION:
-      return updateField({
+      return updateFieldState({
         isValidating: true,
         validation: action.validation,
       });
 
     case FINISH_VALIDATION:
-      return updateField({
+      return updateFieldState({
         isValidating: false,
         validation: null,
         error: action.error,
