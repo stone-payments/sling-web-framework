@@ -90,21 +90,21 @@
 /* primary */
 
 .emd-btn_color_primary {
-  border-color: var(--sling-button-primary-color, #95c93d);
-  background-color: var(--sling-button-primary-color, #95c93d);
+  border-color: var(--sling-button-primary-color, #0DB14B);
+  background-color: var(--sling-button-primary-color, #0DB14B);
   color: #fff;
   fill: #fff;
 }
 
 
 .emd-btn_color_primary:active {
-  background-color: var(--sling-button-primary-highlight-color, #7aa436);
+  background-color: var(--sling-button-primary-highlight-color, #0C9141);
 }
 
 .emd-btn_color_primary.emd-btn_layout_outline,
 .emd-btn_color_primary.emd-btn_layout_text {
-  color: var(--sling-button-primary-color, #95c93d);
-  fill: var(--sling-button-primary-color, #95c93d);
+  color: var(--sling-button-primary-color, #0DB14B);
+  fill: var(--sling-button-primary-color, #0DB14B);
 }
 
 .emd-btn_color_primary.emd-btn_layout_outline:hover,
@@ -113,12 +113,12 @@
 .emd-btn_color_primary.emd-btn_layout_text:hover,
 .emd-btn_color_primary.emd-btn_layout_text:focus,
 .emd-btn_color_primary.emd-btn_layout_text:active {
-  color: var(--sling-button-primary-highlight-color, #7aa436);
-  fill: var(--sling-button-primary-highlight-color, #7aa436);
+  color: var(--sling-button-primary-highlight-color, #0C9141);
+  fill: var(--sling-button-primary-highlight-color, #0C9141);
 }
 
 .emd-btn_color_primary.emd-btn_layout_outline:active {
-  background-color: var(--sling-button-primary-active-color, rgba(149, 201, 61, 0.2));
+  background-color: var(--sling-button-primary-active-color, rgba(12, 145, 65, 0.2));
 }
 
 /* success */
