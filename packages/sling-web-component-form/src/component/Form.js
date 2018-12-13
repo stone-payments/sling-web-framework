@@ -4,7 +4,6 @@ import {
   isFunction,
   setAttr,
   isPromise,
-  omit,
   unique,
   getIn,
 } from 'sling-helpers';

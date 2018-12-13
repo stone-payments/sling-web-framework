@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,500');
+
+body {
+  display: grid;
+  font-family: 'Heebo', sans-serif;
+}
