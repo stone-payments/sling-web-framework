@@ -1,14 +1,19 @@
 import { html } from 'sling-framework';
+import { omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
-import { validateNotAdmin } from './customValidations.js';
+
+import {
+  validateNotAdmin,
+  validateRequired,
+} from './customValidations.js';
 
 export const TestLitForm = Base => class extends withForm(Base) {
   constructor() {
     super();
-    this.values = {
+    this.setValues({
       username: '',
       friends: ['augusto', 'alberto'],
-    };
+    });
   }
 
   render() {
@@ -26,18 +31,21 @@ export const TestLitForm = Base => class extends withForm(Base) {
     
       <p>${errors.username}</p>
 
-      ${values.friends.map((_, index) => html`
+      ${values.friends && values.friends.map((_, index) => html`
         <input
           type="text"
           name="friends[${index}]"
           value="${values.friends[index]}"
+          validation="${validateRequired}"
           oninput="${this.handleInput}"
           onblur="${this.handleInput}"
         />
+
+        <p>${errors.friends[index]}</p>
       `)}
 
       <pre>
-        ${JSON.stringify(this.state, null, 2)}
+        ${JSON.stringify(omit(this.state, 'byId'), null, 2)}
       </pre>
     `;
   }

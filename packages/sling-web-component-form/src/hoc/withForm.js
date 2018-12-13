@@ -14,6 +14,7 @@ export const withForm = Base => class extends Base {
     this.state = this.reducer();
 
     this.dispatchAction = this.dispatchAction.bind(this);
+    this.setValues = this.setValues.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -24,14 +25,6 @@ export const withForm = Base => class extends Base {
         reflectToAttribute: false,
       },
     };
-  }
-
-  get values() {
-    return this.state.values;
-  }
-
-  set values(nextValues) {
-    this.dispatchAction(setValues(nextValues));
   }
 
   dispatchAction(action) {
@@ -49,6 +42,10 @@ export const withForm = Base => class extends Base {
     }
 
     this.state = this.reducer(this.state, resolvedAction);
+  }
+
+  setValues(nextValues) {
+    this.dispatchAction(setValues(nextValues));
   }
 
   handleInput({ target }) {

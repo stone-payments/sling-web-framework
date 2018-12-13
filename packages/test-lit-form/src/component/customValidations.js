@@ -8,6 +8,10 @@ export const validatePhones = (values) => {
   return errors;
 };
 
+export const validateRequired = value => (!value
+  ? 'Required'
+  : undefined);
+
 export const validateNotAdmin = (value) => {
   if (!value) {
     return 'Required';
