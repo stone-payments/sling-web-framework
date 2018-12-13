@@ -1,10 +1,7 @@
 import CancelablePromise from 'cancelable-promise';
-import { isPromise } from 'sling-helpers';
+import { isPromise } from 'sling-helpers/src';
 import { startValidation, finishValidation } from './byIdReducer.js';
 import { FORM } from './constant.js';
-
-const makeCancelable = promise =>
-  new CancelablePromise(resolve => resolve(promise));
 
 const treatError = error =>
   (error && error.constructor === Error ? error.message : error);
@@ -22,7 +19,7 @@ const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
 
 const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
 
-const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
+const validate = (fieldId, validatorThunk, delay) => (dispatch, getState) => {
   const getField = (id) => {
     const state = getState();
     return (state.byId != null) ? state.byId[id] : state[id];
@@ -38,21 +35,25 @@ const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
       previousValidation.cancel();
     }
 
-    const nextValidation = makeCancelable(validatorThunk());
+    const nextValidation = new CancelablePromise(resolve =>
+      setTimeout(resolve, delay));
+
     dispatch(startValidation(fieldId, nextValidation));
 
-    nextValidation.then((error) => {
-      const fieldStillExists = getField(fieldId) != null;
+    nextValidation
+      .then(validatorThunk)
+      .then((error) => {
+        const fieldStillExists = getField(fieldId) != null;
 
-      if (fieldStillExists) {
-        dispatch(finishValidation(fieldId, error));
-      }
-    });
+        if (fieldStillExists) {
+          dispatch(finishValidation(fieldId, error));
+        }
+      });
   }
 };
 
-export const validateField = (fieldId, validatorFn, str) =>
-  validate(fieldId, () => atFieldLevel(validatorFn, str));
+export const validateField = (fieldId, validatorFn, valueStr, delay) =>
+  validate(fieldId, () => atFieldLevel(validatorFn, valueStr), delay);
 
-export const validateForm = (validatorFn, obj) =>
-  validate(FORM, () => atFormLevel(validatorFn, obj));
+export const validateForm = (validatorFn, valueObj, delay) =>
+  validate(FORM, () => atFormLevel(validatorFn, valueObj), delay);

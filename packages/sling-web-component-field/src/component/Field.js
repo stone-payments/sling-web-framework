@@ -18,7 +18,11 @@ const STRING_PROPS = [
   'validationstatus',
 ];
 
-const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS];
+const NUMERIC_PROPS = [
+  'validationdelay',
+];
+
+const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS, ...NUMERIC_PROPS];
 
 export const Field = Base => class extends Base {
   constructor() {
@@ -41,7 +45,14 @@ export const Field = Base => class extends Base {
 
     STRING_PROPS.forEach((propName) => {
       Object.defineProperty(this, propName, {
-        get() { return this.getAttribute(propName); },
+        get() { return String(this.getAttribute(propName)); },
+        set(value) { setAttr(this, propName, value); },
+      });
+    });
+
+    NUMERIC_PROPS.forEach((propName) => {
+      Object.defineProperty(this, propName, {
+        get() { return Number(this.getAttribute(propName)); },
         set(value) { setAttr(this, propName, value); },
       });
     });

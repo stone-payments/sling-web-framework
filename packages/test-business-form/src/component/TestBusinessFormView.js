@@ -17,7 +17,12 @@ export const TestBusinessFormView = ({
   <sling-form validation="${validatePhones}">
     <label>
       <h4>Nome de usuário</h4>
-      <sling-field validation="${validateUsernameAvailability}" name="username" type="text" required></sling-field>
+      <sling-field
+        validation="${validateUsernameAvailability}"
+        validationdelay="3000"
+        name="username"
+        type="text"
+        required></sling-field>
       <sling-field-message name="username"></sling-field-message>
     </label>
 

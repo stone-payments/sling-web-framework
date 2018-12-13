@@ -1,4 +1,4 @@
-import { omit, flatten, toFlatEntries } from 'sling-helpers/src';
+import { omit, flatten, toFlatEntries } from 'sling-helpers';
 import { FORM } from './constant.js';
 
 const INITIAL_FIELD_STATE = {

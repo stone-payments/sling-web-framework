@@ -204,6 +204,14 @@ export const Form = Base => class extends withEventDispatch(Base) {
     return this.state.submitCount;
   }
 
+  get validationdelay() {
+    return Number(this.getAttribute('validationdelay'));
+  }
+
+  set validationdelay(value) {
+    setAttr(this, 'validationdelay', value);
+  }
+
   get skipvalidationonchange() {
     return this.hasAttribute('skipvalidationonchange');
   }
@@ -239,14 +247,19 @@ export const Form = Base => class extends withEventDispatch(Base) {
   }
 
   validateForm() {
-    this.dispatchAction(validateForm(this.validation, this.state.values));
+    this.dispatchAction(validateForm(
+      this.validation,
+      this.state.values,
+      this.validationdelay,
+    ));
   }
 
   validateFieldByElement(field) {
     this.dispatchAction(validateField(
       this.constructor.getFieldId(field),
       field.validation,
-      field.value,
+      field.getAttribute('value'),
+      Number(field.getAttribute('validationdelay')),
     ));
   }
 
