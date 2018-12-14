@@ -4,3 +4,7 @@ body {
   display: grid;
   font-family: 'Heebo', sans-serif;
 }
+
+.validating {
+  opacity: 0.5;
+}

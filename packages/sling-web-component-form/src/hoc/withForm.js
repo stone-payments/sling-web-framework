@@ -71,17 +71,21 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   }
 
   handleStateUpdate(nextState) {
+    /*
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
       field.value = getIn(nextState.values, fieldId);
     });
+    */
   }
 
   handleDomUpdate() {
+    /*
     this.fields.forEach((field) => {
       field.oninput = this.handleInput;
       field.onblur = this.handleBlur;
     });
+    */
   }
 
   handleBlur({ target: field }) {

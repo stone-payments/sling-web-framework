@@ -18,15 +18,30 @@ export const TestLitForm = Base => class extends withForm(Base) {
   }
 
   render() {
-    const { values, errors } = this.state;
+    const { values, errors, isValidatingField } = this.state;
 
     return html`
-      <input name="username" validation="${validateUsernameAvailability}">
-      <p>${errors.username}</p>
+      <input
+        name="username"
+        value="${values.username}"
+        className="${isValidatingField.username ? 'validating' : ''}"
+        validation="${validateUsernameAvailability}"
+        oninput="${this.handleInput}"
+        onblur="${this.handleBlur}"
+        autocomplete="off">
+
+      <p>${!isValidatingField.username ? errors.username : ''}</p>
 
       ${values.friends && values.friends.map((_, index) => html`
-        <input name="friends[${index}]" validation="${validateRequired}">
-        <p>${errors.friends[index]}</p>
+        <input
+          name="friends[${index}]"
+          value="${values.friends[index]}"
+          className="${isValidatingField.friends[index] ? 'validating' : ''}"
+          validation="${validateRequired}"
+          oninput="${this.handleInput}"
+          onblur="${this.handleBlur}">
+
+        <p>${!isValidatingField.friends[index] ? errors.friends[index] : ''}</p>
       `)}
 
       <pre>
