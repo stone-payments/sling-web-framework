@@ -3,7 +3,7 @@ import { omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
 
 import {
-  validateNotAdmin,
+  validateUsernameAvailability,
   validateRequired,
 } from './customValidations.js';
 
@@ -21,19 +21,11 @@ export const TestLitForm = Base => class extends withForm(Base) {
     const { values, errors } = this.state;
 
     return html`
-      <input
-        name="username"
-        validation="${validateNotAdmin}"
-      />
-
+      <input name="username" validation="${validateUsernameAvailability}">
       <p>${errors.username}</p>
 
       ${values.friends && values.friends.map((_, index) => html`
-        <input
-          name="friends[${index}]"
-          validation="${validateRequired}"
-        />
-
+        <input name="friends[${index}]" validation="${validateRequired}">
         <p>${errors.friends[index]}</p>
       `)}
 

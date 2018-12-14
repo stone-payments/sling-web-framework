@@ -1,3 +1,23 @@
+import CancelablePromise from 'bluebird';
+
+CancelablePromise.config({
+  cancellation: true,
+});
+
+const zzz = new CancelablePromise((resolve) => {
+  setTimeout(() => resolve('lady gaga'), 3000);
+}).then((resolved) => {
+  console.log(resolved);
+
+  return new CancelablePromise((resolve) => {
+    setTimeout(() => resolve('anchients of mumu'), 3000);
+  });
+}).then((resolved) => {
+  console.log(resolved);
+});
+
+setTimeout(() => zzz.cancel(), 1000);
+
 export const validatePhones = (values) => {
   const errors = {};
 
@@ -20,7 +40,9 @@ export const validateNotAdmin = (value) => {
   return value === 'admin' ? 'Do not use admin!' : undefined;
 };
 
+const checkUser = user => fetch(`https://api.github.com/users/${user}`);
+
 export const validateUsernameAvailability = value =>
-  fetch(`https://api.github.com/users/${value}`)
-    .then(res => (res.ok ? 'Username already taken' : undefined))
-    .catch(() => undefined);
+  new CancelablePromise(resolve => setTimeout(() =>
+    resolve(checkUser(value).then(() =>
+      'User exists').catch(() => undefined)), 3000));

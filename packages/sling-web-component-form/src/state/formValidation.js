@@ -1,4 +1,3 @@
-import CancelablePromise from 'cancelable-promise';
 import { isPromise } from 'sling-helpers/src';
 import { startValidation, finishValidation } from './byIdReducer.js';
 import { FORM } from './constant.js';
@@ -19,7 +18,7 @@ const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
 
 const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
 
-const validate = (fieldId, validatorThunk, delay) => (dispatch, getState) => {
+const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
   const getField = (id) => {
     const state = getState();
     return (state.byId != null) ? state.byId[id] : state[id];
@@ -31,17 +30,17 @@ const validate = (fieldId, validatorThunk, delay) => (dispatch, getState) => {
   if (fieldExists) {
     const { validation: previousValidation } = field;
 
-    if (previousValidation) {
+    console.log(field);
+
+    if (previousValidation && previousValidation.cancel) {
       previousValidation.cancel();
     }
 
-    const nextValidation = new CancelablePromise(resolve =>
-      setTimeout(resolve, delay));
+    const nextValidation = validatorThunk();
 
     dispatch(startValidation(fieldId, nextValidation));
 
     nextValidation
-      .then(validatorThunk)
       .then((error) => {
         const fieldStillExists = getField(fieldId) != null;
 
@@ -52,8 +51,8 @@ const validate = (fieldId, validatorThunk, delay) => (dispatch, getState) => {
   }
 };
 
-export const validateField = (fieldId, validatorFn, valueStr, delay) =>
-  validate(fieldId, () => atFieldLevel(validatorFn, valueStr), delay);
+export const validateField = (fieldId, validatorFn, valueStr) =>
+  validate(fieldId, () => atFieldLevel(validatorFn, valueStr));
 
-export const validateForm = (validatorFn, valueObj, delay) =>
-  validate(FORM, () => atFormLevel(validatorFn, valueObj), delay);
+export const validateForm = (validatorFn, valueObj) =>
+  validate(FORM, () => atFormLevel(validatorFn, valueObj));
