@@ -5,7 +5,7 @@ import { FORM } from './constant.js';
 const treatError = error =>
   (error && error.constructor === Error ? error.message : error);
 
-const atLevel = wrapperFn => async (validatorFn, value) => {
+const atLevel = wrapperFn => (validatorFn, value) => {
   if (validatorFn == null) return wrapperFn(undefined);
   const error = validatorFn(value);
 
@@ -29,8 +29,6 @@ const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
 
   if (fieldExists) {
     const { validation: previousValidation } = field;
-
-    console.log(field);
 
     if (previousValidation && previousValidation.cancel) {
       previousValidation.cancel();
