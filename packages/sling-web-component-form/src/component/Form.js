@@ -4,7 +4,7 @@ import {
   isFunction,
   setAttr,
   isPromise,
-  unique,
+  mergeUnique,
   getIn,
 } from 'sling-helpers';
 
@@ -109,7 +109,7 @@ export const Form = Base => class extends withEventDispatch(Base) {
   childrenUpdatedCallback() {
     const domFieldIds = this.fields.map(this.constructor.getFieldId);
     const stateFieldIds = Object.keys(onlyFields(this.state.byId));
-    const fieldIds = unique(domFieldIds, stateFieldIds);
+    const fieldIds = mergeUnique(domFieldIds, stateFieldIds);
 
     fieldIds.forEach((fieldId) => {
       const notInState = !stateFieldIds.includes(fieldId);
