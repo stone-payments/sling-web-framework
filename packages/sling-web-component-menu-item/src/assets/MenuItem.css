@@ -9,6 +9,16 @@ sling-icon.small {
   height: 18px;
 }
 
+sling-icon.medium {
+  width: 21px;
+  height: 21px;
+}
+
+sling-icon.large {
+  width: 24px;
+  height: 24px;
+}
+
 a {
   padding: 16px;
   width: 100%;
@@ -25,8 +35,16 @@ a:focus, a.vertical:focus, a.horizontal:focus {
   border-width: 1px;
 }
 
-a.hasIcon {
+a.hasIcon.small {
   padding: 16px 16px 16px 42px;
+}
+
+a.hasIcon.medium {
+  padding: 16px 16px 16px 45px;
+}
+
+a.hasIcon.large {
+  padding: 16px 16px 16px 48px;
 }
 
 a.vertical {
