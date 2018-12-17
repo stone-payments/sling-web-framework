@@ -23,7 +23,7 @@ npm install sling-web-component-menu
 |:--|:--|:--|:--|:--:|
 |layout|String||:heavy_check_mark:|:heavy_check_mark:|
 |size|String||:heavy_check_mark:|:heavy_check_mark:|
-|icononly|String||:heavy_check_mark:|:x:|
+|icononly|Boolean||:heavy_check_mark:|:x:|
 
 ### Description
 
