@@ -20,7 +20,7 @@ export class Menu extends SlingElement {
       <style>
         @import url('sling-web-component-menu/src/index.css');
       </style>
-      <div class="menu">
+      <div class="sling-menu">
         <slot></slot>
       </div>
     `;
