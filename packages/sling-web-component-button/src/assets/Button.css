@@ -48,26 +48,29 @@
 /* default */
 
 .emd-btn {
-  border-color: #2d3844;
-  background-color: #2d3844;
-  color: #fff;
-  fill: #fff;
+  border-color: var(--sling-button-border-color,#2d3844);
+  background-color: var(--sling-button-background-color,#2d3844);
+  color: var(--sling-button-text-color,#fff);
+  fill: var(--sling-button-text-color,#fff);
+}
+
+.emd-btn:active {
+  filter: brightness(80%);
 }
 
 .emd-btn:hover,
-.emd-btn:focus,
-.emd-btn:active {
-  border-color: #0c1219;
+.emd-btn:focus {
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.2);
 }
 
-.emd-btn:active {
-  background-color: #0c1219;
+.emd-btn.emd-btn_layout_outline {
+  color: var(--sling-button-text-color,var(--sling-button-border-color));
+  fill: var(--sling-button-text-color,var(--sling-button-border-color));
 }
 
-.emd-btn.emd-btn_layout_outline,
-.emd-btn.emd-btn_layout_text {
-  color: #2d3844;
-  fill: #2d3844;
+.emd-btn.emd-btn_layout_text{
+  color: var(--sling-button-text-color,#2d3844);
+  fill: var(--sling-button-text-color,#2d3844);
 }
 
 .emd-btn.emd-btn_layout_outline:hover,
@@ -76,8 +79,8 @@
 .emd-btn.emd-btn_layout_text:hover,
 .emd-btn.emd-btn_layout_text:focus,
 .emd-btn.emd-btn_layout_text:active {
-  color: #0c1219;
-  fill: #0c1219;
+  box-shadow:none;
+  filter: brightness(70%);
 }
 
 .emd-btn.emd-btn_layout_outline:active {
@@ -87,26 +90,21 @@
 /* primary */
 
 .emd-btn_color_primary {
-  border-color: var(--sling-button-primary-color, #95c93d);
-  background-color: var(--sling-button-primary-color, #95c93d);
+  border-color: var(--sling-button-primary-color, #0DB14B);
+  background-color: var(--sling-button-primary-color, #0DB14B);
   color: #fff;
   fill: #fff;
 }
 
-.emd-btn_color_primary:hover,
-.emd-btn_color_primary:focus,
-.emd-btn_color_primary:active {
-  border-color: var(--sling-button-primary-highlight-color, #7aa436);
-}
 
 .emd-btn_color_primary:active {
-  background-color: var(--sling-button-primary-highlight-color, #7aa436);
+  background-color: var(--sling-button-primary-highlight-color, #0C9141);
 }
 
 .emd-btn_color_primary.emd-btn_layout_outline,
 .emd-btn_color_primary.emd-btn_layout_text {
-  color: var(--sling-button-primary-color, #95c93d);
-  fill: var(--sling-button-primary-color, #95c93d);
+  color: var(--sling-button-primary-color, #0DB14B);
+  fill: var(--sling-button-primary-color, #0DB14B);
 }
 
 .emd-btn_color_primary.emd-btn_layout_outline:hover,
@@ -115,12 +113,12 @@
 .emd-btn_color_primary.emd-btn_layout_text:hover,
 .emd-btn_color_primary.emd-btn_layout_text:focus,
 .emd-btn_color_primary.emd-btn_layout_text:active {
-  color: var(--sling-button-primary-highlight-color, #7aa436);
-  fill: var(--sling-button-primary-highlight-color, #7aa436);
+  color: var(--sling-button-primary-highlight-color, #0C9141);
+  fill: var(--sling-button-primary-highlight-color, #0C9141);
 }
 
 .emd-btn_color_primary.emd-btn_layout_outline:active {
-  background-color: var(--sling-button-primary-active-color, rgba(149, 201, 61, 0.2));
+  background-color: var(--sling-button-primary-active-color, rgba(12, 145, 65, 0.2));
 }
 
 /* success */
@@ -132,11 +130,7 @@
   fill: #fff;
 }
 
-.emd-btn_color_success:hover,
-.emd-btn_color_success:focus,
-.emd-btn_color_success:active {
-  border-color: #27a75f;
-}
+
 
 .emd-btn_color_success:active {
   background-color: #27a75f;
@@ -171,11 +165,7 @@
   fill: #fff;
 }
 
-.emd-btn_color_danger:hover,
-.emd-btn_color_danger:focus,
-.emd-btn_color_danger:active {
-  border-color: #bb4035;
-}
+
 
 .emd-btn_color_danger:active {
   background-color: #bb4035;
@@ -210,11 +200,6 @@
   fill: #ebebf0;
 }
 
-.emd-btn_color_light:hover,
-.emd-btn_color_light:focus,
-.emd-btn_color_light:active {
-  border-color: #fff;
-}
 
 .emd-btn_color_light:active {
   background-color: #fff;
@@ -269,10 +254,17 @@
   background-color: transparent;
 }
 
+.emd-btn_disabled:hover,
+.emd-btn_disabled:focus,
+.emd-btn_disabled:active,
+.emd-btn_disabled.emd-btn_layout_outline:hover,
+.emd-btn_disabled.emd-btn_layout_outline:focus,
+.emd-btn_disabled.emd-btn_layout_outline:active,
 .emd-btn_disabled.emd-btn_layout_text:hover,
 .emd-btn_disabled.emd-btn_layout_text:focus,
 .emd-btn_disabled.emd-btn_layout_text:active {
-  border-color: transparent;
+  box-shadow: none;
+  filter: none;
 }
 
 /* outline and text */
