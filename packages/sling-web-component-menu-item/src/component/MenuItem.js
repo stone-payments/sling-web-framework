@@ -27,10 +27,18 @@ export class MenuItem extends SlingElement {
     
     const isActive = (this.getAttribute('active') != null) ? 'active' : '';
 
-    const childrens = Array.from(this.children).map($el => $el.nodeName);
-    const hasMenu = childrens.includes('SLING-MENU');
+    const childrensArray = Array.from(this.children);
+    const childrensTags = childrensArray.map($el => $el.nodeName);
 
-    return (anchorHref && !hasMenu) ? html`
+    const submenuPosition = childrensTags.indexOf('SLING-MENU');
+    const hasSubmenu = (submenuPosition !== -1);
+
+    if (hasSubmenu) {
+      const submenuElement = childrensArray[submenuPosition];
+      submenuElement.setAttribute('layout', layoutType);
+    }
+
+    return (anchorHref && !hasSubmenu) ? html`
       <style>
         @import url('sling-web-component-menu-item/src/index.css');
       </style>

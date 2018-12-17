@@ -16,7 +16,12 @@ a {
   text-decoration: none;
   position: relative;
   color: #2d3844;
-  border: 1px solid #c3c8d2;
+  border-color: #c3c8d2;
+  border-style: solid;
+}
+
+a:focus {
+  border-color: #2d3844;
 }
 
 a.hasIcon {
