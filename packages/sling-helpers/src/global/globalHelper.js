@@ -98,7 +98,7 @@ export const mapByKey = (collection = [], key, value) =>
 export const sleep = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
 
-export const toPath = str => str
+const toPath = str => str
   .replace(/\]$/g, '')
   .replace(/(\[|\])/g, '.')
   .replace(/\.{2,}/g, '.')
