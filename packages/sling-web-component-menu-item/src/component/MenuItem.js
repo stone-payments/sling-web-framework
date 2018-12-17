@@ -34,7 +34,7 @@ export class MenuItem extends SlingElement {
 
     const submenuPosition = itemChildrenTags.indexOf('SLING-MENU');
     const hasSubmenu = (submenuPosition !== -1);
-    
+
     if (hasSubmenu) {
       // If so, propagates the layout attribute
       const submenuElement = itemChildrenElements[submenuPosition];

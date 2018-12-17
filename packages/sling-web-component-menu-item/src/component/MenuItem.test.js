@@ -3,26 +3,30 @@ import { MenuItem } from './MenuItem';
 
 registerComponent('sling-menu-item', MenuItem);
 let $menuItem;
+let $menu;
 
 describe('MenuItem', () => {
   beforeEach(() => {
+    $menu = document.createElement('sling-menu');
+    document.body.appendChild($menu);
+
     $menuItem = document.createElement('sling-menu-item');
     $menuItem.setAttribute('href', 'http://test.com');
-    document.body.appendChild($menuItem);
+    $menu.appendChild($menuItem);
   });
 
   afterEach(() => {
-    document.body.removeChild($menuItem);
+    $menu.removeChild($menuItem);
     $menuItem = undefined;
   });
 
   describe('Reflection', () => {
-    it('Should reflect "icon" attribute to property ', () => {
+    it('Should reflect "icon" attribute to property', () => {
       $menuItem.setAttribute('icon', 'info');
       expect($menuItem.icon).to.equal('info');
     });
 
-    it('Should reflect "icon" property to attribute ', (done) => {
+    it('Should reflect "icon" property to attribute', (done) => {
       $menuItem.icon = 'info';
       setTimeout(() => {
         expect($menuItem.getAttribute('icon')).to.equal('info');
@@ -30,7 +34,7 @@ describe('MenuItem', () => {
       });
     });
 
-    it('Should reflect "href" attribute to property ', () => {
+    it('Should reflect "href" attribute to property', () => {
       $menuItem.setAttribute('href', 'http://google.com');
       expect($menuItem.href).to.equal('http://google.com');
     });
