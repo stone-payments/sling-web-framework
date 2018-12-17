@@ -1,6 +1,6 @@
-/* layouts */
+/* Layouts */
 
-/* vertical*/
+/* Layout: Vertical */
 :host([layout="vertical"]) {
   display: block;
   position: relative;
@@ -21,7 +21,11 @@
   border-bottom: 1px solid #c3c8d2;
 }
 
-/*horizontal*/
+:host-context([layout="vertical"][icononly]) ::slotted(sling-menu-item) {
+  border-right: 1px solid #c3c8d2;
+}
+
+/* Layout: Horizontal */
 :host([layout="horizontal"]) {
   margin: 0;
   padding: 0;
@@ -39,7 +43,7 @@
   border-right: 1px solid #c3c8d2;
 }
 
-/* sizes */
+/* Sizes */
 :host-context([size="small"]) ::slotted(sling-menu-item) {
   font-size: 12px;
   line-height: 18px;
@@ -58,7 +62,7 @@
   font-weight: 500;
 }
 
-/*icon only*/
+/* Icon Only */
 :host([icononly]) ::slotted(sling-menu-item) {
   overflow: hidden;
   text-indent: -9999px;
@@ -74,8 +78,4 @@
 
 :host([size="large"][icononly]) ::slotted(sling-menu-item) {
   width: 56px;
-}
-
-:host([layout="vertical"][icononly]) ::slotted(sling-menu-item) {
-  border-right: 1px solid #c3c8d2;
 }

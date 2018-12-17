@@ -9,7 +9,7 @@
     <title>sling-menu</title>
   </head>
   <body>
-    <h2>Menu Aberto</h2>
+    <h2>Menu Vertical (aberto)</h2>
     <sling-menu layout="vertical" size="large" class="menu-aberto">
         <sling-menu-item href="http://google.com" aim="info" active>Google</sling-menu-item>
         <sling-menu-item href="http://duckduckgo.com" aim="info">Duck</sling-menu-item>
@@ -45,8 +45,15 @@
         </sling-menu-item>
     </sling-menu>
 
-    <h2>Menu Horizontal</h2>
+    <h2>Menu Vertical apenas ícones</h2>
+    <sling-menu layout="vertical" size="small" icononly>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
+    </sling-menu>
 
+    <h2>Menu Horizontal</h2>
     <sling-menu layout="horizontal" size="large">
         <sling-menu-item href="http://google.com" active>Google</sling-menu-item>
         <sling-menu-item href="http://duckduckgo.com" >Duck</sling-menu-item>
@@ -57,8 +64,7 @@
         <sling-menu-item href="http://google.com">Google</sling-menu-item>
       </sling-menu>
 
-    <br />
-
+    <h2>Menu Horizontal com ícones</h2>
     <sling-menu layout="horizontal" size="medium">
         <sling-menu-item href="http://google.com" aim="info" active>Google</sling-menu-item>
         <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
@@ -72,15 +78,7 @@
         <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>
     </sling-menu>
 
-    <h2>Menu Vertical - Apenas Icones</h2>
-    <sling-menu layout="vertical" size="small" icononly>
-      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
-      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
-      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
-      <sling-menu-item href="http://google.com" aim="info">Antecipação</sling-menu-item>
-    </sling-menu>
-
-    <h2>Menu Horizontal - Apenas Icones</h2>
+    <h2>Menu Horizontal apenas ícones</h2>
     <sling-menu layout="horizontal" size="large" icononly>
         <sling-menu-item href="http://google.com" aim="info" active>Google</sling-menu-item>
         <sling-menu-item href="http://duckduckgo.com"  aim="info">Duck</sling-menu-item>

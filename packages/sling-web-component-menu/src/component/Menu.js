@@ -12,6 +12,10 @@ export class Menu extends SlingElement {
         type: String,
         reflectToAttribute: true,
       },
+      icononly: {
+        type: String,
+        reflectToAttribute: true,
+      },
     };
   }
 
