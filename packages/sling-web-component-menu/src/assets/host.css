@@ -69,11 +69,11 @@
 }
 
 :host([size="medium"][icononly]) ::slotted(sling-menu-item) {
-  width: 50px;
+  width: 53px;
 }
 
 :host([size="large"][icononly]) ::slotted(sling-menu-item) {
-  width: 50px;
+  width: 56px;
 }
 
 :host([layout="vertical"][icononly]) ::slotted(sling-menu-item) {
