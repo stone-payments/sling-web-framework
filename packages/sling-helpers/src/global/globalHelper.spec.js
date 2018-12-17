@@ -17,6 +17,7 @@ import {
   groupByDeep,
   mapByKey,
   getDateRangeArray,
+  isDeeplyEmpty,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -553,5 +554,17 @@ describe('mapByKey', () => {
           '04/02',
         ]);
     });
+  });
+});
+
+describe('isDeeplyEmpty', () => {
+  it('Should return true for empty properties', () => {
+    const test = { a: null, b: undefined, c: [], d: [null, undefined] };
+    chai.assert.isTrue(isDeeplyEmpty(test));
+  });
+
+  it('Should return false for empty properties', () => {
+    const test = { a: null, b: undefined, c: [], d: ['testString', undefined] };
+    chai.assert.isFalse(isDeeplyEmpty(test));
   });
 });
