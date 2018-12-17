@@ -22,3 +22,13 @@ const FieldWithTypes = compose(
 );
 
 registerComponent('sling-field', FieldWithTypes(HTMLElement));
+
+export {
+  validateEmail,
+  validateTel,
+  maskTel,
+  validateCpf,
+  maskCpf,
+  validateCnpj,
+  maskCnpj,
+};

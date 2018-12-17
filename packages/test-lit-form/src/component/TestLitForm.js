@@ -6,6 +6,9 @@ import 'sling-web-component-icon';
 import {
   validateUsernameAvailability,
   validateRequired,
+  validateEmail,
+  validateCpf,
+  validateCnpj,
 } from './customValidations.js';
 
 // deve virar um selector mais tarde
@@ -55,13 +58,34 @@ const FieldView = (fieldId, validation, state) => html`
   </div>
 `;
 
+const FieldMessageView = (fieldId, {
+  isValidatingField,
+  touched,
+  errors,
+}) => html`
+  <p>
+    ${!getIn(isValidatingField, fieldId) && getIn(touched, fieldId) ? html`
+      ${getIn(errors, fieldId)}
+    ` : ''}
+  </p>
+`;
+
 export const TestLitForm = Base => class extends withForm(Base) {
   constructor() {
     super();
 
     this.setValues({
-      username: '',
-      friends: ['augusto', 'alberto'],
+      name: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      cpf: '',
+      cnpj: '',
+      phones: {
+        work: '',
+        home: '',
+      },
+      games: [],
     });
   }
 
@@ -75,7 +99,7 @@ export const TestLitForm = Base => class extends withForm(Base) {
   }
 
   render() {
-    const { values, errors, touched, isValidatingField } = this.formState;
+    const { values } = this.formState;
     const common = { ...this.formState, ...this };
 
     return html`
@@ -84,13 +108,49 @@ export const TestLitForm = Base => class extends withForm(Base) {
       </style>
 
       <div class="form">
-        ${FieldView('username', validateUsernameAvailability, common)}
-        <p>${!isValidatingField.username && touched.username ? errors.username : ''}</p>
+        <div>
+          <h4>Nome</h4>
+          ${FieldView('name', validateRequired, common)}
+          ${FieldMessageView('name', common)}
+        </div>
 
-        ${values.friends && values.friends.map((_, index) => html`
-          ${FieldView(`friends[${index}]`, validateRequired, common)}
-          <p>${!isValidatingField.friends[index] && touched.friends[index] ? errors.friends[index] : ''}</p>
-        `)}
+        <div>
+          <h4>Sobrenome</h4>
+          ${FieldView('lastName', validateRequired, common)}
+          ${FieldMessageView('lastName', common)}
+        </div>
+
+        <div>
+          <h4>Apelido</h4>
+          ${FieldView('userName', validateUsernameAvailability, common)}
+          ${FieldMessageView('userName', common)}
+        </div>
+
+        <div>
+          <h4>E-mail</h4>
+          ${FieldView('email', validateEmail, common)}
+          ${FieldMessageView('email', common)}
+        </div>
+
+        <div>
+          <h4>CPF</h4>
+          ${FieldView('cpf', validateCpf, common)}
+          ${FieldMessageView('cpf', common)}
+        </div>
+
+        <div>
+          <h4>CNPJ</h4>
+          ${FieldView('cnpj', validateCnpj, common)}
+          ${FieldMessageView('cnpj', common)}
+        </div>
+
+        <div>
+          <h4>Jogos preferidos</h4>
+          ${values.games && values.games.map((_, index) => html`
+            ${FieldView(`games[${index}]`, validateRequired, common)}
+            ${FieldMessageView(`games[${index}]`, common)}
+          `)}
+        </div>
       </div>
 
       <pre>${JSON.stringify(omit(this.formState, 'byId'), null, 2)}</pre>

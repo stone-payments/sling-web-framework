@@ -4,6 +4,7 @@ import { withReducer } from './withReducer.js';
 import {
   formReducer,
   validateField,
+  validateForm,
   updateFieldValue,
   updateFieldTouched,
   updateFieldUsed,
@@ -71,6 +72,30 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     this.dispatchAction(setValues(values));
   }
 
+  getFieldById(fieldId) {
+    return this.fields.find(field =>
+      this.constructor.getFieldId(field) === fieldId);
+  }
+
+  validateFieldByElement(field) {
+    this.dispatchAction(validateField(
+      this.constructor.getFieldId(field),
+      field.validation,
+      field.value,
+    ));
+  }
+
+  validateField(fieldId) {
+    this.validateFieldByElement(this.getFieldById(fieldId));
+  }
+
+  validateForm() {
+    this.dispatchAction(validateForm(
+      this.validation,
+      this.state.values,
+    ));
+  }
+
   handleStateUpdate(nextState) {
     /*
     this.fields.forEach((field) => {
@@ -92,19 +117,20 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
-      const { value, validation } = field;
       this.dispatchAction(updateFieldTouched(fieldId, true));
-      this.dispatchAction(validateField(fieldId, validation, value));
+      this.validateFieldByElement(field);
+      this.validateForm();
     }
   }
 
   handleInput({ target: field }) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
-      const { value, validation } = field;
+      const { value } = field;
       this.dispatchAction(updateFieldUsed(fieldId, true));
       this.dispatchAction(updateFieldValue(fieldId, value));
-      this.dispatchAction(validateField(fieldId, validation, value));
+      this.validateFieldByElement(field);
+      this.validateForm();
     }
   }
 };
