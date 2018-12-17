@@ -17,15 +17,15 @@ describe('MenuItem', () => {
   });
 
   describe('Reflection', () => {
-    it('Should reflect "aim" attribute to property ', () => {
-      $menuItem.setAttribute('aim', 'info');
-      expect($menuItem.aim).to.equal('info');
+    it('Should reflect "icon" attribute to property ', () => {
+      $menuItem.setAttribute('icon', 'info');
+      expect($menuItem.icon).to.equal('info');
     });
 
-    it('Should reflect "aim" property to attribute ', (done) => {
-      $menuItem.aim = 'info';
+    it('Should reflect "icon" property to attribute ', (done) => {
+      $menuItem.icon = 'info';
       setTimeout(() => {
-        expect($menuItem.getAttribute('aim')).to.equal('info');
+        expect($menuItem.getAttribute('icon')).to.equal('info');
         done();
       });
     });
@@ -46,7 +46,7 @@ describe('MenuItem', () => {
     it('Should fail when "href" attribute is not set', () => {
       const menuItemFail = document.createElement('sling-menu-item');
       document.body.appendChild(menuItemFail);
-      expect.fai(menuItemFail.href);
+      expect.toThrow();
     });
 
     it('Should reflect "active" attribute to property ', () => {
