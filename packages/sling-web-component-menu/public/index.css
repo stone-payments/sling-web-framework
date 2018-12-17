@@ -5,3 +5,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: Roboto, sans-serif;
 }
+
+.menu-aberto {
+  width: 250px;
+}
