@@ -27,4 +27,10 @@ describe('Icon', () => {
 
     expect($icon.getAttribute('icon')).to.equal('info');
   });
+
+  it('Should reflect "ellipsis icon" property to attribute ', () => {
+    $icon.icon = 'ellipsis';
+
+    expect($icon.getAttribute('icon')).to.equal('ellipsis');
+  });
 });
