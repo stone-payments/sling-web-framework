@@ -1,3 +1,12 @@
+<a name="1.11.7"></a>
+## 1.11.7 (2018-12-17)
+
+* feat: add customization for card
+* feat: Change primary color from #95C93D to #0DB14B
+* feat: add customization for button
+* feat: add input regression test
+* feat: add login regression test
+
 <a name="1.11.6"></a>
 ## 1.11.6 (2018-11-14)
 
