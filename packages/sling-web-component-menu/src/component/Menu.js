@@ -13,7 +13,7 @@ export class Menu extends SlingElement {
         reflectToAttribute: true,
       },
       icononly: {
-        type: String,
+        type: Boolean,
         reflectToAttribute: true,
       },
     };
