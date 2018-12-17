@@ -108,18 +108,6 @@ export const Field = Base => class extends Base {
     }
   }
 
-  updateDefaultValidation(validatorFn) {
-    this.defaultValidation = validatorFn;
-  }
-
-  updateMask(maskFn) {
-    if (this.mask && isFunction(this.mask.destroy)) {
-      this.mask.destroy();
-    }
-
-    this.mask = maskFn(this.inputElement);
-  }
-
   handleInput(evt) {
     this.value = evt.target.value;
   }

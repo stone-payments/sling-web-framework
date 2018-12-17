@@ -7,6 +7,7 @@ const INITIAL_FIELD_STATE = {
   validation: null,
   value: '',
   touched: false,
+  used: false,
 };
 
 const INITIAL_STATE = {
@@ -21,6 +22,7 @@ const ADD_FIELD = Symbol('ADD_FIELD');
 const REMOVE_FIELD = Symbol('REMOVE_FIELD');
 const UPDATE_FIELD_VALUE = Symbol('UPDATE_FIELD_VALUE');
 const UPDATE_FIELD_TOUCHED = Symbol('UPDATE_FIELD_TOUCHED');
+const UPDATE_FIELD_USED = Symbol('UPDATE_FIELD_USED');
 const SET_VALUES = Symbol('SET_VALUES');
 const START_VALIDATION = Symbol('START_VALIDATION');
 const FINISH_VALIDATION = Symbol('FINISH_VALIDATION');
@@ -45,6 +47,12 @@ export const updateFieldTouched = (fieldId, touched) => ({
   type: UPDATE_FIELD_TOUCHED,
   fieldId,
   touched,
+});
+
+export const updateFieldUsed = (fieldId, used) => ({
+  type: UPDATE_FIELD_USED,
+  fieldId,
+  used,
 });
 
 export const setValues = values => ({
@@ -105,6 +113,13 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
         { touched: action.touched },
         state[action.fieldId] != null &&
           state[action.fieldId].touched !== action.touched,
+      );
+
+    case UPDATE_FIELD_USED:
+      return updateFieldState(
+        { used: action.used },
+        state[action.fieldId] != null &&
+          state[action.fieldId].used !== action.used,
       );
 
     case SET_VALUES:

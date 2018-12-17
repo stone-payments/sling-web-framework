@@ -10,6 +10,7 @@
     "bluebird": "^3.5.3",
     "sling-framework": "^1.11.5",
     "sling-helpers": "^1.11.5",
-    "sling-web-component-form": "^1.11.5"
+    "sling-web-component-form": "^1.11.5",
+    "sling-web-component-icon": "^1.11.5"
   }
 }

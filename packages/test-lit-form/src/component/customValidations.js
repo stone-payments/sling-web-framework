@@ -9,7 +9,7 @@ export const validateUsernameAvailability = (value) => {
     return 'Required';
   }
 
-  if (value.length <= 3) {
+  if (value.length < 3) {
     return 'Type at least 3 characters';
   }
 

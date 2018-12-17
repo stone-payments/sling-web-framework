@@ -11,7 +11,7 @@ const atLevel = wrapperFn => (validatorFn, value) => {
 
   return (isPromise(error))
     ? error.catch(treatError).then(wrapperFn)
-    : Promise.resolve(wrapperFn(treatError(error)));
+    : wrapperFn(treatError(error));
 };
 
 const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
@@ -36,16 +36,20 @@ const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
 
     const nextValidation = validatorThunk();
 
-    dispatch(startValidation(fieldId, nextValidation));
+    if (isPromise(nextValidation)) {
+      dispatch(startValidation(fieldId, nextValidation));
 
-    nextValidation
-      .then((error) => {
-        const fieldStillExists = getField(fieldId) != null;
+      nextValidation
+        .then((error) => {
+          const fieldStillExists = getField(fieldId) != null;
 
-        if (fieldStillExists) {
-          dispatch(finishValidation(fieldId, error));
-        }
-      });
+          if (fieldStillExists) {
+            dispatch(finishValidation(fieldId, error));
+          }
+        });
+    } else {
+      dispatch(finishValidation(fieldId, nextValidation));
+    }
   }
 };
 

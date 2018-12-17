@@ -8,6 +8,7 @@ export {
   removeField,
   updateFieldValue,
   updateFieldTouched,
+  updateFieldUsed,
   setValues,
   startValidation,
   finishValidation,

@@ -35,6 +35,9 @@ export const parseState = (state) => {
   const touched = fieldEntries.reduce((result, [fieldId, obj]) =>
     setIn(result, fieldId, obj.touched), {});
 
+  const used = fieldEntries.reduce((result, [fieldId, obj]) =>
+    setIn(result, fieldId, obj.used), {});
+
   const isValidatingField = fieldEntries.reduce((result, [fieldId, obj]) =>
     setIn(result, fieldId, obj.isValidating), {});
 
@@ -47,6 +50,7 @@ export const parseState = (state) => {
     errors,
     values,
     touched,
+    used,
     isValid,
     isValidating,
     isValidatingField,

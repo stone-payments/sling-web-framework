@@ -1,11 +1,59 @@
 import { html } from 'sling-framework';
-import { omit } from 'sling-helpers';
+import { getIn, omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
+import 'sling-web-component-icon';
 
 import {
   validateUsernameAvailability,
   validateRequired,
 } from './customValidations.js';
+
+// deve virar um selector mais tarde
+
+const getValidationStatus = (fieldId, state) => {
+  const { isValidatingField, errors, touched } = state;
+
+  if (!getIn(touched, fieldId)) {
+    return fieldId;
+  }
+
+  if (getIn(isValidatingField, fieldId)) {
+    return 'ellipsis';
+  }
+
+  return getIn(errors, fieldId) ? 'danger' : 'success';
+};
+
+const FieldIconView = (fieldId, state) => html`
+  <sling-icon
+    className="field__icon
+    ${getValidationStatus(fieldId, state) === 'ellipsis' ? '' : 'field__icon_hidden'}"
+    icon="ellipsis"></sling-icon>
+
+  <sling-icon
+    className="field__icon
+    ${getValidationStatus(fieldId, state) === 'danger' ? '' : 'field__icon_hidden'}"
+    icon="danger"></sling-icon>
+
+  <sling-icon
+    className="field__icon
+    ${getValidationStatus(fieldId, state) === 'success' ? '' : 'field__icon_hidden'}"
+    icon="success"></sling-icon>
+`;
+
+const FieldView = (fieldId, validation, state) => html`
+  <div className="field${getIn(state.isValidatingField, fieldId) ? ' field_validating' : ''}">
+    <input
+      validation="${validation}"
+      oninput="${state.handleInput}"
+      onblur="${state.handleBlur}"
+      name="${fieldId}"
+      value="${getIn(state.values, fieldId)}"
+      class="field__input"
+      autocomplete="off">
+    ${FieldIconView(fieldId, state)}
+  </div>
+`;
 
 export const TestLitForm = Base => class extends withForm(Base) {
   constructor() {
@@ -17,36 +65,35 @@ export const TestLitForm = Base => class extends withForm(Base) {
     });
   }
 
+  static get properties() {
+    return {
+      formState: {
+        type: Object,
+        reflectToAttribute: false,
+      },
+    };
+  }
+
   render() {
-    const { values, errors, isValidatingField } = this.state;
+    const { values, errors, touched, isValidatingField } = this.formState;
+    const common = { ...this.formState, ...this };
 
     return html`
-      <input
-        name="username"
-        value="${values.username}"
-        className="${isValidatingField.username ? 'validating' : ''}"
-        validation="${validateUsernameAvailability}"
-        oninput="${this.handleInput}"
-        onblur="${this.handleBlur}"
-        autocomplete="off">
+      <style>
+        @import url('test-lit-form/src/index.css');
+      </style>
 
-      <p>${!isValidatingField.username ? errors.username : ''}</p>
+      <div class="form">
+        ${FieldView('username', validateUsernameAvailability, common)}
+        <p>${!isValidatingField.username && touched.username ? errors.username : ''}</p>
 
-      ${values.friends && values.friends.map((_, index) => html`
-        <input
-          name="friends[${index}]"
-          value="${values.friends[index]}"
-          className="${isValidatingField.friends[index] ? 'validating' : ''}"
-          validation="${validateRequired}"
-          oninput="${this.handleInput}"
-          onblur="${this.handleBlur}">
+        ${values.friends && values.friends.map((_, index) => html`
+          ${FieldView(`friends[${index}]`, validateRequired, common)}
+          <p>${!isValidatingField.friends[index] && touched.friends[index] ? errors.friends[index] : ''}</p>
+        `)}
+      </div>
 
-        <p>${!isValidatingField.friends[index] ? errors.friends[index] : ''}</p>
-      `)}
-
-      <pre>
-        ${JSON.stringify(omit(this.state, 'byId'), null, 2)}
-      </pre>
+      <pre>${JSON.stringify(omit(this.formState, 'byId'), null, 2)}</pre>
     `;
   }
 };

@@ -6,6 +6,7 @@ import {
   validateField,
   updateFieldValue,
   updateFieldTouched,
+  updateFieldUsed,
   setValues,
 } from '../state/formReducer.js';
 
@@ -39,16 +40,6 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     this._mo.disconnect();
   }
 
-  static get properties() {
-    return {
-      state: {
-        type: Object,
-        reflectToAttribute: false,
-        observer: 'handleStateUpdate',
-      },
-    };
-  }
-
   static isFormField(target) {
     return FORM_FIELD_TYPES.includes(target.nodeName);
   }
@@ -64,6 +55,16 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     return Array
       .from(this.shadowRoot.querySelectorAll('*'))
       .filter(this.constructor.isFormField);
+  }
+
+  get state() {
+    return this._state;
+  }
+
+  set state(value) {
+    this._state = value;
+    this.formState = this._state;
+    this.handleStateUpdate(this._state);
   }
 
   setValues(values) {
@@ -101,6 +102,7 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
       const { value, validation } = field;
+      this.dispatchAction(updateFieldUsed(fieldId, true));
       this.dispatchAction(updateFieldValue(fieldId, value));
       this.dispatchAction(validateField(fieldId, validation, value));
     }
