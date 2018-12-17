@@ -33,6 +33,7 @@ export class Icon extends HTMLElement {
       close: icons.CLOSE,
       warning: icons.ERROR,
       info: icons.FEEDBACK,
+      ellipsis: icons.ELLIPSIS,
     };
 
     return iconsMap[icon] != null
