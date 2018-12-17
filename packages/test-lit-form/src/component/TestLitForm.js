@@ -18,31 +18,31 @@ const getValidationStatus = (fieldId, state) => {
   }
 
   if (getIn(isValidatingField, fieldId)) {
-    return 'ellipsis';
+    return 'validating';
   }
 
-  return getIn(errors, fieldId) ? 'danger' : 'success';
+  return getIn(errors, fieldId) ? 'error' : 'success';
 };
 
 const FieldIconView = (fieldId, state) => html`
   <sling-icon
-    className="field__icon
-    ${getValidationStatus(fieldId, state) === 'ellipsis' ? '' : 'field__icon_hidden'}"
+    className="field__icon field__icon_validating
+    ${getValidationStatus(fieldId, state) === 'validating' ? '' : 'field__icon_hidden'}"
     icon="ellipsis"></sling-icon>
 
   <sling-icon
-    className="field__icon
-    ${getValidationStatus(fieldId, state) === 'danger' ? '' : 'field__icon_hidden'}"
-    icon="danger"></sling-icon>
+    className="field__icon field__icon_error
+    ${getValidationStatus(fieldId, state) === 'error' ? '' : 'field__icon_hidden'}"
+    icon="warning"></sling-icon>
 
   <sling-icon
-    className="field__icon
+    className="field__icon field__icon_success
     ${getValidationStatus(fieldId, state) === 'success' ? '' : 'field__icon_hidden'}"
     icon="success"></sling-icon>
 `;
 
 const FieldView = (fieldId, validation, state) => html`
-  <div className="field${getIn(state.isValidatingField, fieldId) ? ' field_validating' : ''}">
+  <div className="field field_${getValidationStatus(fieldId, state)}">
     <input
       validation="${validation}"
       oninput="${state.handleInput}"
