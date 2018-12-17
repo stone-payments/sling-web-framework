@@ -23,8 +23,8 @@ export class MenuItem extends SlingElement {
   render() {
     const menuSize = this.parentElement.getAttribute('size') || '';
     const layoutType = this.parentElement.getAttribute('layout') || '';
-    const anchorHref = this.getAttribute('href');
-    
+    const anchor = this.getAttribute('href');
+
     const isActive = (this.getAttribute('active') != null) ? 'active' : '';
 
     const childrensArray = Array.from(this.children);
@@ -33,22 +33,26 @@ export class MenuItem extends SlingElement {
     const submenuPosition = childrensTags.indexOf('SLING-MENU');
     const hasSubmenu = (submenuPosition !== -1);
 
+    if (anchor === null && !hasSubmenu) {
+      throw new Error('All sling-menu-item whitout a submenu must have a href attribute defined');
+    }
+
     if (hasSubmenu) {
       const submenuElement = childrensArray[submenuPosition];
       submenuElement.setAttribute('layout', layoutType);
     }
 
-    return (anchorHref && !hasSubmenu) ? html`
+    return (anchor && !hasSubmenu) ? html`
       <style>
         @import url('sling-web-component-menu-item/src/index.css');
       </style>
         ${this.aim ? html`
-          <a href="${anchorHref}" className="${layoutType} ${menuSize} ${isActive} hasIcon">
+          <a href="${anchor}" className="${layoutType} ${menuSize} ${isActive} hasIcon">
             <sling-icon icon="${this.aim}" className="${menuSize}"></sling-icon>
             <slot></slot>
           </a>
         ` : html`
-          <a href="${anchorHref}" className="${layoutType} ${menuSize} ${isActive}">
+          <a href="${anchor}" className="${layoutType} ${menuSize} ${isActive}">
             <slot></slot>
           </a>
         `}
