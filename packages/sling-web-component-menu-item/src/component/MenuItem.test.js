@@ -1,121 +1,64 @@
-import { spy } from 'sinon';
 import { registerComponent } from 'sling-helpers';
-import { SnackBar } from './SnackBar.js';
+import { MenuItem } from './MenuItem';
 
-registerComponent('sling-snackbar', SnackBar);
+registerComponent('sling-menu-item', MenuItem);
+let $menuItem;
 
-let $snackbar;
-
-describe('Snackbar', () => {
+describe('MenuItem', () => {
   beforeEach(() => {
-    $snackbar = document.createElement('sling-snackbar');
-    document.body.appendChild($snackbar);
+    $menuItem = document.createElement('sling-menu-item');
+    $menuItem.setAttribute('href', 'http://test.com');
+    document.body.appendChild($menuItem);
   });
 
   afterEach(() => {
-    document.body.removeChild($snackbar);
-    $snackbar = undefined;
+    document.body.removeChild($menuItem);
+    $menuItem = undefined;
   });
 
   describe('Reflection', () => {
-    it('Should reflect "layout" attribute to property ', () => {
-      $snackbar.setAttribute('layout', 'outline');
-      expect($snackbar.layout).to.equal('outline');
-    });
-
-    it('Should reflect "layout" property to attribute ', (done) => {
-      $snackbar.layout = 'outline';
-
-      setTimeout(() => {
-        expect($snackbar.getAttribute('layout')).to.equal('outline');
-        done();
-      });
-    });
-
     it('Should reflect "aim" attribute to property ', () => {
-      $snackbar.setAttribute('aim', 'danger');
-      expect($snackbar.aim).to.equal('danger');
+      $menuItem.setAttribute('aim', 'info');
+      expect($menuItem.aim).to.equal('info');
     });
 
     it('Should reflect "aim" property to attribute ', (done) => {
-      $snackbar.aim = 'warning';
-
+      $menuItem.aim = 'info';
       setTimeout(() => {
-        expect($snackbar.getAttribute('aim')).to.equal('warning');
+        expect($menuItem.getAttribute('aim')).to.equal('info');
         done();
       });
     });
 
-    it('Should reflect "size" attribute to property ', () => {
-      $snackbar.setAttribute('size', 'small');
-      expect($snackbar.size).to.equal('small');
+    it('Should reflect "href" attribute to property ', () => {
+      $menuItem.setAttribute('href', 'http://google.com');
+      expect($menuItem.href).to.equal('http://google.com');
     });
 
-    it('Should reflect "size" property to attribute ', (done) => {
-      $snackbar.size = 'big';
-
+    it('Should reflect "href" property to attribute ', (done) => {
+      $menuItem.href = 'http://test.com';
       setTimeout(() => {
-        expect($snackbar.getAttribute('size')).to.equal('big');
+        expect($menuItem.getAttribute('href')).to.equal('http://test.com');
         done();
       });
     });
 
-    it('Should reflect "closeable" attribute to property ', () => {
-      $snackbar.setAttribute('closeable', '');
-      expect($snackbar.closeable).to.be.true;
+    it('Should fail when "href" attribute is not set', () => {
+      const menuItemFail = document.createElement('sling-menu-item');
+      document.body.appendChild(menuItemFail);
+      expect.fai(menuItemFail.href);
     });
 
-    it('Should reflect "closeable" property to attribute ', (done) => {
-      $snackbar.closeable = null;
+    it('Should reflect "active" attribute to property ', () => {
+      $menuItem.setAttribute('active', 'true');
+      expect($menuItem.active).to.equal('true');
+    });
+
+    it('Should reflect "active" property to attribute ', (done) => {
+      $menuItem.active = 'active';
 
       setTimeout(() => {
-        expect($snackbar.getAttribute('closeable')).to.be.null;
-        done();
-      });
-    });
-  });
-
-  describe('Content rendering', () => {
-    it('Should use "info" icon if "aim" attribute is omitted', () => {
-      const $icon = $snackbar.shadowRoot.querySelector('sling-icon');
-      expect($icon.icon).to.equal('info');
-    });
-
-    it('Should reflect to icon when "aim" is provided', (done) => {
-      $snackbar.aim = 'danger';
-
-      setTimeout(() => {
-        const $icon = $snackbar.shadowRoot.querySelector('sling-icon');
-        expect($icon.icon).to.equal('danger');
-        done();
-      });
-    });
-
-    it('Should NOT render a close button when "closeable" is omitted', () => {
-      expect($snackbar.shadowRoot.querySelector('sling-button')).to.not.exist;
-    });
-
-    it('Should render a close button when "closeable" is provided', (done) => {
-      $snackbar.closeable = true;
-
-      setTimeout(() => {
-        expect($snackbar.shadowRoot.querySelector('sling-button')).to.exist;
-        done();
-      });
-    });
-  });
-
-  describe('Handlers', () => {
-    it('Should call "closeclick" handler when close '
-      + 'button is clicked', (done) => {
-      $snackbar.closeable = true;
-
-      setTimeout(() => {
-        const handler = spy();
-        $snackbar.addEventListener('closeclick', handler);
-        $snackbar.shadowRoot.querySelector('sling-button').click();
-
-        expect(handler.calledOnce).to.be.true;
+        expect($menuItem.getAttribute('active')).to.equal('active');
         done();
       });
     });

@@ -2,7 +2,6 @@ import { html, SlingElement } from 'sling-framework';
 import 'sling-web-component-icon';
 
 export class MenuItem extends SlingElement {
-
   static get properties() {
     return {
       aim: {
@@ -34,7 +33,9 @@ export class MenuItem extends SlingElement {
     const hasSubmenu = (submenuPosition !== -1);
 
     if (anchor === null && !hasSubmenu) {
-      throw new Error('All sling-menu-item whitout a submenu must have a href attribute defined');
+      throw new Error(
+        'All sling-menu-item whitout' +
+        'a submenu must have a href attribute defined');
     }
 
     if (hasSubmenu) {
