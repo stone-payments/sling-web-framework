@@ -9,11 +9,11 @@ export class MenuItem extends SlingElement {
         type: String,
         reflectToAttribute: true,
       },
-      size: {
+      href: {
         type: String,
         reflectToAttribute: true,
       },
-      menu: {
+      active: {
         type: String,
         reflectToAttribute: true,
       },

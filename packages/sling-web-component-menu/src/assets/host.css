@@ -1,4 +1,5 @@
 /* layouts */
+
 /* vertical*/
 :host([layout="vertical"]) {
   display: block;
@@ -7,7 +8,6 @@
 
 :host-context([layout="vertical"]) ::slotted(sling-menu-item) {
   box-sizing: border-box;
-  list-style: none;
   font-weight: 500;
   margin: 0;
   color: #c3c8d2;
@@ -59,12 +59,23 @@
 }
 
 /*icon only*/
-:host([layout="vertical"][icononly]) ::slotted(sling-menu-item) {
-  border-right: 1px solid #c3c8d2;
+:host([icononly]) ::slotted(sling-menu-item) {
+  overflow: hidden;
+  text-indent: -9999px;
 }
 
 :host([size="small"][icononly]) ::slotted(sling-menu-item) {
   width: 50px;
-  overflow: hidden;
-  text-indent: -9999px;
+}
+
+:host([size="medium"][icononly]) ::slotted(sling-menu-item) {
+  width: 50px;
+}
+
+:host([size="large"][icononly]) ::slotted(sling-menu-item) {
+  width: 50px;
+}
+
+:host([layout="vertical"][icononly]) ::slotted(sling-menu-item) {
+  border-right: 1px solid #c3c8d2;
 }

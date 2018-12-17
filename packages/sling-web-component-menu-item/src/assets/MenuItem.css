@@ -20,8 +20,9 @@ a {
   border-style: solid;
 }
 
-a:focus {
+a:focus, a.vertical:focus, a.horizontal:focus {
   border-color: #2d3844;
+  border-width: 1px;
 }
 
 a.hasIcon {
@@ -53,8 +54,6 @@ a.vertical:hover:after {
   right: -10%;
   width: 35%;
   height: 100%;
-  /*background-image: linear-gradient(135deg, #ffc2c2 25%, #ff0000 25%, #ff0000 50%, #ffc2c2 50%, #ffc2c2 75%, #ff0000 75%, #ff0000 100%);
-  background-size: 25px 25px;*/
 }
 
 a.horizontal:hover, a.horizontal.active {
