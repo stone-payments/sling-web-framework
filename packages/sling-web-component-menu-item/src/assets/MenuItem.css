@@ -42,8 +42,8 @@ a:hover, a.active {
 }
 
 a.vertical:hover, a.vertical.active {
-  border-left: solid 1px #95c93d;
-  box-shadow: inset 1px 0 0 0 #95c93d;
+  border-left: solid 1px  #0DB14B;
+  box-shadow: inset 1px 0 0 0 #0DB14B;
 }
 
 a.vertical:hover:after {
@@ -58,6 +58,6 @@ a.vertical:hover:after {
 }
 
 a.horizontal:hover, a.horizontal.active {
-  box-shadow: inset 0 -1px 0 0 #95c93d;
-  border-bottom: solid 1px #95c93d;
+  box-shadow: inset 0 -1px 0 0 #0DB14B;
+  border-bottom: solid 1px #0DB14B;
 }
