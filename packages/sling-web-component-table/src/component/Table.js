@@ -7,6 +7,7 @@ export class Table extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.handleRowClick = this.handleRowClick.bind(this);
+    const that = this;
   }
 
   get srccolumns() {
@@ -29,6 +30,10 @@ export class Table extends HTMLElement {
 
   get editable() {
     return this.hasAttribute('editable');
+  }
+
+  get size() {
+    return this.getAttribute('size');
   }
 
   set editable(value) {
@@ -265,7 +270,7 @@ export class Table extends HTMLElement {
       <style>
         @import url('sling-web-component-table/src/index.css');
       </style>
-      <table class="emd-table${clickableRows ? ' emd-table_clickablerows' : ''}">
+      <table class="emd-table${clickableRows ? ' emd-table_clickablerows' : ''} ${this.size ? this.size : ''}">
         <colgroup>
           ${columns.map(item => `<col style="width: ${item.width || 'auto'};"></col>`).join('')}
           ${this.editable ? '<col></col>' : ''}
