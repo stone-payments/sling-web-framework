@@ -7,7 +7,6 @@ export class Table extends HTMLElement {
     super();
     this.attachShadow({ mode: 'open' });
     this.handleRowClick = this.handleRowClick.bind(this);
-    const that = this;
   }
 
   get srccolumns() {
