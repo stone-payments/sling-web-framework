@@ -2,13 +2,27 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   border-collapse: collapse;
-  border-radius: 2px;
-  color: #424B54;
+  border-radius: var(--sling-card-border-radius, 10px);
+  box-shadow: var(--sling-card-box-shadow, 0 4px 18px 0 rgba(0, 0, 0, 0.1));  
+  color: #2D3844;
   font-family: 'Heebo', sans-serif;
-  font-size: 12px;
-  line-height: 18px;
   width: 100%;
   background: var(--emd-table-background-color, transparent);
+}
+
+.emd-table.small {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.emd-table.medium {
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.emd-table.large {
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .emd-table__header_hidden {
@@ -48,7 +62,7 @@
 .emd-table__cell {
   padding: 16px;
   height: 32px;
-  border-top: solid 1px #C3C8D2;
+  border-top: solid 1px #c3c8d2;
   font-weight: 400;
 }
 
@@ -57,7 +71,7 @@
 }
 
 .emd-table__header_hidden + .emd-table__body .emd-table__row:nth-child(1) .emd-table__cell {
-  border-top: solid 1px #C3C8D2;
+  border-top: solid 1px #c3c8d2;
 }
 
 .emd-table__currency {
@@ -65,24 +79,37 @@
 }
 
 .emd-table__value_negative {
-  color: #E2001E;
+  color: #c7352e;
 }
 
 .emd-table__symbol {
   padding-right: 8px;
   color: #96A0AF;
+  text-align: left;
+}
+
+.small .emd-table__symbol {
   font-size: 10px;
   line-height: 12px;
-  text-align: left;
+}
+
+.medium .emd-table__symbol {
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.large .emd-table__symbol {
+  font-size: 12px;
+  line-height: 14px;
 }
 
 .emd-table__content_secondary {
   color: #96A0AF;
   display: block;
-  font-size: 10px;
-  line-height: 12px;
   text-align: left;
   white-space: nowrap;
+  font-size: 10px;
+  line-height: 12px;
 }
 
 .bullet__status {
@@ -98,16 +125,16 @@
 }
 
 .bullet__status_1 {
-  color: var(--calendar-status-1-color, #F9BF09);
+  color: var(--calendar-status-1-color, #f9bf09);
 }
 .bullet__status_2 {
   color: var(--calendar-status-2-color, #B9C3CC);
 }
 .bullet__status_3 {
-  color: var(--calendar-status-3-color, #C7352E);
+  color: var(--calendar-status-3-color, #c7352e);
 }
 .bullet__status_4 {
-  color: var(--calendar-status-4-color, #31CD65);
+  color: var(--calendar-status-4-color, #31cd65);
 }
 
 .bullet__status_secondary {
