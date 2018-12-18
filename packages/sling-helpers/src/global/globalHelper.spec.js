@@ -20,6 +20,7 @@ import {
   isDeeplyEmpty,
   flatten,
   mergeUnique,
+  setIn,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -582,5 +583,13 @@ describe('flatten', () => {
 describe('mergeUnique', () => {
   it('Should return the expected merged result', () => {
     expect(mergeUnique([1, 2], [2, 3, 4], [3, 4, 5])).to.eql([1, 2, 3, 4, 5]);
+  });
+});
+
+describe('setIn', () => {
+  it('Should set value in the right path', () => {
+    const object = { a: [{ b: { c: 3 } }] };
+    const testResult = setIn(object, 'a[0].b.c', 4);
+    expect(testResult.a[0].b.c).to.eql(4);
   });
 });
