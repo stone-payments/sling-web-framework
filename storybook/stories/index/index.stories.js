@@ -4,9 +4,11 @@ import { linkTo } from '@storybook/addon-links';
 
 import Welcome from './Welcome';
 
-storiesOf('Welcome', module)
-  .add('to Storybook', () => ({
-    components: { Welcome },
-    template: '<welcome :showApp="action" />',
-    methods: { action: linkTo('Button') },
-  }));
+const stories = storiesOf('Welcome', module);
+
+stories
+	.add('to Storybook', () => ({
+		components: { Welcome },
+		template: '<welcome :showApp="action" />',
+		methods: { action: linkTo('Button') },
+	}));
