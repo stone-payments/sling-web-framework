@@ -33,7 +33,7 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   connectedCallback() {
     super.connectedCallback();
     this._mo = new MutationObserver(this.handleDomUpdate);
-    this._mo.observe(this, { childList: true, subtree: true });
+    this._mo.observe(this.shadowRoot, { childList: true, subtree: true });
     this.handleDomUpdate();
   }
 
@@ -114,10 +114,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   handleStateUpdate(nextState) {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      const wasValidatedOnce = getIn(nextState.wasValidated, fieldId);
+      const wasTouched = getIn(nextState.touched, fieldId);
       field.value = getIn(nextState.values, fieldId);
 
-      if (wasValidatedOnce) {
+      if (wasTouched) {
         field.validating = getIn(nextState.isValidatingField, fieldId);
 
         if (!field.validating) {
@@ -132,6 +132,8 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   }
 
   handleDomUpdate() {
+    console.log('dom update');
+
     this.fields.forEach((field) => {
       field.oninput = this.handleInput;
       field.onblur = this.handleBlur;

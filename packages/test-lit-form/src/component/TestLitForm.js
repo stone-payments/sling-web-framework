@@ -25,6 +25,8 @@ export const TestLitForm = Base => class extends withForm(Base) {
       },
       games: [],
     });
+
+    this.addGame = this.addGame.bind(this);
   }
 
   static get properties() {
@@ -33,6 +35,25 @@ export const TestLitForm = Base => class extends withForm(Base) {
         type: Object,
         reflectToAttribute: false,
       },
+    };
+  }
+
+  addGame() {
+    this.setValues({
+      ...this.state.values,
+      games: [
+        ...this.state.values.games || [],
+        '',
+      ],
+    });
+  }
+
+  removeGame(index) {
+    return () => {
+      this.setValues({
+        ...this.state.values,
+        games: this.state.values.games.filter((_, idx) => idx !== index),
+      });
     };
   }
 
@@ -118,12 +139,33 @@ export const TestLitForm = Base => class extends withForm(Base) {
         </div>
 
         <div class="form__title">
-          <h4>Jogos preferidos</h4>
-          ${values.games && values.games.map(() => html``)}
+          <h3>
+            Jogos preferidos
+            <button
+              type="button"
+              onclick="${this.addGame}">
+              Adicionar</button>
+          </h3>
         </div>
+
+        ${values.games && values.games.map((_, index) => html`
+          <div>
+            <h4>
+              Nome
+              <button
+                type="button"
+                onclick="${this.removeGame(index)}"
+                tabindex="-1">
+                Remover</button>
+            </h4>
+            <sling-field
+              name="games[${index}]"
+              required></sling-field>
+          </div>
+        `)}
       </sling-form>
 
-      <pre>${JSON.stringify(omit(this.formState, 'byId'), null, 2)}</pre>
+      <!-- pre>${JSON.stringify(omit(this.formState, 'byId'), null, 2)}</pre -->
     `;
   }
 };
