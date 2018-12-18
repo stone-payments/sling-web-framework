@@ -1,0 +1,14 @@
+{
+  "name": "sling-web-component-menu",
+  "version": "1.11.7",
+  "description": "Sling Menu",
+  "author": "Stone Pagamentos",
+  "module": "src/index.js",
+  "main": "dist/cjs/es5/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "dependencies": {
+    "sling-framework": "^1.11.7",
+    "sling-helpers": "^1.11.7",
+    "sling-web-component-menu-item": "^1.11.7"
+  }
+}
