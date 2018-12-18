@@ -2,6 +2,7 @@ import { html } from 'sling-framework';
 import { omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
 import 'sling-web-component-field';
+import 'sling-web-component-button';
 
 import {
   validateUsernameAvailability,
@@ -141,10 +142,13 @@ export const TestLitForm = Base => class extends withForm(Base) {
         <div class="form__title">
           <h3>
             Jogos preferidos
-            <button
+            <sling-button
               type="button"
-              onclick="${this.addGame}">
-              Adicionar</button>
+              onclick="${this.addGame}"
+              slim
+              size="small"
+              layout="outline">
+              Adicionar</sling-button>
           </h3>
         </div>
 
@@ -152,20 +156,29 @@ export const TestLitForm = Base => class extends withForm(Base) {
           <div>
             <h4>
               Nome
-              <button
+              <sling-button
                 type="button"
                 onclick="${this.removeGame(index)}"
-                tabindex="-1">
-                Remover</button>
+                tabindex="-1"
+                slim
+                size="small"
+                layout="outline">
+                Remover</sling-button>
             </h4>
             <sling-field
               name="games[${index}]"
               required></sling-field>
           </div>
         `)}
+
+        <div class="form__title">
+          <sling-button type="submit">Enviar</sling-button>
+        </div>
       </sling-form>
 
-      <!-- pre>${JSON.stringify(omit(this.formState, 'byId'), null, 2)}</pre -->
+      <!-- pre>
+        ${JSON.stringify(omit(this.formState, 'byId'), null, 2)}
+      </pre -->
     `;
   }
 };

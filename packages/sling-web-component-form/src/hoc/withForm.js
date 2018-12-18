@@ -9,6 +9,8 @@ import {
   updateFieldTouched,
   updateFieldUsed,
   setValues,
+  startSubmission,
+  finishSubmission,
 } from '../state/formReducer.js';
 
 const FORM_TYPES = [
@@ -21,11 +23,17 @@ const FORM_FIELD_TYPES = [
   'SLING-SELECT',
 ];
 
+const FORM_SUBMIT_TYPES = [
+  'SLING-BUTTON',
+  'BUTTON',
+];
+
 export const withForm = Base => class extends withReducer(formReducer)(Base) {
   constructor() {
     super();
     this.handleStateUpdate = this.handleStateUpdate.bind(this);
     this.handleDomUpdate = this.handleDomUpdate.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
   }
@@ -50,6 +58,11 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     return FORM_FIELD_TYPES.includes(target.nodeName);
   }
 
+  static isSubmitButton(target) {
+    return FORM_SUBMIT_TYPES.includes(target.nodeName)
+      && target.type === 'submit';
+  }
+
   static getFieldId(field) {
     return field.getAttribute('name') ||
       field.name ||
@@ -62,15 +75,23 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       ? Array
         .from(this.shadowRoot.querySelectorAll('*'))
         .find(this.constructor.isForm)
-      : [];
+      : null;
   }
 
   get fields() {
-    return this.shadowRoot
+    return this.form
       ? Array
-        .from(this.shadowRoot.querySelectorAll('*'))
+        .from(this.form.querySelectorAll('*'))
         .filter(this.constructor.isFormField)
       : [];
+  }
+
+  get submitButton() {
+    return this.form
+      ? Array
+        .from(this.form.querySelectorAll('*'))
+        .find(this.constructor.isSubmitButton)
+      : null;
   }
 
   get state() {
@@ -111,6 +132,26 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     ));
   }
 
+  submitForm() {
+    if (!this.state.isSubmitting) {
+      this.fields.forEach((field) => {
+        const fieldId = this.constructor.getFieldId(field);
+        this.dispatchAction(updateFieldTouched(fieldId, true));
+        this.validateFieldByElement(field);
+      });
+
+      this.validateForm();
+      this.dispatchAction(startSubmission());
+    }
+  }
+
+  finishSubmission() {
+    if (this.state.isSubmitting) {
+      this.dispatchAction(finishSubmission());
+      this.preventNextSubmission = false;
+    }
+  }
+
   handleStateUpdate(nextState) {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
@@ -129,15 +170,30 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
         }
       }
     });
+
+    const { isValid, isValidating, isSubmitting, values, errors } = this.state;
+
+    if (isSubmitting && !isValidating && !this.preventNextSubmission) {
+      this.preventNextSubmission = true;
+      if (isValid) {
+        this.dispatchEventAndMethod('submitsuccess', values);
+      } else {
+        this.dispatchEventAndMethod('submiterror', errors);
+      }
+    }
   }
 
   handleDomUpdate() {
-    console.log('dom update');
-
     this.fields.forEach((field) => {
       field.oninput = this.handleInput;
       field.onblur = this.handleBlur;
     });
+
+    this.submitButton.onclick = this.handleClick;
+  }
+
+  handleClick() {
+    this.submitForm();
   }
 
   handleBlur({ target: field }) {

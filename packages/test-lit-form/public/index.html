@@ -12,6 +12,21 @@
 
 <body>
   <test-lit-form></test-lit-form>
+  <script>
+    const litForm = document.querySelector('test-lit-form');
+
+    litForm.addEventListener('submitsuccess',
+      ({ detail }) => {
+        console.log('YAY!', detail);
+        // litForm.finishSubmission();
+      });
+
+    litForm.addEventListener('submiterror',
+      ({ detail }) => {
+        console.log('DARN!', detail);
+        // litForm.finishSubmission();
+      });
+  </script>
 </body> 
 
 </html>
