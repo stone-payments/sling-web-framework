@@ -2,8 +2,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   border-collapse: collapse;
-  border-radius: var(--sling-card-border-radius, 10px);
-  box-shadow: var(--sling-card-box-shadow, 0 4px 18px 0 rgba(0, 0, 0, 0.1));  
+  border-radius: var(--sling-table-border-radius, 10px);
+  box-shadow: var(--sling-table-box-shadow, 0 4px 18px 0 rgba(0, 0, 0, 0.1));  
   color: #2D3844;
   font-family: 'Heebo', sans-serif;
   width: 100%;
