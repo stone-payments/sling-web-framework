@@ -1,11 +1,9 @@
 :host {
   display: block;
-  border: 1px solid #C3C8D2;
 }
 
 /* for compatibility */
 
 sling-table {
   display: block;
-  border: 1px solid #C3C8D2;
 }
