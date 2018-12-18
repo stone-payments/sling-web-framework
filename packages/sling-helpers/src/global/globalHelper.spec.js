@@ -19,6 +19,7 @@ import {
   getDateRangeArray,
   isDeeplyEmpty,
   flatten,
+  mergeUnique,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -575,5 +576,11 @@ describe('flatten', () => {
     const test = { a: ['art', 'ant'], b: { basic: true } };
     const expectResult = { 'a[0]': 'art', 'a[1]': 'ant', 'b.basic': true };
     expect(flatten(test)).to.eql(expectResult);
+  });
+});
+
+describe('mergeUnique', () => {
+  it('Should return the expected merged result', () => {
+    expect(mergeUnique([1, 2], [2, 3, 4], [3, 4, 5])).to.eql([1, 2, 3, 4, 5]);
   });
 });
