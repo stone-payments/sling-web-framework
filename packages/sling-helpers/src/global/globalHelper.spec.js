@@ -22,6 +22,7 @@ import {
   mergeUnique,
   setIn,
   getIn,
+  sleep,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -599,5 +600,12 @@ describe('getIn', () => {
   it('Should get value in the right path', () => {
     const object = { a: [{ b: { c: 3 } }] };
     expect(getIn(object, 'a[0].b.c')).to.eql(3);
+  });
+});
+
+describe('sleep', () => {
+  it('Should return a promise that is resolved after the given delay', (done) => {
+    sleep(1000);
+    done();
   });
 });
