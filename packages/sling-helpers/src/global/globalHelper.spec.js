@@ -18,6 +18,7 @@ import {
   mapByKey,
   getDateRangeArray,
   isDeeplyEmpty,
+  flatten,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -566,5 +567,13 @@ describe('isDeeplyEmpty', () => {
   it('Should return false for empty properties', () => {
     const test = { a: null, b: undefined, c: [], d: ['testString', undefined] };
     chai.assert.isFalse(isDeeplyEmpty(test));
+  });
+});
+
+describe('flatten', () => {
+  it('Should return the expected flat result', () => {
+    const test = { a: ['art', 'ant'], b: { basic: true } };
+    const expectResult = { 'a[0]': 'art', 'a[1]': 'ant', 'b.basic': true };
+    expect(flatten(test)).to.eql(expectResult);
   });
 });
