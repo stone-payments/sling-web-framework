@@ -141,35 +141,22 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
-      const { value, validationhook } = field;
 
       this.dispatchAction(updateFieldTouched(fieldId, true));
-
-      const shouldValidate = validationhook == null
-        || validationhook === 'blur'
-        || (validationhook === 'input' && !value);
-
-      if (shouldValidate) {
-        this.validateFieldByElement(field);
-        this.validateForm();
-      }
+      this.validateFieldByElement(field);
+      this.validateForm();
     }
   }
 
   handleInput({ target: field }) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
-      const { value, validationhook } = field;
+      const { value } = field;
 
       this.dispatchAction(updateFieldUsed(fieldId, true));
       this.dispatchAction(updateFieldValue(fieldId, value));
-
-      const shouldValidate = validationhook === 'input';
-
-      if (shouldValidate) {
-        this.validateFieldByElement(field);
-        this.validateForm();
-      }
+      this.validateFieldByElement(field);
+      this.validateForm();
     }
   }
 };
