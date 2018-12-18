@@ -1,8 +1,8 @@
 import { setAttr, isFunction } from 'sling-helpers';
+import 'sling-web-component-icon';
 import { withRequired } from './withRequired.js';
 
 const BOOLEAN_PROPS = [
-  'autocomplete',
   'disabled',
   'required',
   'readonly',
@@ -10,19 +10,17 @@ const BOOLEAN_PROPS = [
 ];
 
 const STRING_PROPS = [
+  'autocomplete',
   'type',
   'name',
   'id',
   'placeholder',
   'value',
   'validationstatus',
+  'validationhook',
 ];
 
-const NUMERIC_PROPS = [
-  'validationdelay',
-];
-
-const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS, ...NUMERIC_PROPS];
+const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS];
 
 export const Field = Base => class extends Base {
   constructor() {
@@ -33,7 +31,18 @@ export const Field = Base => class extends Base {
       <style>
         @import url('sling-web-component-field/src/index.css');
       </style>
-      <slot><input class="emd-field"/></slot>
+      <div class="emd-field">
+        <input class="emd-field__input">
+        <sling-icon
+          class="emd-field__icon emd-field__icon_validating"
+          icon="ellipsis"></sling-icon>
+        <sling-icon
+          class="emd-field__icon emd-field__icon_error"
+          icon="warning"></sling-icon>
+        <sling-icon
+          class="emd-field__icon emd-field__icon_success"
+          icon="success"></sling-icon>
+      </div>
     `;
 
     BOOLEAN_PROPS.forEach((propName) => {
@@ -45,14 +54,7 @@ export const Field = Base => class extends Base {
 
     STRING_PROPS.forEach((propName) => {
       Object.defineProperty(this, propName, {
-        get() { return String(this.getAttribute(propName)); },
-        set(value) { setAttr(this, propName, value); },
-      });
-    });
-
-    NUMERIC_PROPS.forEach((propName) => {
-      Object.defineProperty(this, propName, {
-        get() { return Number(this.getAttribute(propName)); },
+        get() { return this.getAttribute(propName); },
         set(value) { setAttr(this, propName, value); },
       });
     });

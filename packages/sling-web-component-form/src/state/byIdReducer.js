@@ -5,6 +5,7 @@ const INITIAL_FIELD_STATE = {
   error: null,
   isValidating: false,
   validation: null,
+  validated: false,
   value: '',
   touched: false,
   used: false,
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
     error: null,
     isValidating: false,
     validation: null,
+    validated: false,
   },
 };
 
@@ -138,6 +140,7 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       return updateFieldState({
         isValidating: false,
         validation: null,
+        validated: true,
         error: action.error,
       });
 

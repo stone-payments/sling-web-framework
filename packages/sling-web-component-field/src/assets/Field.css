@@ -1,29 +1,57 @@
 .emd-field {
-  border: 1px solid #C3C8D2;
+  display: grid;
+  grid-template-columns: 1fr 2.125em;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid #c3c8d2; /* changed by :host */
+  font-size: 16px;
+}
+
+.emd-field__input {
+  -webkit-appearance: none;
+  appearance: none;
+  font-size: 1em;
+  line-height: 1;
+  border: none;
+  padding: 1em; /* changed by :host */
   box-sizing: border-box;
-  border-radius: 2px;
-  color: #96A0AF;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0;
-  padding: 16px;
-  width: 100%;
+  color: #2d3844;
 }
 
-.emd-field:hover, {
-  border: 1px solid #96A0AF;
-  color: #96A0AF;
+.emd-field:focus-within {
+  border-width: 2px;
 }
 
-.emd-field:disabled {
-  background: #FAFAFC;
-  border: 1px solid #EBEBF0;
-  color: #C3C8D2;
+.emd-field:focus-within .emd-field__input {
+  padding: calc(1em - 1px);
 }
 
-.emd-field:focus {
-  border: 1px solid #96A0AF;
-  color: #96A0AF;
+.emd-field__input:focus {
   outline: none;
+}
+
+.emd-field__input::placeholder {
+  color: #96a0af;
+}
+
+.emd-field__input::-moz-placeholder {
+  opacity: 1;
+}
+
+.emd-field__icon {
+  display: none; /* changed by :host */
+  width: 1.5em;
+}
+
+.emd-field__icon_validating {
+  color: #96a0af;
+}
+
+.emd-field__icon_success {
+  color: #2ecc71;
+}
+
+.emd-field__icon_error {
+  color: #e74c3c;
 }

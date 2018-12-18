@@ -1,5 +1,4 @@
 import { html } from 'sling-framework';
-import 'sling-web-component-form';
 import 'sling-web-component-field';
 import 'sling-web-component-field-message';
 import 'sling-web-component-button';

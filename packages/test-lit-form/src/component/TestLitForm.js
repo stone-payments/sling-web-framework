@@ -1,74 +1,12 @@
 import { html } from 'sling-framework';
-import { getIn, omit } from 'sling-helpers';
+import { omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
-import 'sling-web-component-icon';
+import 'sling-web-component-field';
 
 import {
   validateUsernameAvailability,
-  validateRequired,
-  validateEmail,
-  validateCpf,
-  validateCnpj,
+  validatePresenceOfAnyTel,
 } from './customValidations.js';
-
-// deve virar um selector mais tarde
-
-const getValidationStatus = (fieldId, state) => {
-  const { isValidatingField, errors, touched } = state;
-
-  if (!getIn(touched, fieldId)) {
-    return fieldId;
-  }
-
-  if (getIn(isValidatingField, fieldId)) {
-    return 'validating';
-  }
-
-  return getIn(errors, fieldId) ? 'error' : 'success';
-};
-
-const FieldIconView = (fieldId, state) => html`
-  <sling-icon
-    className="field__icon field__icon_validating
-    ${getValidationStatus(fieldId, state) === 'validating' ? '' : 'field__icon_hidden'}"
-    icon="ellipsis"></sling-icon>
-
-  <sling-icon
-    className="field__icon field__icon_error
-    ${getValidationStatus(fieldId, state) === 'error' ? '' : 'field__icon_hidden'}"
-    icon="warning"></sling-icon>
-
-  <sling-icon
-    className="field__icon field__icon_success
-    ${getValidationStatus(fieldId, state) === 'success' ? '' : 'field__icon_hidden'}"
-    icon="success"></sling-icon>
-`;
-
-const FieldView = (fieldId, validation, state) => html`
-  <div className="field field_${getValidationStatus(fieldId, state)}">
-    <input
-      validation="${validation}"
-      oninput="${state.handleInput}"
-      onblur="${state.handleBlur}"
-      name="${fieldId}"
-      value="${getIn(state.values, fieldId)}"
-      class="field__input"
-      autocomplete="off">
-    ${FieldIconView(fieldId, state)}
-  </div>
-`;
-
-const FieldMessageView = (fieldId, {
-  isValidatingField,
-  touched,
-  errors,
-}) => html`
-  <p>
-    ${!getIn(isValidatingField, fieldId) && getIn(touched, fieldId) ? html`
-      ${getIn(errors, fieldId)}
-    ` : ''}
-  </p>
-`;
 
 export const TestLitForm = Base => class extends withForm(Base) {
   constructor() {
@@ -76,14 +14,14 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
     this.setValues({
       name: '',
-      lastName: '',
-      userName: '',
+      lastname: '',
+      username: '',
       email: '',
       cpf: '',
       cnpj: '',
       phones: {
-        work: '',
-        home: '',
+        cell: '',
+        land: '',
       },
       games: [],
     });
@@ -100,58 +38,90 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
   render() {
     const { values } = this.formState;
-    const common = { ...this.formState, ...this };
 
     return html`
       <style>
         @import url('test-lit-form/src/index.css');
       </style>
+      
+      <sling-form
+        class="form"
+        validation="${validatePresenceOfAnyTel}">
 
-      <div class="form">
+        <div class="form__title">
+          <h3>Dados</h3>
+        </div>
+
         <div>
           <h4>Nome</h4>
-          ${FieldView('name', validateRequired, common)}
-          ${FieldMessageView('name', common)}
+          <sling-field
+            name="name"
+            required></sling-field>
         </div>
 
         <div>
           <h4>Sobrenome</h4>
-          ${FieldView('lastName', validateRequired, common)}
-          ${FieldMessageView('lastName', common)}
+          <sling-field
+            name="lastname"
+            required></sling-field>
         </div>
 
         <div>
           <h4>Apelido</h4>
-          ${FieldView('userName', validateUsernameAvailability, common)}
-          ${FieldMessageView('userName', common)}
+          <sling-field
+            name="username"
+            validation="${validateUsernameAvailability}"
+            validationhook="input"
+            required></sling-field>
         </div>
 
         <div>
           <h4>E-mail</h4>
-          ${FieldView('email', validateEmail, common)}
-          ${FieldMessageView('email', common)}
+          <sling-field
+            name="email"
+            type="email"
+            required></sling-field>
         </div>
 
         <div>
           <h4>CPF</h4>
-          ${FieldView('cpf', validateCpf, common)}
-          ${FieldMessageView('cpf', common)}
+          <sling-field
+            name="cpf"
+            type="cpf"
+            required></sling-field>
         </div>
 
         <div>
           <h4>CNPJ</h4>
-          ${FieldView('cnpj', validateCnpj, common)}
-          ${FieldMessageView('cnpj', common)}
+          <sling-field
+            name="cnpj"
+            type="cnpj"
+            required></sling-field>
+        </div>
+
+        <div class="form__title">
+          <h3>Telefones</h3>
         </div>
 
         <div>
-          <h4>Jogos preferidos</h4>
-          ${values.games && values.games.map((_, index) => html`
-            ${FieldView(`games[${index}]`, validateRequired, common)}
-            ${FieldMessageView(`games[${index}]`, common)}
-          `)}
+          <h4>Celular</h4>
+          <sling-field
+            name="phones.cell"
+            type="tel"></sling-field>
         </div>
-      </div>
+
+        <div>
+          <h4>Fixo</h4>
+          <sling-field
+            name="phones.land"
+            type="tel"></sling-field>
+        </div>
+
+        <div class="form__title">
+          <h4>Jogos preferidos</h4>
+          ${values.games && values.games.map(() => html``)}
+        </div>
+      </sling-form>
 
       <pre>${JSON.stringify(omit(this.formState, 'byId'), null, 2)}</pre>
     `;

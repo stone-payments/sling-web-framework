@@ -11,13 +11,14 @@ import {
   setValues,
 } from '../state/formReducer.js';
 
+const FORM_TYPES = [
+  'SLING-FORM',
+];
+
 const FORM_FIELD_TYPES = [
   'SLING-FIELD',
   'SLING-INPUT',
   'SLING-SELECT',
-  'INPUT',
-  'SELECT',
-  'TEXTAREA',
 ];
 
 export const withForm = Base => class extends withReducer(formReducer)(Base) {
@@ -41,6 +42,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     this._mo.disconnect();
   }
 
+  static isForm(target) {
+    return FORM_TYPES.includes(target.nodeName);
+  }
+
   static isFormField(target) {
     return FORM_FIELD_TYPES.includes(target.nodeName);
   }
@@ -52,10 +57,20 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       field.id;
   }
 
+  get form() {
+    return this.shadowRoot
+      ? Array
+        .from(this.shadowRoot.querySelectorAll('*'))
+        .find(this.constructor.isForm)
+      : [];
+  }
+
   get fields() {
-    return Array
-      .from(this.shadowRoot.querySelectorAll('*'))
-      .filter(this.constructor.isFormField);
+    return this.shadowRoot
+      ? Array
+        .from(this.shadowRoot.querySelectorAll('*'))
+        .filter(this.constructor.isFormField)
+      : [];
   }
 
   get state() {
@@ -91,46 +106,70 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
 
   validateForm() {
     this.dispatchAction(validateForm(
-      this.validation,
+      this.form.validation,
       this.state.values,
     ));
   }
 
   handleStateUpdate(nextState) {
-    /*
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
+      const wasValidatedOnce = getIn(nextState.wasValidated, fieldId);
       field.value = getIn(nextState.values, fieldId);
+
+      if (wasValidatedOnce) {
+        field.validating = getIn(nextState.isValidatingField, fieldId);
+
+        if (!field.validating) {
+          field.validationstatus = getIn(nextState.errors, fieldId) != null
+            ? 'error'
+            : 'success';
+        } else {
+          field.validationstatus = undefined;
+        }
+      }
     });
-    */
   }
 
   handleDomUpdate() {
-    /*
     this.fields.forEach((field) => {
       field.oninput = this.handleInput;
       field.onblur = this.handleBlur;
     });
-    */
   }
 
   handleBlur({ target: field }) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
+      const { value, validationhook } = field;
+
       this.dispatchAction(updateFieldTouched(fieldId, true));
-      this.validateFieldByElement(field);
-      this.validateForm();
+
+      const shouldValidate = validationhook == null
+        || validationhook === 'blur'
+        || (validationhook === 'input' && !value);
+
+      if (shouldValidate) {
+        this.validateFieldByElement(field);
+        this.validateForm();
+      }
     }
   }
 
   handleInput({ target: field }) {
     if (this.constructor.isFormField(field)) {
       const fieldId = this.constructor.getFieldId(field);
-      const { value } = field;
+      const { value, validationhook } = field;
+
       this.dispatchAction(updateFieldUsed(fieldId, true));
       this.dispatchAction(updateFieldValue(fieldId, value));
-      this.validateFieldByElement(field);
-      this.validateForm();
+
+      const shouldValidate = validationhook === 'input';
+
+      if (shouldValidate) {
+        this.validateFieldByElement(field);
+        this.validateForm();
+      }
     }
   }
 };

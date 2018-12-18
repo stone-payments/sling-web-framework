@@ -1,24 +1,4 @@
 import { cancelableDelay } from 'sling-web-component-form';
-import { compose } from 'sling-helpers';
-import {
-  validateEmail,
-  validateTel,
-  validateCpf,
-  validateCnpj,
-} from 'sling-web-component-field';
-
-export {
-  validateCpf,
-  validateCnpj,
-};
-
-export const validateRequired = value => (!value
-  ? 'Required'
-  : undefined);
-
-export const validateRequiredEmail = compose(validateEmail, validateRequired);
-
-export const validateRequiredTel = compose(validateTel, validateRequired);
 
 export const validateUsernameAvailability = (value) => {
   if (!value) {
@@ -33,4 +13,12 @@ export const validateUsernameAvailability = (value) => {
     .then(() => fetch(`https://api.github.com/users/${value}`))
     .then(response => (response.ok ? 'User exists' : undefined))
     .catch(() => undefined);
+};
+
+export const validatePresenceOfAnyTel = (values) => {
+  if (!values.phones || (!values.phones.cell && !values.phones.land)) {
+    return { hasPhone: 'Fill in at least one phone number' };
+  }
+
+  return {};
 };
