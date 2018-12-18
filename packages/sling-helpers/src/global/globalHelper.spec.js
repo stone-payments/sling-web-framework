@@ -565,12 +565,12 @@ describe('mapByKey', () => {
 describe('isDeeplyEmpty', () => {
   it('Should return true for empty properties', () => {
     const test = { a: null, b: undefined, c: [], d: [null, undefined] };
-    chai.assert.isTrue(isDeeplyEmpty(test));
+    expect(isDeeplyEmpty(test)).to.be.true;
   });
 
   it('Should check if have at least one property', () => {
     const test = { a: null, b: undefined, c: [], d: ['testString', undefined] };
-    chai.assert.isFalse(isDeeplyEmpty(test));
+    expect(isDeeplyEmpty(test)).to.be.false;
   });
 });
 
