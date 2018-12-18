@@ -21,6 +21,7 @@ import {
   flatten,
   mergeUnique,
   setIn,
+  getIn,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -591,5 +592,12 @@ describe('setIn', () => {
     const object = { a: [{ b: { c: 3 } }] };
     const testResult = setIn(object, 'a[0].b.c', 4);
     expect(testResult.a[0].b.c).to.eql(4);
+  });
+});
+
+describe('getIn', () => {
+  it('Should get value in the right path', () => {
+    const object = { a: [{ b: { c: 3 } }] };
+    expect(getIn(object, 'a[0].b.c')).to.eql(3);
   });
 });
