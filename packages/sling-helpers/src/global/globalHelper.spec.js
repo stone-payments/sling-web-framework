@@ -568,7 +568,7 @@ describe('isDeeplyEmpty', () => {
     chai.assert.isTrue(isDeeplyEmpty(test));
   });
 
-  it('Should return false for empty properties', () => {
+  it('Should check if have at least one property', () => {
     const test = { a: null, b: undefined, c: [], d: ['testString', undefined] };
     chai.assert.isFalse(isDeeplyEmpty(test));
   });
