@@ -607,7 +607,6 @@ describe('sleep', () => {
   it(
     'Should return a promise that is resolved'
     + ' after the given delay', (done) => {
-      sleep(1000);
-      done();
+      sleep(100).then(done);
     });
 });
