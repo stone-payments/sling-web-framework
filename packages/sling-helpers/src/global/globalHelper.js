@@ -137,6 +137,10 @@ export const isDeeplyEmpty = items => (items == null) ||
     .filter(hasError => !hasError)
     .length === 0;
 
+export const arraysEqual = (arrA, arrB) =>
+  arrA.length === arrB.length &&
+  arrA.every((item, index) => item === arrB[index]);
+
 export const mergeUnique = (...arrays) => [...new Set(arrays
   .reduce((result, arr) => [...result, ...arr], []))];
 

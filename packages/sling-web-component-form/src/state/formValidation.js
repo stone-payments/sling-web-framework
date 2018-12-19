@@ -1,4 +1,4 @@
-import { isPromise } from 'sling-helpers/src';
+import { isPromise } from 'sling-helpers';
 import { startValidation, finishValidation } from './byIdReducer.js';
 import { FORM } from './constant.js';
 

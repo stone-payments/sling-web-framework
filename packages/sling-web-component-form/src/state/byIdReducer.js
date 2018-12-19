@@ -1,4 +1,12 @@
-import { omit, flatten, toFlatEntries, toFlatObject } from 'sling-helpers/src';
+import {
+  flatten,
+  toFlatEntries,
+  toFlatObject,
+  toPath,
+  fromPath,
+  arraysEqual,
+} from 'sling-helpers';
+
 import { FORM } from './constant.js';
 
 const INITIAL_FIELD_STATE = {
@@ -18,7 +26,7 @@ const INITIAL_STATE = {
 };
 
 const ADD_FIELD = Symbol('ADD_FIELD');
-const REMOVE_FIELD = Symbol('REMOVE_FIELD');
+const REMOVE_FIELDS = Symbol('REMOVE_FIELDS');
 const UPDATE_FIELD_VALUE = Symbol('UPDATE_FIELD_VALUE');
 const UPDATE_FIELD_TOUCHED = Symbol('UPDATE_FIELD_TOUCHED');
 const RESET_FIELDS = Symbol('RESET_FIELDS');
@@ -31,9 +39,9 @@ export const addField = fieldId => ({
   fieldId,
 });
 
-export const removeField = fieldId => ({
-  type: REMOVE_FIELD,
-  fieldId,
+export const removeFields = fieldPrefix => ({
+  type: REMOVE_FIELDS,
+  fieldPrefix,
 });
 
 export const updateFieldValue = (fieldId, value) => ({
@@ -78,6 +86,35 @@ const updatePropWithCondition = (state, action) => (obj, condition = true) => {
     : state;
 };
 
+const parseRemoveFields = (state, fieldPrefix) => Object
+  .entries(state)
+  .filter(([fieldId]) => {
+    const baseKeys = toPath(fieldPrefix);
+    const keys = toPath(fieldId).slice(0, baseKeys.length);
+    return !arraysEqual(baseKeys, keys);
+  })
+  .map(([fieldId, value]) => {
+    const [lastKey] = toPath(fieldPrefix).slice(-1);
+
+    if (Number(lastKey) === lastKey) {
+      const baseKeys = toPath(fieldPrefix).slice(0, -1);
+      const keys = toPath(fieldId).slice(0, baseKeys.length);
+
+      if (arraysEqual(baseKeys, keys)) {
+        const newKeys = toPath(fieldId);
+        const index = newKeys[baseKeys.length];
+
+        if (index > lastKey) {
+          newKeys[baseKeys.length] -= 1;
+          return [fromPath(newKeys), value];
+        }
+      }
+    }
+
+    return [fieldId, value];
+  })
+  .reduce(toFlatEntries, {});
+
 const parseUserValues = userValues => Object
   .entries(flatten(userValues))
   .map(([fieldId, value]) => [fieldId, {
@@ -102,8 +139,8 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
         ? { ...state, [action.fieldId]: { ...INITIAL_FIELD_STATE } }
         : state;
 
-    case REMOVE_FIELD:
-      return omit(state, action.fieldId);
+    case REMOVE_FIELDS:
+      return parseRemoveFields(state, action.fieldPrefix);
 
     case UPDATE_FIELD_VALUE:
       return updateFieldState(
