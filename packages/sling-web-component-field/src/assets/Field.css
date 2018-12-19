@@ -17,10 +17,12 @@
   padding: 1em; /* changed by :host */
   box-sizing: border-box;
   color: #2d3844;
+  width: 100%;
 }
 
 .emd-field:focus-within {
   border-width: 2px;
+  grid-template-columns: 1fr calc(2.125em - 1px);
 }
 
 .emd-field:focus-within .emd-field__input {
@@ -46,12 +48,37 @@
 
 .emd-field__icon_validating {
   color: #96a0af;
+  fill: #96a0af;
 }
 
 .emd-field__icon_success {
   color: #2ecc71;
+  fill: #2ecc71;
 }
 
 .emd-field__icon_error {
   color: #e74c3c;
+  fill: #e74c3c;
+}
+
+.emd-field__icon_validating circle {
+  transform-origin: center;
+  animation: oscillate 0.6s infinite ease-in-out alternate;
+}
+
+.emd-field__icon_validating circle:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.emd-field__icon_validating circle:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes oscillate {
+  from {
+    r: 4;
+  }
+  to {
+    r: 2;
+  }
 }

@@ -2,6 +2,7 @@ import { html } from 'sling-framework';
 import { omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
 import 'sling-web-component-field';
+import 'sling-web-component-field-message';
 import 'sling-web-component-button';
 
 import {
@@ -59,7 +60,14 @@ export const TestLitForm = Base => class extends withForm(Base) {
   }
 
   render() {
-    const { values } = this.formState;
+    const {
+      values,
+      touched,
+      isSubmitting,
+      isValidating,
+      isValid,
+      dirty,
+    } = this.formState;
 
     return html`
       <style>
@@ -76,16 +84,14 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
         <div>
           <h4>Nome</h4>
-          <sling-field
-            name="name"
-            required></sling-field>
+          <sling-field name="name" required></sling-field>
+          <sling-field-message name="name"></sling-field-message>
         </div>
 
         <div>
           <h4>Sobrenome</h4>
-          <sling-field
-            name="lastname"
-            required></sling-field>
+          <sling-field name="lastname" required></sling-field>
+          <sling-field-message name="lastname"></sling-field-message>
         </div>
 
         <div>
@@ -93,50 +99,46 @@ export const TestLitForm = Base => class extends withForm(Base) {
           <sling-field
             name="username"
             validation="${validateUsernameAvailability}"
-            validationhook="input"
             required></sling-field>
+          <sling-field-message name="username"></sling-field-message>
         </div>
 
         <div>
           <h4>E-mail</h4>
-          <sling-field
-            name="email"
-            type="email"
-            required></sling-field>
+          <sling-field name="email" type="email" required></sling-field>
+          <sling-field-message name="email"></sling-field-message>
         </div>
 
         <div>
           <h4>CPF</h4>
-          <sling-field
-            name="cpf"
-            type="cpf"
-            required></sling-field>
+          <sling-field name="cpf" type="cpf" required></sling-field>
+          <sling-field-message name="cpf"></sling-field-message>
         </div>
 
         <div>
           <h4>CNPJ</h4>
-          <sling-field
-            name="cnpj"
-            type="cnpj"
-            required></sling-field>
+          <sling-field name="cnpj" type="cnpj" required></sling-field>
+          <sling-field-message name="cnpj"></sling-field-message>
         </div>
 
         <div class="form__title">
           <h3>Telefones</h3>
+          <sling-field-message
+            name="minphones"
+            style="${touched.phones.cell && touched.phones.land ? 'visibility: visible' : 'visibility: hidden'}">
+          </sling-field-message>
         </div>
 
         <div>
           <h4>Celular</h4>
-          <sling-field
-            name="phones.cell"
-            type="tel"></sling-field>
+          <sling-field name="phones.cell" type="tel"></sling-field>
+          <sling-field-message name="phones.cell"></sling-field-message>
         </div>
 
         <div>
           <h4>Fixo</h4>
-          <sling-field
-            name="phones.land"
-            type="tel"></sling-field>
+          <sling-field name="phones.land" type="tel"></sling-field>
+          <sling-field-message name="phones.land"></sling-field-message>
         </div>
 
         <div class="form__title">
@@ -165,20 +167,21 @@ export const TestLitForm = Base => class extends withForm(Base) {
                 layout="outline">
                 Remover</sling-button>
             </h4>
-            <sling-field
-              name="games[${index}]"
-              required></sling-field>
+            <sling-field name="games[${index}]" required></sling-field>
+            <sling-field-message name="games[${index}]"></sling-field-message>
           </div>
         `)}
 
         <div class="form__title">
-          <sling-button type="submit">Enviar</sling-button>
+          <sling-button
+            disabled="${isSubmitting || isValidating || !isValid || !dirty}"
+            type="submit">Enviar</sling-button>
         </div>
       </sling-form>
 
-      <!-- pre>
-        ${JSON.stringify(omit(this.formState, 'byId'), null, 2)}
-      </pre -->
+      <pre>
+        ${JSON.stringify(this.formState, null, 2)}
+      </pre>
     `;
   }
 };

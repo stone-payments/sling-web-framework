@@ -17,7 +17,13 @@ export const validateUsernameAvailability = (value) => {
 
 export const validatePresenceOfAnyTel = (values) => {
   if (!values.phones || (!values.phones.cell && !values.phones.land)) {
-    return { hasPhone: 'Fill in at least one phone number' };
+    return {
+      minphones: 'Fill in at least one phone number',
+      phones: {
+        cell: '',
+        land: '',
+      },
+    };
   }
 
   return {};

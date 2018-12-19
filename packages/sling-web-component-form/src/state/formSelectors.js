@@ -24,9 +24,9 @@ export const parseState = (state) => {
   const dirty = parseDirty(state);
 
   const errors = {
-    ...form.error,
     ...fieldEntries.reduce((result, [fieldId, obj]) =>
       setIn(result, `${fieldId}`, obj.error), {}),
+    ...form.error,
   };
 
   const values = fieldEntries.reduce((result, [fieldId, obj]) =>

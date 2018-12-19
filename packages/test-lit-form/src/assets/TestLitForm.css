@@ -9,3 +9,14 @@
 .form__title {
   grid-column-end: span 2;
 }
+
+h4 {
+  margin: 0.75em 0;
+}
+
+sling-field-message {
+  display: flex;
+  align-items: center;
+  height: 2.125em;
+  color: #e74c3c;
+}

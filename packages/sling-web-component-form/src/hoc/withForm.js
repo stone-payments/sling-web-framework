@@ -23,6 +23,10 @@ const FORM_FIELD_TYPES = [
   'SLING-SELECT',
 ];
 
+const FORM_FIELD_MESSAGE_TYPES = [
+  'SLING-FIELD-MESSAGE',
+];
+
 const FORM_SUBMIT_TYPES = [
   'SLING-BUTTON',
   'BUTTON',
@@ -58,6 +62,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     return FORM_FIELD_TYPES.includes(target.nodeName);
   }
 
+  static isFormFieldMessage(target) {
+    return FORM_FIELD_MESSAGE_TYPES.includes(target.nodeName);
+  }
+
   static isSubmitButton(target) {
     return FORM_SUBMIT_TYPES.includes(target.nodeName)
       && target.type === 'submit';
@@ -83,6 +91,14 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       ? Array
         .from(this.form.querySelectorAll('*'))
         .filter(this.constructor.isFormField)
+      : [];
+  }
+
+  get fieldMessages() {
+    return this.form
+      ? Array
+        .from(this.form.querySelectorAll('*'))
+        .filter(this.constructor.isFormFieldMessage)
       : [];
   }
 
@@ -155,10 +171,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   handleStateUpdate(nextState) {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
-      const wasTouched = getIn(nextState.touched, fieldId);
+      const touched = getIn(nextState.touched, fieldId);
       field.value = getIn(nextState.values, fieldId);
 
-      if (wasTouched) {
+      if (touched) {
         field.validating = getIn(nextState.isValidatingField, fieldId);
 
         if (!field.validating) {
@@ -168,6 +184,22 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
         } else {
           field.validationstatus = undefined;
         }
+      }
+    });
+
+    this.fieldMessages.forEach((fieldMessage) => {
+      const fieldId = this.constructor.getFieldId(fieldMessage);
+      const relatedField = this.getFieldById(fieldId);
+      const touched = getIn(nextState.touched, fieldId);
+      const isValidatingField = getIn(nextState.isValidatingField, fieldId);
+      const error = getIn(this.state.errors, fieldId);
+
+      if (isValidatingField) {
+        fieldMessage.message = null;
+      }
+
+      if (!relatedField || (touched && !isValidatingField)) {
+        fieldMessage.message = error || null;
       }
     });
 

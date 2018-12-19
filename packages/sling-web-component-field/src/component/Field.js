@@ -33,9 +33,14 @@ export const Field = Base => class extends Base {
       </style>
       <div class="emd-field">
         <input class="emd-field__input">
-        <sling-icon
-          class="emd-field__icon emd-field__icon_validating"
-          icon="ellipsis"></sling-icon>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32" height="8" viewBox="0 0 32 8"
+          class="emd-field__icon emd-field__icon_validating">
+          <circle cx="4" cy="4" r="4"></circle>
+          <circle cx="16" cy="4" r="4"></circle>
+          <circle cx="28" cy="4" r="4"></circle>
+        </svg>
         <sling-icon
           class="emd-field__icon emd-field__icon_error"
           icon="warning"></sling-icon>
