@@ -1,7 +1,7 @@
 import 'sling-web-component-input'
 
 export default {
-    name: 'storybook-Input',
+    name: 'storybook-input',
 
     template: `
         <div>
