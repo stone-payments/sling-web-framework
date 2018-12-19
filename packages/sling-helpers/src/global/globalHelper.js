@@ -1,7 +1,11 @@
 import 'moment/locale/pt-br';
 import moment from 'moment/moment';
+import { setIn as timmSetIn, getIn as timmGetIn } from 'timm';
+import isPlainObject from 'is-plain-object';
 
 moment.locale('pt-BR');
+
+export { omit, mergeDeep } from 'timm';
 
 export const isString = arg =>
   typeof arg === 'string' || arg instanceof String;
@@ -90,3 +94,73 @@ export const mapByKey = (collection = [], key, value) =>
     acc[actual[key]] = actual[value];
     return acc;
   }, {});
+
+export const sleep = ms =>
+  new Promise(resolve => setTimeout(resolve, ms));
+
+const toPath = str => str
+  .replace(/\]$/g, '')
+  .replace(/(\[|\])/g, '.')
+  .replace(/\.{2,}/g, '.')
+  .split('.')
+  .map(key => (!Number.isNaN(Number(key)) ? Number(key) : key));
+
+export const setIn = (obj, path, value) => {
+  const normalizedPath = toPath(path);
+  return timmSetIn(obj, normalizedPath, value);
+};
+
+export const getIn = (obj, path) => {
+  const normalizedPath = toPath(path);
+  return timmGetIn(obj, normalizedPath);
+};
+
+export const isDeeplyEmpty = items => (items == null) ||
+  Object
+    .values(items)
+    .map((value) => {
+      if (isPlainObject(value)) {
+        return isDeeplyEmpty(value);
+      }
+
+      if (Array.isArray(value)) {
+        return value.every(isDeeplyEmpty);
+      }
+
+      return value == null;
+    })
+    .filter(hasError => !hasError)
+    .length === 0;
+
+export const mergeUnique = (...arrays) => [...new Set(arrays
+  .reduce((result, arr) => [...result, ...arr], []))];
+
+export const compose = (...fns) =>
+  fns.reduceRight((prevFn, nextFn) =>
+    (...args) => nextFn(prevFn(...args)), value => value);
+
+export const flatten = (obj) => {
+  const step = (currentKey, into, target = {}) => {
+    Object
+      .keys(into)
+      .forEach((key) => {
+        let newKey = key;
+        const newVal = into[key];
+
+        if (currentKey.length > 0) {
+          const endKey = Number.isNaN(Number(key)) ? key : `[${key}]`;
+          newKey = `${currentKey}.${endKey}`.replace('.[', '[');
+        }
+
+        if (typeof newVal === 'object') {
+          step(newKey, newVal, target);
+        } else {
+          target[newKey] = newVal;
+        }
+      });
+  };
+
+  const result = {};
+  step('', obj, result);
+  return result;
+};
