@@ -1,3 +1,8 @@
+<a name="1.12.0"></a>
+## 1.12.0 (2018-12-19)
+
+* feat: add menu and menu-item component
+
 <a name="1.11.7"></a>
 ## 1.11.7 (2018-12-17)
 
