@@ -5,12 +5,11 @@ export { validateField, validateForm } from './formValidation.js';
 
 export {
   addField,
-  removeField,
+  removeFields,
   updateFieldValue,
   updateFieldTouched,
   resetFields as resetForm,
   setValues,
-  updateValues,
   startValidation,
   finishValidation,
 } from './byIdReducer.js';

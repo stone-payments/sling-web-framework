@@ -8,10 +8,11 @@ import {
   updateFieldValue,
   updateFieldTouched,
   setValues,
-  updateValues,
   startSubmission,
   finishSubmission,
   resetForm,
+  addField,
+  removeFields,
 } from '../state/formReducer.js';
 
 const FORM_TYPES = [
@@ -136,12 +137,16 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     this.handleStateUpdate(this._state);
   }
 
-  setValues(values) {
-    this.dispatchAction(setValues(values));
+  addField(fieldId) {
+    this.dispatchAction(addField(fieldId));
   }
 
-  updateValues(values) {
-    this.dispatchAction(updateValues(values));
+  removeFields(fieldPrefix) {
+    this.dispatchAction(removeFields(fieldPrefix));
+  }
+
+  setValues(values) {
+    this.dispatchAction(setValues(values));
   }
 
   getFieldById(fieldId) {

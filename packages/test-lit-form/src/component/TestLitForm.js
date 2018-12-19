@@ -14,10 +14,10 @@ export const TestLitForm = Base => class extends withForm(Base) {
     super();
 
     this.setValues({
-      name: 'Leonardo',
-      lastname: 'Favre',
-      username: 'angus',
-      email: 'contato@leofavre.com',
+      name: '',
+      lastname: '',
+      username: '',
+      email: '',
       cpf: '',
       cnpj: '',
       phones: {
@@ -40,21 +40,14 @@ export const TestLitForm = Base => class extends withForm(Base) {
   }
 
   addGame() {
-    this.setValues({
-      ...this.state.values,
-      games: [
-        ...this.state.values.games || [],
-        '',
-      ],
-    });
+    const { games } = this.state.values;
+    const index = games ? games.length : 0;
+    this.addField(`games[${index}]`);
   }
 
   removeGame(index) {
     return () => {
-      this.setValues({
-        ...this.state.values,
-        games: this.state.values.games.filter((_, idx) => idx !== index),
-      });
+      this.removeFields(`games[${index}]`);
     };
   }
 
@@ -62,6 +55,8 @@ export const TestLitForm = Base => class extends withForm(Base) {
     const {
       values,
       touched,
+      isValid,
+      dirty,
     } = this.formState;
 
     return html`
@@ -169,6 +164,7 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
         <div class="form__title">
           <sling-button
+            disabled="${!isValid || !dirty}"
             type="submit">Enviar</sling-button>
         </div>
       </sling-form>
