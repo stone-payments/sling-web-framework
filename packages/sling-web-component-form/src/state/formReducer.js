@@ -8,8 +8,9 @@ export {
   removeField,
   updateFieldValue,
   updateFieldTouched,
-  updateFieldUsed,
+  resetFields as resetForm,
   setValues,
+  updateValues,
   startValidation,
   finishValidation,
 } from './byIdReducer.js';
@@ -17,7 +18,6 @@ export {
 export { onlyForm, onlyFields } from './formSelectors.js';
 
 const INITIAL_STATE = {
-  dirty: false,
   submitCount: 0,
   isSubmitting: false,
   byId: byIdReducer(),

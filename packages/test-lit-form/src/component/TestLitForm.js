@@ -1,5 +1,4 @@
 import { html } from 'sling-framework';
-import { omit } from 'sling-helpers';
 import { withForm } from 'sling-web-component-form';
 import 'sling-web-component-field';
 import 'sling-web-component-field-message';
@@ -15,10 +14,10 @@ export const TestLitForm = Base => class extends withForm(Base) {
     super();
 
     this.setValues({
-      name: '',
-      lastname: '',
-      username: '',
-      email: '',
+      name: 'Leonardo',
+      lastname: 'Favre',
+      username: 'angus',
+      email: 'contato@leofavre.com',
       cpf: '',
       cnpj: '',
       phones: {
@@ -63,10 +62,6 @@ export const TestLitForm = Base => class extends withForm(Base) {
     const {
       values,
       touched,
-      isSubmitting,
-      isValidating,
-      isValid,
-      dirty,
     } = this.formState;
 
     return html`
@@ -174,7 +169,6 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
         <div class="form__title">
           <sling-button
-            disabled="${isSubmitting || isValidating || !isValid || !dirty}"
             type="submit">Enviar</sling-button>
         </div>
       </sling-form>

@@ -7,10 +7,11 @@ import {
   validateForm,
   updateFieldValue,
   updateFieldTouched,
-  updateFieldUsed,
   setValues,
+  updateValues,
   startSubmission,
   finishSubmission,
+  resetForm,
 } from '../state/formReducer.js';
 
 const FORM_TYPES = [
@@ -37,7 +38,8 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     super();
     this.handleStateUpdate = this.handleStateUpdate.bind(this);
     this.handleDomUpdate = this.handleDomUpdate.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmitClick = this.handleSubmitClick.bind(this);
+    this.handleResetClick = this.handleResetClick.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
   }
@@ -46,6 +48,7 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     super.connectedCallback();
     this._mo = new MutationObserver(this.handleDomUpdate);
     this._mo.observe(this.shadowRoot, { childList: true, subtree: true });
+    this.handleStateUpdate(this.formState);
     this.handleDomUpdate();
   }
 
@@ -69,6 +72,11 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   static isSubmitButton(target) {
     return FORM_SUBMIT_TYPES.includes(target.nodeName)
       && target.type === 'submit';
+  }
+
+  static isResetButton(target) {
+    return FORM_SUBMIT_TYPES.includes(target.nodeName)
+      && target.type === 'reset';
   }
 
   static getFieldId(field) {
@@ -110,6 +118,14 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       : null;
   }
 
+  get resetButton() {
+    return this.form
+      ? Array
+        .from(this.form.querySelectorAll('*'))
+        .find(this.constructor.isResetButton)
+      : null;
+  }
+
   get state() {
     return this._state;
   }
@@ -122,6 +138,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
 
   setValues(values) {
     this.dispatchAction(setValues(values));
+  }
+
+  updateValues(values) {
+    this.dispatchAction(updateValues(values));
   }
 
   getFieldById(fieldId) {
@@ -168,6 +188,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     }
   }
 
+  resetForm() {
+    this.dispatchAction(resetForm());
+  }
+
   handleStateUpdate(nextState) {
     this.fields.forEach((field) => {
       const fieldId = this.constructor.getFieldId(field);
@@ -184,6 +208,8 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
         } else {
           field.validationstatus = undefined;
         }
+      } else {
+        field.validationstatus = undefined;
       }
     });
 
@@ -194,12 +220,10 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       const isValidatingField = getIn(nextState.isValidatingField, fieldId);
       const error = getIn(this.state.errors, fieldId);
 
-      if (isValidatingField) {
-        fieldMessage.message = null;
-      }
-
       if (!relatedField || (touched && !isValidatingField)) {
         fieldMessage.message = error || null;
+      } else {
+        fieldMessage.message = null;
       }
     });
 
@@ -221,11 +245,21 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       field.onblur = this.handleBlur;
     });
 
-    this.submitButton.onclick = this.handleClick;
+    if (this.submitButton) {
+      this.submitButton.onclick = this.handleSubmitClick;
+    }
+
+    if (this.resetButton) {
+      this.resetButton.onclick = this.handleResetClick;
+    }
   }
 
-  handleClick() {
+  handleSubmitClick() {
     this.submitForm();
+  }
+
+  handleResetClick() {
+    this.resetForm();
   }
 
   handleBlur({ target: field }) {
@@ -243,7 +277,6 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       const fieldId = this.constructor.getFieldId(field);
       const { value } = field;
 
-      this.dispatchAction(updateFieldUsed(fieldId, true));
       this.dispatchAction(updateFieldValue(fieldId, value));
       this.validateFieldByElement(field);
       this.validateForm();

@@ -1,14 +1,12 @@
-import { omit, flatten, toFlatEntries } from 'sling-helpers';
+import { omit, flatten, toFlatEntries, toFlatObject } from 'sling-helpers/src';
 import { FORM } from './constant.js';
 
 const INITIAL_FIELD_STATE = {
   error: null,
   isValidating: false,
   validation: null,
-  validated: false,
   value: '',
   touched: false,
-  used: false,
 };
 
 const INITIAL_STATE = {
@@ -16,7 +14,6 @@ const INITIAL_STATE = {
     error: null,
     isValidating: false,
     validation: null,
-    validated: false,
   },
 };
 
@@ -24,7 +21,7 @@ const ADD_FIELD = Symbol('ADD_FIELD');
 const REMOVE_FIELD = Symbol('REMOVE_FIELD');
 const UPDATE_FIELD_VALUE = Symbol('UPDATE_FIELD_VALUE');
 const UPDATE_FIELD_TOUCHED = Symbol('UPDATE_FIELD_TOUCHED');
-const UPDATE_FIELD_USED = Symbol('UPDATE_FIELD_USED');
+const RESET_FIELDS = Symbol('RESET_FIELDS');
 const SET_VALUES = Symbol('SET_VALUES');
 const START_VALIDATION = Symbol('START_VALIDATION');
 const FINISH_VALIDATION = Symbol('FINISH_VALIDATION');
@@ -51,10 +48,8 @@ export const updateFieldTouched = (fieldId, touched) => ({
   touched,
 });
 
-export const updateFieldUsed = (fieldId, used) => ({
-  type: UPDATE_FIELD_USED,
-  fieldId,
-  used,
+export const resetFields = () => ({
+  type: RESET_FIELDS,
 });
 
 export const setValues = values => ({
@@ -91,6 +86,13 @@ const parseUserValues = userValues => Object
   }])
   .reduce(toFlatEntries, {});
 
+const resetState = state => Object
+  .keys(state)
+  .map(key => ({
+    [key]: { ...(key === FORM ? INITIAL_STATE[FORM] : INITIAL_FIELD_STATE) },
+  }))
+  .reduce(toFlatObject, {});
+
 export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
   const updateFieldState = updatePropWithCondition(state, action);
 
@@ -117,12 +119,8 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
           state[action.fieldId].touched !== action.touched,
       );
 
-    case UPDATE_FIELD_USED:
-      return updateFieldState(
-        { used: action.used },
-        state[action.fieldId] != null &&
-          state[action.fieldId].used !== action.used,
-      );
+    case RESET_FIELDS:
+      return resetState(state);
 
     case SET_VALUES:
       return {
@@ -140,7 +138,6 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       return updateFieldState({
         isValidating: false,
         validation: null,
-        validated: true,
         error: action.error,
       });
 
