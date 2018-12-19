@@ -1,0 +1,24 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/vue": "^4.1.2",
+    "babel-loader": "^8.0.4",
+    "babel-preset-vue": "^2.0.2",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "dependencies": {
+    "sling-web-component-button": "^1.11.7",
+    "vue": "^2.5.21"
+  }
+}
