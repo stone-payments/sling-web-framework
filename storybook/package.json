@@ -22,6 +22,7 @@
     "sling-web-component-button": "^1.11.7",
     "sling-web-component-input": "^1.11.7",
     "sling-web-component-label": "^1.11.7",
+    "sling-web-component-login": "^1.11.7",
     "sling-web-component-loader": "^1.11.7",
     "sling-web-component-card": "^1.11.7",
     "sling-web-component-calendar": "^1.11.7",
