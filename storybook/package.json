@@ -18,7 +18,9 @@
     "vue-template-compiler": "^2.5.21"
   },
   "dependencies": {
+    "sling-web-component-brand-icon": "^1.11.7",
     "sling-web-component-button": "^1.11.7",
+    "sling-web-component-input": "^1.11.7",
     "sling-web-component-tooltip": "^1.11.7",
     "vue": "^2.5.21"
   }

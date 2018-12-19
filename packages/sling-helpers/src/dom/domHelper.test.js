@@ -2,6 +2,7 @@ import {
   waitUntilEvent,
   waitUntilTagIsAppended,
   registerComponent,
+  setAttr,
 } from './domHelper.js';
 
 describe('waitUntilEvent', () => {
@@ -56,5 +57,13 @@ describe('registerComponent', () => {
     class testComponent {}
     registerComponent('test-component', testComponent);
     expect(window.customElements.get('test-component')).to.equal(testComponent);
+  });
+});
+
+describe('setAttr', () => {
+  it('Should set attributes into an element.', () => {
+    const $div = document.createElement('div');
+    setAttr($div, 'testName', 'testValue');
+    expect($div.getAttribute('testName')).to.equal('testValue');
   });
 });
