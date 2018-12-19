@@ -105,6 +105,11 @@ export const toPath = str => str
   .split('.')
   .map(key => (!Number.isNaN(Number(key)) ? Number(key) : key));
 
+export const fromPath = path => path
+  .map(key => (!Number.isNaN(Number(key)) ? `[${String(key)}]` : String(key)))
+  .join('.')
+  .replace(/\.\[/g, '[');
+
 export const setIn = (obj, path, value) => {
   const normalizedPath = toPath(path);
   return timmSetIn(obj, normalizedPath, value);
