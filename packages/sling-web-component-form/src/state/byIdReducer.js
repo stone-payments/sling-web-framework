@@ -10,7 +10,7 @@ const INITIAL_FIELD_STATE = {
   used: false,
 };
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   [FORM]: {
     error: null,
     isValidating: false,
