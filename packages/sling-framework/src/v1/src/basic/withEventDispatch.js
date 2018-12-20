@@ -8,15 +8,15 @@ export const withEventDispatch = (Base = HTMLElement) =>
       this.bubbleEvent = this.bubbleEvent.bind(this);
     }
 
-    dispatchEventAndMethod(evtName, detail) {
+    dispatchEventAndMethod(evtName, detail, target = this) {
       const event = new CustomEvent(evtName, {
         bubbles: true,
         detail,
       });
 
-      const method = this[`on${evtName}`];
+      const method = target[`on${evtName}`];
 
-      this.dispatchEvent(event);
+      target.dispatchEvent(event);
 
       if (isFunction(method)) {
         method(event);
