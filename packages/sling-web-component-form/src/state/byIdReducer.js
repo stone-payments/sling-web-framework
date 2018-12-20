@@ -13,6 +13,7 @@ const INITIAL_FIELD_STATE = {
   error: null,
   isValidating: false,
   validation: null,
+  validatedOnceOrMore: false,
   value: '',
   touched: false,
 };
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
     error: null,
     isValidating: false,
     validation: null,
+    validatedOnceOrMore: false,
   },
 };
 
@@ -175,6 +177,7 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       return updateFieldState({
         isValidating: false,
         validation: null,
+        validatedOnceOrMore: true,
         error: action.error,
       });
 

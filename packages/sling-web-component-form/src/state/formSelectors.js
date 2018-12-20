@@ -45,8 +45,8 @@ export const parseState = (state) => {
 
   const isValidating = parseIsValidating(state);
 
-  const wasValidated = fieldEntries.reduce((result, [fieldId, obj]) =>
-    setIn(result, fieldId, obj.validated), {});
+  const validatedOnceOrMore = fieldEntries.reduce((result, [fieldId, obj]) =>
+    setIn(result, fieldId, obj.validatedOnceOrMore), {});
 
   return {
     dirty,
@@ -57,6 +57,6 @@ export const parseState = (state) => {
     isValid,
     isValidating,
     isValidatingField,
-    wasValidated,
+    validatedOnceOrMore,
   };
 };

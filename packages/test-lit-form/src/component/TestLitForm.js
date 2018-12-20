@@ -55,8 +55,6 @@ export const TestLitForm = Base => class extends withForm(Base) {
     const {
       values,
       touched,
-      isValid,
-      dirty,
     } = this.formState;
 
     return html`
@@ -164,7 +162,6 @@ export const TestLitForm = Base => class extends withForm(Base) {
 
         <div class="form__title">
           <sling-button
-            disabled="${!isValid || !dirty}"
             type="submit">Enviar</sling-button>
         </div>
       </sling-form>

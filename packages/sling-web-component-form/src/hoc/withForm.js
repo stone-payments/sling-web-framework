@@ -177,8 +177,12 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     if (!this.state.isSubmitting) {
       this.fields.forEach((field) => {
         const fieldId = this.constructor.getFieldId(field);
+        const validated = getIn(this.state.validatedOnceOrMore, fieldId);
         this.dispatchAction(updateFieldTouched(fieldId, true));
-        this.validateFieldByElement(field);
+
+        if (!validated) {
+          this.validateFieldByElement(field);
+        }
       });
 
       this.validateForm();
