@@ -24,7 +24,7 @@ label.
 
 # Packages
 
-All Sling Components are listed below. You can interactively browse your component library acessing your [Storybook][storybook-link] page.
+All `sling` Components are listed below. You can interactively browse your component library acessing your [Storybook][storybook-link] page.
 
 ### :black_heart: Core
 The `sling-framework` package is essential for all of your components. With `sling-helpers` and `sling-assets`, they are part of the core of our framework. See the docs below:
