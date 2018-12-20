@@ -38,24 +38,26 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
   constructor() {
     super();
     this.handleStateUpdate = this.handleStateUpdate.bind(this);
-    this.handleDomUpdate = this.handleDomUpdate.bind(this);
-    this.handleSubmitClick = this.handleSubmitClick.bind(this);
-    this.handleResetClick = this.handleResetClick.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this._mo = new MutationObserver(this.handleDomUpdate);
-    this._mo.observe(this.shadowRoot, { childList: true, subtree: true });
+    this.shadowRoot.addEventListener('blur', this.handleBlur, true);
+    this.shadowRoot.addEventListener('input', this.handleInput);
+    this.shadowRoot.addEventListener('update', this.handleInput);
+    this.shadowRoot.addEventListener('click', this.handleClick);
     this.handleStateUpdate(this.formState);
-    this.handleDomUpdate();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this._mo.disconnect();
+    this.shadowRoot.removeEventListener('blur', this.handleBlur, true);
+    this.shadowRoot.removeEventListener('input', this.handleInput);
+    this.shadowRoot.removeEventListener('update', this.handleInput);
+    this.shadowRoot.removeEventListener('click', this.handleClick);
   }
 
   static isForm(target) {
@@ -248,27 +250,14 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
     }
   }
 
-  handleDomUpdate() {
-    this.fields.forEach((field) => {
-      field.oninput = this.handleInput;
-      field.onblur = this.handleBlur;
-    });
-
-    if (this.submitButton) {
-      this.submitButton.onclick = this.handleSubmitClick;
+  handleClick({ target: field }) {
+    if (this.constructor.isSubmitButton(field)) {
+      this.submitForm();
     }
 
-    if (this.resetButton) {
-      this.resetButton.onclick = this.handleResetClick;
+    if (this.constructor.isResetButton(field)) {
+      this.resetForm();
     }
-  }
-
-  handleSubmitClick() {
-    this.submitForm();
-  }
-
-  handleResetClick() {
-    this.resetForm();
   }
 
   handleBlur({ target: field }) {
@@ -286,9 +275,11 @@ export const withForm = Base => class extends withReducer(formReducer)(Base) {
       const fieldId = this.constructor.getFieldId(field);
       const { value } = field;
 
-      this.dispatchAction(updateFieldValue(fieldId, value));
-      this.validateFieldByElement(field);
-      this.validateForm();
+      if (getIn(this.state.values, fieldId) !== value) {
+        this.dispatchAction(updateFieldValue(fieldId, value));
+        this.validateFieldByElement(field);
+        this.validateForm();
+      }
     }
   }
 };

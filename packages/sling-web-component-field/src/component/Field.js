@@ -1,3 +1,4 @@
+import { withEventDispatch } from 'sling-framework';
 import { setAttr, isFunction } from 'sling-helpers';
 import 'sling-web-component-icon';
 import { withRequired } from './withRequired.js';
@@ -22,7 +23,7 @@ const STRING_PROPS = [
 
 const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS];
 
-export const Field = Base => class extends Base {
+export const Field = Base => class extends withEventDispatch(Base) {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -117,5 +118,6 @@ export const Field = Base => class extends Base {
 
   handleInput(evt) {
     this.value = evt.target.value;
+    this.dispatchEventAndMethod('update', this.value);
   }
 };
