@@ -26,6 +26,8 @@
     "sling-web-component-label": "^1.11.7",
     "sling-web-component-loader": "^1.11.7",
     "sling-web-component-login": "^1.11.7",
+    "sling-web-component-menu": "^1.12.0",
+    "sling-web-component-menu-item": "^1.12.0",
     "sling-web-component-message": "^1.11.7",
     "sling-web-component-paginator": "^1.11.7",
     "sling-web-component-snackbar": "^1.11.7",
