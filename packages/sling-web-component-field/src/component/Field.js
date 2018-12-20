@@ -20,7 +20,11 @@ const STRING_PROPS = [
   'validationhook',
 ];
 
-const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS, 'value'];
+const CUSTOM_SETTER_PROPS = [
+  'value',
+];
+
+const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS, ...CUSTOM_SETTER_PROPS];
 
 export const Field = Base => class extends withEventDispatch(Base) {
   constructor() {
@@ -93,8 +97,10 @@ export const Field = Base => class extends withEventDispatch(Base) {
   }
 
   set value(value) {
-    setAttr(this, 'value', value);
-    this.dispatchEventAndMethod('update', value);
+    if (this.getAttribute('value') !== value) {
+      setAttr(this, 'value', value);
+      this.dispatchEventAndMethod('update', value);
+    }
   }
 
   attributeChangedCallback(attrName, previousValue, nextValue) {

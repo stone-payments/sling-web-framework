@@ -40,6 +40,7 @@ export const withForm = Base =>
     constructor() {
       super();
       this.handleStateUpdate = this.handleStateUpdate.bind(this);
+      this.handleDomUpdate = this.handleDomUpdate.bind(this);
       this.handleInput = this.handleInput.bind(this);
       this.handleBlur = this.handleBlur.bind(this);
       this.handleClick = this.handleClick.bind(this);
@@ -47,15 +48,21 @@ export const withForm = Base =>
 
     connectedCallback() {
       super.connectedCallback();
+      this._mo = new MutationObserver(this.handleDomUpdate);
+      this._mo.observe(this.shadowRoot, { childList: true, subtree: true });
+
       this.shadowRoot.addEventListener('blur', this.handleBlur, true);
       this.shadowRoot.addEventListener('input', this.handleInput);
       this.shadowRoot.addEventListener('update', this.handleInput);
       this.shadowRoot.addEventListener('click', this.handleClick);
+
       this.handleStateUpdate(this.formState);
     }
 
     disconnectedCallback() {
       super.disconnectedCallback();
+      this._mo.disconnect();
+
       this.shadowRoot.removeEventListener('blur', this.handleBlur, true);
       this.shadowRoot.removeEventListener('input', this.handleInput);
       this.shadowRoot.removeEventListener('update', this.handleInput);
@@ -259,6 +266,10 @@ export const withForm = Base =>
           }
         }
       }
+    }
+
+    handleDomUpdate() {
+      this.handleStateUpdate(this.formState);
     }
 
     handleClick({ target: field }) {
