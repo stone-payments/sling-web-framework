@@ -1,15 +1,15 @@
 {
   "name": "sling-web-component-snackbar",
-  "version": "1.11.7",
+  "version": "1.12.0",
   "description": "Sling Snackbar",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "dependencies": {
-    "sling-framework": "^1.11.7",
-    "sling-helpers": "^1.11.7",
-    "sling-web-component-button": "^1.11.7",
-    "sling-web-component-icon": "^1.11.7"
+    "sling-framework": "^1.12.0",
+    "sling-helpers": "^1.12.0",
+    "sling-web-component-button": "^1.12.0",
+    "sling-web-component-icon": "^1.12.0"
   }
 }

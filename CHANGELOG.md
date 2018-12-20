@@ -1,3 +1,11 @@
+<a name="1.12.0"></a>
+## 1.12.0 (2018-12-19)
+
+* feat: Add menu and menu-item component
+* feat: Add new helpers to Sling Helpers
+* feat: Add ellipsis icon to Sling Icon component
+* feat: Tweaks some css
+
 <a name="1.11.7"></a>
 ## 1.11.7 (2018-12-17)
 

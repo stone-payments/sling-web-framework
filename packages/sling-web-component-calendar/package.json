@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-calendar",
-  "version": "1.11.7",
+  "version": "1.12.0",
   "description": "Sling Calendar",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
@@ -8,8 +8,8 @@
   "author": "Stone Pagamentos",
   "dependencies": {
     "moment": "^2.22.2",
-    "sling-framework": "^1.11.7",
-    "sling-helpers": "^1.11.7",
-    "sling-web-component-paginator": "^1.11.7"
+    "sling-framework": "^1.12.0",
+    "sling-helpers": "^1.12.0",
+    "sling-web-component-paginator": "^1.12.0"
   }
 }
