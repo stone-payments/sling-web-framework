@@ -31,10 +31,4 @@ export default {
         </div>
     `,
 
-    methods: {
-        onClick() {
-        this.$emit('click');
-        },
-    },
-
 };

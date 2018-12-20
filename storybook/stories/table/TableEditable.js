@@ -226,10 +226,5 @@ export default {
       $table.srccolumns = detailcolumns;
     },
 
-    methods: {
-      onClick() {
-      this.$emit('click');
-      },
-  },
 
 };

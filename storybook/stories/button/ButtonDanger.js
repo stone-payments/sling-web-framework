@@ -30,11 +30,4 @@ export default {
             <sling-button slim size="big" color="danger" layout="text">Cancel</sling-button>
         </div>
     `,
-
-    methods: {
-        onClick() {
-        this.$emit('click');
-        },
-    },
-
 };
