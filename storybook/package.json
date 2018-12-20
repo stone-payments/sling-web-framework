@@ -29,6 +29,7 @@
     "sling-web-component-login": "^1.11.7",
     "sling-web-component-paginator": "^1.11.7",
     "sling-web-component-snackbar": "^1.11.7",
+    "sling-web-component-select": "^1.11.7",
     "sling-web-component-table": "^1.11.7",
     "sling-web-component-tooltip": "^1.11.7",
     "vue": "^2.5.21"
