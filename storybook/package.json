@@ -20,18 +20,17 @@
   "dependencies": {
     "sling-web-component-brand-icon": "^1.11.7",
     "sling-web-component-button": "^1.11.7",
-    "sling-web-component-icon": "^1.11.7",
-    "sling-web-component-label": "^1.11.7",
+    "sling-web-component-form": "^1.11.7",
     "sling-web-component-calendar": "^1.11.7",
     "sling-web-component-card": "^1.11.7",
-    "sling-web-component-form": "^1.11.7",
     "sling-web-component-input": "^1.11.7",
-    "sling-web-component-tooltip": "^1.11.7",
     "sling-web-component-label": "^1.11.7",
+    "sling-web-component-icon": "^1.11.7",
     "sling-web-component-loader": "^1.11.7",
     "sling-web-component-login": "^1.11.7",
     "sling-web-component-paginator": "^1.11.7",
     "sling-web-component-snackbar": "^1.11.7",
+    "sling-web-component-table": "^1.11.7",
     "sling-web-component-tooltip": "^1.11.7",
     "vue": "^2.5.21"
   }
