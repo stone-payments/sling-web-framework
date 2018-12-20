@@ -1,35 +1,17 @@
-import { CANCEL } from './js/baseline-cancel-24px.js';
-import { CHECK_CIRCLE } from './js/baseline-check_circle-24px.js';
-import { CLOSE } from './js/baseline-close-24px.js';
-import { ERROR } from './js/baseline-error-24px.js';
-import { FEEDBACK } from './js/baseline-feedback-24px.js';
-import { VISA } from './js/cardbrand-visa.js';
-import { MASTERCARD } from './js/cardbrand-mastercard.js';
-import { AMERICAN_EXPRESS } from './js/cardbrand-american-express.js';
-import { TICKET } from './js/cardbrand-ticket.js';
-import { SODEXO } from './js/cardbrand-sodexo.js';
-import { VR } from './js/cardbrand-vr.js';
-import { ALELO } from './js/cardbrand-alelo.js';
-import { HIPERCARD } from './js/cardbrand-hipercard.js';
-import { SENFF } from './js/cardbrand-senff';
-import { ELO } from './js/cardbrand-elo';
-import { STONE } from './js/cardbrand-stone';
-
-export {
-  CANCEL,
-  CHECK_CIRCLE,
-  CLOSE,
-  ERROR,
-  FEEDBACK,
-  VISA,
-  MASTERCARD,
-  AMERICAN_EXPRESS,
-  TICKET,
-  SODEXO,
-  VR,
-  ALELO,
-  HIPERCARD,
-  SENFF,
-  ELO,
-  STONE,
-};
+export { CANCEL } from './js/baseline-cancel-24px.js';
+export { CHECK_CIRCLE } from './js/baseline-check_circle-24px.js';
+export { CLOSE } from './js/baseline-close-24px.js';
+export { ERROR } from './js/baseline-error-24px.js';
+export { FEEDBACK } from './js/baseline-feedback-24px.js';
+export { VISA } from './js/cardbrand-visa.js';
+export { MASTERCARD } from './js/cardbrand-mastercard.js';
+export { AMERICAN_EXPRESS } from './js/cardbrand-american-express.js';
+export { TICKET } from './js/cardbrand-ticket.js';
+export { SODEXO } from './js/cardbrand-sodexo.js';
+export { VR } from './js/cardbrand-vr.js';
+export { ALELO } from './js/cardbrand-alelo.js';
+export { HIPERCARD } from './js/cardbrand-hipercard.js';
+export { SENFF } from './js/cardbrand-senff.js';
+export { ELO } from './js/cardbrand-elo.js';
+export { STONE } from './js/cardbrand-stone.js';
+export { ELLIPSIS } from './js/ellipsis.js';

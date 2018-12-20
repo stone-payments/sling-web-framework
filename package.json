@@ -1,7 +1,7 @@
 {
   "name": "sling-framework",
   "description": "Sling Web Framework main repo.",
-  "version": "1.11.7",
+  "version": "1.12.0",
   "private": true,
   "flat": true,
   "scripts": {

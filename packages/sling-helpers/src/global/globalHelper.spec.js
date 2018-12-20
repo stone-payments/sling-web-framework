@@ -17,6 +17,12 @@ import {
   groupByDeep,
   mapByKey,
   getDateRangeArray,
+  isDeeplyEmpty,
+  flatten,
+  mergeUnique,
+  setIn,
+  getIn,
+  sleep,
 } from './globalHelper.js';
 
 const { expect } = chai;
@@ -554,4 +560,53 @@ describe('mapByKey', () => {
         ]);
     });
   });
+});
+
+describe('isDeeplyEmpty', () => {
+  it('Should return true for empty properties', () => {
+    const test = { a: null, b: undefined, c: [], d: [null, undefined] };
+    expect(isDeeplyEmpty(test)).to.be.true;
+  });
+
+  it('Should check if have at least one property', () => {
+    const test = { a: null, b: undefined, c: [], d: ['testString', undefined] };
+    expect(isDeeplyEmpty(test)).to.be.false;
+  });
+});
+
+describe('flatten', () => {
+  it('Should return the expected flat result', () => {
+    const test = { a: ['art', 'ant'], b: { basic: true } };
+    const expectResult = { 'a[0]': 'art', 'a[1]': 'ant', 'b.basic': true };
+    expect(flatten(test)).to.eql(expectResult);
+  });
+});
+
+describe('mergeUnique', () => {
+  it('Should return the expected merged result', () => {
+    expect(mergeUnique([1, 2], [2, 3, 4], [3, 4, 5])).to.eql([1, 2, 3, 4, 5]);
+  });
+});
+
+describe('setIn', () => {
+  it('Should set value in the right path', () => {
+    const object = { a: [{ b: { c: 3 } }] };
+    const testResult = setIn(object, 'a[0].b.c', 4);
+    expect(testResult.a[0].b.c).to.eql(4);
+  });
+});
+
+describe('getIn', () => {
+  it('Should get value in the right path', () => {
+    const object = { a: [{ b: { c: 3 } }] };
+    expect(getIn(object, 'a[0].b.c')).to.eql(3);
+  });
+});
+
+describe('sleep', () => {
+  it(
+    'Should return a promise that is resolved'
+    + ' after the given delay', (done) => {
+      sleep(100).then(done);
+    });
 });
