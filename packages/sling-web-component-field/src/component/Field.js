@@ -16,12 +16,11 @@ const STRING_PROPS = [
   'name',
   'id',
   'placeholder',
-  'value',
   'validationstatus',
   'validationhook',
 ];
 
-const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS];
+const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS, 'value'];
 
 export const Field = Base => class extends withEventDispatch(Base) {
   constructor() {
@@ -89,6 +88,15 @@ export const Field = Base => class extends withEventDispatch(Base) {
     this._validation = value;
   }
 
+  get value() {
+    return this.getAttribute('value');
+  }
+
+  set value(value) {
+    setAttr(this, 'value', value);
+    this.dispatchEventAndMethod('update', value);
+  }
+
   attributeChangedCallback(attrName, previousValue, nextValue) {
     if (PROPS.includes(attrName) && previousValue !== nextValue) {
       this.inputElement[attrName] = nextValue;
@@ -117,7 +125,8 @@ export const Field = Base => class extends withEventDispatch(Base) {
   }
 
   handleInput(evt) {
-    this.value = evt.target.value;
-    this.dispatchEventAndMethod('update', this.value);
+    if (this.value !== evt.target.value) {
+      this.value = evt.target.value;
+    }
   }
 };
