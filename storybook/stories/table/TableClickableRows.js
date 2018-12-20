@@ -1,10 +1,10 @@
 import 'sling-web-component-table';
 
 export default {
-    name: 'storybook-table-editable',
+    name: 'storybook-table-clickable-rows',
 
     template: `
-        <sling-table editable></sling-table>
+        <sling-table clickablerows></sling-table>
     `,
     mounted: () => {
       const detailcolumns = [
@@ -227,9 +227,8 @@ export default {
     },
 
     methods: {
-      onClick() {
-      this.$emit('click');
-      },
-  },
-
+        onClick() {
+        this.$emit('click');
+        },
+    }
 };
