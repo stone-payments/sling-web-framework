@@ -1,5 +1,5 @@
 import { withEventDispatch } from 'sling-framework';
-import { getIn } from 'sling-helpers';
+import { getIn, omit } from 'sling-helpers';
 import { withReducer } from './withReducer.js';
 
 import {
@@ -137,7 +137,7 @@ export const withForm = Base =>
 
     set state(value) {
       this._state = value;
-      this.formState = this._state;
+      this.formState = omit(this._state, 'byId');
       this.handleStateUpdate(this.formState);
     }
 
