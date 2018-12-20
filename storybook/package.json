@@ -33,6 +33,9 @@
     "sling-web-component-select": "^1.11.7",
     "sling-web-component-table": "^1.11.7",
     "sling-web-component-tooltip": "^1.11.7",
+    "sling-web-component-label": "^1.11.7",
+    "sling-web-component-input": "^1.11.7",
+    "sling-web-component-list": "^1.11.7",
     "vue": "^2.5.21"
   }
 }
