@@ -17,7 +17,17 @@
   padding: 1em; /* changed by :host */
   box-sizing: border-box;
   color: #2d3844;
+  background: #fff;
   width: 100%;
+}
+
+.emd-field__input:-webkit-autofill,
+.emd-field__input:-webkit-autofill:hover, 
+.emd-field__input:-webkit-autofill:focus {
+  border: none;
+  -webkit-text-fill-color: #2d3844;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .emd-field:focus-within {
