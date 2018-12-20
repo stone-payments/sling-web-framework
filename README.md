@@ -24,6 +24,8 @@ label.
 
 # Packages
 
+All Sling Components are listed below. You can interactively browse your component library acessing your [Storybook][storybook-link] page.
+
 ### :black_heart: Core
 The `sling-framework` package is essential for all of your components. With `sling-helpers` and `sling-assets`, they are part of the core of our framework. See the docs below:
 
@@ -72,3 +74,4 @@ Right now all the basic components are available. See the docs of each one to kn
 [travis-url]: https://travis-ci.org/stone-payments/sling-web-framework
 [coveralls-url]: https://coveralls.io/github/stone-payments/sling-web-framework
 [license-url]: https://github.com/stone-payments/sling-web-framework/blob/master/LICENSE
+[storybook-link]: https://sling-web-framework-storybook.now.sh
