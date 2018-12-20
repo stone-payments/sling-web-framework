@@ -1,15 +1,15 @@
 {
   "name": "sling-web-component-form",
-  "version": "1.11.7",
+  "version": "1.12.0",
   "description": "Sling Form",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-framework": "^1.11.7",
-    "sling-helpers": "^1.11.7",
-    "sling-web-component-button": "^1.11.7",
-    "sling-web-component-input": "^1.11.7"
+    "sling-framework": "^1.12.0",
+    "sling-helpers": "^1.12.0",
+    "sling-web-component-button": "^1.12.0",
+    "sling-web-component-input": "^1.12.0"
   }
 }
