@@ -109,7 +109,6 @@ export const Field = Base => class extends withEventDispatch(Base) {
 
   attributeChangedCallback(attrName, previousValue, nextValue) {
     if (PROPS.includes(attrName) && previousValue !== nextValue) {
-      console.log(this.inputElement, attrName, nextValue);
       setAttr(this.inputElement, attrName, nextValue);
     }
   }
