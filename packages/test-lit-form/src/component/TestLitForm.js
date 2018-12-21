@@ -40,7 +40,7 @@ export const TestLitForm = Base => class extends withForm(Base) {
   }
 
   addGame() {
-    const { games } = this.state.values;
+    const { games } = this.formState.values;
     const index = games ? games.length : 0;
     this.addField(`games[${index}]`);
   }
@@ -63,7 +63,6 @@ export const TestLitForm = Base => class extends withForm(Base) {
     const {
       values,
       touched,
-      isValidatingField,
     } = this.formState;
 
     return html`

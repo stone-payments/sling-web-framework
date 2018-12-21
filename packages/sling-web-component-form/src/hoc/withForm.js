@@ -301,9 +301,10 @@ export const withForm = Base =>
     handleInput({ target: field }) {
       if (this.constructor.isFormField(field)) {
         const fieldId = this.constructor.getFieldId(field);
-        const { value } = field;
+        const { value } = field || '';
+        const pastValue = getIn(this.formState.values, fieldId) || '';
 
-        if (getIn(this.formState.values, fieldId) !== value) {
+        if (pastValue !== value) {
           this.dispatchAction(updateFieldValue(fieldId, value));
           this.validateFieldByElement(field);
           this.validateFields();

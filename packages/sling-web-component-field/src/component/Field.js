@@ -100,8 +100,10 @@ export const Field = Base => class extends withEventDispatch(Base) {
     return this.getAttribute('value');
   }
 
-  set value(value) {
-    if (this.getAttribute('value') !== value) {
+  set value(value = '') {
+    const pastValue = this.getAttribute('value') || '';
+
+    if (pastValue !== value) {
       setAttr(this, 'value', value);
       this.dispatchEventAndMethod('update', value);
     }
@@ -109,7 +111,11 @@ export const Field = Base => class extends withEventDispatch(Base) {
 
   attributeChangedCallback(attrName, previousValue, nextValue) {
     if (PROPS.includes(attrName) && previousValue !== nextValue) {
-      setAttr(this.inputElement, attrName, nextValue);
+      if (attrName === 'value') {
+        this.inputElement.value = nextValue;
+      } else {
+        setAttr(this.inputElement, attrName, nextValue);
+      }
     }
   }
 
