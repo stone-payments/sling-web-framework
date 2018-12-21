@@ -188,7 +188,7 @@ export const withForm = Base =>
       if (!this.formState.isSubmitting) {
         this.fields.forEach((field) => {
           const fieldId = this.constructor.getFieldId(field);
-          const validated = getIn(this.formState.validatedOnceOrMore, fieldId);
+          const validated = getIn(this.formState.validated, fieldId);
           this.dispatchAction(updateFieldTouched(fieldId, true));
 
           if (!validated) {
