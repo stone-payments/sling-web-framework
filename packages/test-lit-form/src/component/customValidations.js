@@ -19,10 +19,6 @@ export const validatePresenceOfAnyTel = (values) => {
   if (!values.phones || (!values.phones.cell && !values.phones.land)) {
     return {
       minphones: 'Fill in at least one phone number',
-      phones: {
-        cell: '',
-        land: '',
-      },
     };
   }
 

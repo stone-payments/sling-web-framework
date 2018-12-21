@@ -8,42 +8,39 @@ export const onlyFields = state => Object
   .filter(([key]) => key !== FORM)
   .reduce(toFlatEntries, {});
 
-const parseDirty = state => Object.values(onlyFields(state))
-  .some(item => item.value || item.touched);
-
-const parseIsValid = state => isDeeplyEmpty(onlyForm(state).error) &&
-  Object.values(onlyFields(state)).every(item => item.error == null);
-
-const parseIsValidating = state =>
-  Object.values(state).some(item => item.isValidating === true);
-
 export const parseState = (state) => {
   const form = onlyForm(state);
   const fieldEntries = Object.entries(onlyFields(state));
 
-  const dirty = parseDirty(state);
+  const dirty = Object.values(onlyFields(state))
+    .some(field => field.value || field.touched);
 
   const errors = {
-    ...fieldEntries.reduce((result, [fieldId, obj]) =>
-      setIn(result, `${fieldId}`, obj.error), {}),
+    ...fieldEntries.reduce((result, [fieldId, field]) =>
+      setIn(result, `${fieldId}`, field.error), {}),
     ...form.error,
   };
 
-  const values = fieldEntries.reduce((result, [fieldId, obj]) =>
-    setIn(result, fieldId, obj.value), {});
+  const values = fieldEntries.reduce((result, [fieldId, field]) =>
+    setIn(result, fieldId, field.value), {});
 
-  const touched = fieldEntries.reduce((result, [fieldId, obj]) =>
-    setIn(result, fieldId, obj.touched), {});
+  const touched = fieldEntries.reduce((result, [fieldId, field]) =>
+    setIn(result, fieldId, field.touched), {});
 
-  const isValidatingField = fieldEntries.reduce((result, [fieldId, obj]) =>
-    setIn(result, fieldId, obj.isValidating), {});
+  const isValid = isDeeplyEmpty(onlyForm(state).error) &&
+    Object.values(onlyFields(state)).every(field => field.error == null);
 
-  const isValid = parseIsValid(state);
+  const isValidField = fieldEntries.reduce((result, [fieldId, field]) =>
+    setIn(result, fieldId, field.error == null), {});
 
-  const isValidating = parseIsValidating(state);
+  const isValidating = Object.values(state)
+    .some(field => field.isValidating === true);
 
-  const validatedOnceOrMore = fieldEntries.reduce((result, [fieldId, obj]) =>
-    setIn(result, fieldId, obj.validatedOnceOrMore), {});
+  const isValidatingField = fieldEntries.reduce((result, [fieldId, field]) =>
+    setIn(result, fieldId, field.isValidating), {});
+
+  const validatedOnceOrMore = fieldEntries.reduce((result, [fieldId, field]) =>
+    setIn(result, fieldId, field.validatedOnceOrMore), {});
 
   return {
     dirty,
@@ -51,6 +48,7 @@ export const parseState = (state) => {
     values,
     touched,
     isValid,
+    isValidField,
     isValidating,
     isValidatingField,
     validatedOnceOrMore,
