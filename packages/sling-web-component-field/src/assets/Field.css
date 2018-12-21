@@ -6,6 +6,7 @@
   align-items: center;
   border: 1px solid #c3c8d2; /* changed by :host */
   font-size: 16px;
+  border-radius: 2px;
 }
 
 .emd-field__input {
@@ -28,6 +29,16 @@
   -webkit-text-fill-color: #2d3844;
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.emd-field__input:disabled {
+  color: #96a0af;
+  background-color: #eff1f3;
+}
+
+.emd-field__input:-webkit-autofill:disabled {
+  -webkit-text-fill-color: #96a0af;
+  -webkit-box-shadow: 0 0 0px 1000px #eff1f3 inset;
 }
 
 .emd-field:focus-within {

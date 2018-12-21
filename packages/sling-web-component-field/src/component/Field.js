@@ -24,7 +24,11 @@ const CUSTOM_SETTER_PROPS = [
   'value',
 ];
 
-const PROPS = [...BOOLEAN_PROPS, ...STRING_PROPS, ...CUSTOM_SETTER_PROPS];
+const PROPS = [
+  ...BOOLEAN_PROPS,
+  ...STRING_PROPS,
+  ...CUSTOM_SETTER_PROPS,
+];
 
 export const Field = Base => class extends withEventDispatch(Base) {
   constructor() {
@@ -47,7 +51,7 @@ export const Field = Base => class extends withEventDispatch(Base) {
         </svg>
         <sling-icon
           class="emd-field__icon emd-field__icon_error"
-          icon="warning"></sling-icon>
+          icon="danger"></sling-icon>
         <sling-icon
           class="emd-field__icon emd-field__icon_success"
           icon="success"></sling-icon>
@@ -105,7 +109,8 @@ export const Field = Base => class extends withEventDispatch(Base) {
 
   attributeChangedCallback(attrName, previousValue, nextValue) {
     if (PROPS.includes(attrName) && previousValue !== nextValue) {
-      this.inputElement[attrName] = nextValue;
+      console.log(this.inputElement, attrName, nextValue);
+      setAttr(this.inputElement, attrName, nextValue);
     }
   }
 
