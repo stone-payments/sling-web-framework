@@ -100,7 +100,6 @@ export const TestLitForm = Base => class extends withForm(Base) {
             validation="${validateUsernameAvailability}"
             required></sling-field>
           <sling-field-message name="username"></sling-field-message>
-          ${isValidatingField.username ? 'validando' : ''}
         </div>
 
         <div>

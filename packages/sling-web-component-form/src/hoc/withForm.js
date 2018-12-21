@@ -184,19 +184,25 @@ export const withForm = Base =>
       ));
     }
 
+    validateForm() {
+      this.fields.forEach((field) => {
+        this.validateFieldByElement(field);
+      });
+
+      this.validateFields();
+    }
+
+    touchAllFields() {
+      this.fields.forEach((field) => {
+        const fieldId = this.constructor.getFieldId(field);
+        this.dispatchAction(updateFieldTouched(fieldId, true));
+      });
+    }
+
     submitForm() {
       if (!this.formState.isSubmitting) {
-        this.fields.forEach((field) => {
-          const fieldId = this.constructor.getFieldId(field);
-          const validated = getIn(this.formState.validated, fieldId);
-          this.dispatchAction(updateFieldTouched(fieldId, true));
-
-          if (!validated) {
-            this.validateFieldByElement(field);
-          }
-        });
-
-        this.validateFields();
+        this.touchAllFields();
+        this.validateForm();
         this.dispatchAction(startSubmission());
       }
     }
