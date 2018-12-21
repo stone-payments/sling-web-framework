@@ -101,11 +101,23 @@ export const Field = Base => class extends withEventDispatch(Base) {
   }
 
   set value(value = '') {
+    let nextValue = value;
     const pastValue = this.getAttribute('value') || '';
 
-    if (pastValue !== value) {
-      setAttr(this, 'value', value);
-      this.dispatchEventAndMethod('update', value);
+    const shouldForceUpdateMask = this.mask
+      && value !== this.mask.masked.resolve(value);
+
+    if (shouldForceUpdateMask) {
+      nextValue = this.mask.masked.resolve(value);
+    }
+
+    if (pastValue !== nextValue) {
+      setAttr(this, 'value', nextValue);
+      this.dispatchEventAndMethod('update', nextValue);
+
+      if (shouldForceUpdateMask) {
+        this.mask.value = this.value;
+      }
     }
   }
 
