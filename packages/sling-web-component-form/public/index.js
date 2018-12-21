@@ -22,7 +22,7 @@ form.addEventListener('submiterror', ({ detail }) => {
   form.finishSubmission();
 });
 
-const validateForm = (values) => {
+const validateFields = (values) => {
   const errors = {};
 
   if (!values.phone || (!values.phone.cell && !values.phone.home)) {
@@ -42,5 +42,5 @@ const validateUserName = async (value) => {
   return undefined;
 };
 
-form.validation = validateForm;
+form.validation = validateFields;
 userNameField.validation = validateUserName;

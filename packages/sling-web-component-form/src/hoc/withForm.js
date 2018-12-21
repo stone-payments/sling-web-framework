@@ -5,7 +5,7 @@ import { withReducer } from './withReducer.js';
 import {
   formReducer,
   validateField,
-  validateForm,
+  validateFields,
   updateFieldValue,
   updateFieldTouched,
   setValues,
@@ -177,8 +177,8 @@ export const withForm = Base =>
       this.validateFieldByElement(this.getFieldById(fieldId));
     }
 
-    validateForm() {
-      this.dispatchAction(validateForm(
+    validateFields() {
+      this.dispatchAction(validateFields(
         this.form.validation,
         this.formState.values,
       ));
@@ -196,7 +196,7 @@ export const withForm = Base =>
           }
         });
 
-        this.validateForm();
+        this.validateFields();
         this.dispatchAction(startSubmission());
       }
     }
@@ -288,7 +288,7 @@ export const withForm = Base =>
 
         this.dispatchAction(updateFieldTouched(fieldId, true));
         this.validateFieldByElement(field);
-        this.validateForm();
+        this.validateFields();
       }
     }
 
@@ -300,7 +300,7 @@ export const withForm = Base =>
         if (getIn(this.formState.values, fieldId) !== value) {
           this.dispatchAction(updateFieldValue(fieldId, value));
           this.validateFieldByElement(field);
-          this.validateForm();
+          this.validateFields();
         }
       }
     }

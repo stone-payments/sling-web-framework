@@ -1,7 +1,7 @@
 import { byIdReducer } from './byIdReducer.js';
 import { parseState } from './formSelectors.js';
 
-export { validateField, validateForm } from './formValidation.js';
+export { validateField, validateFields } from './formValidation.js';
 
 export {
   addField,
