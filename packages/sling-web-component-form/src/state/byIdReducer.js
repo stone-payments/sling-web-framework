@@ -86,35 +86,6 @@ const updatePropWithCondition = (state, action) => (obj, condition = true) => {
     : state;
 };
 
-const parseRemoveFields = (state, fieldPrefix) => Object
-  .entries(state)
-  .filter(([fieldId]) => {
-    const baseKeys = toPath(fieldPrefix);
-    const keys = toPath(fieldId).slice(0, baseKeys.length);
-    return !arraysEqual(baseKeys, keys);
-  })
-  .map(([fieldId, value]) => {
-    const [lastKey] = toPath(fieldPrefix).slice(-1);
-
-    if (Number(lastKey) === lastKey) {
-      const baseKeys = toPath(fieldPrefix).slice(0, -1);
-      const keys = toPath(fieldId).slice(0, baseKeys.length);
-
-      if (arraysEqual(baseKeys, keys)) {
-        const newKeys = toPath(fieldId);
-        const index = newKeys[baseKeys.length];
-
-        if (index > lastKey) {
-          newKeys[baseKeys.length] -= 1;
-          return [fromPath(newKeys), value];
-        }
-      }
-    }
-
-    return [fieldId, value];
-  })
-  .reduce(toFlatEntries, {});
-
 const parseUserValues = userValues => Object
   .entries(flatten(userValues))
   .map(([fieldId, value]) => [fieldId, {
@@ -122,13 +93,6 @@ const parseUserValues = userValues => Object
     value,
   }])
   .reduce(toFlatEntries, {});
-
-const resetState = state => Object
-  .keys(state)
-  .map(key => ({
-    [key]: { ...(key === FORM ? INITIAL_STATE[FORM] : INITIAL_FIELD_STATE) },
-  }))
-  .reduce(toFlatObject, {});
 
 export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
   const updateFieldState = updatePropWithCondition(state, action);
@@ -140,7 +104,34 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
         : state;
 
     case REMOVE_FIELDS:
-      return parseRemoveFields(state, action.fieldPrefix);
+      return Object
+        .entries(state)
+        .filter(([fieldId]) => {
+          const baseKeys = toPath(action.fieldPrefix);
+          const keys = toPath(fieldId).slice(0, baseKeys.length);
+          return !arraysEqual(baseKeys, keys);
+        })
+        .map(([fieldId, value]) => {
+          const [lastKey] = toPath(action.fieldPrefix).slice(-1);
+
+          if (Number(lastKey) === lastKey) {
+            const baseKeys = toPath(action.fieldPrefix).slice(0, -1);
+            const keys = toPath(fieldId).slice(0, baseKeys.length);
+
+            if (arraysEqual(baseKeys, keys)) {
+              const newKeys = toPath(fieldId);
+              const index = newKeys[baseKeys.length];
+
+              if (index > lastKey) {
+                newKeys[baseKeys.length] -= 1;
+                return [fromPath(newKeys), value];
+              }
+            }
+          }
+
+          return [fieldId, value];
+        })
+        .reduce(toFlatEntries, {});
 
     case UPDATE_FIELD_VALUE:
       return updateFieldState(
@@ -157,7 +148,16 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       );
 
     case RESET_FIELDS:
-      return resetState(state);
+      return Object
+        .keys(state)
+        .map(key => ({
+          [key]: {
+            ...(key === FORM
+              ? INITIAL_STATE[FORM]
+              : INITIAL_FIELD_STATE),
+          },
+        }))
+        .reduce(toFlatObject, {});
 
     case SET_VALUES:
       return {
@@ -169,14 +169,14 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
       return updateFieldState({
         isValidating: true,
         validation: action.validation,
-      });
+      }, state[action.fieldId] != null);
 
     case FINISH_VALIDATION:
       return updateFieldState({
         isValidating: false,
         validation: null,
         error: action.error,
-      });
+      }, state[action.fieldId] != null);
 
     default:
       return state;
