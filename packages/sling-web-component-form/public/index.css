@@ -1,38 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,500,700');
+
 body {
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-gap: 30px;
-}
-
-body > * {
-  margin: 20px;
-  align-self: flex-start;
-}
-
-h4,
-h3 {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-h4 { font-size: 16px; }
-h3 { font-size: 13px; }
-
-div {
-  grid-column-end: span 2;
-}
-
-sling-form {
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 30px;
-}
-
-sling-field-message {
-  height: 30px;
-  margin-top: 10px;
-  font-size: 13px;
-}
-
-pre {
-  width: 25vw;
+  font-family: 'Heebo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

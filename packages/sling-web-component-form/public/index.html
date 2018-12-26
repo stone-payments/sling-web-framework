@@ -1,58 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../../../scripts/helpers/injectDependencies.js"></script>
   <link rel="stylesheet" href="index.css">
-  <title>sling-form</title>
+  <title>sling-web-component-form</title>
 </head>
+
 <body>
-  <sling-form>
-    <label>
-      <h4>Nome de usuário</h4>
-      <sling-field name="username" type="text" required></sling-field>
-      <sling-field-message name="username"></sling-field-message>
-    </label>
+  <form-example></form-example>
+</body> 
 
-    <label>
-      <h4>E-mail</h4>
-      <sling-field name="email" type="email" validationdelay="1000" required></sling-field>
-      <sling-field-message name="email"></sling-field-message>
-    </label>
-
-    <label>
-      <h4>CPF</h4>
-      <sling-field name="cpf" type="cpf" required></sling-field>
-      <sling-field-message name="cpf"></sling-field-message>
-    </label>
-
-    <label>
-      <h4>CNPJ</h4>
-      <sling-field name="cnpj" type="cnpj" required></sling-field>
-      <sling-field-message name="cnpj"></sling-field-message>
-    </label>
-
-    <div>
-      <h4>Telefones</h4>
-      <sling-field-message name="phoneMinimum"></sling-field-message>
-    </div>
-
-    <label>
-      <h3>Celular</h3>
-      <sling-field name="phone.cell" type="tel"></sling-field>
-      <sling-field-message name="phone.cell"></sling-field-message>
-    </label>
-
-    <label>
-      <h3>Casa</h3>
-      <sling-field name="phone.home" type="tel"></sling-field>
-      <sling-field-message name="phone.home"></sling-field-message>
-    </label>
-
-    <sling-button type="submit">Enviar</sling-button>
-  </sling-form>
-
-  <pre id="debug"></pre>
-</body>
 </html>
