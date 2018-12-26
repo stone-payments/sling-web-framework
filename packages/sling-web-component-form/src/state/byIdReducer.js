@@ -77,7 +77,7 @@ export const finishValidation = (fieldId, error) => ({
   error,
 });
 
-const updatePropWithCondition = (state, action) => (obj, condition = true) => {
+const updatePropWithCondition = (state, action) => (obj, condition) => {
   const { fieldId } = action;
   const field = state[fieldId];
 
@@ -99,9 +99,10 @@ export const byIdReducer = (state = INITIAL_STATE, action = {}) => {
 
   switch (action.type) {
     case ADD_FIELD:
-      return (state[action.fieldId] == null)
-        ? { ...state, [action.fieldId]: { ...INITIAL_FIELD_STATE } }
-        : state;
+      return {
+        ...state,
+        [action.fieldId]: { ...INITIAL_FIELD_STATE },
+      };
 
     case REMOVE_FIELDS:
       return Object

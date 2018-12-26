@@ -5,9 +5,10 @@ import {
   updateFieldValue,
   updateFieldTouched,
   startValidation,
-  // removeFields,
-  // finishValidation,
-  // setValues,
+  finishValidation,
+  setValues,
+  removeFields,
+  resetFields,
 } from './byIdReducer.js';
 
 import { FORM } from './constant.js';
@@ -171,7 +172,7 @@ describe('byIdReducer', () => {
     });
   });
 
-  it('Should not update validation and isValidating properties ' +
+  it('Should not set validation and isValidating properties ' +
     'if the field was not added first.', () => {
     const validatorFn = value => value;
 
@@ -187,11 +188,9 @@ describe('byIdReducer', () => {
     });
   });
 
-  /*
-
-  it('Should end username validation with test error message', () => {
-    state = byIdReducer(INITIAL_STATE,
-      finishValidation('username', 'test error'));
+  it('Should set validation, isValidating and error properties.', () => {
+    state = byIdReducer(INITIAL_STATE, addField('username'));
+    state = byIdReducer(state, finishValidation('username', 'test error'));
 
     expect(state).to.eql({
       [FORM]: {
@@ -209,13 +208,10 @@ describe('byIdReducer', () => {
     });
   });
 
-  it('Should remove username field', () => {
-    state = byIdReducer(state, removeFields('username'));
-    expect(state).to.eql(INITIAL_STATE);
-  });
-
-  it('Should add set of values to initial state', () => {
-    state = byIdReducer(state, setValues('a'));
+  it('Should not set validation, isValidating and error properties ' +
+    'if the field was not added first.', () => {
+    state = byIdReducer(INITIAL_STATE,
+      finishValidation('username', 'test error'));
 
     expect(state).to.eql({
       [FORM]: {
@@ -223,14 +219,240 @@ describe('byIdReducer', () => {
         isValidating: false,
         validation: null,
       },
-      0: {
+    });
+  });
+
+  it('Should add values to the state.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      username: 'stone',
+    }));
+
+    expect(state).to.eql({
+      [FORM]: {
         error: null,
         isValidating: false,
         validation: null,
-        value: 'a',
+      },
+      username: {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'stone',
         touched: false,
       },
     });
   });
-  */
+
+  it('Should remove previous values when setting new values.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      username: 'stone',
+    }));
+
+    state = byIdReducer(state, setValues({
+      password: '**secret**',
+    }));
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+      password: {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: '**secret**',
+        touched: false,
+      },
+    });
+  });
+
+  it('Should flatten values in state when setting new values.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      games: [
+        { name: 'Portal' },
+        { name: 'Fez' },
+        { name: 'Braid' },
+      ],
+    }));
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+      'games[0].name': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'Portal',
+        touched: false,
+      },
+      'games[1].name': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'Fez',
+        touched: false,
+      },
+      'games[2].name': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'Braid',
+        touched: false,
+      },
+    });
+  });
+
+  it('Should remove a single field.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      username: 'stone',
+      password: '**secret**',
+    }));
+
+    state = byIdReducer(state, removeFields('username'));
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+      password: {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: '**secret**',
+        touched: false,
+      },
+    });
+  });
+
+  it('Should remove many fields.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      games: [
+        { name: 'Portal 2', console: 'PS3' },
+        { name: 'Fez', console: 'PC' },
+      ],
+    }));
+
+    state = byIdReducer(state, removeFields('games[1]'));
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+      'games[0].name': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'Portal 2',
+        touched: false,
+      },
+      'games[0].console': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'PS3',
+        touched: false,
+      },
+    });
+  });
+
+  it('Should update ids that represent arrays when removing fields.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      games: [
+        { name: 'Portal 2', console: 'PS3' },
+        { name: 'Fez', console: 'PC' },
+      ],
+    }));
+
+    state = byIdReducer(state, removeFields('games[0]'));
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+      'games[0].name': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'Fez',
+        touched: false,
+      },
+      'games[0].console': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: 'PC',
+        touched: false,
+      },
+    });
+  });
+
+  it('Should remove a whole branch of fields.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      games: [
+        { name: 'Portal 2', console: 'PS3' },
+        { name: 'Fez', console: 'PC' },
+      ],
+    }));
+
+    state = byIdReducer(state, removeFields('games'));
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+    });
+  });
+
+  it('Should reset all fields to their initial values.', () => {
+    state = byIdReducer(INITIAL_STATE, setValues({
+      username: 'stone',
+      games: [
+        { name: 'Portal 2', console: 'PS3' },
+      ],
+    }));
+
+    state = byIdReducer(state, resetFields());
+
+    expect(state).to.eql({
+      [FORM]: {
+        error: null,
+        isValidating: false,
+        validation: null,
+      },
+      username: {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: '',
+        touched: false,
+      },
+      'games[0].name': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: '',
+        touched: false,
+      },
+      'games[0].console': {
+        error: null,
+        isValidating: false,
+        validation: null,
+        value: '',
+        touched: false,
+      },
+    });
+  });
 });
