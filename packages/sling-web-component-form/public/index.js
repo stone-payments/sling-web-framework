@@ -72,14 +72,6 @@ const TestLitForm = Base => class extends withForm(Base) {
     };
   }
 
-  handleSubmitSuccess({ detail }) {
-    console.log('SUCCESS', detail, this);
-  }
-
-  handleSubmitError({ detail }) {
-    console.log('ERROR', detail, this);
-  }
-
   render() {
     const {
       values,
@@ -112,11 +104,7 @@ const TestLitForm = Base => class extends withForm(Base) {
         }      
       </style>
 
-      <sling-form
-        validation="${validatePresenceOfAnyTel}"
-        onsubmitsuccess="${this.handleSubmitSuccess}"
-        onsubmiterror="${this.handleSubmitError}">
-
+      <sling-form validation="${validatePresenceOfAnyTel}">
         <div class="form__title">
           <h3>Dados</h3>
         </div>
