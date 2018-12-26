@@ -16,7 +16,7 @@ export {
 
 export { onlyForm, onlyFields } from './formSelectors.js';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   submitCount: 0,
   isSubmitting: false,
   byId: byIdReducer(),

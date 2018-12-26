@@ -17,7 +17,7 @@ const INITIAL_FIELD_STATE = {
   touched: false,
 };
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   [FORM]: {
     error: null,
     isValidating: false,
