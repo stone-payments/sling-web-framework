@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-form",
-  "version": "1.11.7",
+  "version": "1.12.0",
   "description": "Sling Form",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
@@ -8,9 +8,12 @@
   "author": "Stone Pagamentos",
   "dependencies": {
     "bluebird": "^3.5.3",
-    "sling-framework": "^1.11.7",
-    "sling-helpers": "^1.11.7",
-    "sling-web-component-button": "^1.11.7",
-    "sling-web-component-input": "^1.11.7"
+    "sling-web-component-field": "^1.0.0",
+    "sling-web-component-field-message": "^1.0.0",
+    "sling-web-component-select": "^1.11.5",
+    "sling-framework": "^1.12.0",
+    "sling-helpers": "^1.12.0",
+    "sling-web-component-button": "^1.12.0",
+    "sling-web-component-input": "^1.12.0"
   }
 }

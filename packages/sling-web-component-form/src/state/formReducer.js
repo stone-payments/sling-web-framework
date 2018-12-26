@@ -1,14 +1,14 @@
 import { byIdReducer } from './byIdReducer.js';
 import { parseState } from './formSelectors.js';
 
-export { validateField, validateForm } from './formValidation.js';
+export { validateField, validateFields } from './formValidation.js';
 
 export {
   addField,
-  removeField,
+  removeFields,
   updateFieldValue,
   updateFieldTouched,
-  updateFieldUsed,
+  resetFields as resetForm,
   setValues,
   startValidation,
   finishValidation,
@@ -16,8 +16,7 @@ export {
 
 export { onlyForm, onlyFields } from './formSelectors.js';
 
-export const INITIAL_STATE = {
-  dirty: false,
+const INITIAL_STATE = {
   submitCount: 0,
   isSubmitting: false,
   byId: byIdReducer(),

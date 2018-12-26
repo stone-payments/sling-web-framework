@@ -1,4 +1,4 @@
-import { isPromise } from 'sling-helpers/src';
+import { isPromise } from 'sling-helpers';
 import { startValidation, finishValidation } from './byIdReducer.js';
 import { FORM } from './constant.js';
 
@@ -56,5 +56,5 @@ const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
 export const validateField = (fieldId, validatorFn, valueStr) =>
   validate(fieldId, () => atFieldLevel(validatorFn, valueStr));
 
-export const validateForm = (validatorFn, valueObj) =>
+export const validateFields = (validatorFn, valueObj) =>
   validate(FORM, () => atFormLevel(validatorFn, valueObj));
