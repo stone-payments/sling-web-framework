@@ -62,8 +62,10 @@ export const validate = (...args) => (dispatch, getState) => {
   }
 };
 
-export const validateField = (fieldId, validatorFn, valueStr) =>
-  validate(fieldId, () => atFieldLevel(validatorFn, valueStr));
+export const validateField =
+  (fieldId, validatorFn, valueStr, apply = validate, at = atFieldLevel) =>
+    apply(fieldId, () => at(validatorFn, valueStr));
 
-export const validateFields = (validatorFn, valueObj) =>
-  validate(FORM, () => atFormLevel(validatorFn, valueObj));
+export const validateFields =
+  (validatorFn, valueObj, apply = validate, at = atFormLevel) =>
+    apply(FORM, () => at(validatorFn, valueObj));

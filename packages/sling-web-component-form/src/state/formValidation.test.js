@@ -1,13 +1,15 @@
 import sinon from 'sinon';
 
+import { FORM } from './constant.js';
+
 import {
   treatError,
   atLevel,
   atFieldLevel,
   atFormLevel,
   validate,
-  // validateField,
-  // validateFields,
+  validateField,
+  validateFields,
 } from './formValidation.js';
 
 describe('treatError', () => {
@@ -209,5 +211,43 @@ describe('validate', () => {
 
     expect(start).to.have.been.calledOnceWith('name', validator);
     expect(finish).not.to.have.been.called;
+  });
+});
+
+describe('validateField', () => {
+  it('Should be a shortcut for validate.', () => {
+    expect(validateField()).to.be.a('function');
+  });
+
+  it('Should call validation with a fieldId and a validation thunk.', () => {
+    const validatorFn = sinon.spy();
+    const apply = sinon.spy();
+    const at = sinon.spy();
+
+    validateField('name', validatorFn, 'stone', apply, at);
+    expect(apply).to.have.been.calledOnceWith('name');
+
+    const validatorThunk = apply.args[0][1];
+    validatorThunk();
+    expect(at).to.have.been.calledOnceWith(validatorFn, 'stone');
+  });
+});
+
+describe('validateFields', () => {
+  it('Should be a shortcut for validate.', () => {
+    expect(validateFields()).to.be.a('function');
+  });
+
+  it('Should call validation with FORM and a validation thunk.', () => {
+    const validatorFn = sinon.spy();
+    const apply = sinon.spy();
+    const at = sinon.spy();
+
+    validateFields(validatorFn, 'stone', apply, at);
+    expect(apply).to.have.been.calledOnceWith(FORM);
+
+    const validatorThunk = apply.args[0][1];
+    validatorThunk();
+    expect(at).to.have.been.calledOnceWith(validatorFn, 'stone');
   });
 });
