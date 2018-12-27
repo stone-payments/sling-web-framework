@@ -8,11 +8,11 @@ export const onlyFields = state => Object
   .filter(([key]) => key !== FORM)
   .reduce(toFlatEntries, {});
 
-export const parseState = (state) => {
-  const form = onlyForm(state);
-  const fieldEntries = Object.entries(onlyFields(state));
+export const parseState = (byIdState) => {
+  const form = onlyForm(byIdState);
+  const fieldEntries = Object.entries(onlyFields(byIdState));
 
-  const dirty = Object.values(onlyFields(state))
+  const dirty = Object.values(onlyFields(byIdState))
     .some(field => field.value || field.touched);
 
   const errors = {
@@ -27,13 +27,13 @@ export const parseState = (state) => {
   const touched = fieldEntries.reduce((result, [fieldId, field]) =>
     setIn(result, fieldId, field.touched), {});
 
-  const isValid = isDeeplyEmpty(onlyForm(state).error) &&
-    Object.values(onlyFields(state)).every(field => field.error == null);
+  const isValid = isDeeplyEmpty(onlyForm(byIdState).error) &&
+    Object.values(onlyFields(byIdState)).every(field => field.error == null);
 
   const isValidField = fieldEntries.reduce((result, [fieldId, field]) =>
     setIn(result, fieldId, field.error == null), {});
 
-  const isValidating = Object.values(state)
+  const isValidating = Object.values(byIdState)
     .some(field => field.isValidating === true);
 
   const isValidatingField = fieldEntries.reduce((result, [fieldId, field]) =>
