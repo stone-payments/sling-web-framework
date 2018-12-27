@@ -6,12 +6,12 @@ export const treatError = error =>
   (error && error.constructor === Error ? error.message : error);
 
 export const atLevel = wrapperFn => (validatorFn, value) => {
-  if (validatorFn == null) return wrapperFn(undefined);
+  if (validatorFn == null) return wrapperFn();
   const error = validatorFn(value);
 
   return (isPromise(error))
     ? error.catch(treatError).then(wrapperFn)
-    : wrapperFn(treatError(error));
+    : wrapperFn(error);
 };
 
 export const atFieldLevel = (...args) =>
