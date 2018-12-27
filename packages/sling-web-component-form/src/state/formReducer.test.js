@@ -84,7 +84,7 @@ describe('formReducer', () => {
 
   it('Should call byIdReducer implicitly.', () => {
     state = formReducer();
-    const changedState = formReducer(state, addField('username'));
-    expect(state).not.to.equal(changedState);
+    state = formReducer(state, addField('username'));
+    expect(state.values.username).to.equal('');
   });
 });
