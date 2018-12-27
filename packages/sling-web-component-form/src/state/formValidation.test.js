@@ -5,7 +5,7 @@ import {
   atLevel,
   atFieldLevel,
   atFormLevel,
-  // validate,
+  validate,
   // validateField,
   // validateFields,
 } from './formValidation.js';
@@ -90,5 +90,124 @@ describe('atFormLevel', () => {
 
     validatorFn = () => undefined;
     expect(atFormLevel(validatorFn)).to.eql({});
+  });
+});
+
+describe('validate', () => {
+  it('Should return a function.', () => {
+    expect(validate()).to.be.a('function');
+  });
+
+  it('Should handle byIdReducer state.', () => {
+    const stateSpy = sinon.spy();
+    const validatorThunk = () => () => undefined;
+    const dispatch = sinon.spy();
+
+    const getState = () => ({
+      get name() {
+        stateSpy();
+        return null;
+      },
+    });
+
+    validate('name', validatorThunk)(dispatch, getState);
+    expect(stateSpy).to.have.been.calledOnce;
+  });
+
+  it('Should handle formReducer state.', () => {
+    const stateSpy = sinon.spy();
+    const validatorThunk = () => () => undefined;
+    const dispatch = sinon.spy();
+
+    const getState = () => ({
+      byId: {
+        get name() {
+          stateSpy();
+          return null;
+        },
+      },
+    });
+
+    validate('name', validatorThunk)(dispatch, getState);
+    expect(stateSpy).to.have.been.calledOnce;
+  });
+
+  it('Should cancel the previous validation if ' +
+    'it exists and has a cancel method.', () => {
+    const validatorThunk = () => () => undefined;
+    const dispatch = sinon.spy();
+
+    const state = {
+      name: {
+        validation: {
+          cancel: sinon.spy(),
+        },
+      },
+    };
+
+    const getState = () => state;
+
+    validate('name', validatorThunk)(dispatch, getState);
+    expect(state.name.validation.cancel).to.have.been.calledOnce;
+  });
+
+  it('Should dispatch finishValidation if ' +
+    'validation does not return a Promise.', () => {
+    const validatorThunk = () => 'test message';
+
+    const start = sinon.spy();
+    const finish = sinon.spy();
+    const dispatch = sinon.spy();
+
+    const state = { name: {} };
+    const getState = () => state;
+
+    validate('name', validatorThunk, start, finish)(dispatch, getState);
+
+    expect(start).not.to.have.been.called;
+    expect(finish).to.have.been.calledOnceWith('name', 'test message');
+  });
+
+  it('Should dispatch both startValidation and finishValidation if ' +
+    'validation returns a Promise.', async () => {
+    const validator = Promise.resolve('test message');
+    const validatorThunk = () => validator;
+
+    const start = sinon.spy();
+    const finish = sinon.spy();
+    const dispatch = sinon.spy();
+
+    const state = { name: {} };
+    const getState = () => state;
+
+    await validate('name', validatorThunk, start, finish)(dispatch, getState);
+
+    expect(start).to.have.been.calledOnceWith('name', validator);
+    expect(finish).to.have.been.calledOnceWith('name', 'test message');
+  });
+
+  it('Should dispatch only startValidation if validation returns ' +
+    'a Promise but the field is remove.', async () => {
+    const validator = Promise.resolve('test message');
+    const validatorThunk = () => validator;
+
+    const start = sinon.spy();
+    const finish = sinon.spy();
+    const dispatch = sinon.spy();
+
+    let count = 0;
+
+    const getState = () => {
+      if (count === 0) {
+        count += 1;
+        return { name: {} };
+      }
+      return {};
+    };
+
+    await validate('name', validatorThunk, start, finish)(dispatch, getState);
+
+    expect(start).to.have.been.calledOnceWith('name', validator);
+    expect(finish).not.to.have.been.called;
   });
 });

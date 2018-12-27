@@ -20,7 +20,14 @@ export const atFieldLevel = (...args) =>
 export const atFormLevel = (...args) =>
   atLevel(errObj => errObj || {})(...args);
 
-export const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
+export const validate = (...args) => (dispatch, getState) => {
+  const [
+    fieldId,
+    validatorThunk,
+    start = startValidation,
+    finish = finishValidation,
+  ] = args;
+
   const getField = (id) => {
     const state = getState();
     return (state.byId != null) ? state.byId[id] : state[id];
@@ -39,18 +46,18 @@ export const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
     const nextValidation = validatorThunk();
 
     if (isPromise(nextValidation)) {
-      dispatch(startValidation(fieldId, nextValidation));
+      dispatch(start(fieldId, nextValidation));
 
       nextValidation
         .then((error) => {
           const fieldStillExists = getField(fieldId) != null;
 
           if (fieldStillExists) {
-            dispatch(finishValidation(fieldId, error));
+            dispatch(finish(fieldId, error));
           }
         });
     } else {
-      dispatch(finishValidation(fieldId, nextValidation));
+      dispatch(finish(fieldId, nextValidation));
     }
   }
 };
