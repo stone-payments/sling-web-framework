@@ -2,10 +2,10 @@ import { isPromise } from 'sling-helpers';
 import { startValidation, finishValidation } from './byIdReducer.js';
 import { FORM } from './constant.js';
 
-const treatError = error =>
+export const treatError = error =>
   (error && error.constructor === Error ? error.message : error);
 
-const atLevel = wrapperFn => (validatorFn, value) => {
+export const atLevel = wrapperFn => (validatorFn, value) => {
   if (validatorFn == null) return wrapperFn(undefined);
   const error = validatorFn(value);
 
@@ -14,11 +14,13 @@ const atLevel = wrapperFn => (validatorFn, value) => {
     : wrapperFn(treatError(error));
 };
 
-const atFieldLevel = (...args) => atLevel(errStr => errStr || null)(...args);
+export const atFieldLevel = (...args) =>
+  atLevel(errStr => errStr || null)(...args);
 
-const atFormLevel = (...args) => atLevel(errObj => errObj || {})(...args);
+export const atFormLevel = (...args) =>
+  atLevel(errObj => errObj || {})(...args);
 
-const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
+export const validate = (fieldId, validatorThunk) => (dispatch, getState) => {
   const getField = (id) => {
     const state = getState();
     return (state.byId != null) ? state.byId[id] : state[id];

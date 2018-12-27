@@ -2,22 +2,22 @@
 import { onlyForm, onlyFields, parseState } from './formSelectors.js';
 import { FORM } from './constant.js';
 
-describe('formSelectors', () => {
-  const state = {
-    [FORM]: {
-      error: null,
-      isValidating: false,
-      validation: null,
-    },
-    username: {
-      error: null,
-      isValidating: false,
-      validation: null,
-      value: 'a',
-      touched: false,
-    },
-  };
+const state = {
+  [FORM]: {
+    error: null,
+    isValidating: false,
+    validation: null,
+  },
+  username: {
+    error: null,
+    isValidating: false,
+    validation: null,
+    value: 'a',
+    touched: false,
+  },
+};
 
+describe('onlyForm', () => {
   it('Should return only Form values.', () => {
     expect(onlyForm(state)).to.eql({
       error: null,
@@ -25,7 +25,9 @@ describe('formSelectors', () => {
       validation: null,
     });
   });
+});
 
+describe('onlyFields', () => {
   it('Should return only Form fields.', () => {
     expect(onlyFields(state)).to.eql({
       username: {
@@ -37,7 +39,9 @@ describe('formSelectors', () => {
       },
     });
   });
+});
 
+describe('parseState', () => {
   it('Should correctly transform byId state into ' +
     'the format that is exposed to the user.', () => {
     const byIdState = {
