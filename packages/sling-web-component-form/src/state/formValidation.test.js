@@ -3,8 +3,8 @@ import sinon from 'sinon';
 import {
   treatError,
   atLevel,
-  // atFieldLevel,
-  // atFormLevel,
+  atFieldLevel,
+  atFormLevel,
   // validate,
   // validateField,
   // validateFields,
@@ -68,5 +68,27 @@ describe('atLevel', () => {
 
     await atLevel(wrapperFn)(validatorFn);
     expect(wrapperFn).to.have.been.calledOnceWith('error message');
+  });
+});
+
+describe('atFieldLevel', () => {
+  it('Should call atLevel with a wrapper function ' +
+    'that returns a validation error or null.', () => {
+    let validatorFn = () => 'error message';
+    expect(atFieldLevel(validatorFn)).to.equal('error message');
+
+    validatorFn = () => undefined;
+    expect(atFieldLevel(validatorFn)).to.be.null;
+  });
+});
+
+describe('atFormLevel', () => {
+  it('Should call atLevel with a wrapper function ' +
+    'that returns a validation error or an empty object.', () => {
+    let validatorFn = () => ({ err: 'error message' });
+    expect(atFormLevel(validatorFn)).to.eql({ err: 'error message' });
+
+    validatorFn = () => undefined;
+    expect(atFormLevel(validatorFn)).to.eql({});
   });
 });
