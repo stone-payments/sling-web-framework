@@ -16,26 +16,26 @@ import {
   removeFields,
 } from '../state/formReducer.js';
 
-const FORM_TYPES = [
+export const FORM_TYPES = [
   'SLING-FORM',
 ];
 
-const FORM_FIELD_TYPES = [
+export const FORM_FIELD_TYPES = [
   'SLING-FIELD',
   'SLING-INPUT',
   'SLING-SELECT',
 ];
 
-const FORM_FIELD_MESSAGE_TYPES = [
+export const FORM_FIELD_MESSAGE_TYPES = [
   'SLING-FIELD-MESSAGE',
 ];
 
-const FORM_SUBMIT_TYPES = [
+export const FORM_SUBMIT_TYPES = [
   'SLING-BUTTON',
   'BUTTON',
 ];
 
-export const withForm = Base =>
+export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
   class extends withEventDispatch(withReducer(formReducer)(Base)) {
     constructor() {
       super();
@@ -44,11 +44,14 @@ export const withForm = Base =>
       this.handleInput = this.handleInput.bind(this);
       this.handleBlur = this.handleBlur.bind(this);
       this.handleClick = this.handleClick.bind(this);
+      this._mo = new MutObserver(this.handleDomUpdate);
     }
 
     connectedCallback() {
-      super.connectedCallback();
-      this._mo = new MutationObserver(this.handleDomUpdate);
+      if (super.connectedCallback) {
+        super.connectedCallback();
+      }
+
       this._mo.observe(this.shadowRoot, { childList: true, subtree: true });
 
       this.shadowRoot.addEventListener('blur', this.handleBlur, true);
@@ -56,11 +59,14 @@ export const withForm = Base =>
       this.shadowRoot.addEventListener('update', this.handleInput);
       this.shadowRoot.addEventListener('click', this.handleClick);
 
-      this.handleStateUpdate(this.formState);
+      this.handleDomUpdate();
     }
 
     disconnectedCallback() {
-      super.disconnectedCallback();
+      if (super.disconnectedCallback) {
+        super.disconnectedCallback();
+      }
+
       this._mo.disconnect();
 
       this.shadowRoot.removeEventListener('blur', this.handleBlur, true);
@@ -92,10 +98,7 @@ export const withForm = Base =>
     }
 
     static getFieldId(field) {
-      return field.getAttribute('name') ||
-        field.name ||
-        field.getAttribute('id') ||
-        field.id;
+      return field.name || field.id;
     }
 
     get form() {

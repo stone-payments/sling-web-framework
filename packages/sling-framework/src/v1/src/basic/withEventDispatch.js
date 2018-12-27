@@ -1,6 +1,6 @@
 import { isFunction } from 'sling-helpers';
 
-export const withEventDispatch = (Base = HTMLElement) =>
+export const withEventDispatch = (Base = HTMLElement, CusEvent = CustomEvent) =>
   class extends Base {
     constructor() {
       super();
@@ -9,7 +9,7 @@ export const withEventDispatch = (Base = HTMLElement) =>
     }
 
     dispatchEventAndMethod(evtName, detail, target = this) {
-      const event = new CustomEvent(evtName, {
+      const event = new CusEvent(evtName, {
         bubbles: true,
         detail,
       });
