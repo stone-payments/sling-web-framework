@@ -853,4 +853,80 @@ describe('withForm', () => {
       expect(form.handleStateUpdate).to.have.been.calledOnceWith();
     });
   });
+
+  describe('#handleClick()', () => {
+    it('Should submit form if submit button is clicked.', () => {
+      const evt = {
+        target: submitButtonElement,
+      };
+
+      form.submitForm = sinon.spy();
+      form.resetForm = sinon.spy();
+
+      form.handleClick(evt);
+
+      expect(form.submitForm).to.have.been.calledOnceWith();
+      expect(form.resetForm).not.to.have.been.called;
+    });
+
+    it('Should reset form if reset button is clicked.', () => {
+      const evt = {
+        target: resetButtonElement,
+      };
+
+      form.submitForm = sinon.spy();
+      form.resetForm = sinon.spy();
+
+      form.handleClick(evt);
+
+      expect(form.submitForm).not.to.have.been.called;
+      expect(form.resetForm).to.have.been.calledOnceWith();
+    });
+  });
+
+  describe('#handleBlur()', () => {
+    it('Should ignore events not from form fields.', () => {
+      const evt = { target: { nodeName: null } };
+      form.handleBlur(evt);
+      expect(form.dispatchAction).not.to.have.been.called;
+    });
+
+    it('Should handle blur events comming from form fields.', () => {
+      const evt = { target: { ...fieldElement, name: 'stone' } };
+
+      fromReducer.updateFieldTouched = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+      form.validateFieldByElement = sinon.spy();
+      form.validateFields = sinon.spy();
+
+      form.handleBlur(evt);
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+
+      expect(fromReducer.updateFieldTouched)
+        .to.have.been.calledOnceWith('stone', true);
+
+      expect(form.validateFieldByElement)
+        .to.have.been.calledOnceWith(evt.target);
+
+      expect(form.validateFields).to.have.been.calledOnceWith();
+    });
+  });
+
+  describe('#handleValueUpdate()', () => {
+    it('Should ignore events not from form fields.', () => {
+      const evt = { target: { nodeName: null } };
+      form.handleValueUpdate(evt);
+      expect(form.dispatchAction).not.to.have.been.called;
+    });
+
+    it('Should handle values changes on form fields.', () => {
+
+    });
+  });
 });
