@@ -297,7 +297,8 @@ export const withForm = (
     handleValueUpdate({ target: field }) {
       if (this.constructor.isFormField(field)) {
         const fieldId = this.constructor.getFieldId(field);
-        const { value } = field || '';
+        let { value } = field;
+        value = (value == null) ? '' : value;
         const pastValue = getIn(this.formState.values, fieldId) || '';
 
         if (pastValue !== value) {

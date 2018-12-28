@@ -926,7 +926,73 @@ describe('withForm', () => {
     });
 
     it('Should handle values changes on form fields.', () => {
+      const evt = {
+        target: {
+          ...fieldElement,
+          name: 'stone',
+          value: 'payments',
+        },
+      };
 
+      fromReducer.updateFieldValue = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+      form.validateFieldByElement = sinon.spy();
+      form.validateFields = sinon.spy();
+
+      form.formState = {
+        values: {
+          stone: '',
+        },
+      };
+
+      form.handleValueUpdate(evt);
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+
+      expect(fromReducer.updateFieldValue)
+        .to.have.been.calledOnceWith('stone', 'payments');
+
+      expect(form.validateFieldByElement)
+        .to.have.been.calledOnceWith(evt.target);
+
+      expect(form.validateFields).to.have.been.calledOnceWith();
+    });
+
+    it('Should ignore values changes if they did not actually change.', () => {
+      const evt = {
+        target: {
+          ...fieldElement,
+          name: 'stone',
+        },
+      };
+
+      fromReducer.updateFieldValue = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+      form.validateFieldByElement = sinon.spy();
+      form.validateFields = sinon.spy();
+
+      form.formState = {
+        values: {
+          stone: '',
+        },
+      };
+
+      form.handleValueUpdate(evt);
+
+      expect(form.dispatchAction).not.to.have.been.called;
+      expect(fromReducer.updateFieldValue).not.to.have.been.called;
+      expect(form.validateFieldByElement).not.to.have.been.called;
+      expect(form.validateFields).not.to.have.been.called;
     });
   });
 });
