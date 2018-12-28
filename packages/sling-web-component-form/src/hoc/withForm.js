@@ -1,20 +1,7 @@
 import { withEventDispatch } from 'sling-framework';
 import { getIn, omit } from 'sling-helpers';
 import { withReducer } from './withReducer.js';
-
-import {
-  formReducer,
-  validateField,
-  validateFields,
-  updateFieldValue,
-  updateFieldTouched,
-  setValues,
-  startSubmission,
-  finishSubmission,
-  resetForm,
-  addField,
-  removeFields,
-} from '../state/formReducer.js';
+import * as reducer from '../state/formReducer.js';
 
 export const FORM_TYPES = [
   'SLING-FORM',
@@ -35,8 +22,12 @@ export const FORM_SUBMIT_TYPES = [
   'BUTTON',
 ];
 
-export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
-  class extends withEventDispatch(withReducer(formReducer)(Base)) {
+export const withForm = (
+  Base = class {},
+  MutObserver = MutationObserver,
+  fromReducer = reducer,
+) =>
+  class extends withEventDispatch(withReducer(fromReducer.formReducer)(Base)) {
     constructor() {
       super();
 
@@ -153,25 +144,25 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
       this.handleStateUpdate(this.formState);
     }
 
-    addField(fieldId) {
-      this.dispatchAction(addField(fieldId));
-    }
-
-    removeFields(fieldPrefix) {
-      this.dispatchAction(removeFields(fieldPrefix));
-    }
-
-    setValues(values) {
-      this.dispatchAction(setValues(values));
-    }
-
     getFieldById(fieldId) {
       return this.fields.find(field =>
         this.constructor.getFieldId(field) === fieldId);
     }
 
+    addField(fieldId) {
+      this.dispatchAction(fromReducer.addField(fieldId));
+    }
+
+    removeFields(fieldPrefix) {
+      this.dispatchAction(fromReducer.removeFields(fieldPrefix));
+    }
+
+    setValues(values) {
+      this.dispatchAction(fromReducer.setValues(values));
+    }
+
     validateFieldByElement(field) {
-      this.dispatchAction(validateField(
+      this.dispatchAction(fromReducer.validateField(
         this.constructor.getFieldId(field),
         field.validation,
         field.value,
@@ -183,7 +174,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
     }
 
     validateFields() {
-      this.dispatchAction(validateFields(
+      this.dispatchAction(fromReducer.validateFields(
         this.form.validation,
         this.formState.values,
       ));
@@ -200,7 +191,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
     touchAllFields() {
       this.fields.forEach((field) => {
         const fieldId = this.constructor.getFieldId(field);
-        this.dispatchAction(updateFieldTouched(fieldId, true));
+        this.dispatchAction(fromReducer.updateFieldTouched(fieldId, true));
       });
     }
 
@@ -208,19 +199,19 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
       if (!this.formState.isSubmitting) {
         this.touchAllFields();
         this.validateForm();
-        this.dispatchAction(startSubmission());
+        this.dispatchAction(fromReducer.startSubmission());
       }
     }
 
     finishSubmission() {
       if (this.formState.isSubmitting) {
-        this.dispatchAction(finishSubmission());
+        this.dispatchAction(fromReducer.finishSubmission());
         this.preventNextSubmission = false;
       }
     }
 
     resetForm() {
-      this.dispatchAction(resetForm());
+      this.dispatchAction(fromReducer.resetForm());
     }
 
     handleStateUpdate(nextState) {
@@ -297,7 +288,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
       if (this.constructor.isFormField(field)) {
         const fieldId = this.constructor.getFieldId(field);
 
-        this.dispatchAction(updateFieldTouched(fieldId, true));
+        this.dispatchAction(fromReducer.updateFieldTouched(fieldId, true));
         this.validateFieldByElement(field);
         this.validateFields();
       }
@@ -310,7 +301,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
         const pastValue = getIn(this.formState.values, fieldId) || '';
 
         if (pastValue !== value) {
-          this.dispatchAction(updateFieldValue(fieldId, value));
+          this.dispatchAction(fromReducer.updateFieldValue(fieldId, value));
           this.validateFieldByElement(field);
           this.validateFields();
         }

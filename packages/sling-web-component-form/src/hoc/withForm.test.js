@@ -1,4 +1,5 @@
 import sinon from 'sinon';
+
 import {
   withForm,
   FORM_TYPES,
@@ -7,7 +8,10 @@ import {
   FORM_SUBMIT_TYPES,
 } from './withForm.js';
 
+import * as reducer from '../state/formReducer.js';
+
 let MutObserver;
+let fromReducer;
 let WithForm;
 let form;
 
@@ -44,7 +48,9 @@ describe('withForm', () => {
     MutObserver.prototype.observe = sinon.spy();
     MutObserver.prototype.disconnect = sinon.spy();
 
-    WithForm = withForm(undefined, MutObserver);
+    fromReducer = { ...reducer };
+
+    WithForm = withForm(undefined, MutObserver, fromReducer);
 
     form = new WithForm();
     form.shadowRoot = { ...shadowRoot };
@@ -53,6 +59,7 @@ describe('withForm', () => {
 
   afterEach(() => {
     MutObserver = undefined;
+    fromReducer = undefined;
     WithForm = undefined;
     form = undefined;
   });
@@ -62,7 +69,7 @@ describe('withForm', () => {
       class Faker {}
       Faker.prototype.connectedCallback = sinon.spy();
 
-      WithForm = withForm(Faker, MutObserver);
+      WithForm = withForm(Faker, MutObserver, fromReducer);
       form = new WithForm();
       form.shadowRoot = { ...shadowRoot };
 
@@ -100,7 +107,7 @@ describe('withForm', () => {
       class Faker {}
       Faker.prototype.disconnectedCallback = sinon.spy();
 
-      WithForm = withForm(Faker, MutObserver);
+      WithForm = withForm(Faker, MutObserver, fromReducer);
       form = new WithForm();
       form.shadowRoot = { ...shadowRoot };
 
@@ -308,10 +315,88 @@ describe('withForm', () => {
     });
   });
 
+  describe('#getFieldById()', () => {
+    it('Should return a field by its id.', () => {
+      Object.defineProperty(form, 'fields', {
+        value: [{ name: 'earth' }, { name: 'wind' }, { id: 'fire' }],
+      });
+
+      expect(form.getFieldById('earth')).to.deep.equal({ name: 'earth' });
+    });
+  });
+
   describe('#addField()', () => {
-    it('Should dispatch a reducer action', () => {
+    it('Should dispatch a reducer action.', () => {
+      fromReducer.addField = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
       form.addField('id');
+
       expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(fromReducer.addField).to.have.been.calledOnceWith('id');
+    });
+  });
+
+  describe('#removeFields()', () => {
+    it('Should dispatch a reducer action.', () => {
+      fromReducer.removeFields = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      form.removeFields('path');
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(fromReducer.removeFields).to.have.been.calledOnceWith('path');
+    });
+  });
+
+  describe('#setValues()', () => {
+    it('Should dispatch a reducer action.', () => {
+      fromReducer.setValues = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      form.setValues('values');
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(fromReducer.setValues).to.have.been.calledOnceWith('values');
+    });
+  });
+
+  describe('validateFieldByElement', () => {
+    it('Should dispatch a reducer action.', () => {
+      const field = {
+        name: 'stone',
+        validation: 'validation',
+        value: 'value',
+      };
+
+      fromReducer.validateField = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      form.validateFieldByElement(field);
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(fromReducer.validateField)
+        .to.have.been.calledOnceWith('stone', 'validation', 'value');
     });
   });
 });
