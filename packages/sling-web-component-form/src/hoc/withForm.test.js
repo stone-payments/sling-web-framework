@@ -326,7 +326,7 @@ describe('withForm', () => {
   });
 
   describe('#addField()', () => {
-    it('Should dispatch a reducer action.', () => {
+    it('Should add a field to the state.', () => {
       fromReducer.addField = sinon.spy();
 
       WithForm = withForm(undefined, MutObserver, fromReducer);
@@ -343,7 +343,7 @@ describe('withForm', () => {
   });
 
   describe('#removeFields()', () => {
-    it('Should dispatch a reducer action.', () => {
+    it('Should remove a field from the state.', () => {
       fromReducer.removeFields = sinon.spy();
 
       WithForm = withForm(undefined, MutObserver, fromReducer);
@@ -360,7 +360,7 @@ describe('withForm', () => {
   });
 
   describe('#setValues()', () => {
-    it('Should dispatch a reducer action.', () => {
+    it('Should set many state values at once.', () => {
       fromReducer.setValues = sinon.spy();
 
       WithForm = withForm(undefined, MutObserver, fromReducer);
@@ -376,8 +376,8 @@ describe('withForm', () => {
     });
   });
 
-  describe('validateFieldByElement', () => {
-    it('Should dispatch a reducer action.', () => {
+  describe('#validateFieldByElement()', () => {
+    it('Should validate a single field given its dom element.', () => {
       const field = {
         name: 'stone',
         validation: 'validation',
@@ -397,6 +397,200 @@ describe('withForm', () => {
       expect(form.dispatchAction).to.have.been.calledOnce;
       expect(fromReducer.validateField)
         .to.have.been.calledOnceWith('stone', 'validation', 'value');
+    });
+  });
+
+  describe('#validateField()', () => {
+    it('Should validate a single field given its id.', () => {
+      form.validateFieldByElement = sinon.spy();
+      form.getFieldById = sinon.spy();
+
+      form.validateField('id');
+
+      expect(form.validateFieldByElement).to.have.been.calledOnce;
+      expect(form.getFieldById).to.have.been.calledOnceWith('id');
+    });
+  });
+
+  describe('#validateFields()', () => {
+    it('Should validate fields.', () => {
+      fromReducer.validateFields = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      Object.defineProperties(form, {
+        form: {
+          value: { validation: 'validation' },
+        },
+        formState: {
+          value: { values: 'values' },
+        },
+      });
+
+      form.validateFields();
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(fromReducer.validateFields)
+        .to.have.been.calledOnceWith('validation', 'values');
+    });
+  });
+
+  describe('#validateForm()', () => {
+    it('Should validate each single field and fields.', () => {
+      Object.defineProperty(form, 'fields', {
+        value: [{ name: 'earth' }, { name: 'wind' }, { id: 'fire' }],
+      });
+
+      form.validateFieldByElement = sinon.spy();
+      form.validateFields = sinon.spy();
+
+      form.validateForm();
+
+      expect(form.validateFieldByElement).to.have.been.calledThrice;
+
+      expect(form.validateFieldByElement.args[0][0])
+        .to.deep.equal({ name: 'earth' });
+
+      expect(form.validateFieldByElement.args[1][0])
+        .to.deep.equal({ name: 'wind' });
+
+      expect(form.validateFieldByElement.args[2][0])
+        .to.deep.equal({ id: 'fire' });
+
+      expect(form.validateFields).to.have.been.calledOnceWith();
+    });
+  });
+
+  describe('#touchAllFields()', () => {
+    it('Should touch all field programatically.', () => {
+      fromReducer.updateFieldTouched = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      Object.defineProperty(form, 'fields', {
+        value: [{ name: 'earth' }, { name: 'wind' }, { id: 'fire' }],
+      });
+
+      form.touchAllFields();
+
+      expect(form.dispatchAction).to.have.been.calledThrice;
+      expect(fromReducer.updateFieldTouched).to.have.been.calledThrice;
+
+      expect(fromReducer.updateFieldTouched.args[0])
+        .to.deep.equal(['earth', true]);
+
+      expect(fromReducer.updateFieldTouched.args[1])
+        .to.deep.equal(['wind', true]);
+
+      expect(fromReducer.updateFieldTouched.args[2])
+        .to.deep.equal(['fire', true]);
+    });
+  });
+
+  describe('#submitForm()', () => {
+    it('Should start form submission if it has not started yet.', () => {
+      fromReducer.startSubmission = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+      form.touchAllFields = sinon.spy();
+      form.validateForm = sinon.spy();
+
+      form.formState.isSubmitting = false;
+
+      form.submitForm();
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(form.touchAllFields).to.have.been.calledOnceWith();
+      expect(form.validateForm).to.have.been.calledOnceWith();
+      expect(fromReducer.startSubmission).to.have.been.calledOnceWith();
+    });
+
+    it('Should ignore form submission if it has already started.', () => {
+      fromReducer.startSubmission = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+      form.touchAllFields = sinon.spy();
+      form.validateForm = sinon.spy();
+
+      form.formState.isSubmitting = true;
+
+      form.submitForm();
+
+      expect(form.dispatchAction).not.to.have.been.called;
+      expect(form.touchAllFields).not.to.have.been.called;
+      expect(form.validateForm).not.to.have.been.called;
+      expect(fromReducer.startSubmission).not.to.have.been.called;
+    });
+  });
+
+  describe('#finishSubmission()', () => {
+    it('Should finish form submission if it has already started.', () => {
+      fromReducer.finishSubmission = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      form.formState.isSubmitting = true;
+
+      form.finishSubmission();
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(form.preventNextSubmissionEvent).to.be.false;
+      expect(fromReducer.finishSubmission).to.have.been.calledOnceWith();
+    });
+
+    it('Should ignore finishing form submission if it has not started.', () => {
+      fromReducer.finishSubmission = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      form.formState.isSubmitting = false;
+
+      form.finishSubmission();
+
+      expect(form.dispatchAction).not.to.have.been.called;
+      expect(form.preventNextSubmissionEvent).to.be.undefined;
+      expect(fromReducer.finishSubmission).not.to.have.been.called;
+    });
+  });
+
+  describe('#resetForm()', () => {
+    it('Should add a field to the state.', () => {
+      fromReducer.resetForm = sinon.spy();
+
+      WithForm = withForm(undefined, MutObserver, fromReducer);
+
+      form = new WithForm();
+      form.shadowRoot = { ...shadowRoot };
+      form.dispatchAction = sinon.spy();
+
+      form.resetForm();
+
+      expect(form.dispatchAction).to.have.been.calledOnce;
+      expect(fromReducer.resetForm).to.have.been.calledOnceWith();
     });
   });
 });

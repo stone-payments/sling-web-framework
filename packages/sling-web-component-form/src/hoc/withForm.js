@@ -206,7 +206,7 @@ export const withForm = (
     finishSubmission() {
       if (this.formState.isSubmitting) {
         this.dispatchAction(fromReducer.finishSubmission());
-        this.preventNextSubmission = false;
+        this.preventNextSubmissionEvent = false;
       }
     }
 
@@ -257,8 +257,8 @@ export const withForm = (
         errors,
       } = this.formState;
 
-      if (isSubmitting && !isValidating && !this.preventNextSubmission) {
-        this.preventNextSubmission = true;
+      if (isSubmitting && !isValidating && !this.preventNextSubmissionEvent) {
+        this.preventNextSubmissionEvent = true;
 
         if (this.form) {
           if (isValid) {
