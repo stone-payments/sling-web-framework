@@ -33,7 +33,7 @@ export const withForm = (
 
       this.handleStateUpdate = this.handleStateUpdate.bind(this);
       this.handleDomUpdate = this.handleDomUpdate.bind(this);
-      this.handleInput = this.handleInput.bind(this);
+      this.handleValueUpdate = this.handleValueUpdate.bind(this);
       this.handleBlur = this.handleBlur.bind(this);
       this.handleClick = this.handleClick.bind(this);
 
@@ -48,8 +48,8 @@ export const withForm = (
       this._mo.observe(this.shadowRoot, { childList: true, subtree: true });
 
       this.shadowRoot.addEventListener('blur', this.handleBlur, true);
-      this.shadowRoot.addEventListener('input', this.handleInput);
-      this.shadowRoot.addEventListener('update', this.handleInput);
+      this.shadowRoot.addEventListener('input', this.handleValueUpdate);
+      this.shadowRoot.addEventListener('update', this.handleValueUpdate);
       this.shadowRoot.addEventListener('click', this.handleClick);
 
       this.handleDomUpdate();
@@ -63,8 +63,8 @@ export const withForm = (
       this._mo.disconnect();
 
       this.shadowRoot.removeEventListener('blur', this.handleBlur, true);
-      this.shadowRoot.removeEventListener('input', this.handleInput);
-      this.shadowRoot.removeEventListener('update', this.handleInput);
+      this.shadowRoot.removeEventListener('input', this.handleValueUpdate);
+      this.shadowRoot.removeEventListener('update', this.handleValueUpdate);
       this.shadowRoot.removeEventListener('click', this.handleClick);
     }
 
@@ -141,7 +141,7 @@ export const withForm = (
     set state(value) {
       this._state = value;
       this.formState = omit(this._state, 'byId');
-      this.handleStateUpdate(this.formState);
+      this.handleStateUpdate();
     }
 
     getFieldById(fieldId) {
@@ -214,19 +214,22 @@ export const withForm = (
       this.dispatchAction(fromReducer.resetForm());
     }
 
-    handleStateUpdate(nextState) {
+    handleStateUpdate() {
+      const { formState } = this;
+
       this.fields.forEach((field) => {
         const fieldId = this.constructor.getFieldId(field);
-        const touched = getIn(nextState.touched, fieldId);
-        field.value = getIn(nextState.values, fieldId);
+        field.value = getIn(formState.values, fieldId);
+
+        const touched = getIn(formState.touched, fieldId);
 
         if (touched) {
-          field.validating = getIn(nextState.isValidatingField, fieldId);
+          field.validating = getIn(formState.isValidatingField, fieldId);
 
           if (!field.validating) {
-            field.validationstatus = getIn(nextState.errors, fieldId) != null
-              ? 'error'
-              : 'success';
+            field.validationstatus = getIn(formState.isValidField, fieldId)
+              ? 'success'
+              : 'error';
           } else {
             field.validationstatus = undefined;
           }
@@ -238,40 +241,37 @@ export const withForm = (
       this.fieldMessages.forEach((fieldMessage) => {
         const fieldId = this.constructor.getFieldId(fieldMessage);
         const relatedField = this.getFieldById(fieldId);
-        const touched = getIn(nextState.touched, fieldId);
-        const isValidatingField = getIn(nextState.isValidatingField, fieldId);
+        const touched = getIn(formState.touched, fieldId);
+        const isValidatingField = getIn(formState.isValidatingField, fieldId);
         const error = getIn(this.formState.errors, fieldId);
 
         if (!relatedField || (touched && !isValidatingField)) {
-          fieldMessage.message = error || null;
+          fieldMessage.message = error || undefined;
         } else {
-          fieldMessage.message = null;
+          fieldMessage.message = undefined;
         }
       });
 
-      const {
-        isValid,
-        isValidating,
-        isSubmitting,
-        values,
-        errors,
-      } = this.formState;
+      const { isValid, isValidating, isSubmitting, values, errors } = formState;
 
-      if (isSubmitting && !isValidating && !this.preventNextSubmissionEvent) {
+      const shouldDispatchSubmitEvent = this.form
+        && isSubmitting
+        && !isValidating
+        && !this.preventNextSubmissionEvent;
+
+      if (shouldDispatchSubmitEvent) {
         this.preventNextSubmissionEvent = true;
 
-        if (this.form) {
-          if (isValid) {
-            this.dispatchEventAndMethod('submitsuccess', values, this.form);
-          } else {
-            this.dispatchEventAndMethod('submiterror', errors, this.form);
-          }
+        if (isValid) {
+          this.dispatchEventAndMethod('submitsuccess', values, this.form);
+        } else {
+          this.dispatchEventAndMethod('submiterror', errors, this.form);
         }
       }
     }
 
     handleDomUpdate() {
-      this.handleStateUpdate(this.formState);
+      this.handleStateUpdate();
     }
 
     handleClick({ target: field }) {
@@ -294,7 +294,7 @@ export const withForm = (
       }
     }
 
-    handleInput({ target: field }) {
+    handleValueUpdate({ target: field }) {
       if (this.constructor.isFormField(field)) {
         const fieldId = this.constructor.getFieldId(field);
         const { value } = field || '';

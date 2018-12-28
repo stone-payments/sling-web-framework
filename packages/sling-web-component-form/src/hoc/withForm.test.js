@@ -310,8 +310,7 @@ describe('withForm', () => {
         values: {},
       };
 
-      expect(form.handleStateUpdate)
-        .to.have.been.calledOnceWith({ values: {} });
+      expect(form.handleStateUpdate).to.have.been.calledOnceWith();
     });
   });
 
@@ -591,6 +590,267 @@ describe('withForm', () => {
 
       expect(form.dispatchAction).to.have.been.calledOnce;
       expect(fromReducer.resetForm).to.have.been.calledOnceWith();
+    });
+  });
+
+  describe('#handleStateUpdate()', () => {
+    it('Should update fields\' values according to formState.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [],
+        },
+        formState: {
+          value: {
+            values: { planet: 'Earth', city: 'Tokyo' },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fields[0].value).to.equal('Earth');
+      expect(form.fields[1].value).to.equal('Tokyo');
+    });
+
+    it('Should remove validationstatus from untouched fields.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [],
+        },
+        formState: {
+          value: {
+            values: { planet: 'Earth', city: 'Tokyo' },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fields[0].validationstatus).to.be.undefined;
+      expect(form.fields[1].validationstatus).to.be.undefined;
+    });
+
+    it('Should remove validationstatus from fields ' +
+      'that are currently being validated.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [],
+        },
+        formState: {
+          value: {
+            values: { planet: 'Earth', city: 'Tokyo' },
+            touched: { planet: true, city: true },
+            isValidatingField: { planet: true, city: true },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fields[0].validationstatus).to.be.undefined;
+      expect(form.fields[1].validationstatus).to.be.undefined;
+    });
+
+    it('Should update fields\' validationstatus according ' +
+      'to formState.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [],
+        },
+        formState: {
+          value: {
+            values: { planet: 'Earth', city: 'Tokyo' },
+            touched: { planet: true, city: true },
+            isValidField: { planet: true, city: false },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fields[0].validationstatus).to.equal('success');
+      expect(form.fields[1].validationstatus).to.equal('error');
+    });
+
+    it('Should reset messages from field messages ' +
+      'if they relate to untouched fields.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        formState: {
+          value: {
+            touched: { planet: false, city: false },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fieldMessages[0].message).to.be.undefined;
+      expect(form.fieldMessages[1].message).to.be.undefined;
+    });
+
+    it('Should reset messages from field messages ' +
+      'if they relate to fields that are currently validating.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        formState: {
+          value: {
+            touched: { planet: true, city: true },
+            isValidating: { planet: true, city: true },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fieldMessages[0].message).to.be.undefined;
+      expect(form.fieldMessages[1].message).to.be.undefined;
+    });
+
+    it('Should reset messages from field messages ' +
+      'if they have no errors.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [{ name: 'planet' }, { name: 'city' }, { name: 'star' }],
+        },
+        formState: {
+          value: {
+            touched: { planet: true, city: true },
+            isValidating: { planet: false, city: false },
+            errors: { planet: null, city: null, star: null },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fieldMessages[0].message).to.be.undefined;
+      expect(form.fieldMessages[1].message).to.be.undefined;
+      expect(form.fieldMessages[2].message).to.be.undefined;
+    });
+
+    it('Should update field messages\' messages according ' +
+      'to formState.', () => {
+      Object.defineProperties(form, {
+        fields: {
+          value: [{ name: 'planet' }, { name: 'city' }],
+        },
+        fieldMessages: {
+          value: [{ name: 'planet' }, { name: 'city' }, { name: 'star' }],
+        },
+        formState: {
+          value: {
+            touched: { planet: true, city: true },
+            isValidating: { planet: false, city: false },
+            errors: {
+              planet: 'Not a planet',
+              city: 'Not a city',
+              star: 'Not a star',
+            },
+          },
+        },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.fieldMessages[0].message).to.equal('Not a planet');
+      expect(form.fieldMessages[1].message).to.equal('Not a city');
+      expect(form.fieldMessages[2].message).to.equal('Not a star');
+    });
+
+    it('Should ignore form submission ' +
+      'if the form element does not exist.', () => {
+      Object.defineProperties(form, {
+        formState: {
+          value: {
+            isValid: true,
+            isValidating: false,
+            isSubmitting: true,
+            values: 'values',
+            errors: 'errors',
+          },
+        },
+        dispatchEventAndMethod: { value: sinon.spy() },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.dispatchEventAndMethod).not.to.have.been.called;
+    });
+
+    it('Should dispatch submitsuccess event correctly.', () => {
+      Object.defineProperties(form, {
+        form: { value: formElement },
+        formState: {
+          value: {
+            isValid: true,
+            isValidating: false,
+            isSubmitting: true,
+            values: 'values',
+            errors: 'errors',
+          },
+        },
+        dispatchEventAndMethod: { value: sinon.spy() },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.dispatchEventAndMethod)
+        .to.have.been.calledWith('submitsuccess', 'values', formElement);
+    });
+
+    it('Should dispatch submiterror event correctly.', () => {
+      Object.defineProperties(form, {
+        form: { value: formElement },
+        formState: {
+          value: {
+            isValid: false,
+            isValidating: false,
+            isSubmitting: true,
+            values: 'values',
+            errors: 'errors',
+          },
+        },
+        dispatchEventAndMethod: { value: sinon.spy() },
+      });
+
+      form.handleStateUpdate();
+
+      expect(form.dispatchEventAndMethod)
+        .to.have.been.calledWith('submiterror', 'errors', formElement);
+    });
+  });
+
+  describe('#handleDomUpdate()', () => {
+    it('Should execute handleStateUpdate.', () => {
+      form.handleStateUpdate = sinon.spy();
+      form.handleDomUpdate();
+      expect(form.handleStateUpdate).to.have.been.calledOnceWith();
     });
   });
 });
