@@ -39,11 +39,13 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
   class extends withEventDispatch(withReducer(formReducer)(Base)) {
     constructor() {
       super();
+
       this.handleStateUpdate = this.handleStateUpdate.bind(this);
       this.handleDomUpdate = this.handleDomUpdate.bind(this);
       this.handleInput = this.handleInput.bind(this);
       this.handleBlur = this.handleBlur.bind(this);
       this.handleClick = this.handleClick.bind(this);
+
       this._mo = new MutObserver(this.handleDomUpdate);
     }
 
@@ -106,7 +108,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
         ? Array
           .from(this.shadowRoot.querySelectorAll('*'))
           .find(this.constructor.isForm)
-        : null;
+        : undefined;
     }
 
     get fields() {
@@ -130,7 +132,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
         ? Array
           .from(this.form.querySelectorAll('*'))
           .find(this.constructor.isSubmitButton)
-        : null;
+        : undefined;
     }
 
     get resetButton() {
@@ -138,7 +140,7 @@ export const withForm = (Base = class {}, MutObserver = MutationObserver) =>
         ? Array
           .from(this.form.querySelectorAll('*'))
           .find(this.constructor.isResetButton)
-        : null;
+        : undefined;
     }
 
     get state() {
