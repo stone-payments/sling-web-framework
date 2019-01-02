@@ -98,12 +98,17 @@ export const mapByKey = (collection = [], key, value) =>
 export const sleep = ms =>
   new Promise(resolve => setTimeout(resolve, ms));
 
-const toPath = str => str
+export const toPath = str => str
   .replace(/\]$/g, '')
   .replace(/(\[|\])/g, '.')
   .replace(/\.{2,}/g, '.')
   .split('.')
   .map(key => (!Number.isNaN(Number(key)) ? Number(key) : key));
+
+export const fromPath = path => path
+  .map(key => (!Number.isNaN(Number(key)) ? `[${String(key)}]` : String(key)))
+  .join('.')
+  .replace(/\.\[/g, '[');
 
 export const setIn = (obj, path, value) => {
   const normalizedPath = toPath(path);
@@ -131,6 +136,10 @@ export const isDeeplyEmpty = items => (items == null) ||
     })
     .filter(hasError => !hasError)
     .length === 0;
+
+export const arraysEqual = (arrA, arrB) =>
+  arrA.length === arrB.length &&
+  arrA.every((item, index) => item === arrB[index]);
 
 export const mergeUnique = (...arrays) => [...new Set(arrays
   .reduce((result, arr) => [...result, ...arr], []))];
