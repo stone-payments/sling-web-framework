@@ -43,6 +43,7 @@ export const withLoadingAndErrorHandling = (Base = class {}) =>
     }
 
     request(oneOrManyRequests) {
+      this.requestErrors = [];
       const requestSingle = this.requestSingle.bind(this);
 
       if (Array.isArray(oneOrManyRequests)) {
