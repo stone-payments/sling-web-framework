@@ -36,7 +36,7 @@ export const waitUntilTagIsAppended = (name, domEl) =>
   });
 
 export const registerComponent = (name, DefinitionClass) => {
-  if (window.customElements.get(name) == null) {
+  if (window.customElements && window.customElements.get(name) == null) {
     window.customElements.define(name, DefinitionClass);
   }
 };
