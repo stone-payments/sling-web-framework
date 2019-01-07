@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Heebo:400,500');
+@import url('https://fonts.googleapis.com/css?family=Heebo:400,500,700');
 
 body {
+  display: grid;
   font-family: 'Heebo', sans-serif;
-}
-
-body > * {
-  margin: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

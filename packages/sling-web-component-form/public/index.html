@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../../../scripts/helpers/injectDependencies.js"></script>
   <link rel="stylesheet" href="index.css">
-  <title>sling-form</title>
+  <title>sling-web-component-form</title>
 </head>
+
 <body>
-  <sling-form>
-    <sling-input name="name" type="text" label="Nome"></sling-input>
-    <sling-input name="email" type="email" label="E-mail"></sling-input>
-    <sling-input name="phone" type="phone" label="Telefone com DDD" placeholder="(00) 0000-0000"></sling-input>
-    <sling-input name="cpf" type="cpf" label="CPF"></sling-input>
-    <sling-input name="cnpj" type="cnpj" label="CNPJ"></sling-input>
-    <sling-button type="submit" layout="outline" color="success">Enviar</sling-button>
-  </sling-form>
-</body>
+  <form-example></form-example>
+</body> 
+
 </html>

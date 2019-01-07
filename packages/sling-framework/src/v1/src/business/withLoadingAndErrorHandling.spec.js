@@ -8,7 +8,7 @@ const { expect } = chai;
 
 class Dummy extends withLoadingAndErrorHandling() {}
 
-describe('withLoading', () => {
+describe('withLoadingAndErrorHandling', () => {
   describe('#requestSingle()', () => {
     let dummy;
 

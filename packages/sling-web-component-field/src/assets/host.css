@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+:host([validationstatus="success"]) .emd-field {
+  border-color: #2ecc71;
+}
+
+:host([validationstatus="error"]) .emd-field {
+  border-color: #e74c3c;
+}
+
+:host([validating]) .emd-field__icon_validating,
+:host([validationstatus="success"]) .emd-field__icon_success,
+:host([validationstatus="error"]) .emd-field__icon_error {
+  display: block;
+}
+
+:host([disabled]) .emd-field {
+  background-color: #eff1f3;
+}

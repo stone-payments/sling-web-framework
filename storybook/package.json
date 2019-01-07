@@ -1,0 +1,43 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "build-storybook": "build-storybook -c .storybook -o .out"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/vue": "^4.1.2",
+    "babel-loader": "^8.0.4",
+    "babel-preset-vue": "^2.0.2",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "dependencies": {
+    "sling-web-component-brand-icon": "^1.11.7",
+    "sling-web-component-button": "^1.11.7",
+    "sling-web-component-form": "^1.11.7",
+    "sling-web-component-calendar": "^1.11.7",
+    "sling-web-component-card": "^1.11.7",
+    "sling-web-component-input": "^1.11.7",
+    "sling-web-component-label": "^1.11.7",
+    "sling-web-component-message": "^1.11.7",
+    "sling-web-component-icon": "^1.11.7",
+    "sling-web-component-loader": "^1.11.7",
+    "sling-web-component-login": "^1.11.7",
+    "sling-web-component-menu": "^1.12.0",
+    "sling-web-component-menu-item": "^1.12.0",
+    "sling-web-component-paginator": "^1.11.7",
+    "sling-web-component-snackbar": "^1.11.7",
+    "sling-web-component-select": "^1.11.7",
+    "sling-web-component-table": "^1.11.7",
+    "sling-web-component-tooltip": "^1.11.7",
+    "sling-web-component-list": "^1.11.7",
+    "vue": "^2.5.21"
+  }
+}
