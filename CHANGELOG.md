@@ -1,6 +1,8 @@
-<a name="1.13.0"></a>
-## 1.12.1 (2019-01-07)
+<a name="2.0.0"></a>
+## 2.0.0 (2019-01-07)
 
+* BREAKING-CHANGE: Completely refactor Sling Form.
+* feat: Add Sling Field and Field Error components.
 * fix: Clean previous request errors when making a new request.
 * fix: Verify if customElements exist before using its API.
 
