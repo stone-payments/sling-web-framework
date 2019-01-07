@@ -1,7 +1,7 @@
 <a name="1.13.0"></a>
-## 1.13.0 (2019-01-07)
+## 1.12.1 (2019-01-07)
 
-* fix: Clean previous request errors when making a new request
+* fix: Clean previous request errors when making a new request.
 * fix: Verify if customElements exist before using its API.
 
 <a name="1.12.0"></a>
