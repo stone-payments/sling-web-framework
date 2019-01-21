@@ -25,7 +25,7 @@ npm install sling-web-component-button
 |color|String|**normal**|:heavy_check_mark:|        
 |disabled|Boolean|**false**|:heavy_check_mark:|        
 |size|String|**normal**|:heavy_check_mark:|        
-|Type|String|**normal**|:heavy_check_mark:|    
+|Layout|String|**normal**|:heavy_check_mark:|    
 
 ### Description   
 |Name|Description| 
@@ -34,7 +34,7 @@ npm install sling-web-component-button
 |color|A pre-configured value for styling of button, can be `normal`, `primary`,` secondary`, `success`,` danger`, `warning`,` info`, `clear`.|
 |disabled|Disables the button, preventing the user from clicking and changing their style to dimmed|
 |size|A pre-configured value for size of button, can be `normal`, `small` or ` big`.|
-|type|A pre-configured value for the type of button, can be `normal`, `outline` or `text`.|
+|layout|A pre-configured value for the button's layout, can be `normal`, `outline` or `text`.|
 
 ## Events  
 * **click**
