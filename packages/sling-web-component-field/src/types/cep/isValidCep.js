@@ -1,26 +1,26 @@
 export const isValidCep = (arg = '') => {
-  let strCpf = arg;
+  let strCep = arg;
 
-  strCpf = strCpf.replace(/\D/g, '');
+  strCep = strCep.replace(/\D/g, '');
 
-  if (strCpf === '00000000') {
+  if (strCep === '00000000') {
     return false;
   }
 
-  if (strCpf.length !== 8) {
+  if (strCep.length !== 8) {
     return false;
   }
 
-  if (strCpf === '00000000' ||
-      strCpf === '11111111' ||
-      strCpf === '22222222' ||
-      strCpf === '33333333' ||
-      strCpf === '44444444' ||
-      strCpf === '55555555' ||
-      strCpf === '66666666' ||
-      strCpf === '77777777' ||
-      strCpf === '88888888' ||
-      strCpf === '99999999') {
+  if (strCep === '00000000' ||
+      strCep === '11111111' ||
+      strCep === '22222222' ||
+      strCep === '33333333' ||
+      strCep === '44444444' ||
+      strCep === '55555555' ||
+      strCep === '66666666' ||
+      strCep === '77777777' ||
+      strCep === '88888888' ||
+      strCep === '99999999') {
     return false;
   }
 
