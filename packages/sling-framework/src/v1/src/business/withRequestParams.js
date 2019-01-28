@@ -2,7 +2,7 @@ import { isFunction, toFlatEntries, toFlatObject } from 'sling-helpers';
 
 const isValidEntry = ([, value]) => value != null && value !== '';
 
-const PARAMS_QUEUE = Symbol('PARAMS_QUEUE');
+const CHANGES_QUEUE = Symbol('CHANGES_QUEUE');
 
 export const withRequestParams = (Base = class {}) =>
   class extends Base {
@@ -24,7 +24,7 @@ export const withRequestParams = (Base = class {}) =>
     constructor() {
       super();
       this.requestParams = {};
-      this[PARAMS_QUEUE] = [];
+      this[CHANGES_QUEUE] = [];
 
       this.constructor.requestAttrNames
         .forEach((attrName) => {
@@ -53,12 +53,12 @@ export const withRequestParams = (Base = class {}) =>
       if (shouldUpdate) {
         const changedParamName = requestParamNames[requestAttrIndex];
         const changedParam = { [changedParamName]: newValue || null };
-        this[PARAMS_QUEUE].push(changedParam);
-        const queueSize = this[PARAMS_QUEUE].length;
+        this[CHANGES_QUEUE].push(changedParam);
+        const queueSize = this[CHANGES_QUEUE].length;
 
         Promise.resolve().then(() => {
-          if (this[PARAMS_QUEUE].length === queueSize) {
-            const allChanges = this[PARAMS_QUEUE].reduce(toFlatObject, {});
+          if (this[CHANGES_QUEUE].length === queueSize) {
+            const allChanges = this[CHANGES_QUEUE].reduce(toFlatObject, {});
 
             this.requestParams = Object
               .entries({
@@ -72,7 +72,7 @@ export const withRequestParams = (Base = class {}) =>
               this.requestParamsChangedCallback(this.requestParams, allChanges);
             }
 
-            this[PARAMS_QUEUE] = [];
+            this[CHANGES_QUEUE] = [];
           }
         });
       }
