@@ -3,7 +3,7 @@ export const isValidCep = (arg = '') => {
 
   strCep = strCep.replace(/\D/g, '');
 
-  if (strCep === '00000000') {
+  if (strCep === '') {
     return false;
   }
 
