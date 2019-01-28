@@ -1,3 +1,8 @@
+<a name="2.1.0"></a>
+## 2.1.0 (2019-01-28)
+
+* feat: adds cep type validation for sling-field
+
 <a name="2.0.0"></a>
 ## 2.0.0 (2019-01-07)
 
