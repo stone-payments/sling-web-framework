@@ -13,11 +13,15 @@ import { maskCpf } from './types/cpf/maskCpf.js';
 import { validateCnpj } from './types/cnpj/validateCnpj.js';
 import { maskCnpj } from './types/cnpj/maskCnpj.js';
 
+import { validateCep } from './types/cep/validateCep.js';
+import { maskCep } from './types/cep/maskCep.js';
+
 const FieldWithTypes = compose(
   addType('email', validateEmail),
   addType('tel', validateTel, maskTel),
   addType('cpf', validateCpf, maskCpf),
   addType('cnpj', validateCnpj, maskCnpj),
+  addType('cep', validateCep, maskCep),
   Field,
 );
 
@@ -31,4 +35,6 @@ export {
   maskCpf,
   validateCnpj,
   maskCnpj,
+  validateCep,
+  maskCep,
 };
