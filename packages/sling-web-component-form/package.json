@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-form",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "Sling Form",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",

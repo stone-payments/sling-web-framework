@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-field",
-  "version": "1.0.2",
+  "version": "2.1.1",
   "description": "Sling Field",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
