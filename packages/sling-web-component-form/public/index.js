@@ -40,6 +40,7 @@ const TestLitForm = Base => class extends withForm(Base) {
       username: '',
       email: '',
       cpf: '',
+      cep: '',
       cnpj: '',
       phones: {
         cell: '',
@@ -87,21 +88,21 @@ const TestLitForm = Base => class extends withForm(Base) {
           justify-items: stretch;
           align-items: flex-start;
         }
-        
+
         .form__title {
           grid-column-end: span 2;
         }
-        
+
         h4 {
           margin: 0.75em 0;
         }
-        
+
         sling-field-message {
           display: flex;
           align-items: center;
           height: 2.125em;
           color: #e74c3c;
-        }      
+        }
       </style>
 
       <sling-form validation="${validatePresenceOfAnyTel}">
@@ -140,6 +141,12 @@ const TestLitForm = Base => class extends withForm(Base) {
           <h4>CPF</h4>
           <sling-field name="cpf" type="cpf" required></sling-field>
           <sling-field-message name="cpf"></sling-field-message>
+        </div>
+
+        <div>
+          <h4>CEP</h4>
+          <sling-field name="cep" type="cep" required></sling-field>
+          <sling-field-message name="cep"></sling-field-message>
         </div>
 
         <div>
