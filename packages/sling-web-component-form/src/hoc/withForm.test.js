@@ -13,6 +13,7 @@ import * as reducer from '../state/formReducer.js';
 let MutObserver;
 let fromReducer;
 let WithForm;
+let customElementsApi;
 let form;
 
 const shadowRoot = {};
@@ -50,7 +51,9 @@ describe('withForm', () => {
 
     fromReducer = { ...reducer };
 
-    WithForm = withForm(undefined, MutObserver, fromReducer);
+    customElementsApi = {};
+
+    WithForm = withForm(undefined, MutObserver, fromReducer, customElementsApi);
 
     form = new WithForm();
     form.shadowRoot = { ...shadowRoot };
@@ -60,6 +63,7 @@ describe('withForm', () => {
   afterEach(() => {
     MutObserver = undefined;
     fromReducer = undefined;
+    customElementsApi = undefined;
     WithForm = undefined;
     form = undefined;
   });
@@ -993,6 +997,78 @@ describe('withForm', () => {
       expect(fromReducer.updateFieldValue).not.to.have.been.called;
       expect(form.validateFieldByElement).not.to.have.been.called;
       expect(form.validateFields).not.to.have.been.called;
+    });
+  });
+
+  describe('#fixOldFormConflict()', () => {
+    it('Should ignore <sling-form> defaut behaviour ' +
+      'if the validation for this component is set to an array.', () => {
+      customElementsApi.get = () => true;
+
+      Object.defineProperty(form, 'form', {
+        get() {
+          return form._form;
+        },
+        set(value) {
+          form._form = value;
+        },
+      });
+
+      form.form = {};
+      form.form.validation = [];
+      form.form.removeEventListener = sinon.spy();
+
+      form.fixOldFormConflict();
+
+      expect(form.form.validation).to.be.undefined;
+      expect(form.form.removeEventListener).to.have.been.calledThrice;
+    });
+
+    it('Should ignore <sling-form> defaut behaviour ' +
+      'if the validation for this component is not set.', () => {
+      customElementsApi.get = () => true;
+
+      Object.defineProperty(form, 'form', {
+        get() {
+          return form._form;
+        },
+        set(value) {
+          form._form = value;
+        },
+      });
+
+      form.form = {};
+      form.form.validation = undefined;
+      form.form.removeEventListener = sinon.spy();
+
+      form.fixOldFormConflict();
+
+      expect(form.form.validation).to.be.undefined;
+      expect(form.form.removeEventListener).to.have.been.calledThrice;
+    });
+
+    it('Should ignore <sling-form> defaut behaviour ' +
+      'if the component is lazily defined.', async () => {
+      customElementsApi.get = () => false;
+      customElementsApi.whenDefined = () => Promise.resolve();
+
+      Object.defineProperty(form, 'form', {
+        get() {
+          return form._form;
+        },
+        set(value) {
+          form._form = value;
+        },
+      });
+
+      form.form = {};
+      form.form.validation = [];
+      form.form.removeEventListener = sinon.spy();
+
+      await form.fixOldFormConflict();
+
+      expect(form.form.validation).to.be.undefined;
+      expect(form.form.removeEventListener).to.have.been.calledThrice;
     });
   });
 });
