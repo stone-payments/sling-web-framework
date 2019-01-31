@@ -1,3 +1,9 @@
+<a name="2.1.2"></a>
+## 2.1.2 (2019-01-31)
+
+* fix: Fix conflict between the old and the new Form when both are installed.
+* fix: Group request parameters into a single event when changed at the same time.
+
 <a name="2.1.1"></a>
 ## 2.1.1 (2019-01-28)
 
