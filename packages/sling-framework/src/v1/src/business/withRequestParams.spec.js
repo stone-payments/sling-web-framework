@@ -175,40 +175,40 @@ describe('withRequestParams', () => {
     });
 
     it('Should call requestParamsChangedCallback if a request ' +
-      'param changes.', () => {
+      'param changes.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
-      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+      await dummy.attributeChangedCallback('startdate', '20180901', '20180915');
       expect(dummy.requestParamsChangedCallback).to.have.been.called;
     });
 
     it('Should not call requestParamsChangedCallback if a request param ' +
-      'changes to the previous value.', () => {
+      'changes to the previous value.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
-      dummy.attributeChangedCallback('startdate', 'sameDate', 'sameDate');
+      await dummy.attributeChangedCallback('startdate', 'sameDate', 'sameDate');
       expect(dummy.requestParamsChangedCallback).not.to.have.been.called;
     });
 
     it('Should not call requestParamsChangedCallback if a changed attribute ' +
-      'is not a request param.', () => {
+      'is not a request param.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
-      dummy.attributeChangedCallback('notSet', 'oldValue', 'newValue');
+      await dummy.attributeChangedCallback('notSet', 'oldValue', 'newValue');
       expect(dummy.requestParamsChangedCallback).not.to.have.been.called;
     });
 
     it('Should receive an object containing all the request parameters ' +
-      'as the first argument.', () => {
+      'as the first argument.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
-      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+      await dummy.attributeChangedCallback('startdate', '20180901', '20180915');
 
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
         startDate: '20180915',
       });
 
-      dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
+      await dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
 
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
         startDate: '20180915',
@@ -217,27 +217,27 @@ describe('withRequestParams', () => {
     });
 
     it('Should exclude parameters with empty values ' +
-      'at the first argument.', () => {
+      'at the first argument.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
 
-      dummy.attributeChangedCallback('startdate', '20180901', null);
+      await dummy.attributeChangedCallback('startdate', '20180901', null);
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({});
 
-      dummy.attributeChangedCallback('finaldate', '20200901', '');
+      await dummy.attributeChangedCallback('finaldate', '20200901', '');
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({});
 
-      dummy.attributeChangedCallback('affiliationcode', '', '123456789');
+      await dummy.attributeChangedCallback('affiliationcode', '', '123456789');
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
         affiliationCode: '123456789',
       });
     });
 
     it('Should receive an object containing only the changed parameters ' +
-      'as the second argument.', () => {
+      'as the second argument.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
-      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+      await dummy.attributeChangedCallback('startdate', '20180901', '20180915');
 
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
         startDate: '20180915',
@@ -245,7 +245,7 @@ describe('withRequestParams', () => {
         startDate: '20180915',
       });
 
-      dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
+      await dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
 
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({
         startDate: '20180915',
@@ -261,16 +261,16 @@ describe('withRequestParams', () => {
     });
 
     it('Should not exclude parameters with empty or undefined values ' +
-      'at the second argument.', () => {
+      'at the second argument.', async () => {
       const dummy = new Dummy();
       dummy.requestParamsChangedCallback = sinon.spy();
-      dummy.attributeChangedCallback('startdate', '20180901', null);
+      await dummy.attributeChangedCallback('startdate', '20180901', null);
 
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({}, {
         startDate: null,
       });
 
-      dummy.attributeChangedCallback('finaldate', '20200901', '');
+      await dummy.attributeChangedCallback('finaldate', '20200901', '');
 
       expect(dummy.requestParamsChangedCallback).to.have.been.calledWith({}, {
         finalDate: null,
@@ -280,11 +280,55 @@ describe('withRequestParams', () => {
     });
 
     it('Should not break if requestParamsChangedCallback ' +
-      'is not a function.', () => {
+      'is not a function.', async () => {
       const dummy = new Dummy();
-      const value = dummy
-        .attributeChangedCallback('startdate', '20180901', '20200915');
-      expect(value).to.be.undefined;
+      await dummy.attributeChangedCallback('startdate', '20180901', '20200915');
+
+      expect(dummy.requestParams).to.deep.equal({
+        startDate: '20200915',
+      });
+    });
+
+    it('Should change requestParams only once after many ' +
+      'attribute changes.', async () => {
+      const dummy = new Dummy();
+
+      dummy.attributeChangedCallback('affiliationcode', '123', '321');
+      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+      dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
+
+      expect(dummy.requestParams).to.deep.equal({});
+
+      await Promise.resolve();
+
+      expect(dummy.requestParams).to.deep.equal({
+        affiliationCode: '321',
+        startDate: '20180915',
+        finalDate: '20200915',
+      });
+    });
+
+    it('Should trigger requestParamsChangedCallback only once after many ' +
+      'attribute changes.', async () => {
+      const dummy = new Dummy();
+      dummy.requestParamsChangedCallback = sinon.spy();
+
+      dummy.attributeChangedCallback('affiliationcode', '123', '321');
+      dummy.attributeChangedCallback('startdate', '20180901', '20180915');
+      dummy.attributeChangedCallback('finaldate', '20200901', '20200915');
+
+      expect(dummy.requestParamsChangedCallback).not.to.have.been.called;
+
+      await Promise.resolve();
+
+      const changes = {
+        affiliationCode: '321',
+        startDate: '20180915',
+        finalDate: '20200915',
+      };
+
+      expect(dummy.requestParamsChangedCallback)
+        .to.have.been.calledWith(changes, changes);
     });
   });
 });
