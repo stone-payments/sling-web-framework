@@ -26,6 +26,7 @@ export const withForm = (
   Base = class {},
   MutObserver = MutationObserver,
   fromReducer = reducer,
+  customElementsApi = customElements,
 ) =>
   class extends withEventDispatch(withReducer(fromReducer.formReducer)(Base)) {
     constructor() {
@@ -53,6 +54,7 @@ export const withForm = (
       this.shadowRoot.addEventListener('click', this.handleClick);
 
       this.handleDomUpdate();
+      this.fixOldFormConflict();
     }
 
     disconnectedCallback() {
@@ -305,6 +307,28 @@ export const withForm = (
           this.dispatchAction(fromReducer.updateFieldValue(fieldId, value));
           this.validateFieldByElement(field);
           this.validateFields();
+        }
+      }
+    }
+
+    fixOldFormConflict() {
+      if (this.form && customElementsApi) {
+        const preventFormDefault = () => {
+          if (Array.isArray(this.form.validation)) {
+            this.form.validation = undefined;
+          }
+
+          this.form.removeEventListener('input', this.form.handleUpdate);
+          this.form.removeEventListener('click', this.form.handleClick, true);
+          this.form.removeEventListener('blur', this.form.handleBlur, true);
+        };
+
+        if (customElementsApi.get('sling-form')) {
+          preventFormDefault();
+        } else {
+          customElementsApi.whenDefined('sling-form').then(() => {
+            preventFormDefault();
+          });
         }
       }
     }
