@@ -27,6 +27,16 @@ describe('Select', () => {
     expect($select.dispatchEventAndMethod.calledWith('change', $select.value));
   });
 
+  it('Should capture the input event', () => {
+    const mock = CustomEvent();
+    $select.handleInput(mock);
+
+    const select = document.querySelector('sling-select');
+    select.addEventListener('input');
+    expect(select.addEventListener('input')).to.be.false;
+  });
+
+
   it('Should render element whitout srcoptions.', () => {
     document.body.removeChild($select);
     $select = document.createElement('sling-select');

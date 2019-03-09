@@ -51,9 +51,13 @@ export class Select extends SlingElement {
     this.value = target.value;
   }
 
+  static handleInput(event) {
+    event.stopPropagation();
+  }
+
   dispatchUpdateEvent(newValue, oldValue) {
     if (oldValue !== newValue) {
-      this.dispatchEventAndMethod('input', { value: this.value });
+      this.dispatchEventAndMethod('update', { value: this.value });
     }
   }
 
@@ -68,6 +72,7 @@ export class Select extends SlingElement {
       <label class="emd-select__label">${this.label}
         <select
           class="emd-select"
+          oninput="${this.handleInput}"
           onchange="${this.handleChange}"
           disabled="${this.disabled}"
           name="${this.name}"
