@@ -28,12 +28,10 @@ describe('Select', () => {
   });
 
   it('Should capture the input event', () => {
-    const mock = CustomEvent();
-    $select.handleInput(mock);
+    const myFunc = sinon.spy();
+    $select.addEventListener('input', myFunc);
 
-    const select = document.querySelector('sling-select');
-    select.addEventListener('input');
-    expect(select.addEventListener('input')).to.be.false;
+    expect(myFunc).not.to.have.called;
   });
 
 
