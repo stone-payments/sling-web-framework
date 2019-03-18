@@ -79,8 +79,6 @@ export class BrandIcon extends HTMLElement {
         return icons.HIPERCARD;
       case 12:
         return icons.SENFF;
-      case 17:
-        return icons.BOLETO;
       case 171:
         return icons.ELO;
       default:
