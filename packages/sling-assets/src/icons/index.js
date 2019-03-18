@@ -15,3 +15,4 @@ export { SENFF } from './js/cardbrand-senff.js';
 export { ELO } from './js/cardbrand-elo.js';
 export { STONE } from './js/cardbrand-stone.js';
 export { ELLIPSIS } from './js/ellipsis.js';
+export { BOLETO } from './js/boleto.js';

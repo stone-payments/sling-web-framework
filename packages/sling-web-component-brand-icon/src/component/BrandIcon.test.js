@@ -77,6 +77,9 @@ describe('Brand Icon', () => {
     // Senff
     $brandIcon.brandid = 12;
     expect($brandIcon.getSvg().includes('Page-1')).to.equal(true);
+    // Boleto
+    $brandIcon.brandid = 17;
+    expect($brandIcon.getSvg().includes('boleto')).to.equal(true);
     // Elo
     $brandIcon.brandid = 171;
     expect($brandIcon.getSvg().includes('elo')).to.equal(true);
