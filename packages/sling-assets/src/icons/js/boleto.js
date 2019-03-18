@@ -25,13 +25,5 @@ export const BOLETO =
           <rect x="251.243" y="54.816" width="17.989" height="401.707"/>
       </g>
   </g>
-  <g></g><g></g>
-  <g></g><g></g>
-  <g></g><g></g>
-  <g></g><g></g>
-  <g></g><g></g>
-  <g></g><g></g>
-  <g></g><g></g>
-  <g></g>
   </svg>
   `;
