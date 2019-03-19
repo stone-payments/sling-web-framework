@@ -83,7 +83,7 @@
     "webpack-dev-server": "^3.1.14"
   },
   "release": {
-    "branch": "next"
+    "branch": "master"
   },
   "repository": {
     "type": "git",
