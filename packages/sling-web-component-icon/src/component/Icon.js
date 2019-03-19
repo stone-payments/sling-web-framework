@@ -34,6 +34,7 @@ export class Icon extends HTMLElement {
       warning: icons.ERROR,
       info: icons.FEEDBACK,
       ellipsis: icons.ELLIPSIS,
+      barcode: icons.BARCODE,
     };
 
     return iconsMap[icon] != null

@@ -1,3 +1,9 @@
+<a name="2.1.3"></a>
+## 2.1.3 (2019-03-19)
+
+* feat: add bar-code icon in sling-assets.
+* feat: using bar-code icon in sling-web-component-icon.
+
 <a name="2.1.2"></a>
 ## 2.1.2 (2019-01-31)
 

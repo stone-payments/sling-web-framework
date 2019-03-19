@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-icon",
-  "version": "1.12.3",
+  "version": "1.13.0",
   "description": "Sling Icon",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
