@@ -31,7 +31,7 @@ describe('Select', () => {
     const myFunc = sinon.spy();
     $select.addEventListener('input', myFunc);
 
-    expect(myFunc).not.to.have.called;
+    expect(myFunc).should.have.not.been.called;
   });
 
 
