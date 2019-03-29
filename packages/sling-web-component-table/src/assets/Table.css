@@ -40,8 +40,9 @@
 }
 
 .emd-table__title > sling-tooltip {
-  padding-left: 5px;
-  display: inline;
+  position: relative;
+  top: 2px;
+  right: -2px;
 }
 
 .emd-table__row {
