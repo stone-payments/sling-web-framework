@@ -120,7 +120,7 @@ export class Table extends HTMLElement {
         }
         case 'rate': {
           cell = `
-            <span>${fieldItem.toString().concat('%')}</span>
+            <span>${fieldItem.toString().replace('.', ',').concat('%')}</span>
           `;
           break;
         }
