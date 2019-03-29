@@ -1,3 +1,9 @@
+<a name="Unreleased"></a>
+## Unreleased
+
+* feat: add tooltip to sling-table header
+* feat: add rate parameter to type in sling-table
+
 <a name="2.1.3"></a>
 ## 2.1.3 (2019-03-19)
 
