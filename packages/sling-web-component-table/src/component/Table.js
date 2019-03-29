@@ -118,6 +118,12 @@ export class Table extends HTMLElement {
           `;
           break;
         }
+        case 'rate': {
+          cell = `
+            <span>${fieldItem.toString().concat('%')}</span>
+          `;
+          break;
+        }
         case 'installment': {
           cell = `
             <span>${fieldItem.toString().concat('x')}</span>
