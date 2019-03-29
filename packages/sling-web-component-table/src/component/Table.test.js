@@ -74,5 +74,30 @@ describe('Table', () => {
       done();
     });
   });
+
+
+  it('Should render rates correctly', (done) => {
+    document.body.removeChild($table);
+    $table = document.createElement('sling-table');
+    $table.srccolumns = [
+      {
+        field: 'rate',
+        title: 'title',
+        type: 'rate',
+      },
+    ];
+    $table.scrdata = [
+      {
+        rate: 0.67,
+      },
+    ];
+    document.body.appendChild($table);
+
+    setTimeout(() => {
+      expect($table.shadowRoot.innerHTML
+        .includes('0,67%')).to.be.true;
+      done();
+    });
+  });
 });
 
