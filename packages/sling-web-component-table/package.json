@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-table",
-  "version": "1.12.3",
+  "version": "1.13.0",
   "description": "Sling Table",
   "author": "Stone Pagamentos",
   "module": "src/index.js",
@@ -10,6 +10,7 @@
     "imask": "^4.0.0",
     "sling-framework": "^1.12.3",
     "sling-helpers": "^1.12.3",
-    "sling-web-component-brand-icon": "^1.12.3"
+    "sling-web-component-brand-icon": "^1.12.3",
+    "sling-web-component-tooltip": "^1.12.3"
   }
 }
