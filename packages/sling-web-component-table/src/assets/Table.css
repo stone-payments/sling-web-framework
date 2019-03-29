@@ -3,7 +3,7 @@
   -moz-osx-font-smoothing: grayscale;
   border-collapse: collapse;
   border-radius: var(--sling-table-border-radius, 10px);
-  box-shadow: var(--sling-table-box-shadow, 0 4px 18px 0 rgba(0, 0, 0, 0.1));  
+  box-shadow: var(--sling-table-box-shadow, 0 4px 18px 0 rgba(0, 0, 0, 0.1));
   color: #2D3844;
   font-family: 'Heebo', sans-serif;
   width: 100%;
@@ -37,6 +37,11 @@
   white-space: nowrap;
   position: sticky;
   top: 0;
+}
+
+.emd-table__title > sling-tooltip {
+  padding-left: 5px;
+  display: inline;
 }
 
 .emd-table__row {

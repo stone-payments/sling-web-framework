@@ -1,6 +1,7 @@
 import { formatCurrencyWithoutSymbol, formatDate, formatTime } from 'sling-helpers';
 import imask from 'imask';
 import 'sling-web-component-brand-icon';
+import 'sling-web-component-tooltip';
 
 export class Table extends HTMLElement {
   constructor() {
@@ -280,6 +281,12 @@ export class Table extends HTMLElement {
               class="emd-table__title"
               style="text-align: ${item.align || 'left'};">
               ${item.title}
+              <sling-tooltip position="${'left' || 'right'}"
+                tooltiptext="${'OI!' || ''}">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.333336 7C0.333336 3.31999 3.32 0.333328 7 0.333328C10.68 0.333328 13.6667 3.31999 13.6667 7C13.6667 10.68 10.68 13.6667 7 13.6667C3.32 13.6667 0.333336 10.68 0.333336 7ZM7.66667 9.66666V11H6.33334V9.66666H7.66667ZM7 12.3333C4.06 12.3333 1.66667 9.93999 1.66667 6.99999C1.66667 4.05999 4.06 1.66666 7 1.66666C9.94 1.66666 12.3333 4.05999 12.3333 6.99999C12.3333 9.93999 9.94 12.3333 7 12.3333ZM4.33334 5.66666C4.33334 4.19333 5.52667 2.99999 7 2.99999C8.47334 2.99999 9.66667 4.19333 9.66667 5.66666C9.66667 6.52194 9.13999 6.98221 8.62718 7.43036C8.14068 7.8555 7.66667 8.26975 7.66667 9H6.33334C6.33334 7.78581 6.96141 7.30439 7.51363 6.88111C7.94683 6.54907 8.33334 6.25281 8.33334 5.66666C8.33334 4.93333 7.73334 4.33333 7 4.33333C6.26667 4.33333 5.66667 4.93333 5.66667 5.66666H4.33334Z" fill="#2D3844"/>
+                </svg>
+              </sling-tooltip>
             </th>`).join('')}
             ${this.editable ? '<th class="emd-table__title"></th>' : ''}
           </tr>
