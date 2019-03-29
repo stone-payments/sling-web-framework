@@ -10,6 +10,7 @@
     "imask": "^4.0.0",
     "sling-framework": "^1.12.3",
     "sling-helpers": "^1.12.3",
-    "sling-web-component-brand-icon": "^1.12.3"
+    "sling-web-component-brand-icon": "^1.12.3",
+    "sling-web-component-tooltip": "^1.12.3"
   }
 }
