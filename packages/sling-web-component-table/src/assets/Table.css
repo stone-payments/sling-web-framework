@@ -35,8 +35,11 @@
   font-weight: 500;
   letter-spacing: 0.025em;
   white-space: nowrap;
-  position: relative;
   top: 0;
+}
+
+.emd-table__title_sticky {
+  position: sticky;
 }
 
 .emd-table__title > sling-tooltip {
