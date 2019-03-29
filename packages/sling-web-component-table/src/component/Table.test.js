@@ -4,7 +4,6 @@ import { Table } from './Table.js';
 registerComponent('sling-table', Table);
 
 let $table;
-
 describe('Table', () => {
   beforeEach(() => {
     $table = document.createElement('sling-table');
@@ -36,6 +35,44 @@ describe('Table', () => {
     expect($table.hasAttribute('editable')).to.be.true;
     expect($table.hasAttribute('noheader')).to.be.true;
     expect($table.hasAttribute('clickablerows')).to.be.true;
+  });
+
+  it('Should have sticky class without tooltip', (done) => {
+    document.body.removeChild($table);
+    $table = document.createElement('sling-table');
+    $table.srccolumns = [
+      {
+        field: 'field',
+        title: 'title',
+      },
+    ];
+    document.body.appendChild($table);
+
+    setTimeout(() => {
+      expect($table.shadowRoot.innerHTML
+        .includes('emd-table__title_sticky')).to.be.true;
+      done();
+    });
+  });
+
+
+  it('Should not have sticky class with tooltip', (done) => {
+    document.body.removeChild($table);
+    $table = document.createElement('sling-table');
+    $table.srccolumns = [
+      {
+        field: 'field',
+        title: 'title',
+        tooltiptext: 'tooltip',
+      },
+    ];
+    document.body.appendChild($table);
+
+    setTimeout(() => {
+      expect($table.shadowRoot.innerHTML
+        .includes('emd-table__title_sticky')).to.be.false;
+      done();
+    });
   });
 });
 

@@ -266,7 +266,6 @@ export class Table extends HTMLElement {
 
   static makeTitleSticky(columns) {
     const hasTooltip = columns.filter(item => item.tooltiptext);
-    console.log(hasTooltip);
     if (hasTooltip.length === 0) {
       return ' emd-table__title_sticky';
     }
