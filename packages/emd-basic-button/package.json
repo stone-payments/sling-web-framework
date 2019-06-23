@@ -1,0 +1,17 @@
+{
+  "name": "@stone-payments/emd-basic-button",
+  "description": "emd-basic-button",
+  "version": "0.1.6",
+  "module": "src/index.js",
+  "main": "dist/cjs/es5/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@stone-payments/emd-basic-loader": "^0.1.3",
+    "@stone-payments/emd-helpers": "^0.1.5",
+    "@stone-payments/emd-hocs": "^0.1.3",
+    "@stone-payments/lit-element": "^2.1.0"
+  }
+}

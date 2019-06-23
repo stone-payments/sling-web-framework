@@ -1,0 +1,10 @@
+.emd-state-wrapper__state_error {
+  font-size: 1em;
+  text-align: center;
+  color: #e74c3c;
+}
+
+.emd-state-wrapper__state_error .emd-state-wrapper__icon {
+  font-size: 2em;
+  margin-bottom: 0.4375em;
+}

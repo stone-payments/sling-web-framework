@@ -1,0 +1,69 @@
+:host {
+  display: block;
+  overflow: hidden;
+}
+
+::slotted(*) {
+  margin-top: 1.5em;
+}
+
+.emd-money-card__wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  box-sizing: border-box;
+
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+.emd-money-card__content {
+  position: relative;
+  align-self: center;
+  text-align: center;
+}
+
+.emd-money-card__headline {
+  font-size: 1em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.emd-money-card__wrapper_color_block .emd-money-card__headline {
+  opacity: 1;
+}
+
+.emd-money-card__money {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Compact view */
+
+.emd-money-card__wrapper_compact .emd-money-card__content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 4fr 3fr;
+  justify-items: flex-start;
+  align-items: center;
+}
+
+.emd-money-card__wrapper_compact .emd-money-card__headline,
+.emd-money-card__wrapper_compact .emd-money-card__money {
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* for Edge compatibility */
+
+emd-money-card {
+  display: block;
+  background: #fff;
+  overflow: hidden;
+}
+
+emd-money-card > * {
+  margin-top: 1.5em;
+}

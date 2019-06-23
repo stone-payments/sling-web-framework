@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>State Wrapper</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div>
+    <h1>
+      State Wrapper
+      <button>default</button>
+      <button>pristine</button>
+      <button>empty</button>
+      <button>recovery</button>
+      <button>error</button>
+      <button>loading</button>
+      <span style="font-size: 12px;">off</span>
+    </h1>
+    <emd-state-wrapper>
+      <emd-weekly-calendar
+        affiliationcodes=""
+        startdate="">
+      </emd-weekly-calendar>
+    </emd-state-wrapper>
+  </div>
+
+  <div>
+    <h1>
+      State Wrapper&thinsp;—&thinsp;With scrollbar
+    </h1>
+    <emd-state-wrapper>
+      <emd-weekly-calendar
+        affiliationcodes=""
+        startdate="">
+      </emd-weekly-calendar>
+    </emd-state-wrapper>
+  </div>
+
+  <div>
+    <h1>
+      State Wrapper&thinsp;—&thinsp;Custom state
+    </h1>
+    <emd-state-wrapper>
+      <emd-weekly-calendar
+        affiliationcodes=""
+        startdate="">
+      </emd-weekly-calendar>
+      <div slot="pristine">
+        Não houve interação.
+      </div>
+      <div slot="empty">
+        Não houve resposta.
+      </div>
+    </emd-state-wrapper>
+  </div>
+</body>
+</html>

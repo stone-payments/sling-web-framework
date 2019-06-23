@@ -1,0 +1,40 @@
+:host {
+  display: block;
+}
+
+::slotted(*) {
+  display: block;
+}
+
+.emd-field-wrapper__label,
+.emd-field-wrapper__message,
+.emd-field-wrapper__hint {
+  min-height: 1.75em;
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+}
+
+.emd-field-wrapper__label {
+  font-weight: bold;
+  align-items: flex-start;
+}
+
+.emd-field-wrapper__message,
+.emd-field-wrapper__hint {
+  align-items: flex-end;
+}
+
+.emd-field-wrapper__message {
+  color: #E74C3C;
+}
+
+/* for Edge compatibility */
+
+emd-field-wrapper {
+  display: block;
+}
+
+emd-field-wrapper > * {
+  display: block;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@stone-payments/lit-html",
+  "description": "A wrapper around Google's lit-html providing an ES5 distribution",
+  "version": "1.0.0",
+  "module": "dist/es/es6/lit-html.js",
+  "main": "dist/cjs/es5/lit-html.js",
+  "jsnext:main": "dist/es/es6/lit-html.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node ./scripts/build.js"
+  },
+  "dependencies": {
+    "lit-html": "1.0.0"
+  },
+  "devDependencies": {
+    "@stone-payments/emd-cli": "^1.2.0"
+  }
+}

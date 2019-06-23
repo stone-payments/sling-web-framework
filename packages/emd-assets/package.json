@@ -1,0 +1,14 @@
+{
+  "name": "@stone-payments/emd-assets",
+  "description": "emd-assets",
+  "version": "0.3.2",
+  "module": "src/index.js",
+  "main": "dist/cjs/es5/index.js",
+  "jsnext:main": "dist/es/es6/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@stone-payments/emd-helpers": "^0.1.5"
+  }
+}

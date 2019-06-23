@@ -1,0 +1,53 @@
+:host {
+  display: block;
+}
+
+.loan-success-dialog__header {
+  text-align: center;
+  background-color: #0db14b;
+  color: #fff;
+  padding: 1em;
+  border-bottom-left-radius: 50% 20%;
+  border-bottom-right-radius: 50% 20%;
+}
+
+.loan-success-dialog__icon {
+  font-size: 4em;
+  color: #fff;
+}
+
+.loan-success-dialog__title, .loan-success-dialog__subtitle {
+  margin: .25em 0;
+  font-size: 1.25em;
+  line-height: 1.5;
+}
+
+.loan-success-dialog__title {
+  font-weight: 400;
+}
+
+.loan-success-dialog__subtitle {
+  font-weight: 600;
+}
+
+.loan-success-dialog__body {
+  padding: 1em;
+  text-align: center;
+}
+
+.loan-success-dialog__footer {
+  text-align: center;
+}
+
+.loan-success-dialog__button {
+  width: 50%;
+  background-color: #0db14b;
+  color: #fff;
+  border: none;
+}
+
+/* for Edge compatibility */
+
+emd-loan-success-dialog {
+  display: block;
+}

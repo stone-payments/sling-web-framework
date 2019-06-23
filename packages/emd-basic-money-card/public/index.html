@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Money Card</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>Money Card</h1>
+
+  <emd-money-card
+    headline="Total a receber"
+    currency="BRL"
+    value="12490"
+    colorblock>
+    <emd-button>Ir para Antecipação</emd-button>
+  </emd-money-card>
+
+  <emd-money-card
+    headline="Receberei hoje"
+    currency="BRL"
+    value="12490">
+    <emd-button>Ver quanto já recebi <span>→</span></emd-button>
+  </emd-money-card>
+
+  <emd-money-card
+    headline="Vendi hoje"
+    currency="BRL"
+    value="0">
+  </emd-money-card>
+
+  <h1>Money Card&thinsp;—&thinsp;Empty</h1>
+
+  <emd-money-card
+    headline="Total a receber"
+    currency="BRL"
+    colorblock>
+    <emd-button>Ir para Antecipação</emd-button>
+  </emd-money-card>
+
+  <emd-money-card
+    headline="Receberei hoje"
+    currency="BRL">
+    <emd-button>Ver quanto já recebi <span>→</span></emd-button>
+  </emd-money-card>
+
+  <emd-money-card
+    headline="Vendi hoje"
+    currency="BRL">
+  </emd-money-card>
+
+  <h1>Money Card&thinsp;—&thinsp;Compact View</h1>
+
+  <emd-money-card
+    view="compact"
+    headline="Total a receber"
+    currency="BRL"
+    value="12490"
+    colorblock>
+    <emd-button>Ir para Antecipação</emd-button>
+  </emd-money-card>
+
+  <emd-money-card
+    view="compact"
+    headline="Receberei hoje"
+    currency="BRL"
+    value="12490">
+  </emd-money-card>
+
+  <h1>Money Card&thinsp;—&thinsp;Compact View Empty</h1>
+
+  <emd-money-card
+    view="compact"
+    headline="Total a receber"
+    currency="BRL"
+    colorblock>
+    <emd-button>Ir para Antecipação</emd-button>
+  </emd-money-card>
+
+  <emd-money-card
+    view="compact"
+    headline="Receberei hoje"
+    currency="BRL">
+  </emd-money-card>
+</body>
+</html>

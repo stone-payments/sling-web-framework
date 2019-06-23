@@ -1,0 +1,286 @@
+:host {
+  display: inline-block;
+  border: 1px solid var(--emd-field-neutral-color, #96a0af);
+  border-radius: 2px;
+  box-sizing: border-box;
+  background-color: #fff;
+  line-height: 1;
+}
+
+:host(:focus-within) {
+  border-width: 2px;
+}
+
+:host([validationstatus="success"]) {
+  border-color: var(--emd-field-success-color, #0db14b);
+}
+
+:host([validationstatus="error"]) {
+  border-color: var(--emd-field-error-color, #e74c3c);
+}
+
+:host([readonly]),
+:host([autoreadonly]) {
+  background-color: rgba(45, 56, 68, 0.025);
+}
+
+:host([disabled]) {
+  background-color: rgba(45, 56, 68, 0.025);
+  border-color: rgba(45, 56, 68, 0.1);
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+.emd-field__wrapper {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+}
+
+.emd-field__select {
+  cursor: pointer;
+}
+
+:host([readonly]) .emd-field__select + .emd-field__text,
+:host([autoreadonly]) .emd-field__select + .emd-field__text,
+:host([disabled]) .emd-field__select {
+  cursor: default;
+}
+
+.emd-field__text {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  display: flex;
+  align-items: center;
+  height: calc(1.5em + var(--emd-field-padding, 1em) * 2);
+  padding: 1px calc(1px + var(--emd-field-padding, 1em));
+  box-sizing: content-box;
+  font-size: 1em;
+  font-family: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  -webkit-appearance: none;
+}
+
+:host(:focus-within) .emd-field__text {
+  padding: 0 calc(var(--emd-field-padding, 1em));
+}
+
+.emd-field__wrapper_icons_1 .emd-field__text {
+  padding-right: calc(1px + 24px + var(--emd-field-padding, 1em));
+}
+
+:host(:focus-within) .emd-field__wrapper_icons_1 .emd-field__text {
+  padding-right: calc(24px + var(--emd-field-padding, 1em));
+}
+
+.emd-field__wrapper_icons_2 .emd-field__text {
+  padding-right: calc(1px + 54px + var(--emd-field-padding, 1em));
+}
+
+:host(:focus-within) .emd-field__wrapper_icons_2 .emd-field__text {
+  padding-right: calc(54px + var(--emd-field-padding, 1em));
+}
+
+.emd-field__text:focus {
+  outline: none;
+}
+
+.emd-field__text_placeholder,
+.emd-field__text::placeholder {
+  color: #96a0af;
+}
+
+:host([disabled]) .emd-field__text,
+:host([disabled]) .emd-field__text_placeholder,
+:host([disabled]) .emd-field__text::placeholder {
+  color: #c3c8d2;
+}
+
+.emd-field__text::-moz-placeholder {
+  opacity: 1;
+}
+
+.emd-field__text::-ms-clear {
+  display: none;
+}
+
+.emd-field__select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  font-size: 1em;
+  font-family: inherit;
+  -webkit-appearance: none;
+  z-index: 2;
+}
+
+:host([readonly]) .emd-field__select,
+:host([autoreadonly]) .emd-field__select {
+  pointer-events: none;
+}
+
+.emd-field__select option {
+  font-size: 1em;
+}
+
+.emd-field__states {
+  position: absolute;
+  display: flex;
+  flex-flow: row nowrap;
+  top: 0;
+  right: calc(1px - 4px + var(--emd-field-padding, 1em));
+  width: auto;
+  height: 100%;
+}
+
+:host(:focus-within) .emd-field__states {
+  right: calc(0px - 4px + var(--emd-field-padding, 1em));
+}
+
+.emd-field__state {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 24px;
+  font-size: 16px;
+  height: 100%;
+}
+
+.emd-field__state + .emd-field__state {
+  margin-left: 4px;
+}
+
+.emd-field__icon {
+  display: none;
+}
+
+.emd-field__icon_validating {
+  color: inherit;
+  font-size: 1em;
+  transform: scale(0.5);
+}
+
+.emd-field__icon_unfold {
+  color: var(--emd-field-neutral-color, #96a0af);
+}
+
+:host([validationstatus="success"]) .emd-field__icon_unfold {
+  color: var(--emd-field-success-color, #0db14b);
+}
+
+:host([validationstatus="error"]) .emd-field__icon_unfold {
+  color: var(--emd-field-error-color, #e74c3c);
+}
+
+.emd-field__icon_success {
+  color: var(--emd-field-success-color, #0db14b);
+}
+
+.emd-field__icon_error {
+  color: var(--emd-field-error-color, #e74c3c);
+}
+
+.emd-field__states_show_validating .emd-field__icon_validating,
+.emd-field__states_show_error .emd-field__icon_error,
+.emd-field__states_show_success .emd-field__icon_success,
+.emd-field__states_show_unfold .emd-field__icon_unfold {
+  display: block;
+}
+
+:host([disabled]) .emd-field__icon {
+  color: #c3c8d2;
+}
+
+/* for Edge compatibility */
+
+emd-select {
+  display: inline-block;
+  border: 1px solid var(--emd-field-neutral-color, #96a0af);
+  border-radius: 2px;
+  box-sizing: border-box;
+  background-color: #fff;
+  line-height: 1;
+}
+
+emd-select[focus-within] {
+  border-width: 2px;
+  border-color: inherit;
+}
+
+emd-select[validationstatus="success"] {
+  border-color: var(--emd-field-success-color, #0db14b);
+}
+
+emd-select[validationstatus="error"] {
+  border-color: var(--emd-field-error-color, #e74c3c);
+}
+
+emd-select[readonly],
+emd-select[autoreadonly] {
+  background-color: rgba(45, 56, 68, 0.025);
+}
+
+emd-select[disabled] {
+  background-color: rgba(45, 56, 68, 0.025);
+  border-color: rgba(45, 56, 68, 0.1);
+}
+
+emd-select[hidden] {
+  display: none;
+}
+
+emd-select[readonly] .emd-field__select + .emd-field__text,
+emd-select[autoreadonly] .emd-field__select + .emd-field__text,
+emd-select[disabled] .emd-field__select {
+  cursor: default;
+}
+
+emd-select[focus-within] .emd-field__text {
+  padding: 0 calc(var(--emd-field-padding, 1em));
+}
+
+emd-select[focus-within] .emd-field__wrapper_icons_1 .emd-field__text {
+  padding-right: calc(24px + var(--emd-field-padding, 1em));
+}
+
+emd-select[focus-within] .emd-field__wrapper_icons_2 .emd-field__text {
+  padding-right: calc(54px + var(--emd-field-padding, 1em));
+}
+
+emd-select[disabled] .emd-field__text,
+emd-select[disabled] .emd-field__text_placeholder,
+emd-select[disabled] .emd-field__text::placeholder {
+  color: #c3c8d2;
+}
+
+emd-select[readonly] .emd-field__select,
+emd-select[autoreadonly] .emd-field__select {
+  pointer-events: none;
+}
+
+emd-select[focus-within] .emd-field__states {
+  right: calc(0px - 4px + var(--emd-field-padding, 1em));
+}
+
+emd-select[validationstatus="success"] .emd-field__icon_unfold {
+  color: var(--emd-field-success-color, #0db14b);
+}
+
+emd-select[validationstatus="error"] .emd-field__icon_unfold {
+  color: var(--emd-field-error-color, #e74c3c);
+}
+
+emd-select[disabled] .emd-field__icon {
+  color: #c3c8d2;
+}

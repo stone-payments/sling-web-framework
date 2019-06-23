@@ -1,0 +1,103 @@
+:host {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2.5em;
+  text-align: center;
+}
+
+:host([disabled]) {
+  color: #c3c8d2;
+}
+
+::slotted(*) {
+  pointer-events: none;
+}
+
+.emd-button__wrapper {
+  position: relative;
+  width: 100%;
+  text-decoration: inherit; /* for Safari */
+}
+
+.emd-button__button {
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--emd-button-padding, 1.125em 1.5em);
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-decoration: inherit; /* for Safari */
+  text-align: inherit;
+  user-select: none;
+  cursor: pointer;
+  transition: opacity 0.13s;
+}
+
+.emd-button__button::-moz-focus-inner {
+  border: none; /* for Firefox */
+}
+
+.emd-button__button_href {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.emd-button__wrapper_loading .emd-button__button,
+.emd-button__wrapper_disabled .emd-button__button,
+.emd-button__button[disabled] {
+  cursor: default;
+  pointer-events: none;
+}
+
+.emd-button__button:focus {
+  outline: none;
+}
+
+.emd-button__wrapper_loading .emd-button__button {
+  opacity: 0;
+}
+
+.emd-button__loader {
+  position: absolute;
+  font-size: 0.875em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: inherit;
+  pointer-events: none;
+  transition: opacity 0.13s;
+}
+
+.emd-button__wrapper:not(.emd-button__wrapper_loading) .emd-button__loader {
+  opacity: 0;
+}
+
+/* for Edge compatibility */
+
+emd-button {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2.5em;
+  text-align: center;
+}
+
+emd-button[disabled] {
+  color: #c3c8d2;
+}
+
+emd-button > * {
+  pointer-events: none;
+}
