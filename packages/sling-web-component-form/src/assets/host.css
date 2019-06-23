@@ -1,9 +1,0 @@
-:host {
-  display: grid;
-}
-
-/* for compatibility */
-
-sling-form {
-  display: grid;
-}
