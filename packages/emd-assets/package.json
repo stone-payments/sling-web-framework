@@ -9,6 +9,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-helpers": "^0.1.5"
+    "@stone-payments/emd-helpers": "^1.0.0"
   }
 }
