@@ -1,1 +1,0 @@
-export { omit } from 'timm';
