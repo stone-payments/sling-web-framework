@@ -12,7 +12,7 @@
     "build": "emd build",
     "test": "emd test",
     "storybook": "emd storybook",
-    "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release -e semantic-release-monorepo",
+    "semantic-release": "lerna exec --concurrency 1 -- npx --no-install semantic-release --debug -e semantic-release-monorepo",
     "send-coverage": "cat ./coverage/integration/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "eslint ./packages/**/*.js",
     "pretest": "npm run lint"
