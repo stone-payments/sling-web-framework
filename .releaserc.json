@@ -1,12 +1,11 @@
 {
+  "branch": "emd-master",
   "verifyConditions": [
-    "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/git"
-  ],
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ],
   "prepare": [
-    "@semantic-release/changelog",
-    "@semantic-release/npm",
-    "@semantic-release/git"
-  ]
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ]
 }
