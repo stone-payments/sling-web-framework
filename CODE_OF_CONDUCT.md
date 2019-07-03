@@ -8,4 +8,4 @@ We promise to extend courtesy and respect to everyone involved in this project r
 
 If any member of the community violates this code of conduct, the maintainers of the Sling project may take action, removing issues, comments, and PRs or blocking accounts as deemed appropriate.
 
-If you are subject to or witness unacceptable behavior, or have any other concerns, please email us at [sling@stone.com.br](mailto:sling@stone.com.br).
+If you are subject to or witness unacceptable behavior, or have any other concerns, please email us at [componentesdocliente@stone.com.br](mailto:componentesdocliente@stone.com.br).
