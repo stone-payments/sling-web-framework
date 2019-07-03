@@ -20,7 +20,7 @@ export const MoneyPromoController = (Base = class {}) =>
     get valueCents () {
       return this.value.split('.')[1];
     }
-
+    
     render () {
       return this.currentView.apply(this);
     }
