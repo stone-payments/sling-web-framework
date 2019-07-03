@@ -19,6 +19,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@semantic-release/changelog": "^3.0.2",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/npm": "^5.1.9",
     "@stone-payments/emd-cli": "^1.2.0",
     "@storybook/addon-actions": "^5.0.11",
     "@storybook/addon-knobs": "^5.0.11",
@@ -36,13 +39,10 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
     "lerna": "^3.14.1",
+    "semantic-release": "15.9.16",
+    "semantic-release-monorepo": "^6.1.1",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10",
-    "@semantic-release/changelog": "^3.0.2",
-    "@semantic-release/git": "^7.0.8",
-    "@semantic-release/npm": "^5.1.9",
-    "semantic-release": "15.9.16",
-    "semantic-release-monorepo": "^6.1.1"
+    "vue-template-compiler": "^2.6.10"
   }
 }
