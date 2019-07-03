@@ -8,5 +8,8 @@
     "@semantic-release/changelog",
     "@semantic-release/npm",
     "@semantic-release/git"
-  ]
+  ],
+  "release": {
+    "branch": "emd-master"
+  }
 }
