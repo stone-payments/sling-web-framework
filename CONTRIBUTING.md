@@ -1,8 +1,8 @@
 # Cloning the project
 
 ```
-git clone git@github.com:stone-payments/customer-web-components.git
-cd customer-web-components
+git clone git@github.com:stone-payments/emerald-web-framework.git
+cd emerald-web-framework
 ```
 
 # Installing
