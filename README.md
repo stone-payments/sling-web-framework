@@ -47,7 +47,7 @@ an [issue](https://github.com/stone-payments/sling-web-framework/issues/new) on 
 
 * [emd-basic-select](https://github.com/stone-payments/sling-web-framework/tree/emd-master/packages/emd-basic-select)
 
-* [emd-basic-simulation-result](https://github.com/stone-payments/sling-web-framework/tree/emd-master/packages/emd-basic-simulation-result)
+* [emd-basic-simulator-result](https://github.com/stone-payments/sling-web-framework/tree/emd-master/packages/emd-basic-simulator-result)
 
 * [emd-basic-state-wrapper](https://github.com/stone-payments/sling-web-framework/tree/emd-master/packages/emd-basic-state-wrapper)
 
