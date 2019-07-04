@@ -9,5 +9,7 @@
     "@semantic-release/changelog",
     "@semantic-release/npm",
     "@semantic-release/git"
-  ]
+  ],
+  "success": false,
+  "fail": false
 }
