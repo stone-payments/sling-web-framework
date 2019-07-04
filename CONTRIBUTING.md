@@ -5,12 +5,6 @@ git clone git@github.com:stone-payments/emerald-web-framework.git
 cd emerald-web-framework
 ```
 
-# Installing
-
-```
-npm install
-```
-
 # Starting a new branch
 
 ```
@@ -20,6 +14,12 @@ git checkout -b branch-name
 ```
 
 *We are using `emd-master` and `emd-develop` branches since `master` and `develop` are deprecated for now. In the future, we will rename our branches so that `master` and `develop` can be used again.*
+
+# Installing
+
+```
+npm install
+```
 
 # Creating a new component
 
