@@ -26,13 +26,13 @@ npm install
 This command will create a new folder with a component example and all its necessary files and folders.
 
 ```
-npm run create-component "Component Name" -- --type=business
+npm run create-component "Component Name" -- --type=basic
 ```
 
 # Starting the development environment
 
 ```
-npm start emd-business-component-name
+npm start emd-basic-component-name
 ```
 
 # Testing
@@ -50,7 +50,7 @@ npm test
 ### Running tests for an specific component
 
 ```
-npm test emd-business-component-name
+npm test emd-basic-component-name
 ```
 
 # Commiting
