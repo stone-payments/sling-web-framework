@@ -43,11 +43,11 @@ Tests should be written in `*.spec.js` files in the same folder of the tests' su
 
 ### Running all tests
 
+*This will also generate coverage reports.*
+
 ```
 npm test
 ```
-
-*This will also generate coverage reports*
 
 ### Running tests for an specific component
 
