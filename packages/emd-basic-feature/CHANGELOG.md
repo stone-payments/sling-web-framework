@@ -3,4 +3,4 @@
 
 ### Features
 
-* :rocket: Add emd packages. ([edecffb](https://github.com/stone-payments/emerald-web-framework/commit/edecffb))
+* Copy packages from old repository. ([edecffb](https://github.com/stone-payments/emerald-web-framework/commit/edecffb))
