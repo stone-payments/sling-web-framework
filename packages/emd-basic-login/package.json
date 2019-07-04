@@ -10,11 +10,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-basic-button": "^0.1.5",
-    "@stone-payments/emd-basic-field": "^0.1.4",
-    "@stone-payments/emd-basic-field-wrapper": "^0.1.2",
-    "@stone-payments/emd-basic-form": "^0.1.4",
-    "@stone-payments/emd-basic-icon": "^0.1.7",
+    "@stone-payments/emd-basic-button": "^1.0.0",
+    "@stone-payments/emd-basic-field": "^1.0.0",
+    "@stone-payments/emd-basic-field-wrapper": "^1.0.0",
+    "@stone-payments/emd-basic-form": "^1.0.0",
+    "@stone-payments/emd-basic-icon": "^1.0.0",
     "@stone-payments/emd-helpers": "^1.0.0",
     "@stone-payments/emd-hocs": "^1.0.1",
     "@stone-payments/lit-element": "^2.2.1"
