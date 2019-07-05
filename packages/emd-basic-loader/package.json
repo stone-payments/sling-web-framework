@@ -12,7 +12,7 @@
   "dependencies": {
     "@stone-payments/emd-helpers": "^1.0.0",
     "@stone-payments/emd-hocs": "^1.0.1",
-    "@stone-payments/lit-element": "^2.2.1"
+    "@stone-payments/lit-element": "2.1.0"
   },
   "peerDependencies": {
     "chai": "^4.1.2",
