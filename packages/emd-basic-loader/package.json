@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-loader",
   "description": "emd-basic-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
