@@ -10,6 +10,9 @@
     "module": true,
     "fixture": true
   },
+  "parserOptions": {
+    "ecmaVersion": 9,
+  },
   "rules": {
     "import/extensions": "off",
     "import/prefer-default-export": "off",
