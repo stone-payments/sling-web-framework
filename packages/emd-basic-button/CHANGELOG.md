@@ -1,3 +1,16 @@
+# [@stone-payments/emd-basic-button-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.0.3...@stone-payments/emd-basic-button-v1.1.0) (2019-07-25)
+
+
+### Bug Fixes
+
+* Fix unclickable Button on Edge ([3c53189](https://github.com/stone-payments/emerald-web-framework/commit/3c53189))
+* Stop propagation of click events on disabled or loading Buttons ([7a473d9](https://github.com/stone-payments/emerald-web-framework/commit/7a473d9))
+
+
+### Features
+
+* Add icon examples to Button ([aa9f850](https://github.com/stone-payments/emerald-web-framework/commit/aa9f850))
+
 # [@stone-payments/emd-basic-button-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.0.2...@stone-payments/emd-basic-button-v1.0.3) (2019-07-05)
 
 
