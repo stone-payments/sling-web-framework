@@ -24,7 +24,10 @@
 
 .emd-button__button {
   -webkit-appearance: none;
-  display: block;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -45,10 +48,6 @@
 }
 
 .emd-button__button_href {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
   text-decoration: none;
 }
 
@@ -96,8 +95,4 @@ emd-button {
 
 emd-button[disabled] {
   color: #c3c8d2;
-}
-
-emd-button > * {
-  pointer-events: none;
 }
