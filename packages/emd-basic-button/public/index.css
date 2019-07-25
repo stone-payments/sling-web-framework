@@ -94,3 +94,7 @@ emd-button:nth-of-type(n + 25) {
 emd-button:nth-of-type(n + 37) {
   color: #c3c8d2;
 }
+
+emd-button:nth-of-type(n + 43) {
+  color: #0db14b;
+}
