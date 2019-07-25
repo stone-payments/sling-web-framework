@@ -24,8 +24,8 @@
 
 .emd-button__button {
   -webkit-appearance: none;
-  display: inline-flex;
-  flex-flow: row nowrap;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   width: 100%;
