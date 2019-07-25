@@ -33,7 +33,7 @@ h4, p {
 }
 
 emd-button {
-  width: min-content;
+  margin-right: auto;
 }
 
 emd-button:nth-of-type(7),
