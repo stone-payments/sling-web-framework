@@ -3,6 +3,7 @@ export const ButtonController = (Base = class {}) =>
     constructor () {
       super();
       this.type = 'button';
+      this.handleClick = this.handleClick.bind(this);
     }
 
     static get properties () {
@@ -28,6 +29,22 @@ export const ButtonController = (Base = class {}) =>
           reflect: true
         }
       };
+    }
+
+    connectedCallback () {
+      super.connectedCallback();
+      this.addEventListener('click', this.handleClick);
+    }
+
+    disconnectedCallback () {
+      super.disconnectedCallback();
+      this.removeEventListener('click', this.handleClick);
+    }
+
+    handleClick (evt) {
+      if (this.disabled || this.loading) {
+        evt.stopPropagation();
+      }
     }
 
     render () {
