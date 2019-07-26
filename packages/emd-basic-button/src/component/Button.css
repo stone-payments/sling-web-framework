@@ -12,10 +12,6 @@
   color: #c3c8d2;
 }
 
-::slotted(*) {
-  pointer-events: none;
-}
-
 .emd-button__wrapper {
   position: relative;
   width: 100%;
