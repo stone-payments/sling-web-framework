@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-button-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.0...@stone-payments/emd-basic-button-v1.1.1) (2019-07-26)
+
+
+### Bug Fixes
+
+* Fix bug that causes Buttons to be unclickable when shadow DOM polyfills are used ([0d5f2b2](https://github.com/stone-payments/emerald-web-framework/commit/0d5f2b2))
+
 # [@stone-payments/emd-basic-button-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.0.3...@stone-payments/emd-basic-button-v1.1.0) (2019-07-25)
 
 
