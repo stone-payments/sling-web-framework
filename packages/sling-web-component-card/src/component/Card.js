@@ -55,7 +55,10 @@ export class Card extends SlingElement {
       super.connectedCallback();
       const fn = this.childrenUpdated.bind(this);
       this._mo = new MutationObserver(fn);
-      this._mo.observe(this, { childList: true });
+      this._mo.observe(this, {
+        childList: true,
+        subtree: true,
+      });
       fn();
     }
   }
@@ -68,10 +71,11 @@ export class Card extends SlingElement {
   }
 
   childrenUpdated() {
-    this.visibleSlots = Array.from(this.children).map($el => $el.slot);
-    this.showheader = this.visibleSlots.includes('header');
-    this.showbody = this.visibleSlots.includes('');
-    this.showfooter = this.visibleSlots.includes('footer');
+    const visibleSlots = Array.from(this.children).map($el => $el.slot || '');
+
+    this.showheader = visibleSlots.includes('header');
+    this.showbody = visibleSlots.includes('');
+    this.showfooter = visibleSlots.includes('footer');
   }
 
   render() {
