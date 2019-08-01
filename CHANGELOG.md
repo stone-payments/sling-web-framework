@@ -1,5 +1,5 @@
 <a name="2.3.0"></a>
-## 2.3.1 (2019-08-01)
+## 2.3.0 (2019-08-01)
 
 * fix: make card behave correctly when children are updated
 
