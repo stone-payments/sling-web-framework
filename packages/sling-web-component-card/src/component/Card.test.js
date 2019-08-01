@@ -41,6 +41,25 @@ describe('Card', () => {
     expect($card.nopaddingbody).to.be.false;
     expect($card.nopaddingfooter).to.be.false;
   });
+
+  describe('_childrenUpdated()', () => {
+    it('Should correctly behave to children being updated', (done) => {
+      $card.innerHTML = `
+        <h2 slot="header">Title</h2>
+        <div>Body</div>
+        <div slot="footer">Footer</div>
+      `;
+
+      $card.childrenUpdated();
+
+      setTimeout(() => {
+        expect($card.showheader).to.be.true;
+        expect($card.showbody).to.be.true;
+        expect($card.showfooter).to.be.true;
+        done();
+      }, 50);
+    });
+  });
 });
 
 describe('applySlotClass', () => {
