@@ -43,6 +43,7 @@
 }
 
 .emd-card__body {
+  background: var(--emd-card-body-background, transparent);
   display: flex;
   flex-flow: row wrap;
   flex-shrink: 1;
