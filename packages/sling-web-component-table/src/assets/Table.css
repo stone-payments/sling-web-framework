@@ -1,4 +1,4 @@
-.emd-table {
+.emd-table__wrapper {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   border-collapse: collapse;
@@ -10,17 +10,17 @@
   background: var(--emd-table-background-color, transparent);
 }
 
-.emd-table.small {
+.emd-table__wrapper_size_small {
   font-size: 12px;
   line-height: 18px;
 }
 
-.emd-table.medium {
+.emd-table__wrapper_size_medium {
   font-size: 14px;
   line-height: 21px;
 }
 
-.emd-table.large {
+.emd-table__wrapper_size_large {
   font-size: 16px;
   line-height: 24px;
 }
@@ -52,15 +52,15 @@
   background: transparent;
 }
 
-.emd-table_row_success {
+.emd-table__row_success {
   border-left: 2px #31cd65;
 }
 
-.emd-table_clickablerows .emd-table__row {
+.emd-table__wrapper_clickablerows .emd-table__row {
   cursor: pointer;
 }
 
-.emd-table_clickablerows .emd-table__row:hover {
+.emd-table__wrapper_clickablerows .emd-table__row:hover {
   background: rgba(0, 0, 0, 0.02);
 }
 
@@ -97,17 +97,17 @@
   text-align: left;
 }
 
-.small .emd-table__symbol {
+.emd-table__wrapper_size_small .emd-table__symbol {
   font-size: 10px;
   line-height: 12px;
 }
 
-.medium .emd-table__symbol {
+.emd-table__wrapper_size_medium .emd-table__symbol {
   font-size: 11px;
   line-height: 13px;
 }
 
-.large .emd-table__symbol {
+.emd-table__wrapper_size_large .emd-table__symbol {
   font-size: 12px;
   line-height: 14px;
 }
@@ -136,12 +136,15 @@
 .bullet__status_1 {
   color: var(--calendar-status-1-color, #f9bf09);
 }
+
 .bullet__status_2 {
   color: var(--calendar-status-2-color, #B9C3CC);
 }
+
 .bullet__status_3 {
   color: var(--calendar-status-3-color, #c7352e);
 }
+
 .bullet__status_4 {
   color: var(--calendar-status-4-color, #31cd65);
 }
