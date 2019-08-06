@@ -1,14 +1,14 @@
 {
   "name": "sling-web-component-label",
-  "version": "1.12.4",
+  "version": "1.12.5",
   "description": "Sling Label",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
   "author": "Stone Pagamentos",
   "dependencies": {
-    "sling-framework": "^1.12.4",
-    "sling-helpers": "^1.12.4",
-    "sling-web-component-icon": "^1.13.2"
+    "sling-framework": "^1.12.5",
+    "sling-helpers": "^1.12.5",
+    "sling-web-component-icon": "^1.13.3"
   }
 }
