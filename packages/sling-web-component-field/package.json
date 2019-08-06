@@ -1,6 +1,6 @@
 {
   "name": "sling-web-component-field",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Sling Field",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
@@ -8,8 +8,8 @@
   "author": "Stone Pagamentos",
   "dependencies": {
     "imask": "^4.1.3",
-    "sling-framework": "^1.12.4",
-    "sling-helpers": "^1.12.4",
-    "sling-web-component-icon": "^1.13.2"
+    "sling-framework": "^1.12.5",
+    "sling-helpers": "^1.12.5",
+    "sling-web-component-icon": "^1.13.3"
   }
 }
