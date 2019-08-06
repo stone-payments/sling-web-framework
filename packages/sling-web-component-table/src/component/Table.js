@@ -250,17 +250,17 @@ export class Table extends HTMLElement {
 
   static getEditCell() {
     return `
-    <td class="emd-table__cell emd-table__icon">
-      <svg width="18px" height="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        viewBox="20.5 20.60000228881836 55 54.89999771118164"
-        style="enable-background:new 0 0 96 96;" xml:space="preserve">
-        <g id="XMLID_2_">
-          <path id="XMLID_6_" class="edit-icon" d="M20.5,64v11.5H32l33.8-33.8L54.3,30.2L20.5,64z M74.6,32.9c1.2-1.2,1.2-3.1,0-4.3l-7.1-7.1
-            c-1.2-1.2-3.1-1.2-4.3,0L57.6,27L69,38.4L74.6,32.9z"></path>
-        </g>
-      </svg>
-    </td>
+      <td class="emd-table__cell emd-table__icon">
+        <svg width="18px" height="18px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          viewBox="20.5 20.60000228881836 55 54.89999771118164"
+          style="enable-background:new 0 0 96 96;" xml:space="preserve">
+          <g id="XMLID_2_">
+            <path id="XMLID_6_" class="edit-icon" d="M20.5,64v11.5H32l33.8-33.8L54.3,30.2L20.5,64z M74.6,32.9c1.2-1.2,1.2-3.1,0-4.3l-7.1-7.1
+              c-1.2-1.2-3.1-1.2-4.3,0L57.6,27L69,38.4L74.6,32.9z"></path>
+          </g>
+        </svg>
+      </td>
     `;
   }
 
