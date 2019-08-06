@@ -99,5 +99,11 @@ describe('Table', () => {
       done();
     });
   });
+
+  it('Should render the edit cell correctly', () => {
+    $table = document.createElement('sling-table');
+    expect($table.constructor.getEditCell().startsWith('table'))
+      .to.be.true;
+  });
 });
 

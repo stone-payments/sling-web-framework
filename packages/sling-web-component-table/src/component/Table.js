@@ -278,13 +278,18 @@ export class Table extends HTMLElement {
       srccolumns: columns = [],
       noheader: noHeader,
       clickablerows: clickableRows,
+      size,
     } = this;
+
+    const wrapperClass = 'emd-table__wrapper' +
+      `${clickableRows ? ' emd-table__wrapper_clickablerows' : ''}` +
+      `${size ? ` emd-table__wrapper_size_${size}` : ''}`;
 
     this.shadowRoot.innerHTML = `
       <style>
         @import url('sling-web-component-table/src/index.css');
       </style>
-      <table class="emd-table${clickableRows ? ' emd-table_clickablerows' : ''} ${this.size ? this.size : ''}">
+      <table class="${wrapperClass}">
         <colgroup>
           ${columns.map(item => `<col style="width: ${item.width || 'auto'};"></col>`).join('')}
           ${this.editable ? '<col></col>' : ''}
@@ -309,7 +314,7 @@ export class Table extends HTMLElement {
         </thead>
         <tbody class="emd-table__body">
           ${dataSource.map((item, index) => `
-            <tr data-index="${index}" class="emd-table__row emd-table_row_success">
+            <tr data-index="${index}" class="emd-table__row emd-table__row_success">
               ${columns.map(header => `<td
                 class="emd-table__cell"
                 style="text-align: ${header.align || 'left'};">
