@@ -1,3 +1,8 @@
+<a name="2.4.0"></a>
+## 2.4.0 (2019-08-06)
+
+* fix: substitute `.emd-table` CSS class for `.emd-table__wrapper` to avoid conflicts with the web components polyfill used by Edge
+
 <a name="2.3.0"></a>
 ## 2.3.0 (2019-08-01)
 

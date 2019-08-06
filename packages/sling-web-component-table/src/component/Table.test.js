@@ -16,7 +16,7 @@ describe('Table', () => {
   });
 
   it('Should reflect "editable", ' +
-  '"noheader" and clickablerows attribute to property ', () => {
+    '"noheader" and clickablerows attribute to property ', () => {
     $table.setAttribute('editable', '');
     $table.setAttribute('noheader', '');
     $table.setAttribute('clickablerows', '');
@@ -27,7 +27,7 @@ describe('Table', () => {
   });
 
   it('Should reflect "editable", ' +
-  '"noheader" and clickablerows attribute to property ', () => {
+    '"noheader" and clickablerows attribute to property ', () => {
     $table.editable = '';
     $table.noheader = '';
     $table.clickablerows = '';
@@ -86,7 +86,7 @@ describe('Table', () => {
         type: 'rate',
       },
     ];
-    $table.scrdata = [
+    $table.srcdata = [
       {
         rate: 0.67,
       },
@@ -94,9 +94,28 @@ describe('Table', () => {
     document.body.appendChild($table);
 
     setTimeout(() => {
-      expect($table.shadowRoot.innerHTML
-        .includes('0,67%')).to.be.true;
+      expect($table.shadowRoot.innerHTML.includes('0,67%')).to.be.true;
       done();
+    }, 30);
+  });
+
+  it('Should render the edit cell correctly', (done) => {
+    setTimeout(() => {
+      expect($table.constructor.getEditCell().trim()
+        .startsWith('<td')).to.be.true;
+      done();
+    }, 30);
+  });
+
+  describe('.makeTitleSticky()', () => {
+    it('Should not make title sticky if title has tooltips', () => {
+      const columns = [{ tooltiptext: true }];
+      expect($table.constructor.makeTitleSticky(columns)).to.equal('');
+    });
+
+    it('Should make title sticky if title does not have tooltips', () => {
+      expect($table.constructor.makeTitleSticky([]))
+        .to.equal(' emd-table__title_sticky');
     });
   });
 });
