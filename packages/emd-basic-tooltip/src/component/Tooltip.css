@@ -1,0 +1,108 @@
+:host {
+  display: block;
+}
+
+.emd-tooltip__wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.emd-tooltip__text {
+  display: none;
+  background-color: var(--emd-tooltip-background-color,#0c1219);
+  color: #fff;
+  padding: 0.75em;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1s;
+  text-align: var(--emd-tooltip-text-align, left);
+  font-size: var(--emd-tooltip-font-size, 0.75em);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.emd-tooltip__wrapper:hover .emd-tooltip__text {
+  display: block;
+  opacity: 1;
+  white-space: normal;
+  width: 300px;
+}
+
+.emd-tooltip__text_position_right {
+  top: -5px;
+  left: 100%; 
+  margin-left: 8px;
+}
+
+.emd-tooltip__text_position_right::after {
+  content: " ";
+  position: absolute;
+  top: 20%;
+  right: 100%; /* To the left of the tooltip__text_position_bottomtooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #0c1219 transparent transparent;
+}
+
+.emd-tooltip__text_position_left {
+  top: -5px;
+  right: 100%; 
+  margin-right: 8px;
+}
+
+.emd-tooltip__text_position_left::after {
+  content: " ";
+  position: absolute;
+  top: 20%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #0c1219;
+}
+
+.emd-tooltip__text_position_top {
+  bottom: 100%;
+  margin-bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.emd-tooltip__text_position_top::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #0c1219 transparent transparent transparent;
+}
+
+
+.emd-tooltip__text_position_bottom {
+  top: 100%;
+  margin-top: 8px;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.emd-tooltip__text_position_bottom::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #0c1219 transparent;
+}
+
+/* for Edge compatibility */
+
+emd-tooltip {
+  display: block;
+}
