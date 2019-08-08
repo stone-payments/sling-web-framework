@@ -13,7 +13,9 @@ html {
 
 body {
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 40px;
+  min-height: 600px;
+  text-align: center;
 }
 
 .fake-component {
