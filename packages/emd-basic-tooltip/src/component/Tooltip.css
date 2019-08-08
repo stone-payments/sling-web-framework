@@ -10,7 +10,7 @@
 /* Tooltip text */
 .emd-tooltip__text {
   display: none;
-  background-color: var(--emd-tooltip-background-color,#0c1219);
+  background-color: var(--emd-tooltip-background-color, #0c1219);
   color: #fff;
   padding: 0.75em;
   border-radius: 6px;
