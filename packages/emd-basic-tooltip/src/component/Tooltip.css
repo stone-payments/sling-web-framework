@@ -27,7 +27,7 @@
   display: block;
   opacity: 1;
   white-space: normal;
-  min-width: var(--emd-tooltip-wrapper-width, max-content);
+  min-width: var(--emd-tooltip-min-width, max-content);
 }
 
 .emd-tooltip__text_position_right {
