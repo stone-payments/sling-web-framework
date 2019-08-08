@@ -10,7 +10,7 @@
 /* Tooltip text */
 .emd-tooltip__text {
   display: none;
-  background-color: var(--emd-tooltip-background-color,#0c1219);
+  background-color: var(--emd-tooltip-background-color, #0c1219);
   color: #fff;
   padding: 0.75em;
   border-radius: 6px;
@@ -94,7 +94,7 @@
 .emd-tooltip__text_position_bottom::after {
   content: " ";
   position: absolute;
-  bottom: 100%;  /* At the top of the tooltip */
+  bottom: 100%; /* At the top of the tooltip */
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
