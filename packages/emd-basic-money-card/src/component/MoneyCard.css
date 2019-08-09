@@ -3,10 +3,6 @@
   overflow: hidden;
 }
 
-::slotted(*) {
-  margin-top: 1.5em;
-}
-
 .emd-money-card__wrapper {
   display: flex;
   flex-flow: column nowrap;
