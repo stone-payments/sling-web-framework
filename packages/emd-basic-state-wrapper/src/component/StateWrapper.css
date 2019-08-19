@@ -32,8 +32,9 @@
   transition: opacity 0.13s ease-in-out, width 0s 0.13s, height 0s 0.13s;
 }
 
-.emd-state-wrapper__state_current {
+.emd-state-wrapper__state_current .emd-state-wrapper__inner {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .emd-state-wrapper__state_current,
