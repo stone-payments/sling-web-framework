@@ -28,6 +28,14 @@ export const CardController = (Base = class {}) => class extends Base {
     this._updateView();
   }
 
+  get noscroll () {
+    return this.hasAttribute('noscroll');
+  }
+
+  set noscroll (value) {
+    setAttr(this, 'noscroll', value);
+  }
+
   get expandedbody () {
     return this.hasAttribute('expandedbody');
   }
@@ -37,7 +45,7 @@ export const CardController = (Base = class {}) => class extends Base {
   }
 
   static get observedAttributes () {
-    return ['expandedbody'];
+    return ['noscroll', 'expandedbody'];
   }
 
   attributeChangedCallback (...args) {

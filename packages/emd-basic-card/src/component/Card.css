@@ -56,6 +56,10 @@
   -webkit-overflow-scrolling: touch;
 }
 
+.emd-card__body.emd-card__area_noscroll {
+  overflow: hidden;
+}
+
 .emd-card__body.emd-card__area_hidden,
 .emd-card__body.emd-card__area_expanded {
   margin-top: 0;
@@ -75,6 +79,10 @@
   flex-flow: row wrap;
   flex-grow: 1;
   align-self: stretch;
+}
+
+.emd-card__area_noscroll .emd-card__slot_full {
+  height: 100%;
 }
 
 .emd-card__slot_left {
