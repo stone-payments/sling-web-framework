@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-card-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-card-v1.0.0...@stone-payments/emd-basic-card-v1.1.0) (2019-08-01)
+
+
+### Features
+
+* :construction: Update custom property in card body. ([4e1df53](https://github.com/stone-payments/emerald-web-framework/commit/4e1df53))
+
 # @stone-payments/emd-basic-card-v1.0.0 (2019-07-04)
 
 
