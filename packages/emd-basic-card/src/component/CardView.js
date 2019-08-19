@@ -4,7 +4,8 @@ export const CardView = ({
   showHeader,
   showBody,
   showFooter,
-  expandedbody
+  expandedbody,
+  noscroll
 }) => {
   let cardClasses = '';
   cardClasses += showHeader ? ' emd-card__wrapper_with_header' : '';
@@ -17,6 +18,7 @@ export const CardView = ({
   let cardBodyClasses = '';
   cardBodyClasses += !showBody ? ' emd-card__area_hidden' : '';
   cardBodyClasses += expandedbody ? ' emd-card__area_expanded' : '';
+  cardBodyClasses += noscroll ? ' emd-card__area_noscroll' : '';
 
   return html`
     <style>
