@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-card-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-card-v1.1.0...@stone-payments/emd-basic-card-v1.2.0) (2019-08-19)
+
+
+### Features
+
+* Add `noscroll` property ([d05de06](https://github.com/stone-payments/emerald-web-framework/commit/d05de06))
+
 # [@stone-payments/emd-basic-card-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-card-v1.0.0...@stone-payments/emd-basic-card-v1.1.0) (2019-08-01)
 
 
