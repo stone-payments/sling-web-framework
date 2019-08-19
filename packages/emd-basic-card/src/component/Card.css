@@ -82,7 +82,7 @@
 }
 
 .emd-card__area_noscroll .emd-card__slot_full {
-  height: 100%;
+  max-height: 100%;
 }
 
 .emd-card__slot_left {
