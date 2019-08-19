@@ -1,13 +1,30 @@
-import { v0 as sdk } from 'customer-js-sdk';
+import { rows } from './rows.js';
+import '@stone-payments/emd-basic-table';
 import '../src/index.js';
-import '@stone-payments/emd-business-weekly-calendar';
-
-sdk.authorization.set(sdk.BEARER, ``);
 
 let currentButton = 'default';
 
 const wrappers = Array.from(document.querySelectorAll('emd-state-wrapper'));
-const businesses = Array.from(document.querySelectorAll('emd-weekly-calendar'));
+const tables = Array.from(document.querySelectorAll('emd-table'));
+
+const header = ['Bandeira', 'Valor Pago'];
+
+const appearance = {
+  align: ['left', 'right'],
+  valign: 'middle'
+};
+
+const adapter = ({ value, currency, brand, date }) => [
+  brand,
+  value
+];
+
+tables.forEach(table => {
+  table.rows = rows;
+  table.adapter = adapter;
+  table.appearance = appearance;
+  table.header = header;
+});
 
 const stateButtons = Array
   .from(document.querySelectorAll('button'))
@@ -41,56 +58,10 @@ stateButtons.forEach(button => {
       wrapper.currentState = currentButton;
     });
   };
+
+  wrappers.forEach(wrapper => {
+    wrapper.currentState = 'default';
+  });
 });
 
 updateStateButtons();
-
-businesses.forEach(business => {
-  business.source = [
-    {
-      date: '2019-01-31',
-      value: 48.96,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-01',
-      value: 73.3,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-04',
-      value: 0,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-05',
-      value: 0,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-06',
-      value: 265.01,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-01',
-      value: 73.3,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-04',
-      value: 0,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-05',
-      value: 0,
-      currency: 'BRL'
-    },
-    {
-      date: '2019-02-06',
-      value: 265.01,
-      currency: 'BRL'
-    }
-  ];
-});
