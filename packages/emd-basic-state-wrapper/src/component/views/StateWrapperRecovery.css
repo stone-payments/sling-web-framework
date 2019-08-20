@@ -1,9 +1,8 @@
 .emd-state-wrapper__state_recovery {
   font-size: 1em;
   text-align: center;
-  color: #0db14b;
+  color: var(--emd-state-wrapper-recovery-color, #0db14b);
 }
-
 
 .emd-state-wrapper__state_recovery .emd-state-wrapper__action {
   display: flex;
@@ -16,4 +15,13 @@
 .emd-state-wrapper__state_recovery .emd-state-wrapper__icon {
   font-size: 2em;
   margin-bottom: 0.4375em;
+}
+
+.emd-state-wrapper__state_recovery .emd-state-wrapper__icon_view_compact {
+  font-size: 1.25em;
+  margin-bottom: 0;
+}
+
+.emd-state-wrapper__state_recovery .emd-state-wrapper__text_view_compact {
+  display: none;
 }

@@ -1,7 +1,8 @@
 import { html } from '@stone-payments/lit-element';
+import { getViewCssVariant } from '../helpers/getViewCssVariant.js';
 
-export const StateWrapperEmptyView = () => html`
-  <span class="emd-state-wrapper__text">
+export const StateWrapperEmptyView = ({ view }) => html`
+  <span class="${getViewCssVariant(view, 'text')}">
     Não há nada aqui.
   </span>
 `;
