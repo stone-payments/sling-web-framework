@@ -32,11 +32,6 @@
   transition: opacity 0.13s ease-in-out, width 0s 0.13s, height 0s 0.13s;
 }
 
-.emd-state-wrapper__state_current .emd-state-wrapper__inner {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
 .emd-state-wrapper__state_current,
 .emd-state-wrapper__wrapper_loading .emd-state-wrapper__overlay {
   top: 0;
@@ -88,6 +83,11 @@
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.emd-state-wrapper__state_default .emd-state-wrapper__inner {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .emd-state-wrapper__state_default:not(.emd-state-wrapper__state_current) {
