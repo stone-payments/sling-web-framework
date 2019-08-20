@@ -38,7 +38,7 @@ export const StateWrapperView = ({
   </style>
   <div class="${getWrapperClass(isLoading)}">
     <div class="${getViewCssVariant(view, 'overlay')}">
-      <emd-loader loading></emd-loader>
+      <emd-loader class="emd-state-wrapper__loader" loading></emd-loader>
     </div>
     ${states.map(state => html`
       <div class="${getStateClass(state, currentState)}">

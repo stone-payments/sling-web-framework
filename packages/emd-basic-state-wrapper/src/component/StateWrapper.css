@@ -66,6 +66,10 @@
   font-size: 0.625em;
 }
 
+.emd-state-wrapper__loader {
+  color: var(--emd-state-wrapper-loader-color, #0db14b);
+}
+
 .emd-state-wrapper__state_current {
   z-index: 2;
 }
