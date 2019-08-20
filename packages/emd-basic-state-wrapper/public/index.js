@@ -7,16 +7,16 @@ let currentButton = 'default';
 const wrappers = Array.from(document.querySelectorAll('emd-state-wrapper'));
 const tables = Array.from(document.querySelectorAll('emd-table'));
 
-const header = ['Bandeira', 'Valor Pago'];
+const header = ['Movie', 'Year'];
 
 const appearance = {
   align: ['left', 'right'],
   valign: 'middle'
 };
 
-const adapter = ({ value, currency, brand, date }) => [
-  brand,
-  value
+const adapter = ({ name, year }) => [
+  name,
+  year
 ];
 
 tables.forEach(table => {
@@ -61,6 +61,7 @@ stateButtons.forEach(button => {
 
   wrappers.forEach(wrapper => {
     wrapper.currentState = 'default';
+    wrapper.recovery = () => window.alert('custom recovery method');
   });
 });
 
