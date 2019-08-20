@@ -1,6 +1,7 @@
 import { html } from '@stone-payments/lit-element';
 import '@stone-payments/emd-basic-loader';
 import { stateNames } from '../constants/stateNames.js';
+import { isFunction } from '@stone-payments/emd-helpers/dist/cjs/es5/helpers/isFunction';
 
 const getStateClass = (state, currentState) => 'emd-state-wrapper__state' +
   ` emd-state-wrapper__state_${state.name}` +
@@ -9,15 +10,26 @@ const getStateClass = (state, currentState) => 'emd-state-wrapper__state' +
 const getWrapperClass = isLoading => 'emd-state-wrapper__wrapper' +
   (isLoading ? ' emd-state-wrapper__wrapper_loading' : '');
 
-const prepareView = (state, wrapped) => html`
-  ${state.view ? state.view({ wrapped, action: state.action }) : ''}
-`;
+const prepareView = (state, wrapped, recovery) => {
+  const legacyRecovery = wrapped && isFunction(wrapped[state.action])
+    ? wrapped[state.action].bind(wrapped)
+    : undefined;
+
+  const action = (state.name === stateNames.RECOVERY)
+    ? recovery || legacyRecovery
+    : undefined;
+
+  return wrapped && state.view
+    ? state.view({ wrapped, action })
+    : '';
+};
 
 export const StateWrapperView = ({
   states,
   isLoading,
   currentState,
-  wrapped
+  wrapped,
+  recovery
 }) => html`
   <style>
     @import url("emd-basic-state-wrapper/src/component/StateWrapper.css")
@@ -31,11 +43,11 @@ export const StateWrapperView = ({
         <div class="emd-state-wrapper__inner">
           ${state.name !== stateNames.DEFAULT ? html`
             <slot name="${state.name}">
-              ${prepareView(state, wrapped)}
+              ${prepareView(state, wrapped, recovery)}
             </slot>
           ` : html`
             <slot>
-              ${prepareView(state, wrapped)}
+              ${prepareView(state, wrapped, recovery)}
             </slot>
           `}
         </div>

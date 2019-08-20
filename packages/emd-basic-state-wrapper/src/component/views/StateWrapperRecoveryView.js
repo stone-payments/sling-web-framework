@@ -12,19 +12,12 @@ const content = html`
   </span>
 `;
 
-export const StateWrapperRecoveryView = ({
-  wrapped,
-  action
-}) => {
-  const recoveryAction = wrapped[action];
-
-  return html`
-    ${recoveryAction ? html`
-      <div
-        @click="${recoveryAction.bind(wrapped)}"
-        class="emd-state-wrapper__action">
-        ${content}
-      </div>
-    ` : content}
-  `;
+export const StateWrapperRecoveryView = ({ action }) => {
+  return action ? html`
+    <div
+      @click="${action}"
+      class="emd-state-wrapper__action">
+      ${content}
+    </div>
+  ` : content;
 };
