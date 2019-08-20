@@ -1,7 +1,7 @@
 .emd-state-wrapper__state_recovery {
   font-size: 1em;
   text-align: center;
-  color: #0db14b;
+  color: var(--emd-state-wrapper-recovery-color, #0db14b);
 }
 
 

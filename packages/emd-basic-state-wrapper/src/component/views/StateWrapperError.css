@@ -1,7 +1,7 @@
 .emd-state-wrapper__state_error {
   font-size: 1em;
   text-align: center;
-  color: #e74c3c;
+  color: var(--emd-state-wrapper-error-color, #e74c3c);
 }
 
 .emd-state-wrapper__state_error .emd-state-wrapper__icon {
