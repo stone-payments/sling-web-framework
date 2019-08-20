@@ -1,4 +1,4 @@
-import { isDeeplyEmpty } from '@stone-payments/emd-helpers';
+import { isDeeplyEmpty, isFunction } from '@stone-payments/emd-helpers';
 import { stateNames } from '../constants/stateNames.js';
 import { eventNames } from '../constants/eventNames.js';
 
@@ -27,6 +27,10 @@ export const StateWrapperController = (Base = class {}) =>
         },
         isLoading: {
           type: Boolean,
+          reflect: false
+        },
+        recovery: {
+          type: Function,
           reflect: false
         }
       };
@@ -67,7 +71,9 @@ export const StateWrapperController = (Base = class {}) =>
         [eventNames.SOURCE_CHANGE, this._handleSourceChange],
         [eventNames.REQUEST_ERROR, this._handleRequestError]
       ].forEach(([eventName, callback]) => {
-        this.wrapped[method](eventName, callback);
+        if (this.wrapped && isFunction(this.wrapped[method])) {
+          this.wrapped[method](eventName, callback);
+        }
       });
     }
 
