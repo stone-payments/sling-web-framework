@@ -29,6 +29,10 @@ export const StateWrapperController = (Base = class {}) =>
           type: Boolean,
           reflect: false
         },
+        view: {
+          type: String,
+          reflect: true
+        },
         recovery: {
           type: Function,
           reflect: false

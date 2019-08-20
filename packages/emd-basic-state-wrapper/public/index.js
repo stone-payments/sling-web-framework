@@ -61,7 +61,7 @@ stateButtons.forEach(button => {
 
   wrappers.forEach(wrapper => {
     wrapper.currentState = 'default';
-    wrapper.recovery = () => window.alert('custom recovery method');
+    wrapper.recovery = () => window.alert('Custom Recovery Method');
   });
 });
 

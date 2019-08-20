@@ -8,3 +8,12 @@
   font-size: 2em;
   margin-bottom: 0.4375em;
 }
+
+.emd-state-wrapper__state_error .emd-state-wrapper__icon_view_compact {
+  font-size: 1.25em;
+  margin-bottom: 0;
+}
+
+.emd-state-wrapper__state_error .emd-state-wrapper__text_view_compact {
+  display: none;
+}

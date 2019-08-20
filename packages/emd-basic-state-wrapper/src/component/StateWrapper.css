@@ -67,6 +67,10 @@
   z-index: 3;
 }
 
+.emd-state-wrapper__overlay_view_compact {
+  font-size: 0.625em;
+}
+
 .emd-state-wrapper__state_current {
   z-index: 2;
 }

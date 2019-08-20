@@ -2,3 +2,7 @@
   font-size: 1em;
   text-align: center;
 }
+
+.emd-state-wrapper__state_pristine .emd-state-wrapper__text_view_compact {
+  font-size: 0.75em;
+}

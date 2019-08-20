@@ -1,23 +1,24 @@
 import { html } from '@stone-payments/lit-element';
 import '@stone-payments/emd-basic-icon';
+import { getViewCssVariant } from '../helpers/getViewCssVariant.js';
 
-const content = html`
+const StateWrapperContentView = ({ view }) => html`
   <emd-icon
     icon="refresh"
-    class="emd-state-wrapper__icon">
+    class="${getViewCssVariant(view, 'icon')}">
   </emd-icon>
-  <span class="emd-state-wrapper__text">
+  <span class="${getViewCssVariant(view, 'text')}">
     Falha no carregamento.<br/>
     Tentar novamente.
   </span>
 `;
 
-export const StateWrapperRecoveryView = ({ action }) => {
+export const StateWrapperRecoveryView = ({ action, view }) => {
   return action ? html`
     <div
       @click="${action}"
       class="emd-state-wrapper__action">
-      ${content}
+      ${StateWrapperContentView({ view })}
     </div>
-  ` : content;
+  ` : StateWrapperContentView({ view });
 };
