@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-state-wrapper-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-state-wrapper-v1.1.0...@stone-payments/emd-basic-state-wrapper-v1.2.0) (2019-08-21)
+
+
+### Features
+
+* Allow `recovery` to be passed as the name of an wrapped element's method ([0044830](https://github.com/stone-payments/emerald-web-framework/commit/0044830))
+
 # [@stone-payments/emd-basic-state-wrapper-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-state-wrapper-v1.0.1...@stone-payments/emd-basic-state-wrapper-v1.1.0) (2019-08-20)
 
 
