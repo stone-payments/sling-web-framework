@@ -1,8 +1,10 @@
 import { html } from '@stone-payments/lit-element';
-import { isFunction } from '@stone-payments/emd-helpers';
+import { isFunction, isString } from '@stone-payments/emd-helpers';
 import '@stone-payments/emd-basic-loader';
 import { stateNames } from '../constants/stateNames.js';
 import { getViewCssVariant } from './helpers/getViewCssVariant.js';
+
+const { DEFAULT, RECOVERY } = stateNames;
 
 const getStateClass = (state, currentState) => 'emd-state-wrapper__state' +
   ` emd-state-wrapper__state_${state.name}` +
@@ -11,13 +13,23 @@ const getStateClass = (state, currentState) => 'emd-state-wrapper__state' +
 const getWrapperClass = isLoading => 'emd-state-wrapper__wrapper' +
   (isLoading ? ' emd-state-wrapper__wrapper_loading' : '');
 
-const prepareView = (state, wrapped, recovery, view) => {
-  const legacyRecovery = wrapped && isFunction(wrapped[state.action])
-    ? wrapped[state.action].bind(wrapped)
-    : undefined;
+export const stringToMethod = (domEl, str) => domEl && isFunction(domEl[str])
+  ? domEl[str].bind(domEl)
+  : undefined;
 
-  const action = (state.name === stateNames.RECOVERY)
-    ? recovery || legacyRecovery
+export const prepareView = (state, wrapped, recovery, view) => {
+  let parsedRecovery;
+
+  if (isString(recovery)) {
+    parsedRecovery = stringToMethod(wrapped, recovery);
+  } else if (isFunction(recovery)) {
+    parsedRecovery = recovery;
+  }
+
+  const legacyRecovery = stringToMethod(wrapped, state.action);
+
+  const action = (state.name === RECOVERY)
+    ? parsedRecovery || legacyRecovery
     : undefined;
 
   return wrapped && state.view
@@ -43,7 +55,7 @@ export const StateWrapperView = ({
     ${states.map(state => html`
       <div class="${getStateClass(state, currentState)}">
         <div class="emd-state-wrapper__inner">
-          ${state.name !== stateNames.DEFAULT ? html`
+          ${state.name !== DEFAULT ? html`
             <slot name="${state.name}">
               ${prepareView(state, wrapped, recovery, view)}
             </slot>
