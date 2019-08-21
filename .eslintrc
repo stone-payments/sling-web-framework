@@ -6,8 +6,8 @@
     "plugin:import/warnings"
   ],
   "env": {
-    "browser": true,
-    "node": true
+    "node": true,
+    "browser": true
   },
   "rules": {
     "max-len": ["error", {
