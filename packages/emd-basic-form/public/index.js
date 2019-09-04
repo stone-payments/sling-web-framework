@@ -108,8 +108,6 @@ const TestLitForm = (Base = class {}) => class extends Base {
   render () {
     const { values, touched } = this.formState || {};
 
-    console.log('will render');
-
     return html`
       <style>
         emd-form {
