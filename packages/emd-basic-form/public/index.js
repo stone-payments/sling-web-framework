@@ -32,6 +32,10 @@ const validatePresenceOfAnyTel = (values) => {
   return {};
 };
 
+const validateTruth = value => value !== true
+  ? 'You must accept the terms and conditions'
+  : undefined;
+
 const musketeerOptions = ['Athos', 'Porthos', 'Aramis'];
 
 const stateOptions = [{
@@ -54,13 +58,6 @@ const citiesByState = {
 const TestLitForm = (Base = class {}) => class extends Base {
   constructor () {
     super();
-
-    this.formState = {
-      values: [],
-      touched: {
-        phones: []
-      }
-    };
 
     this.log = '';
 
@@ -104,12 +101,14 @@ const TestLitForm = (Base = class {}) => class extends Base {
     this.form.finishSubmission();
   }
 
-  handleFormStateChange ({ detail: formState }) {
+  async handleFormStateChange ({ detail: formState }) {
     this.formState = formState;
   }
 
   render () {
-    const { values, touched } = this.formState;
+    const { values, touched } = this.formState || {};
+
+    console.log('will render');
 
     return html`
       <style>
@@ -160,19 +159,19 @@ const TestLitForm = (Base = class {}) => class extends Base {
         </div>
 
         <div>
-          <emd-field-wrapper label="First Name">
+          <emd-field-wrapper emptyhint label="First Name">
             <emd-field name="name" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="Last Name">
+          <emd-field-wrapper emptyhint label="Last Name">
             <emd-field name="lastname" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="User Name">
+          <emd-field-wrapper emptyhint label="User Name">
             <emd-field
               name="username"
               .validation="${validateUsernameAvailability}"
@@ -182,37 +181,37 @@ const TestLitForm = (Base = class {}) => class extends Base {
         </div>
 
         <div>
-          <emd-field-wrapper label="E-mail">
+          <emd-field-wrapper emptyhint label="E-mail">
             <emd-field name="email" type="email" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="CPF" hint="000.000.000-00">
+          <emd-field-wrapper emptyhint label="CPF" hint="000.000.000-00">
             <emd-field name="cpf" type="cpf" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="CEP" hint="00000-00">
+          <emd-field-wrapper emptyhint label="CEP" hint="00000-00">
             <emd-field name="cep" type="cep" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="CNPJ" hint="00.000.000/0000-00">
+          <emd-field-wrapper emptyhint label="CNPJ" hint="00.000.000/0000-00">
             <emd-field name="cnpj" type="cnpj" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="Money">
+          <emd-field-wrapper emptyhint label="Money">
             <emd-field name="money" type="money" required></emd-field>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="States">
+          <emd-field-wrapper emptyhint label="States">
             <emd-select
               name="state"
               placeholder="Choose a state"
@@ -223,19 +222,19 @@ const TestLitForm = (Base = class {}) => class extends Base {
         </div>
 
         <div>
-          <emd-field-wrapper label="Cities">
+          <emd-field-wrapper emptyhint label="Cities">
             <emd-select
               name="city"
               placeholder="Choose a city"
               autoselectsingle
-              .options="${values.state ? citiesByState[values.state] : []}"
+              .options="${values && values.state ? citiesByState[values.state] : []}"
               required>
             </emd-select>
           </emd-field-wrapper>
         </div>
 
         <div>
-          <emd-field-wrapper label="Musketeer">
+          <emd-field-wrapper emptyhint label="Musketeer">
             <emd-select
               name="musketeer"
               placeholder="Choose a musketeer"
@@ -255,18 +254,18 @@ const TestLitForm = (Base = class {}) => class extends Base {
           <h3>Telephones</h3>
           <emd-field-message
             name="minphones"
-            style="${touched.phones.cell && touched.phones.land ? 'visibility: visible' : 'visibility: hidden'}">
+            style="${touched && touched.phones && touched.phones.cell && touched.phones.land ? 'visibility: visible' : 'visibility: hidden'}">
           </emd-field-message>
         </div>
 
         <div>
-          <emd-field-wrapper label="Cellphone">
+          <emd-field-wrapper emptyhint label="Cellphone">
             <emd-field name="phones.cell" type="tel"></emd-field>
           </emd-field-wrappe>
         </div>
 
         <div>
-          <emd-field-wrapper label="Landline">
+          <emd-field-wrapper emptyhint label="Landline">
             <emd-field name="phones.land" type="tel"></emd-field>
           </emd-field-wrappe>
         </div>
@@ -285,7 +284,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
           </h3>
         </div>
 
-        ${values.games && values.games.map((_, index) => html`
+        ${values && values.games && values.games.map((_, index) => html`
           <div>
             <h4>
               Nome
@@ -299,11 +298,25 @@ const TestLitForm = (Base = class {}) => class extends Base {
                 Remove
               </emd-button>
             </h4>
-            <emd-field-wrapper>
+            <emd-field-wrapper emptyhint>
               <emd-field name="games[${index}]" required></emd-field>
             </emd-field-wrapper>
           </div>
         `)}
+
+        <div>
+          <emd-field-wrapper emptyhint label="Contract">
+            <span style="display: inline">
+              I accept the terms and conditions
+            </span>
+            <input
+              style="display: inline"
+              type="checkbox"
+              name="bool"
+              .validation="${validateTruth}"
+            />
+          </emd-field-wrapper>
+        </div>
 
         <div class="form__headline">
           <emd-button type="submit">Enviar</emd-button>
