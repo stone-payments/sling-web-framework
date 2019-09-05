@@ -101,7 +101,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
     this.form.finishSubmission();
   }
 
-  async handleFormStateChange ({ detail: formState }) {
+  handleFormStateChange ({ detail: formState }) {
     this.formState = formState;
   }
 
