@@ -302,7 +302,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
           </div>
         `)}
 
-        <div>
+        <div class="form__headline">
           <emd-field-wrapper emptyhint label="Contract">
             <span style="display: inline">
               I accept the terms and conditions
