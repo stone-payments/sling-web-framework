@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-button-v1.1.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.1...@stone-payments/emd-basic-button-v1.1.2) (2019-09-05)
+
+
+### Bug Fixes
+
+* Update dependencies ([4df5cdb](https://github.com/stone-payments/emerald-web-framework/commit/4df5cdb))
+
 # [@stone-payments/emd-basic-button-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.0...@stone-payments/emd-basic-button-v1.1.1) (2019-07-26)
 
 
