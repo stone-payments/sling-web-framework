@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-state-wrapper-v1.2.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-state-wrapper-v1.2.0...@stone-payments/emd-basic-state-wrapper-v1.2.1) (2019-09-05)
+
+
+### Bug Fixes
+
+* Update dependencies ([4df5cdb](https://github.com/stone-payments/emerald-web-framework/commit/4df5cdb))
+
 # [@stone-payments/emd-basic-state-wrapper-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-state-wrapper-v1.1.0...@stone-payments/emd-basic-state-wrapper-v1.2.0) (2019-08-21)
 
 
