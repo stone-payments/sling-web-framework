@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-money-card-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-money-card-v1.0.2...@stone-payments/emd-basic-money-card-v1.0.3) (2019-09-05)
+
+
+### Bug Fixes
+
+* Update dependencies ([4df5cdb](https://github.com/stone-payments/emerald-web-framework/commit/4df5cdb))
+
 # [@stone-payments/emd-basic-money-card-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-money-card-v1.0.1...@stone-payments/emd-basic-money-card-v1.0.2) (2019-08-09)
 
 
