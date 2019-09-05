@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-card",
   "description": "emd-basic-card",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
