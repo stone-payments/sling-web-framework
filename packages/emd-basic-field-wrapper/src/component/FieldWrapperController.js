@@ -1,3 +1,10 @@
+const fieldSelector = [
+  'emd-field',
+  'emd-select',
+  'input',
+  'select'
+].join(', ');
+
 export const FieldWrapperController = (Base = class {}) =>
   class extends Base {
     static get properties () {
@@ -26,7 +33,8 @@ export const FieldWrapperController = (Base = class {}) =>
     }
 
     get wrapped () {
-      return Array.from(this.children).find(element => !element.slot);
+      return Array.from(this.children)
+        .find(element => element.matches(fieldSelector));
     }
 
     static getFieldId (field) {
