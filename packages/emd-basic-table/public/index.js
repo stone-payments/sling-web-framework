@@ -19,8 +19,15 @@ const headerstyle = {
   textAlign: ['left', 'center', 'right']
 };
 
-const adapter = ({ value, currency, brand, date }) => [
+const headeradapter = ([date, flag, value], index, dispatch) => [
+  html`<strong>${date}</strong>`,
+  flag,
+  html`<em @click="${dispatch('value')}">${value}</em>`
+];
+
+const adapter = ({ value, currency, brand, date }, index, dispatch) => [
   html`
+    ${index + 1}.
     <emd-date
       date="${date}"
       format="DD/MM [às] HH[h]mm"
@@ -45,8 +52,30 @@ tables.forEach(table => {
   table.rows = rows;
   table.adapter = adapter;
   table.style = style;
-  table.headerstyle = headerstyle;
   table.titles = titles;
+  table.headerstyle = headerstyle;
+  table.headeradapter = headeradapter;
 });
 
 tables[3].titles = undefined;
+
+tables[7].style = undefined;
+
+tables[7].styles = {
+  even: {
+    textAlign: ['left', 'center', 'right'],
+    verticalAlign: 'middle'
+  },
+  odd: {
+    textAlign: ['left', 'center', 'right'],
+    verticalAlign: 'middle',
+    background: 'rgba(247, 158, 27, 0.1)',
+    border: 'rgba(247, 158, 27, 0.5)'
+  }
+};
+
+tables[7].usestyle = (row, rowIndex) => {
+  return rowIndex / 2 === Math.round(rowIndex / 2)
+    ? 'even'
+    : 'odd';
+};
