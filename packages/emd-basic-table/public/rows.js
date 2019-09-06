@@ -128,3 +128,16 @@ renderContent({
   adapters,
   chooseAdapter
 }); // ?
+
+export const mock = [
+  'titles',
+  'headerAdapter',
+  'headerStyle',
+  'rows',
+  'adapter',
+  'adapters',
+  'chooseAdapter',
+  'styles',
+  'styles',
+  'chooseStyle'
+];
