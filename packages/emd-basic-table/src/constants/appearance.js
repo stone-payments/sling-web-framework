@@ -1,21 +1,3 @@
-export const NEW_DEFAULT_APPEARANCE = {
-  textAlign: 'left',
-  verticalAlign: 'middle',
-  backgroundColor: 'transparent',
-  borderColor: 'rgba(45, 56, 68, 0.1)',
-  color: 'inherit',
-  width: 'auto'
-};
-
-export const NEW_DEFAULT_HEAD_APPEARANCE = {
-  textAlign: 'center',
-  verticalAlign: 'middle',
-  backgroundColor: 'transparent',
-  borderColor: 'rgba(45, 56, 68, 0.1)',
-  color: 'inherit',
-  width: 'auto'
-};
-
 export const APPEARANCE_MAP = {
   align: 'text-align',
   valign: 'vertical-align',
