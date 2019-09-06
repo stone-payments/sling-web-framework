@@ -1,57 +1,52 @@
 import { html } from '@stone-payments/lit-element';
-import { APPEARANCE_MAP } from '../constants/appearance.js';
-
-const getStypeProperty = (styles, index) => propName =>
-  `${APPEARANCE_MAP[propName]}: ${styles[index][propName]}; `;
-
-const getCellStyle = (styles, index) => Object.keys(APPEARANCE_MAP)
-  .map(getStypeProperty(styles, index))
-  .join('')
-  .trim();
 
 const getTableClass = (clickablerows, expandedbody) => {
   let result = 'emd-table__wrapper ';
   result += clickablerows ? 'emd-table__wrapper_clickable ' : '';
   result += expandedbody ? 'emd-table__wrapper_expanded ' : '';
-
   return result.trim();
 };
 
 export const TableView = ({
-  headerRow,
-  headerStyles,
-  matrix,
-  matrixStyles,
+  rows = [],
+  wrappedTitles = [],
+  handleRowClick,
+  dispatchCustomEvent,
+  getHeaderAdapter,
+  getHeaderStyleStrings,
+  getRowAdapter,
+  getRowStyleStrings,
   clickablerows,
-  expandedbody,
-  handleRowClick
+  expandedbody
 }) => html`
   <style>
     @import url("emd-basic-table/src/component/Table.css")
   </style>
   <table class="${getTableClass(clickablerows, expandedbody)}">
-    ${headerRow.length > 0 ? html`
+    ${wrappedTitles.length > 0 ? html`
       <thead class="emd-table__header">
-        <tr class="emd-table__row">
-          ${headerRow.map((cell, cellIndex) => html`
-            <th
-              class="emd-table__cell"
-              style="${getCellStyle(headerStyles, cellIndex)}">
-              ${cell}
-            </th>
-          `)}
-        </tr>
+        ${wrappedTitles.map((row, rowIndex) => html`
+          <tr class="emd-table__row">
+            ${getHeaderAdapter(row, rowIndex)(row, rowIndex, dispatchCustomEvent(rowIndex)).map((cell, cellIndex, cellArray) => html`
+              <th
+                style="${getHeaderStyleStrings(cellArray.length)[cellIndex]}"
+                class="emd-table__cell">
+                ${cell}
+              </th>
+            `)}
+          </tr>
+        `)}
       </thead>
     ` : ''}
-    ${matrix.length > 0 ? html`
+    ${rows.length > 0 ? html`
       <tbody class="emd-table__body">
-        ${matrix.map((row, rowIndex) => html`
+        ${rows.map((row, rowIndex) => html`
           <tr class="emd-table__row">
-            ${row.map((cell, cellIndex) => html`
+            ${getRowAdapter(row, rowIndex)(row, rowIndex, dispatchCustomEvent(rowIndex)).map((cell, cellIndex, cellArray) => html`
               <td
                 @click="${handleRowClick(rowIndex)}"
-                class="emd-table__cell"
-                style="${getCellStyle(matrixStyles[rowIndex], cellIndex)}">
+                style="${getRowStyleStrings(row, rowIndex, cellArray.length)[cellIndex]}"
+                class="emd-table__cell">
                 ${cell}
               </td>
             `)}

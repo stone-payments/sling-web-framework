@@ -1,46 +1,4 @@
-import { getIn, toFlatObject } from '@stone-payments/emd-helpers';
-
-import {
-  APPEARANCE_MAP,
-  DEFAULT_APPEARANCE,
-  DEFAULT_HEAD_APPEARANCE
-} from '../constants/appearance.js';
-
-const getLineOption = (userObj, index) =>
-  getIn(userObj, `nth[${index + 1}]`) || userObj.default;
-
-const getLineOptionWithKey = (userObj, key, index, cellIndex) =>
-  getIn(userObj, `nth[${index + 1}].${key}[${cellIndex}]`) ||
-  getIn(userObj, `default.${key}[${cellIndex}]`);
-
-const getUserOption = (userObj = {}, mainKey, key) =>
-  getIn(userObj, `${mainKey}.${key}`) || userObj[key];
-
-const expandStringOrArrayOption = (userValue, defaultValue, max = 0) => {
-  return new Array(max)
-    .fill(defaultValue)
-    .map((opt, index) => Array.isArray(userValue)
-      ? userValue[index] || opt
-      : userValue);
-};
-
-const parseOption = (userObj = {}, mainKey, key, defaultValue, max) => {
-  return {
-    [key]: expandStringOrArrayOption(
-      getUserOption(userObj, mainKey, key) || defaultValue,
-      defaultValue,
-      max
-    )
-  };
-};
-
-const parseOptions = (userObj = {}, mainKey, defaultObj = {}, max) => {
-  return Object
-    .entries(defaultObj)
-    .map(([key, defaultValue]) =>
-      parseOption(userObj, mainKey, key, defaultValue, max))
-    .reduce(toFlatObject, {});
-};
+import { DEFAULT_STYLE, DEFAULT_HEADER_STYLE } from '../constants/style.js';
 
 export const TableController = (Base = class {}) =>
   class extends Base {
@@ -48,27 +6,51 @@ export const TableController = (Base = class {}) =>
       super();
       this.handleRowClick = this.handleRowClick.bind(this);
       this.dispatchCustomEvent = this.dispatchCustomEvent.bind(this);
+      this.getHeaderAdapter = this.getHeaderAdapter.bind(this);
+      this.getHeaderStyleStrings = this.getHeaderStyleStrings.bind(this);
+      this.getRowAdapter = this.getRowAdapter.bind(this);
+      this.getRowStyleStrings = this.getRowStyleStrings.bind(this);
     }
 
     static get properties () {
       return {
         rows: {
-          type: Object,
-          reflect: false
-        },
-        header: {
-          type: Object,
-          reflect: false
-        },
-        appearance: {
-          type: Object,
-          reflect: false
-        },
-        headerappearance: {
-          type: Object,
+          type: Array,
           reflect: false
         },
         adapter: {
+          type: Function,
+          reflect: false
+        },
+        adapters: {
+          type: Object,
+          reflect: false
+        },
+        useadapter: {
+          type: Function,
+          reflect: false
+        },
+        style: {
+          type: Object,
+          reflect: false
+        },
+        styles: {
+          type: Object,
+          reflect: false
+        },
+        usestyle: {
+          type: Function,
+          reflect: false
+        },
+        titles: {
+          type: Array,
+          reflect: false
+        },
+        headeradapter: {
+          type: Function,
+          reflect: false
+        },
+        headerstyle: {
           type: Object,
           reflect: false
         },
@@ -79,134 +61,97 @@ export const TableController = (Base = class {}) =>
         expandedbody: {
           type: Boolean,
           reflect: true
+        },
+        view: {
+          type: String,
+          reflect: true
         }
       };
     }
 
-    static _parseAdapter (adapter) {
-      return {
-        default: adapter
-          ? adapter.default || adapter || Object.values
-          : Object.values,
-        nth: adapter
-          ? adapter.nth
-          : {}
-      };
+    get style () {
+      return this._style;
     }
 
-    static _parseStyles (appearance = {}, defaultStyles, maxColumns) {
-      const userDefaultStyles = parseOptions(
-        appearance,
-        'default',
-        defaultStyles,
-        maxColumns
-      );
-
-      return {
-        default: userDefaultStyles,
-        nth: Object
-          .keys(appearance.nth || {})
-          .map(key => ({
-            [key]: parseOptions(
-              appearance.nth,
-              key,
-              userDefaultStyles,
-              maxColumns
-            )
-          }))
-          .reduce(toFlatObject, {})
-      };
+    set style (value) {
+      let oldStyle = this._style;
+      this._style = value;
+      this.styles = { default: this.style };
+      this.usestyle = 'default';
+      this.requestUpdate('style', oldStyle);
     }
 
-    get _parsedAdapter () {
-      return this.constructor._parseAdapter(this.adapter);
+    get adapter () {
+      return this._adapter;
     }
 
-    get _parsedStyles () {
-      return this.constructor._parseStyles(
-        this.appearance || {},
-        DEFAULT_APPEARANCE,
-        this.maxColumns
-      );
+    set adapter (value) {
+      let oldAdapter = this._adapter;
+      this._adapter = value;
+      this.adapters = { default: this.adapter };
+      this.useadapter = 'default';
+      this.requestUpdate('adapter', oldAdapter);
     }
 
-    get _parsedHeaderStyles () {
-      const isDefinedInHeader = key =>
-        getUserOption(this.headerappearance, 'default', key);
+    get wrappedTitles () {
+      return this.titles != null
+        ? [this.titles]
+        : [];
+    }
 
-      let result = this.constructor._parseStyles(
-        this.headerappearance || {},
-        DEFAULT_HEAD_APPEARANCE,
-        this.maxColumns
-      );
+    static _getCurrent (row, rowIndex, subject, subjectKeyGetter) {
+      let result;
 
-      return {
-        ...result,
-        default: {
-          ...result.default,
-          align: isDefinedInHeader('align')
-            ? result.default.align
-            : this._parsedStyles.default.align,
-          width: isDefinedInHeader('width')
-            ? result.default.width
-            : this._parsedStyles.default.width
+      if (typeof subject === 'object') {
+        if (typeof subjectKeyGetter === 'function') {
+          result = subject[subjectKeyGetter(row, rowIndex)];
+        } else if (typeof subjectKeyGetter === 'string') {
+          result = subject[subjectKeyGetter];
+        } else {
+          result = Object.values(subject)[0];
         }
-      };
-    }
-
-    get maxColumns () {
-      return Math.max(0, ...this.matrix.map(row => row.length));
-    }
-
-    get matrix () {
-      if ((this.rows || []).length > 0) {
-        return this.rows.map((row, index) => {
-          const currentAdapter = getLineOption(this._parsedAdapter, index);
-
-          return currentAdapter({
-            ...row,
-            dispatch: this.dispatchCustomEvent(index)
-          }, index);
-        });
       }
 
-      return [];
+      return result;
     }
 
-    get matrixStyles () {
-      return this.matrix.map((row, index) =>
-        row.map((cell, cellIndex) => {
-          return Object
-            .keys(APPEARANCE_MAP)
-            .map(key => ({
-              [key]: getLineOptionWithKey(
-                this._parsedStyles,
-                key,
-                index,
-                cellIndex
-              )
-            }))
-            .reduce(toFlatObject);
-        })
+    getHeaderAdapter () {
+      return this.headeradapter != null
+        ? this.headeradapter
+        : arg => arg;
+    }
+
+    getHeaderStyleStrings (cellCount) {
+      const style = this.headerstyle;
+
+      console.log(this.headerstyle);
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount),
+        cellCount
       );
     }
 
-    get headerRow () {
-      return this.header || [];
+    getRowAdapter (row, rowIndex) {
+      let result = this.constructor._getCurrent(row, rowIndex,
+        this.adapters, this.useadapter);
+
+      if (result == null) {
+        result = typeof row === 'object' && !Array.isArray(row)
+          ? Object.values
+          : arg => arg;
+      }
+
+      return result;
     }
 
-    get headerStyles () {
-      return (this.header || []).map((cell, cellIndex) => Object
-        .keys(APPEARANCE_MAP)
-        .map(key => ({
-          [key]: getLineOptionWithKey(
-            this._parsedHeaderStyles,
-            key,
-            0,
-            cellIndex
-          )
-        }))
-        .reduce(toFlatObject, {})
+    getRowStyleStrings (row, rowIndex, cellCount) {
+      const style = this.constructor._getCurrent(row, rowIndex,
+        this.styles, this.usestyle);
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(style, DEFAULT_STYLE, cellCount),
+        cellCount
       );
     }
 

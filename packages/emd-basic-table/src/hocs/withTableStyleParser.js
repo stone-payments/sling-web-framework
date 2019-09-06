@@ -13,7 +13,7 @@ export const withTableStyleParser = (Base = class {}) => class extends Base {
       .map((item, index) => arr[index] != null ? arr[index] : item);
   }
 
-  static _expandStyle (style, defaults, max) {
+  static expandStyle (style = {}, defaults, max) {
     return Object
       .entries(style)
       .reduce((result, [key, value]) => {
@@ -40,23 +40,10 @@ export const withTableStyleParser = (Base = class {}) => class extends Base {
       }, {});
   }
 
-  static expandStyles (styles, defaults, max) {
-    return Object
-      .entries(styles)
-      .reduce((result, [key, style]) => ({
-        ...result,
-        [key]: this._expandStyle(style, defaults, max)
-      }), {});
-  }
-
-  static stringifyExpandedStyle (expandedStyle) {
+  static stringifyExpandedStyle (expandedStyle, max) {
     if (typeof expandedStyle !== 'object') {
       return '';
     }
-
-    const max = Math.max(...Object
-      .values(expandedStyle)
-      .map(arr => arr.length));
 
     return Array(max).fill().map((item, index) => {
       return Object

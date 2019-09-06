@@ -8,11 +8,15 @@ import '../src/index.js';
 
 const tables = Array.from(document.querySelectorAll('emd-table'));
 
-const header = ['Data', 'Bandeira', 'Valor Pago'];
+const titles = ['Data', 'Bandeira', 'Valor Pago'];
 
-const appearance = {
-  align: ['left', 'center', 'right'],
-  valign: 'middle'
+const style = {
+  textAlign: ['left', 'center', 'right'],
+  verticalAlign: 'middle'
+};
+
+const headerstyle = {
+  textAlign: ['left', 'center', 'right']
 };
 
 const adapter = ({ value, currency, brand, date }) => [
@@ -40,28 +44,9 @@ const adapter = ({ value, currency, brand, date }) => [
 tables.forEach(table => {
   table.rows = rows;
   table.adapter = adapter;
-  table.appearance = appearance;
-  table.header = header;
+  table.style = style;
+  table.headerstyle = headerstyle;
+  table.titles = titles;
 });
 
-tables[3].header = null;
-
-tables[7].appearance = {
-  default: appearance,
-  nth: {
-    5: {
-      background: 'rgba(247, 158, 27, 0.1)',
-      border: 'rgba(247, 158, 27, 0.5)'
-    }
-  }
-};
-
-tables[8].appearance = {
-  default: appearance,
-  nth: {
-    5: {
-      background: 'rgba(247, 158, 27, 0.1)',
-      border: 'rgba(247, 158, 27, 0.5)'
-    }
-  }
-};
+tables[3].titles = undefined;
