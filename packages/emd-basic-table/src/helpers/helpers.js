@@ -2,12 +2,10 @@ import {
   NEW_DEFAULT_APPEARANCE
 } from '../constants/appearance.js';
 
-export const expandString = (str, max) => Array(max).fill(str);
+export const expandToArray = (opt, max) => Array(max).fill(opt);
 
-export const completeWithDefault = (arr, defStr, max) => {
-  const str = defStr || arr[0];
-
-  return expandString(str, max)
+export const completeWithDefault = (arr, defOpt, max) => {
+  return expandToArray(defOpt || null, max)
     .map((item, index) => arr[index] != null ? arr[index] : item);
 };
 
@@ -24,7 +22,7 @@ export const expandBranch = (branch, defMap, max) => {
           break;
 
         case 'string':
-          parsedValue = expandString(value, max);
+          parsedValue = expandToArray(value, max);
           break;
 
         default:
@@ -40,7 +38,8 @@ export const expandBranch = (branch, defMap, max) => {
 
 const appearance = {
   textAlign: 'left',
-  borderColor: ['#909', '#303']
+  borderColor: ['#909', '#303'],
+  top: [30, 50]
 };
 
 expandBranch(appearance, NEW_DEFAULT_APPEARANCE, 4); // ?
