@@ -31,7 +31,7 @@ export const rows = [
   }
 ];
 
-const adapter = {
+const adapters = {
   default ({ value, currency, brand, date }, index, dispatch) {
     return [
       `<emd-date date="${date}" format="DD/MM [às] HH[h]mm" />`,
@@ -41,7 +41,7 @@ const adapter = {
   }
 };
 
-const appearance = {
+const styles = {
   default: {
     textAlign: [ 'left', 'left', 'left' ],
     borderColor: [ '#909', null, 'rgba(45, 56, 68, 0.1)' ]
@@ -55,19 +55,16 @@ const toDashCase = str => str.replace(
   str => `-${str[0].toLowerCase()}`
 );
 
-const getMaxCount = namedAppearance => Math
-  .max(...Object.values(namedAppearance).map(item => item.length));
-
-const getCellStyles = (namedAppearance) => {
-  if (typeof namedAppearance !== 'object') {
+const stringifyStyle = style => {
+  if (typeof style !== 'object') {
     return '';
   }
 
-  const count = getMaxCount(namedAppearance);
+  const max = Math.max(...Object.values(style).map(arr => arr.length));
 
-  return Array(count).fill().map((item, index) => {
+  return Array(max).fill().map((item, index) => {
     return Object
-      .entries(namedAppearance)
+      .entries(style)
       .reduce((result, [key, values]) => {
         const value = values[index];
 
@@ -92,42 +89,42 @@ const getKey = (subject, chooser, row, index) => {
 
 const renderContent = ({
   rows,
-  adapter,
-  appearance,
+  adapters,
+  styles,
   chooseAdapter,
-  chooseAppearance
+  chooseStyle
 }) => {
   return rows.map((row, index) => {
-    const adapterKey = getKey(adapter, chooseAdapter, row, index);
-    const appearanceKey = getKey(appearance, chooseAppearance, row, index);
+    const adapterKey = getKey(adapters, chooseAdapter, row, index);
+    const styleKey = getKey(styles, chooseStyle, row, index);
 
-    const namedAdapter = adapter && typeof adapter[adapterKey] === 'function'
-      ? adapter[adapterKey]
+    const adapter = adapters && typeof adapters[adapterKey] === 'function'
+      ? adapters[adapterKey]
       : Object.keys;
 
-    const styles = appearance
-      ? getCellStyles(appearance[appearanceKey])
+    const stringifiedStyles = typeof styles === 'object'
+      ? stringifyStyle(styles[styleKey])
       : '';
 
-    return namedAdapter(row, index, makeDispatch)
-      .map((cell, cellIndex) => {
-        const cellStyle = styles[cellIndex];
+    return adapter(row, index, makeDispatch)
+      .map((cellContent, cellIndex) => {
+        const cellStyle = stringifiedStyles[cellIndex];
 
         return cellStyle != null
-          ? `<td style="${styles[cellIndex]}">${cell}</td>`
-          : `<td>${cell}</td>`;
+          ? `<td style="${cellStyle}">${cellContent}</td>`
+          : `<td>${cellContent}</td>`;
       });
   });
 };
 
 const chooseAdapter = () => 'default';
 
-const chooseAppearance = () => 'default';
+const chooseStyle = () => 'default';
 
 renderContent({
   rows,
-  appearance,
-  chooseAppearance,
-  adapter,
+  styles,
+  chooseStyle,
+  adapters,
   chooseAdapter
 }); // ?
