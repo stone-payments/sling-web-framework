@@ -5,6 +5,7 @@
 .emd-table__wrapper {
   width: 100%;
   border-collapse: collapse;
+  background-color: var(--emd-table-row-background, #fff);
 }
 
 .emd-table__wrapper_clickable .emd-table__body {
@@ -38,8 +39,8 @@
 }
 
 .emd-table__header .emd-table__cell {
-  height: var(--emd-table-header-row-height, calc(var(--emd-table-row-height, 1em) / 2));
-  padding: var(--emd-table-header-row-padding, calc(var(--emd-table-row-padding, 1em) / 2)) 0;
+  height: var(--emd-table-header-row-height, var(--emd-table-row-height, 1em));
+  padding: var(--emd-table-header-row-padding, var(--emd-table-row-padding, 1em)) 0;
 }
 
 .emd-table__row + .emd-table__row .emd-table__cell,
@@ -60,6 +61,62 @@
 }
 
 .emd-table__wrapper_expanded .emd-table__cell:nth-last-child(1) {
+  padding-right: 0;
+}
+
+/* Compact */
+
+.emd-table__wrapper_view_compact {
+  border: 0;
+  background-color: transparent;
+}
+
+.emd-table__wrapper_view_compact .emd-table__header {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
+.emd-table__wrapper_view_compact .emd-table__row {
+  display: block;
+  background-color: var(--emd-table-row-background, #fff);
+}
+
+.emd-table__wrapper_view_compact .emd-table__row + .emd-table__row {
+  margin-top: 1em;
+}
+
+.emd-table__wrapper_view_compact .emd-table__cell {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: auto !important; /* to overwrite inline style */
+}
+
+.emd-table__wrapper_view_compact .emd-table__cell:nth-child(1),
+.emd-table__wrapper_view_compact .emd-table__row + .emd-table__row .emd-table__cell:nth-child(1),
+.emd-table__wrapper_view_compact .emd-table__header + .emd-table__body .emd-table__row:nth-child(1) .emd-table__cell:nth-child(1) {
+  border-top: 0;
+}
+
+.emd-table__wrapper_view_compact .emd-table__cell::before {
+  content: attr(data-label);
+  display: block;
+  margin-right: auto;
+}
+
+.emd-table__wrapper_view_compact .emd-table__cell {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.emd-table__wrapper_view_compact.emd-table__wrapper_expanded .emd-table__cell {
+  padding-left: 0;
   padding-right: 0;
 }
 

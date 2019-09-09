@@ -17,14 +17,10 @@ const style = {
 };
 
 const headerstyle = {
-  textAlign: ['left', 'center', 'right']
+  textAlign: ['left', 'center', 'right'],
+  fontWeight: ['bold', null, null],
+  fontStyle: [null, null, 'italic']
 };
-
-const headeradapter = ([date, flag, value]) => [
-  html`<strong>${date}</strong>`,
-  flag,
-  html`<em>${value}</em>`
-];
 
 const adapter = ({ value, currency, brand, date }) => [
   html`
@@ -54,7 +50,6 @@ tables.forEach(table => {
   table.style = style;
   table.titles = titles;
   table.headerstyle = headerstyle;
-  table.headeradapter = headeradapter;
 });
 
 tables[3].titles = undefined;
@@ -67,8 +62,7 @@ tables[7].styles = {
   even: {
     textAlign: ['left', 'center', 'right'],
     verticalAlign: 'middle',
-    background: 'rgba(247, 158, 27, 0.1)',
-    border: 'rgba(247, 158, 27, 0.5)'
+    backgroundColor: 'rgba(247, 158, 27, 0.1)'
   }
 };
 
@@ -84,14 +78,11 @@ tables[8].usestyle = tables[7].usestyle;
 tables[9].titles = ['Data', 'Bandeira', 'Valor Pago', 'Ações'];
 
 tables[9].style = {
-  textAlign: ['left', 'center', 'right', 'center'],
-  width: [null, null, null, '160px;'],
-  paddingRight: [null, null, null, '0']
+  textAlign: ['left', 'center', 'right', 'right'],
+  width: [null, null, null, '160px']
 };
 
 tables[9].headerstyle = tables[9].style;
-
-tables[9].headeradapter = undefined;
 
 tables[9].adapter = ({ value, currency, brand, date }, index, dispatch) => [
   html`
@@ -127,6 +118,5 @@ programaticTable.adapter = adapter;
 programaticTable.style = style;
 programaticTable.titles = titles;
 programaticTable.headerstyle = headerstyle;
-programaticTable.headeradapter = headeradapter;
 
 document.body.appendChild(programaticTable);
