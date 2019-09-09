@@ -17,24 +17,18 @@ const style = {
 };
 
 const headerstyle = {
-  textAlign: ['left', 'center', 'right'],
-  fontWeight: ['bold', null, null],
-  fontStyle: [null, null, 'italic']
+  textAlign: ['left', 'center', 'right']
 };
 
 const adapter = ({ value, currency, brand, date }) => [
   html`
     <emd-date
       date="${date}"
-      format="DD/MM [às] HH[h]mm"
-      style="font-size:0.875em">
+      format="DD/MM [às] HH[h]mm">
     </emd-date>
   `,
   html`
-    <emd-brand-icon
-      icon="${brand}"
-      style="font-size:16px">
-    </emd-brand-icon>
+    <emd-brand-icon icon="${brand}"></emd-brand-icon>
   `,
   html`
     <emd-money
@@ -62,7 +56,7 @@ tables[7].styles = {
   even: {
     textAlign: ['left', 'center', 'right'],
     verticalAlign: 'middle',
-    backgroundColor: 'rgba(247, 158, 27, 0.1)'
+    backgroundColor: 'rgba(247, 158, 27, 0.05)'
   }
 };
 
@@ -79,23 +73,25 @@ tables[9].titles = ['Data', 'Bandeira', 'Valor Pago', 'Ações'];
 
 tables[9].style = {
   textAlign: ['left', 'center', 'right', 'right'],
-  width: [null, null, null, '160px']
+  width: [null, null, null, '160px'],
+  fontSize: [null, null, null, '0.875em']
 };
 
-tables[9].headerstyle = tables[9].style;
+tables[9].headerstyle = {
+  textAlign: ['left', 'center', 'right', 'right'],
+  width: [null, null, null, '160px']
+};
 
 tables[9].adapter = ({ value, currency, brand, date }, index, dispatch) => [
   html`
     <emd-date
       date="${date}"
-      format="DD/MM [às] HH[h]mm"
-      style="font-size:0.875em">
+      format="DD/MM [às] HH[h]mm">
     </emd-date>
   `,
   html`
     <emd-brand-icon
-      icon="${brand}"
-      style="font-size:16px">
+      icon="${brand}">
     </emd-brand-icon>
   `,
   html`

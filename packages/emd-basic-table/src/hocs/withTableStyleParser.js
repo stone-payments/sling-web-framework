@@ -13,12 +13,21 @@ export const withTableStyleParser = (Base = class {}) => class extends Base {
       .map((item, index) => arr[index] != null ? arr[index] : item);
   }
 
-  static expandStyle (style = {}, defaults, max) {
+  static expandStyle (style = {}, defaults, max, options = {}) {
     return Object
       .entries(style)
       .reduce((result, [key, value]) => {
+        const { exclude, only } = options;
         const valueType = Array.isArray(value) ? 'array' : typeof value;
         let parsedValue;
+
+        if (exclude) {
+          if (exclude.includes(key)) {
+            return result;
+          }
+        } else if (only && !only.includes(key)) {
+          return result;
+        }
 
         switch (valueType) {
           case 'array':

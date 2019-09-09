@@ -1,4 +1,8 @@
-import { DEFAULT_STYLE, DEFAULT_HEADER_STYLE } from '../constants/style.js';
+import {
+  DEFAULT_STYLE,
+  DEFAULT_HEADER_STYLE,
+  CELL_ONLY
+} from '../constants/style.js';
 
 export const TableController = (Base = class {}) =>
   class extends Base {
@@ -7,9 +11,11 @@ export const TableController = (Base = class {}) =>
       this.handleRowClick = this.handleRowClick.bind(this);
       this.dispatchCustomEvent = this.dispatchCustomEvent.bind(this);
       this.getHeaderAdapter = this.getHeaderAdapter.bind(this);
-      this.getHeaderStyleStrings = this.getHeaderStyleStrings.bind(this);
+      this.stringifyHeaderStyle = this.stringifyHeaderStyle.bind(this);
+      this.stringifyHeaderCellStyle = this.stringifyHeaderCellStyle.bind(this);
       this.getRowAdapter = this.getRowAdapter.bind(this);
-      this.getRowStyleStrings = this.getRowStyleStrings.bind(this);
+      this.stringifyRowStyle = this.stringifyRowStyle.bind(this);
+      this.stringifyRowCellStyle = this.stringifyRowCellStyle.bind(this);
     }
 
     static get properties () {
@@ -74,11 +80,11 @@ export const TableController = (Base = class {}) =>
     }
 
     set style (value) {
-      let oldStyle = this._style;
+      let pastStyle = this._style;
       this._style = value;
       this.styles = { default: this.style };
       this.usestyle = 'default';
-      this.requestUpdate('style', oldStyle);
+      this.requestUpdate('style', pastStyle);
     }
 
     get adapter () {
@@ -86,11 +92,11 @@ export const TableController = (Base = class {}) =>
     }
 
     set adapter (value) {
-      let oldAdapter = this._adapter;
+      let pastAdapter = this._adapter;
       this._adapter = value;
       this.adapters = { default: this.adapter };
       this.useadapter = 'default';
-      this.requestUpdate('adapter', oldAdapter);
+      this.requestUpdate('adapter', pastAdapter);
     }
 
     get wrappedTitles () {
@@ -105,11 +111,26 @@ export const TableController = (Base = class {}) =>
         : arg => arg;
     }
 
-    getHeaderStyleStrings (cellCount) {
+    stringifyHeaderStyle (cellCount) {
+      console.log('HEADER STYLE');
       const style = this.headerstyle;
 
       return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount),
+        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount, {
+          exclude: CELL_ONLY
+        }),
+        cellCount
+      );
+    }
+
+    stringifyHeaderCellStyle (cellCount) {
+      console.log('HEADER CELL STYLE');
+      const style = this.headerstyle;
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount, {
+          only: CELL_ONLY
+        }),
         cellCount
       );
     }
@@ -143,12 +164,28 @@ export const TableController = (Base = class {}) =>
       return result;
     }
 
-    getRowStyleStrings (row, rowIndex, cellCount) {
+    stringifyRowStyle (row, rowIndex, cellCount) {
+      console.log('ROW STYLE');
       const style = this.constructor._getCurrent(row, rowIndex,
         this.styles, this.usestyle);
 
       return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_STYLE, cellCount),
+        this.constructor.expandStyle(style, DEFAULT_STYLE, cellCount, {
+          exclude: CELL_ONLY
+        }),
+        cellCount
+      );
+    }
+
+    stringifyRowCellStyle (row, rowIndex, cellCount) {
+      console.log('ROW CELL STYLE');
+      const style = this.constructor._getCurrent(row, rowIndex,
+        this.styles, this.usestyle);
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(style, DEFAULT_STYLE, cellCount, {
+          only: CELL_ONLY
+        }),
         cellCount
       );
     }

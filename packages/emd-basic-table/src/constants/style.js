@@ -15,3 +15,13 @@ export const DEFAULT_HEADER_STYLE = {
   color: 'inherit',
   width: 'auto'
 };
+
+export const CELL_ONLY = [
+  'font',
+  'fontFamily',
+  'fontSize',
+  'fontStyle',
+  'fontVariant',
+  'fontWeight',
+  'color'
+];

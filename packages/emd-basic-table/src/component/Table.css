@@ -29,8 +29,8 @@
 .emd-table__cell {
   position: relative;
   font-weight: inherit;
-  height: var(--emd-table-row-height, 1em);
-  padding: var(--emd-table-row-padding, 1em) 0;
+  height: var(--emd-table-row-height, 2em);
+  padding: var(--emd-table-row-padding, 0.5em) 0;
 }
 
 .emd-table__cell > * {
@@ -39,8 +39,8 @@
 }
 
 .emd-table__header .emd-table__cell {
-  height: var(--emd-table-header-row-height, var(--emd-table-row-height, 1em));
-  padding: var(--emd-table-header-row-padding, var(--emd-table-row-padding, 1em)) 0;
+  height: var(--emd-table-header-row-height, var(--emd-table-row-height, 2em));
+  padding: var(--emd-table-header-row-padding, var(--emd-table-row-padding, 0.5em)) 0;
 }
 
 .emd-table__row + .emd-table__row .emd-table__cell,
@@ -96,6 +96,7 @@
   justify-content: flex-end;
   align-items: center;
   width: auto !important; /* to overwrite inline style */
+  text-align: right !important; /* to overwrite inline style */
 }
 
 .emd-table__wrapper_view_compact .emd-table__cell:nth-child(1),
@@ -108,6 +109,9 @@
   content: attr(data-label);
   display: block;
   margin-right: auto;
+  text-align: left;
+  padding-right: 20px;
+  font-size: 1em !important; /* to overwrite inline style */
 }
 
 .emd-table__wrapper_view_compact .emd-table__cell {
