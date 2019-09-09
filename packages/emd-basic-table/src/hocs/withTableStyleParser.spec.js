@@ -72,6 +72,47 @@ describe('withTableStyleParser', () => {
           top: ['30px', '50px', null, null]
         });
     });
+
+    it('Should respect the exclude option, if provided', () => {
+      const style = {
+        textAlign: 'center',
+        borderColor: ['#909', '#303'],
+        top: ['30px', '50px']
+      };
+
+      const defaultStyle = {
+        textAlign: 'left',
+        borderColor: '#606'
+      };
+
+      expect(Dummy.expandStyle(style, defaultStyle, 4, {
+        exclude: 'top'
+      }))
+        .to.deep.equal({
+          textAlign: ['center', 'center', 'center', 'center'],
+          borderColor: ['#909', '#303', '#606', '#606']
+        });
+    });
+
+    it('Should respect the only option, if provided', () => {
+      const style = {
+        textAlign: 'center',
+        borderColor: ['#909', '#303'],
+        top: ['30px', '50px']
+      };
+
+      const defaultStyle = {
+        textAlign: 'left',
+        borderColor: '#606'
+      };
+
+      expect(Dummy.expandStyle(style, defaultStyle, 4, {
+        only: 'top'
+      }))
+        .to.deep.equal({
+          top: ['30px', '50px', null, null]
+        });
+    });
   });
 
   describe('.stringifyExpandedStyle()', () => {
