@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-icon-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.0.1...@stone-payments/emd-basic-icon-v1.0.2) (2019-09-09)
+
+
+### Bug Fixes
+
+* Correct example page ([9316afe](https://github.com/stone-payments/emerald-web-framework/commit/9316afe))
+* Fix bug on old Edge browsers ([b6dba60](https://github.com/stone-payments/emerald-web-framework/commit/b6dba60))
+
 # [@stone-payments/emd-basic-icon-v1.0.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.0.0...@stone-payments/emd-basic-icon-v1.0.1) (2019-09-05)
 
 
