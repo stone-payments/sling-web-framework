@@ -32,18 +32,18 @@ h4, p {
   margin: 0;
 }
 
-div:nth-of-type(3n - 1) {
+.line:nth-of-type(3n - 1) {
   font-size: 24px;
 }
 
-div:nth-of-type(3n) {
+.line:nth-of-type(3n) {
   font-size: 32px;
 }
 
-h1 ~ h1 ~ div emd-icon:nth-of-type(2n) {
+h1 ~ h1 ~ .line emd-icon:nth-of-type(2n) {
   color: #0db14b;
 }
 
-h1 ~ h1 ~ div emd-icon:nth-of-type(2n - 1) {
+h1 ~ h1 ~ .line emd-icon:nth-of-type(2n - 1) {
   color: #96a0af;
 }

@@ -83,3 +83,10 @@
   height: auto;
   fill: currentColor;
 }
+
+/* for IE Edge */
+
+emd-brand-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
