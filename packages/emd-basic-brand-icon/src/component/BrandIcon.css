@@ -84,7 +84,7 @@
   fill: currentColor;
 }
 
-/* for IE Edge */
+/* for Edge compatibility */
 
 emd-brand-icon {
   display: inline-block;

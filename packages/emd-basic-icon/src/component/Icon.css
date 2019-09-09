@@ -19,9 +19,6 @@
 /* for Edge compatibility */
 
 emd-icon {
-  position: relative;
   display: inline-block;
-  width: 1.5em;
-  height: auto;
-  background: transparent;
+  vertical-align: middle;
 }
