@@ -21,8 +21,16 @@
   padding-bottom: 0;
 }
 
-.emd-brand-icon__wrapper_amex {
+.emd-brand-icon__wrapper_amex,
+.emd-brand-icon__wrapper_americanexpress {
   width: calc(0.96 * var(--default));
+  padding-bottom: 0;
+  padding-right: calc(0.125 * var(--default));
+}
+
+.emd-brand-icon__wrapper_boleto,
+.emd-brand-icon__wrapper_barcode {
+    width: calc(1.05 * var(--default));
   padding-bottom: 0;
   padding-right: calc(0.125 * var(--default));
 }
@@ -63,8 +71,9 @@
 	padding-right: calc(0.125 * var(--default));
 }
 
-.emd-brand-icon__wrapper_vr {
-  width: calc(0.86 * var(--default));
+.emd-brand-icon__wrapper_vr,
+.emd-brand-icon__wrapper_vr-beneficios {
+    width: calc(0.86 * var(--default));
   padding-bottom: 0;
 }
 
@@ -73,4 +82,11 @@
   width: 100%;
   height: auto;
   fill: currentColor;
+}
+
+/* for Edge compatibility */
+
+emd-brand-icon {
+  display: inline-block;
+  vertical-align: middle;
 }
