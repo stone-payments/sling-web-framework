@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@stone-payments/emd-basic-brand-icon": "^1.0.0",
+    "@stone-payments/emd-basic-button": "^1.1.2",
     "@stone-payments/emd-basic-date": "^1.0.0",
     "@stone-payments/emd-basic-money": "^1.0.0",
     "@stone-payments/emd-helpers": "^1.1.2",

@@ -2,6 +2,7 @@ import { html } from '@stone-payments/lit-element';
 import '@stone-payments/emd-basic-date';
 import '@stone-payments/emd-basic-brand-icon';
 import '@stone-payments/emd-basic-money';
+import '@stone-payments/emd-basic-button';
 
 import { rows } from './rows.js';
 import '../src/index.js';
@@ -19,15 +20,14 @@ const headerstyle = {
   textAlign: ['left', 'center', 'right']
 };
 
-const headeradapter = ([date, flag, value], index, dispatch) => [
+const headeradapter = ([date, flag, value]) => [
   html`<strong>${date}</strong>`,
   flag,
-  html`<em @click="${dispatch('value')}">${value}</em>`
+  html`<em>${value}</em>`
 ];
 
-const adapter = ({ value, currency, brand, date }, index, dispatch) => [
+const adapter = ({ value, currency, brand, date }) => [
   html`
-    ${index + 1}.
     <emd-date
       date="${date}"
       format="DD/MM [às] HH[h]mm"
@@ -59,14 +59,12 @@ tables.forEach(table => {
 
 tables[3].titles = undefined;
 
-tables[7].style = undefined;
-
 tables[7].styles = {
-  even: {
+  odd: {
     textAlign: ['left', 'center', 'right'],
     verticalAlign: 'middle'
   },
-  odd: {
+  even: {
     textAlign: ['left', 'center', 'right'],
     verticalAlign: 'middle',
     background: 'rgba(247, 158, 27, 0.1)',
@@ -74,8 +72,61 @@ tables[7].styles = {
   }
 };
 
-tables[7].usestyle = (row, rowIndex) => {
-  return rowIndex / 2 === Math.round(rowIndex / 2)
+tables[7].usestyle = (row, index) => {
+  return index / 2 === Math.round(index / 2)
     ? 'even'
     : 'odd';
 };
+
+tables[8].styles = tables[7].styles;
+tables[8].usestyle = tables[7].usestyle;
+
+tables[9].titles = ['Data', 'Bandeira', 'Valor Pago', 'Ações'];
+
+tables[9].style = {
+  textAlign: ['left', 'center', 'right', 'center'],
+  width: [null, null, null, '160px;'],
+  paddingRight: [null, null, null, '0']
+};
+
+tables[9].headerstyle = tables[9].style;
+
+tables[9].headeradapter = undefined;
+
+tables[9].adapter = ({ value, currency, brand, date }, index, dispatch) => [
+  html`
+    <emd-date
+      date="${date}"
+      format="DD/MM [às] HH[h]mm"
+      style="font-size:0.875em">
+    </emd-date>
+  `,
+  html`
+    <emd-brand-icon
+      icon="${brand}"
+      style="font-size:16px">
+    </emd-brand-icon>
+  `,
+  html`
+    <emd-money
+      value="${value}"
+      currency="${currency}">
+    </emd-money>
+  `,
+  html`
+    <emd-button @click="${dispatch('edit')}">
+      Editar
+    </emd-button>
+  `
+];
+
+const programaticTable = document.createElement('emd-table');
+
+programaticTable.rows = rows;
+programaticTable.adapter = adapter;
+programaticTable.style = style;
+programaticTable.titles = titles;
+programaticTable.headerstyle = headerstyle;
+programaticTable.headeradapter = headeradapter;
+
+document.body.appendChild(programaticTable);
