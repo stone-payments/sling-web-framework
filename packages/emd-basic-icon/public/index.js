@@ -11,12 +11,12 @@ const iconsLine = Object
 
 body.innerHTML = `
   <h1>Icon</h1>
-  <div>${iconsLine}</div>
-  <div>${iconsLine}</div>
-  <div>${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
 
   <h1>Icon&thinsp;—&thinsp;Colored</h1>
-  <div>${iconsLine}</div>
-  <div>${iconsLine}</div>
-  <div>${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
 `;
