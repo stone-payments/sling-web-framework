@@ -99,6 +99,21 @@ export const TableController = (Base = class {}) =>
         : [];
     }
 
+    getHeaderAdapter () {
+      return this.headeradapter != null
+        ? this.headeradapter
+        : arg => arg;
+    }
+
+    getHeaderStyleStrings (cellCount) {
+      const style = this.headerstyle;
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount),
+        cellCount
+      );
+    }
+
     static _getCurrent (row, rowIndex, subject, subjectKeyGetter) {
       let result;
 
@@ -113,23 +128,6 @@ export const TableController = (Base = class {}) =>
       }
 
       return result;
-    }
-
-    getHeaderAdapter () {
-      return this.headeradapter != null
-        ? this.headeradapter
-        : arg => arg;
-    }
-
-    getHeaderStyleStrings (cellCount) {
-      const style = this.headerstyle;
-
-      console.log(this.headerstyle);
-
-      return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount),
-        cellCount
-      );
     }
 
     getRowAdapter (row, rowIndex) {
