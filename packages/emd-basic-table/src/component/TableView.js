@@ -38,6 +38,7 @@ export const TableView = ({
                 style="${stringifyHeaderAppearance(cellArray.length)[cellIndex]}"
                 class="emd-table__cell">
                 <span
+                  class="emd-table__cell-text"
                   style="${stringifyHeaderCellAppearance(cellArray.length)[cellIndex]}">
                   ${cell}
                 </span>
@@ -57,7 +58,9 @@ export const TableView = ({
                 @click="${handleRowClick(rowIndex)}"
                 style="${stringifyRowAppearance(row, rowIndex, cellArray.length)[cellIndex]}"
                 class="emd-table__cell">
+                <span class="emd-table__cell-overlay"></span>
                 <span
+                  class="emd-table__cell-text"
                   style="${stringifyRowCellAppearance(row, rowIndex, cellArray.length)[cellIndex]}">
                   ${cell}
                 </span>

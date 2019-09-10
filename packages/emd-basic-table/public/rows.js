@@ -9,7 +9,7 @@ export const rows = [
     date: '2019-03-30T12:25:57.5755048+00:00',
     value: 420,
     currency: 'BRL',
-    brand: 'mastercard'
+    brand: 'visa'
   },
   {
     date: '2019-03-30T12:25:57.3247419+00:00',
