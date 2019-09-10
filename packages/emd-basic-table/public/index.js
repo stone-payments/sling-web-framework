@@ -11,12 +11,12 @@ const tables = Array.from(document.querySelectorAll('emd-table'));
 
 const titles = ['Data', 'Bandeira', 'Valor Pago'];
 
-const style = {
+const appearance = {
   textAlign: ['left', 'center', 'right'],
   verticalAlign: 'middle'
 };
 
-const headerstyle = {
+const headerappearance = {
   textAlign: ['left', 'center', 'right']
 };
 
@@ -41,14 +41,14 @@ const adapter = ({ value, currency, brand, date }) => [
 tables.forEach(table => {
   table.rows = rows;
   table.adapter = adapter;
-  table.style = style;
+  table.appearance = appearance;
   table.titles = titles;
-  table.headerstyle = headerstyle;
+  table.headerappearance = headerappearance;
 });
 
 tables[3].titles = undefined;
 
-tables[7].styles = {
+tables[7].appearances = {
   odd: {
     textAlign: ['left', 'center', 'right'],
     verticalAlign: 'middle'
@@ -60,24 +60,24 @@ tables[7].styles = {
   }
 };
 
-tables[7].usestyle = (row, index) => {
+tables[7].useappearance = (row, index) => {
   return index / 2 === Math.round(index / 2)
     ? 'even'
     : 'odd';
 };
 
-tables[8].styles = tables[7].styles;
-tables[8].usestyle = tables[7].usestyle;
+tables[8].appearances = tables[7].appearances;
+tables[8].useappearance = tables[7].useappearance;
 
 tables[9].titles = ['Data', 'Bandeira', 'Valor Pago', 'Ações'];
 
-tables[9].style = {
+tables[9].appearance = {
   textAlign: ['left', 'center', 'right', 'right'],
   width: [null, null, null, '160px'],
   fontSize: [null, null, null, '0.875em']
 };
 
-tables[9].headerstyle = {
+tables[9].headerappearance = {
   textAlign: ['left', 'center', 'right', 'right'],
   width: [null, null, null, '160px']
 };
@@ -111,8 +111,8 @@ const programaticTable = document.createElement('emd-table');
 
 programaticTable.rows = rows;
 programaticTable.adapter = adapter;
-programaticTable.style = style;
+programaticTable.appearance = appearance;
 programaticTable.titles = titles;
-programaticTable.headerstyle = headerstyle;
+programaticTable.headerappearance = headerappearance;
 
 document.body.appendChild(programaticTable);

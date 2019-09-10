@@ -15,11 +15,11 @@ export const TableView = ({
   handleRowClick,
   dispatchCustomEvent,
   getHeaderAdapter,
-  stringifyHeaderStyle,
-  stringifyHeaderCellStyle,
+  stringifyHeaderAppearance,
+  stringifyHeaderCellAppearance,
   getRowAdapter,
-  stringifyRowStyle,
-  stringifyRowCellStyle,
+  stringifyRowAppearance,
+  stringifyRowCellAppearance,
   clickablerows,
   expandedbody,
   view
@@ -35,10 +35,10 @@ export const TableView = ({
             ${getHeaderAdapter(row, rowIndex)(row, rowIndex, dispatchCustomEvent(rowIndex)).map((cell, cellIndex, cellArray) => html`
               <th
                 data-label="${row[cellIndex] || ''}"
-                style="${stringifyHeaderStyle(cellArray.length)[cellIndex]}"
+                style="${stringifyHeaderAppearance(cellArray.length)[cellIndex]}"
                 class="emd-table__cell">
                 <span
-                  style="${stringifyHeaderCellStyle(cellArray.length)[cellIndex]}">
+                  style="${stringifyHeaderCellAppearance(cellArray.length)[cellIndex]}">
                   ${cell}
                 </span>
               </th>
@@ -55,10 +55,10 @@ export const TableView = ({
               <td
                 data-label="${titles[cellIndex] || ''}"
                 @click="${handleRowClick(rowIndex)}"
-                style="${stringifyRowStyle(row, rowIndex, cellArray.length)[cellIndex]}"
+                style="${stringifyRowAppearance(row, rowIndex, cellArray.length)[cellIndex]}"
                 class="emd-table__cell">
                 <span
-                  style="${stringifyRowCellStyle(row, rowIndex, cellArray.length)[cellIndex]}">
+                  style="${stringifyRowCellAppearance(row, rowIndex, cellArray.length)[cellIndex]}">
                   ${cell}
                 </span>
               </td>

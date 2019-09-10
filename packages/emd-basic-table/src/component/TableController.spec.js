@@ -5,10 +5,10 @@ import faker from 'faker';
 import { TableController } from './TableController.js';
 
 import {
-  DEFAULT_STYLE,
-  DEFAULT_HEADER_STYLE,
+  DEFAULT_APPEARANCE,
+  DEFAULT_HEADER_APPEARANCE,
   CELL_ONLY
-} from '../constants/style.js';
+} from '../constants/appearance.js';
 
 chai.use(sinonChai);
 const { expect } = chai;
@@ -34,12 +34,12 @@ describe('TableController', () => {
         'adapter',
         'adapters',
         'useadapter',
-        'style',
-        'styles',
-        'usestyle',
+        'appearance',
+        'appearances',
+        'useappearance',
         'titles',
         'headeradapter',
-        'headerstyle',
+        'headerappearance',
         'clickablerows',
         'expandedbody',
         'view'
@@ -47,28 +47,29 @@ describe('TableController', () => {
     });
   });
 
-  describe('#style', () => {
-    it('Should also set styles and usestyle when style is set', () => {
+  describe('#appearance', () => {
+    it('Should also set appearances and useappearance ' +
+      'when appearance is set', () => {
       dummy.requestUpdate = sinon.spy();
-      dummy.style = { textAlign: 'center' };
+      dummy.appearance = { textAlign: 'center' };
 
-      expect(dummy.styles).to.deep.equal({
-        default: dummy.style
+      expect(dummy.appearances).to.deep.equal({
+        default: dummy.appearance
       });
 
-      expect(dummy.usestyle).to.equal('default');
+      expect(dummy.useappearance).to.equal('default');
     });
 
-    it('Should call requestUpdate with previous style', () => {
+    it('Should call requestUpdate with previous appearance', () => {
       dummy.requestUpdate = sinon.spy();
       const firstStyle = { textAlign: 'center' };
       const secondStyle = { textAlign: 'right' };
 
-      dummy.style = firstStyle;
-      dummy.style = secondStyle;
+      dummy.appearance = firstStyle;
+      dummy.appearance = secondStyle;
 
       expect(dummy.requestUpdate.lastCall.args)
-        .to.deep.equal(['style', firstStyle]);
+        .to.deep.equal(['appearance', firstStyle]);
     });
   });
 
@@ -123,20 +124,20 @@ describe('TableController', () => {
     });
   });
 
-  describe('#stringifyHeaderStyle()', () => {
-    it('Should create a style string for the header\'s <th>s', () => {
+  describe('#stringifyHeaderAppearance()', () => {
+    it('Should create a appearance string for the header\'s <th>s', () => {
       const expendedStyleObject = {};
       const resultingStyle = 'text-align: center;';
 
       Dummy.expandStyle = sinon.stub().returns(expendedStyleObject);
       Dummy.stringifyExpandedStyle = sinon.stub().returns(resultingStyle);
 
-      const result = dummy.stringifyHeaderStyle(4);
+      const result = dummy.stringifyHeaderAppearance(4);
 
       expect(Dummy.expandStyle)
         .to.have.been.calledOnceWith(
-          dummy.headerstyle,
-          DEFAULT_HEADER_STYLE,
+          dummy.headerappearance,
+          DEFAULT_HEADER_APPEARANCE,
           4,
           { exclude: CELL_ONLY }
         );
@@ -148,20 +149,20 @@ describe('TableController', () => {
     });
   });
 
-  describe('#stringifyHeaderCellStyle()', () => {
-    it('Should create a style string for the header\'s <span>s', () => {
+  describe('#stringifyHeaderCellAppearance()', () => {
+    it('Should create a appearance string for the header\'s <span>s', () => {
       const expendedStyleObject = {};
       const resultingStyle = 'text-align: center;';
 
       Dummy.expandStyle = sinon.stub().returns(expendedStyleObject);
       Dummy.stringifyExpandedStyle = sinon.stub().returns(resultingStyle);
 
-      const result = dummy.stringifyHeaderCellStyle(4);
+      const result = dummy.stringifyHeaderCellAppearance(4);
 
       expect(Dummy.expandStyle)
         .to.have.been.calledOnceWith(
-          dummy.headerstyle,
-          DEFAULT_HEADER_STYLE,
+          dummy.headerappearance,
+          DEFAULT_HEADER_APPEARANCE,
           4,
           { only: CELL_ONLY }
         );
@@ -184,7 +185,7 @@ describe('TableController', () => {
       subject = undefined;
     });
 
-    it('Should get the current adapter or style ' +
+    it('Should get the current adapter or appearance ' +
       'if the subjectGetter is a function', () => {
       const subjectKeyGetter = sinon.stub().returns('odd');
       const result = Dummy._getCurrent(2, 4, subject, subjectKeyGetter);
@@ -192,14 +193,14 @@ describe('TableController', () => {
       expect(result).to.equal(subject.odd);
     });
 
-    it('Should get the current adapter or style ' +
+    it('Should get the current adapter or appearance ' +
       'if the subjectGetter is a string', () => {
       const subjectKeyGetter = 'odd';
       const result = Dummy._getCurrent(2, 4, subject, subjectKeyGetter);
       expect(result).to.equal(subject.odd);
     });
 
-    it('Should get the first adapter or style if the ' +
+    it('Should get the first adapter or appearance if the ' +
       'subjectGetter is neither a string nor a function', () => {
       const result = Dummy._getCurrent(2, 4, subject);
       expect(result).to.equal(subject.odd);
@@ -248,28 +249,28 @@ describe('TableController', () => {
     });
   });
 
-  describe('#stringifyRowStyle()', () => {
-    it('Should create a style string for the row\'s <td>s', () => {
-      const styleObject = {};
+  describe('#stringifyRowAppearance()', () => {
+    it('Should create a appearance string for the row\'s <td>s', () => {
+      const appearanceObject = {};
       const expandedStyleObject = {};
       const resultingStyle = 'text-align: center;';
 
-      dummy.styles = {};
-      dummy.usestyle = () => {};
+      dummy.appearances = {};
+      dummy.useappearance = () => {};
 
-      Dummy._getCurrent = sinon.stub().returns(styleObject);
+      Dummy._getCurrent = sinon.stub().returns(appearanceObject);
       Dummy.expandStyle = sinon.stub().returns(expandedStyleObject);
       Dummy.stringifyExpandedStyle = sinon.stub().returns(resultingStyle);
 
-      const result = dummy.stringifyRowStyle(2, 3, 4);
+      const result = dummy.stringifyRowAppearance(2, 3, 4);
 
-      expect(Dummy._getCurrent)
-        .to.have.been.calledOnceWith(2, 3, dummy.styles, dummy.usestyle);
+      expect(Dummy._getCurrent).to.have.been
+        .calledOnceWith(2, 3, dummy.appearances, dummy.useappearance);
 
       expect(Dummy.expandStyle)
         .to.have.been.calledOnceWith(
-          styleObject,
-          DEFAULT_STYLE,
+          appearanceObject,
+          DEFAULT_APPEARANCE,
           4,
           { exclude: CELL_ONLY }
         );
@@ -281,28 +282,28 @@ describe('TableController', () => {
     });
   });
 
-  describe('#stringifyRowCellStyle()', () => {
-    it('Should create a style string for the row\'s <td>s', () => {
-      const styleObject = {};
+  describe('#stringifyRowCellAppearance()', () => {
+    it('Should create a appearance string for the row\'s <td>s', () => {
+      const appearanceObject = {};
       const expandedStyleObject = {};
       const resultingStyle = 'text-align: center;';
 
-      dummy.styles = {};
-      dummy.usestyle = () => {};
+      dummy.appearances = {};
+      dummy.useappearance = () => {};
 
-      Dummy._getCurrent = sinon.stub().returns(styleObject);
+      Dummy._getCurrent = sinon.stub().returns(appearanceObject);
       Dummy.expandStyle = sinon.stub().returns(expandedStyleObject);
       Dummy.stringifyExpandedStyle = sinon.stub().returns(resultingStyle);
 
-      const result = dummy.stringifyRowCellStyle(2, 3, 4);
+      const result = dummy.stringifyRowCellAppearance(2, 3, 4);
 
-      expect(Dummy._getCurrent)
-        .to.have.been.calledOnceWith(2, 3, dummy.styles, dummy.usestyle);
+      expect(Dummy._getCurrent).to.have.been
+        .calledOnceWith(2, 3, dummy.appearances, dummy.useappearance);
 
       expect(Dummy.expandStyle)
         .to.have.been.calledOnceWith(
-          styleObject,
-          DEFAULT_STYLE,
+          appearanceObject,
+          DEFAULT_APPEARANCE,
           4,
           { only: CELL_ONLY }
         );

@@ -1,8 +1,8 @@
 import {
-  DEFAULT_STYLE,
-  DEFAULT_HEADER_STYLE,
+  DEFAULT_APPEARANCE,
+  DEFAULT_HEADER_APPEARANCE,
   CELL_ONLY
-} from '../constants/style.js';
+} from '../constants/appearance.js';
 
 export const TableController = (Base = class {}) =>
   class extends Base {
@@ -11,11 +11,14 @@ export const TableController = (Base = class {}) =>
       this.handleRowClick = this.handleRowClick.bind(this);
       this.dispatchCustomEvent = this.dispatchCustomEvent.bind(this);
       this.getHeaderAdapter = this.getHeaderAdapter.bind(this);
-      this.stringifyHeaderStyle = this.stringifyHeaderStyle.bind(this);
-      this.stringifyHeaderCellStyle = this.stringifyHeaderCellStyle.bind(this);
+      this.stringifyHeaderAppearance =
+        this.stringifyHeaderAppearance.bind(this);
+      this.stringifyHeaderCellAppearance =
+        this.stringifyHeaderCellAppearance.bind(this);
       this.getRowAdapter = this.getRowAdapter.bind(this);
-      this.stringifyRowStyle = this.stringifyRowStyle.bind(this);
-      this.stringifyRowCellStyle = this.stringifyRowCellStyle.bind(this);
+      this.stringifyRowAppearance = this.stringifyRowAppearance.bind(this);
+      this.stringifyRowCellAppearance =
+        this.stringifyRowCellAppearance.bind(this);
     }
 
     static get properties () {
@@ -36,15 +39,15 @@ export const TableController = (Base = class {}) =>
           type: Function,
           reflect: false
         },
-        style: {
+        appearance: {
           type: Object,
           reflect: false
         },
-        styles: {
+        appearances: {
           type: Object,
           reflect: false
         },
-        usestyle: {
+        useappearance: {
           type: Function,
           reflect: false
         },
@@ -56,7 +59,7 @@ export const TableController = (Base = class {}) =>
           type: Function,
           reflect: false
         },
-        headerstyle: {
+        headerappearance: {
           type: Object,
           reflect: false
         },
@@ -75,16 +78,16 @@ export const TableController = (Base = class {}) =>
       };
     }
 
-    get style () {
-      return this._style;
+    get appearance () {
+      return this._appearance;
     }
 
-    set style (value) {
-      let pastStyle = this._style;
-      this._style = value;
-      this.styles = { default: this.style };
-      this.usestyle = 'default';
-      this.requestUpdate('style', pastStyle);
+    set appearance (value) {
+      let pastStyle = this._appearance;
+      this._appearance = value;
+      this.appearances = { default: this.appearance };
+      this.useappearance = 'default';
+      this.requestUpdate('appearance', pastStyle);
     }
 
     get adapter () {
@@ -111,24 +114,29 @@ export const TableController = (Base = class {}) =>
         : arg => arg;
     }
 
-    stringifyHeaderStyle (cellCount) {
-      const style = this.headerstyle;
+    stringifyHeaderAppearance (cellCount) {
+      const appearance = this.headerappearance;
 
       return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount, {
-          exclude: CELL_ONLY
-        }),
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_HEADER_APPEARANCE,
+          cellCount, { exclude: CELL_ONLY }
+        ),
         cellCount
       );
     }
 
-    stringifyHeaderCellStyle (cellCount) {
-      const style = this.headerstyle;
+    stringifyHeaderCellAppearance (cellCount) {
+      const appearance = this.headerappearance;
 
       return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_HEADER_STYLE, cellCount, {
-          only: CELL_ONLY
-        }),
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_HEADER_APPEARANCE,
+          cellCount,
+          { only: CELL_ONLY }
+        ),
         cellCount
       );
     }
@@ -154,26 +162,32 @@ export const TableController = (Base = class {}) =>
         this.adapters, this.useadapter) || Object.values;
     }
 
-    stringifyRowStyle (row, rowIndex, cellCount) {
-      const style = this.constructor._getCurrent(row, rowIndex,
-        this.styles, this.usestyle);
+    stringifyRowAppearance (row, rowIndex, cellCount) {
+      const appearance = this.constructor._getCurrent(row, rowIndex,
+        this.appearances, this.useappearance);
 
       return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_STYLE, cellCount, {
-          exclude: CELL_ONLY
-        }),
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_APPEARANCE,
+          cellCount,
+          { exclude: CELL_ONLY }
+        ),
         cellCount
       );
     }
 
-    stringifyRowCellStyle (row, rowIndex, cellCount) {
-      const style = this.constructor._getCurrent(row, rowIndex,
-        this.styles, this.usestyle);
+    stringifyRowCellAppearance (row, rowIndex, cellCount) {
+      const appearance = this.constructor._getCurrent(row, rowIndex,
+        this.appearances, this.useappearance);
 
       return this.constructor.stringifyExpandedStyle(
-        this.constructor.expandStyle(style, DEFAULT_STYLE, cellCount, {
-          only: CELL_ONLY
-        }),
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_APPEARANCE,
+          cellCount,
+          { only: CELL_ONLY }
+        ),
         cellCount
       );
     }

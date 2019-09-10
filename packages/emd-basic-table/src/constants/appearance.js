@@ -1,4 +1,4 @@
-export const DEFAULT_STYLE = {
+export const DEFAULT_APPEARANCE = {
   textAlign: 'left',
   verticalAlign: 'middle',
   backgroundColor: 'transparent',
@@ -7,7 +7,7 @@ export const DEFAULT_STYLE = {
   width: 'auto'
 };
 
-export const DEFAULT_HEADER_STYLE = {
+export const DEFAULT_HEADER_APPEARANCE = {
   textAlign: 'center',
   verticalAlign: 'middle',
   backgroundColor: 'transparent',
