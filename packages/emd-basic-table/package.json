@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-table",
   "description": "emd-basic-table",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
