@@ -112,7 +112,6 @@ export const TableController = (Base = class {}) =>
     }
 
     stringifyHeaderStyle (cellCount) {
-      console.log('HEADER STYLE');
       const style = this.headerstyle;
 
       return this.constructor.stringifyExpandedStyle(
@@ -124,7 +123,6 @@ export const TableController = (Base = class {}) =>
     }
 
     stringifyHeaderCellStyle (cellCount) {
-      console.log('HEADER CELL STYLE');
       const style = this.headerstyle;
 
       return this.constructor.stringifyExpandedStyle(
@@ -138,7 +136,7 @@ export const TableController = (Base = class {}) =>
     static _getCurrent (row, rowIndex, subject, subjectKeyGetter) {
       let result;
 
-      if (typeof subject === 'object') {
+      if (typeof subject === 'object' && !Array.isArray(subject)) {
         if (typeof subjectKeyGetter === 'function') {
           result = subject[subjectKeyGetter(row, rowIndex)];
         } else if (typeof subjectKeyGetter === 'string') {
@@ -152,20 +150,11 @@ export const TableController = (Base = class {}) =>
     }
 
     getRowAdapter (row, rowIndex) {
-      let result = this.constructor._getCurrent(row, rowIndex,
-        this.adapters, this.useadapter);
-
-      if (result == null) {
-        result = typeof row === 'object' && !Array.isArray(row)
-          ? Object.values
-          : arg => arg;
-      }
-
-      return result;
+      return this.constructor._getCurrent(row, rowIndex,
+        this.adapters, this.useadapter) || Object.values;
     }
 
     stringifyRowStyle (row, rowIndex, cellCount) {
-      console.log('ROW STYLE');
       const style = this.constructor._getCurrent(row, rowIndex,
         this.styles, this.usestyle);
 
@@ -178,7 +167,6 @@ export const TableController = (Base = class {}) =>
     }
 
     stringifyRowCellStyle (row, rowIndex, cellCount) {
-      console.log('ROW CELL STYLE');
       const style = this.constructor._getCurrent(row, rowIndex,
         this.styles, this.usestyle);
 
