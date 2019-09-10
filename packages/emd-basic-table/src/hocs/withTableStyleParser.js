@@ -1,7 +1,4 @@
-const toDashCase = str => str.replace(
-  /([A-Z])/g,
-  str => `-${str[0].toLowerCase()}`
-);
+import { toDashCase } from '@stone-payments/emd-helpers';
 
 export const withTableStyleParser = (Base = class {}) => class extends Base {
   static _expandValueToArray (value, max) {
