@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-icon-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.0.2...@stone-payments/emd-basic-icon-v1.1.0) (2019-09-12)
+
+
+### Features
+
+* Add new icons Calendar, Invisible, Locked, Unlocked and Visible ([682d297](https://github.com/stone-payments/emerald-web-framework/commit/682d297))
+
 # [@stone-payments/emd-basic-icon-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.0.1...@stone-payments/emd-basic-icon-v1.0.2) (2019-09-09)
 
 
