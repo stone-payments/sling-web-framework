@@ -32,6 +32,10 @@ h4, p {
   margin: 0;
 }
 
+button {
+  margin-right: auto;
+}
+
 emd-money:nth-of-type(6n - 5) {
   font-size: 12px;
 }
@@ -54,19 +58,6 @@ emd-money:nth-of-type(6n - 1) {
 
 emd-money:nth-of-type(6n) {
   font-size: 30px;
-}
-
-emd-money:nth-of-type(13),
-emd-money:nth-of-type(14),
-emd-money:nth-of-type(15),
-emd-money:nth-of-type(16),
-emd-money:nth-of-type(17),
-emd-money:nth-of-type(18),
-emd-money:nth-of-type(25),
-emd-money:nth-of-type(26),
-emd-money:nth-of-type(27),
-emd-money:nth-of-type(28),
-emd-money:nth-of-type(29),
-emd-money:nth-of-type(30) {
-  font-weight: bold;
+  --emd-money-positive-color: #14AA4B;
+  --emd-money-negative-color: #E74C3C;
 }
