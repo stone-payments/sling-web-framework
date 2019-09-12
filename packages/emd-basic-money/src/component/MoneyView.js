@@ -1,37 +1,35 @@
-import { html } from '@stone-payments/lit-html';
+import { html } from '@stone-payments/lit-element';
 
 export const MoneyView = ({
-  colorblock,
-  currencyProportion,
-  currencyMargin,
+  isPositive,
+  isNegative,
+  isNeutral,
+  hidevalue,
+  hidepositivesign,
+  sign,
   formattedCurrency,
   formattedValue
 }) => {
-  const moneyClasses = colorblock ? ' emd-money__wrapper_color_block' : '';
-
-  let currencyStyle = '';
-
-  currencyStyle += currencyMargin
-    ? `margin-right: ${currencyMargin}em;`
-    : '';
-
-  currencyStyle += currencyProportion
-    ? `font-size: ${currencyProportion}em;`
-    : '';
+  let moneyClass = 'emd-money__wrapper';
+  moneyClass += isPositive && !hidevalue ? ' emd-money__wrapper_positive' : '';
+  moneyClass += isNegative && !hidevalue ? ' emd-money__wrapper_negative' : '';
+  moneyClass += isNeutral || hidevalue ? ' emd-money__wrapper_neutral' : '';
+  moneyClass += hidevalue ? ' emd-money__wrapper_value_hidden' : '';
 
   return html`
     <style>
       @import url("emd-basic-money/src/component/Money.css")
     </style>
-    <span class="emd-money__wrapper${moneyClasses}">
-      ${formattedCurrency ? html`
-        <span
-          class="emd-money__currency"
-          style="${currencyStyle}">
-          ${formattedCurrency}
-        </span>
+    <span class="${moneyClass}">
+      ${sign != null && !hidevalue && (!hidepositivesign || sign !== '+') ? html`
+        <span>${sign}</span>
       ` : ''}
-      <span class="emd-money__value">${formattedValue}</span>
+      ${formattedCurrency ? html`
+        <span>${formattedCurrency}</span>
+      ` : ''}
+      <span class="emd-money__effect">
+        <span>${formattedValue}</span>
+      </span>
     </span>
   `;
 };
