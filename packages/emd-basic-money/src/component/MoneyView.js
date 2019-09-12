@@ -11,9 +11,9 @@ export const MoneyView = ({
   formattedValue
 }) => {
   let moneyClass = 'emd-money__wrapper';
-  moneyClass += isPositive ? ' emd-money__wrapper_positive' : '';
-  moneyClass += isNegative ? ' emd-money__wrapper_negative' : '';
-  moneyClass += isNeutral ? ' emd-money__wrapper_neutral' : '';
+  moneyClass += isPositive && !hidevalue ? ' emd-money__wrapper_positive' : '';
+  moneyClass += isNegative && !hidevalue ? ' emd-money__wrapper_negative' : '';
+  moneyClass += isNeutral || hidevalue ? ' emd-money__wrapper_neutral' : '';
   moneyClass += hidevalue ? ' emd-money__wrapper_value_hidden' : '';
 
   return html`
@@ -21,13 +21,15 @@ export const MoneyView = ({
       @import url("emd-basic-money/src/component/Money.css")
     </style>
     <span class="${moneyClass}">
-      ${sign != null && (!hidepositivesign || sign !== '+') ? html`
+      ${sign != null && !hidevalue && (!hidepositivesign || sign !== '+') ? html`
         <span>${sign}</span>
       ` : ''}
       ${formattedCurrency ? html`
         <span>${formattedCurrency}</span>
       ` : ''}
-      <span>${formattedValue}</span>
+      <span class="emd-money__effect">
+        <span>${formattedValue}</span>
+      </span>
     </span>
   `;
 };

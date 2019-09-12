@@ -6,7 +6,7 @@
 }
 
 .emd-money__wrapper span + span {
-  padding-left: 0.1875em;
+  margin-left: 0.1875em;
 }
 
 .emd-money__wrapper_positive {
@@ -19,4 +19,16 @@
 
 .emd-money__wrapper_neutral {
   color: var(--emd-money-neutral-color, inherit);
+}
+
+.emd-money__wrapper_value_hidden .emd-money__effect {
+  background: var(--emd-money-effect-color, currentColor);
+  opacity: var(--emd-money-effect-opacity, 0.5);
+  overflow: hidden;
+  height: 1em;
+  align-self: center;
+}
+
+.emd-money__wrapper_value_hidden .emd-money__effect > * {
+  visibility: hidden;
 }
