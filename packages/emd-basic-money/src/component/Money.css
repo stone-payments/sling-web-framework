@@ -5,18 +5,18 @@
   justify-content: flex-start;
 }
 
-.emd-money__currency {
-  margin-right: 0.33333em; /* changed via Javascript */
-  font-size: 0.75em; /* changed via Javascript */
-  opacity: 0.6;
-  font-weight: normal;
+.emd-money__wrapper span + span {
+  padding-left: 0.1875em;
 }
 
-.emd-money__wrapper_color_block .emd-money__currency {
-  opacity: 1;
+.emd-money__wrapper_positive {
+  color: var(--emd-money-positive-color, inherit);
 }
 
-.emd-money__value {
-  opacity: 1;
-  font-size: 1em;
+.emd-money__wrapper_negative {
+  color: var(--emd-money-negative-color, inherit);
+}
+
+.emd-money__wrapper_neutral {
+  color: var(--emd-money-neutral-color, inherit);
 }
