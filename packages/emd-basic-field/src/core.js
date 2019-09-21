@@ -19,6 +19,9 @@ import { maskCnpj } from './types/cnpj/maskCnpj.js';
 import { validateCep } from './types/cep/validateCep.js';
 import { maskCep } from './types/cep/maskCep.js';
 
+import { validateBarcode } from './types/barcode/validateBarcode.js';
+import { maskBarcode, convenioMaskBarcode } from './types/barcode/maskBarcode.js';
+
 import { maskMoney } from './types/money/maskMoney.js';
 
 const withComponentAndFields = compose(
@@ -27,6 +30,8 @@ const withComponentAndFields = compose(
   withFieldType('cpf', validateCpf, maskCpf),
   withFieldType('cnpj', validateCnpj, maskCnpj),
   withFieldType('cep', validateCep, maskCep),
+  withFieldType('barcode', validateBarcode, maskBarcode),
+  withFieldType('conveniobarcode', validateBarcode, convenioMaskBarcode),
   withFieldType('money', undefined, maskMoney),
   withField,
   withComponent
