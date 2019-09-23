@@ -33,7 +33,7 @@ export const ButtonController = (Base = class {}) =>
 
     connectedCallback () {
       super.connectedCallback();
-      this.addEventListener('click', this._handleClick);
+      this.addEventListener('click', this._handleClick, true);
     }
 
     disconnectedCallback () {
