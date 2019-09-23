@@ -1,46 +1,8 @@
-import { getIn, toFlatObject } from '@stone-payments/emd-helpers';
-
 import {
-  APPEARANCE_MAP,
   DEFAULT_APPEARANCE,
-  DEFAULT_HEAD_APPEARANCE
+  DEFAULT_HEADER_APPEARANCE,
+  CELL_ONLY
 } from '../constants/appearance.js';
-
-const getLineOption = (userObj, index) =>
-  getIn(userObj, `nth[${index + 1}]`) || userObj.default;
-
-const getLineOptionWithKey = (userObj, key, index, cellIndex) =>
-  getIn(userObj, `nth[${index + 1}].${key}[${cellIndex}]`) ||
-  getIn(userObj, `default.${key}[${cellIndex}]`);
-
-const getUserOption = (userObj = {}, mainKey, key) =>
-  getIn(userObj, `${mainKey}.${key}`) || userObj[key];
-
-const expandStringOrArrayOption = (userValue, defaultValue, max = 0) => {
-  return new Array(max)
-    .fill(defaultValue)
-    .map((opt, index) => Array.isArray(userValue)
-      ? userValue[index] || opt
-      : userValue);
-};
-
-const parseOption = (userObj = {}, mainKey, key, defaultValue, max) => {
-  return {
-    [key]: expandStringOrArrayOption(
-      getUserOption(userObj, mainKey, key) || defaultValue,
-      defaultValue,
-      max
-    )
-  };
-};
-
-const parseOptions = (userObj = {}, mainKey, defaultObj = {}, max) => {
-  return Object
-    .entries(defaultObj)
-    .map(([key, defaultValue]) =>
-      parseOption(userObj, mainKey, key, defaultValue, max))
-    .reduce(toFlatObject, {});
-};
 
 export const TableController = (Base = class {}) =>
   class extends Base {
@@ -48,27 +10,56 @@ export const TableController = (Base = class {}) =>
       super();
       this.handleRowClick = this.handleRowClick.bind(this);
       this.dispatchCustomEvent = this.dispatchCustomEvent.bind(this);
+      this.getHeaderAdapter = this.getHeaderAdapter.bind(this);
+      this.stringifyHeaderAppearance =
+        this.stringifyHeaderAppearance.bind(this);
+      this.stringifyHeaderCellAppearance =
+        this.stringifyHeaderCellAppearance.bind(this);
+      this.getRowAdapter = this.getRowAdapter.bind(this);
+      this.stringifyRowAppearance = this.stringifyRowAppearance.bind(this);
+      this.stringifyRowCellAppearance =
+        this.stringifyRowCellAppearance.bind(this);
     }
 
     static get properties () {
       return {
         rows: {
+          type: Array,
+          reflect: false
+        },
+        adapter: {
+          type: Function,
+          reflect: false
+        },
+        adapters: {
           type: Object,
           reflect: false
         },
-        header: {
-          type: Object,
+        useadapter: {
+          type: Function,
           reflect: false
         },
         appearance: {
           type: Object,
           reflect: false
         },
-        headerappearance: {
+        appearances: {
           type: Object,
           reflect: false
         },
-        adapter: {
+        useappearance: {
+          type: Function,
+          reflect: false
+        },
+        titles: {
+          type: Array,
+          reflect: false
+        },
+        headeradapter: {
+          type: Function,
+          reflect: false
+        },
+        headerappearance: {
           type: Object,
           reflect: false
         },
@@ -79,134 +70,125 @@ export const TableController = (Base = class {}) =>
         expandedbody: {
           type: Boolean,
           reflect: true
+        },
+        view: {
+          type: String,
+          reflect: true
         }
       };
     }
 
-    static _parseAdapter (adapter) {
-      return {
-        default: adapter
-          ? adapter.default || adapter || Object.values
-          : Object.values,
-        nth: adapter
-          ? adapter.nth
-          : {}
-      };
+    get appearance () {
+      return this._appearance;
     }
 
-    static _parseStyles (appearance = {}, defaultStyles, maxColumns) {
-      const userDefaultStyles = parseOptions(
-        appearance,
-        'default',
-        defaultStyles,
-        maxColumns
+    set appearance (value) {
+      let pastStyle = this._appearance;
+      this._appearance = value;
+      this.appearances = { default: this.appearance };
+      this.useappearance = 'default';
+      this.requestUpdate('appearance', pastStyle);
+    }
+
+    get adapter () {
+      return this._adapter;
+    }
+
+    set adapter (value) {
+      let pastAdapter = this._adapter;
+      this._adapter = value;
+      this.adapters = { default: this.adapter };
+      this.useadapter = 'default';
+      this.requestUpdate('adapter', pastAdapter);
+    }
+
+    get wrappedTitles () {
+      return this.titles != null
+        ? [this.titles]
+        : [];
+    }
+
+    getHeaderAdapter () {
+      return this.headeradapter != null
+        ? this.headeradapter
+        : arg => arg;
+    }
+
+    stringifyHeaderAppearance (cellCount) {
+      const appearance = this.headerappearance;
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_HEADER_APPEARANCE,
+          cellCount, { exclude: CELL_ONLY }
+        ),
+        cellCount
       );
-
-      return {
-        default: userDefaultStyles,
-        nth: Object
-          .keys(appearance.nth || {})
-          .map(key => ({
-            [key]: parseOptions(
-              appearance.nth,
-              key,
-              userDefaultStyles,
-              maxColumns
-            )
-          }))
-          .reduce(toFlatObject, {})
-      };
     }
 
-    get _parsedAdapter () {
-      return this.constructor._parseAdapter(this.adapter);
-    }
+    stringifyHeaderCellAppearance (cellCount) {
+      const appearance = this.headerappearance;
 
-    get _parsedStyles () {
-      return this.constructor._parseStyles(
-        this.appearance || {},
-        DEFAULT_APPEARANCE,
-        this.maxColumns
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_HEADER_APPEARANCE,
+          cellCount,
+          { only: CELL_ONLY }
+        ),
+        cellCount
       );
     }
 
-    get _parsedHeaderStyles () {
-      const isDefinedInHeader = key =>
-        getUserOption(this.headerappearance, 'default', key);
+    static _getCurrent (row, rowIndex, subject, subjectKeyGetter) {
+      let result;
 
-      let result = this.constructor._parseStyles(
-        this.headerappearance || {},
-        DEFAULT_HEAD_APPEARANCE,
-        this.maxColumns
-      );
-
-      return {
-        ...result,
-        default: {
-          ...result.default,
-          align: isDefinedInHeader('align')
-            ? result.default.align
-            : this._parsedStyles.default.align,
-          width: isDefinedInHeader('width')
-            ? result.default.width
-            : this._parsedStyles.default.width
+      if (typeof subject === 'object' && !Array.isArray(subject)) {
+        if (typeof subjectKeyGetter === 'function') {
+          result = subject[subjectKeyGetter(row, rowIndex)];
+        } else if (typeof subjectKeyGetter === 'string') {
+          result = subject[subjectKeyGetter];
+        } else {
+          result = Object.values(subject)[0];
         }
-      };
-    }
-
-    get maxColumns () {
-      return Math.max(0, ...this.matrix.map(row => row.length));
-    }
-
-    get matrix () {
-      if ((this.rows || []).length > 0) {
-        return this.rows.map((row, index) => {
-          const currentAdapter = getLineOption(this._parsedAdapter, index);
-
-          return currentAdapter({
-            ...row,
-            dispatch: this.dispatchCustomEvent(index)
-          }, index);
-        });
       }
 
-      return [];
+      return result;
     }
 
-    get matrixStyles () {
-      return this.matrix.map((row, index) =>
-        row.map((cell, cellIndex) => {
-          return Object
-            .keys(APPEARANCE_MAP)
-            .map(key => ({
-              [key]: getLineOptionWithKey(
-                this._parsedStyles,
-                key,
-                index,
-                cellIndex
-              )
-            }))
-            .reduce(toFlatObject);
-        })
+    getRowAdapter (row, rowIndex) {
+      return this.constructor._getCurrent(row, rowIndex,
+        this.adapters, this.useadapter) || Object.values;
+    }
+
+    stringifyRowAppearance (row, rowIndex, cellCount) {
+      const appearance = this.constructor._getCurrent(row, rowIndex,
+        this.appearances, this.useappearance);
+
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_APPEARANCE,
+          cellCount,
+          { exclude: CELL_ONLY }
+        ),
+        cellCount
       );
     }
 
-    get headerRow () {
-      return this.header || [];
-    }
+    stringifyRowCellAppearance (row, rowIndex, cellCount) {
+      const appearance = this.constructor._getCurrent(row, rowIndex,
+        this.appearances, this.useappearance);
 
-    get headerStyles () {
-      return (this.header || []).map((cell, cellIndex) => Object
-        .keys(APPEARANCE_MAP)
-        .map(key => ({
-          [key]: getLineOptionWithKey(
-            this._parsedHeaderStyles,
-            key,
-            0,
-            cellIndex
-          )
-        }))
-        .reduce(toFlatObject, {})
+      return this.constructor.stringifyExpandedStyle(
+        this.constructor.expandStyle(
+          appearance,
+          DEFAULT_APPEARANCE,
+          cellCount,
+          { only: CELL_ONLY }
+        ),
+        cellCount
       );
     }
 

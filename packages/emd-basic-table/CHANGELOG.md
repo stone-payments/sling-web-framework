@@ -1,3 +1,26 @@
+# [@stone-payments/emd-basic-table-v2.0.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-table-v1.0.2...@stone-payments/emd-basic-table-v2.0.0) (2019-09-10)
+
+
+### Bug Fixes
+
+* Correct example page ([57a2252](https://github.com/stone-payments/emerald-web-framework/commit/57a2252))
+* Reconsider renaming `appearance` to `style` due to conflicts with the native property ([2e96de8](https://github.com/stone-payments/emerald-web-framework/commit/2e96de8))
+
+
+### Features
+
+* Add `compact` view ([49c2112](https://github.com/stone-payments/emerald-web-framework/commit/49c2112))
+
+
+### Performance Improvements
+
+* Refactor Table component ([34e2614](https://github.com/stone-payments/emerald-web-framework/commit/34e2614))
+
+
+### BREAKING CHANGES
+
+* Rename `appearance` to `style` and change the way `adapter` and `style` work
+
 # [@stone-payments/emd-basic-table-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-table-v1.0.1...@stone-payments/emd-basic-table-v1.0.2) (2019-09-05)
 
 

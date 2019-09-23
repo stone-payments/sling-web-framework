@@ -50,3 +50,7 @@ emd-table:nth-of-type(7) {
   --emd-table-row-height: 75px;
   --emd-table-row-padding: 5px;
 }
+
+emd-table:nth-of-type(10) {
+  --emd-button-padding: 0.15em 1em;
+}

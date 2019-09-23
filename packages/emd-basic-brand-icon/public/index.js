@@ -13,7 +13,7 @@ const iconsLine = iconNames
 
 body.innerHTML = `
   <h1>Brand Icon</h1>
-  <div>${iconsLine}</div>
-  <div>${iconsLine}</div>
-  <div>${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
+  <div class="line">${iconsLine}</div>
 `;
