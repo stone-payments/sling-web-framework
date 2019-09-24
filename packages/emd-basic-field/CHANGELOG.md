@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-field-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.0.2...@stone-payments/emd-basic-field-v1.1.0) (2019-09-24)
+
+
+### Features
+
+* Implement the Billet field type ([d6ffa02](https://github.com/stone-payments/emerald-web-framework/commit/d6ffa02))
+* Substitute Cleave for iMask ([32f438c](https://github.com/stone-payments/emerald-web-framework/commit/32f438c))
+
 # [@stone-payments/emd-basic-field-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.0.1...@stone-payments/emd-basic-field-v1.0.2) (2019-09-05)
 
 
