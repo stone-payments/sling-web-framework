@@ -21,6 +21,9 @@ import { maskCep } from './types/cep/maskCep.js';
 
 import { maskMoney } from './types/money/maskMoney.js';
 
+import { validateBillet } from './types/billet/validateBillet.js';
+import { maskBillet } from './types/billet/maskBillet.js';
+
 const withComponentAndFields = compose(
   withFieldType('email', validateEmail, undefined),
   withFieldType('tel', validateTel, maskTel),
@@ -28,6 +31,7 @@ const withComponentAndFields = compose(
   withFieldType('cnpj', validateCnpj, maskCnpj),
   withFieldType('cep', validateCep, maskCep),
   withFieldType('money', undefined, maskMoney),
+  withFieldType('billet', validateBillet, maskBillet),
   withField,
   withComponent
 );

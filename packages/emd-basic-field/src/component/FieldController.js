@@ -7,8 +7,6 @@ export const FieldController = (Base = class {}) => class extends Base {
     this.attachShadow({ mode: 'open' });
     this.renderRoot = this.shadowRoot;
     this.renderer = render;
-
-    this._handleMaskedValueUpdate = this._handleMaskedValueUpdate.bind(this);
   }
 
   connectedCallback () {
@@ -31,29 +29,26 @@ export const FieldController = (Base = class {}) => class extends Base {
     if (!this.field) {
       this._initialValue = value;
     } else if (pastValue !== nextValue) {
-      this.field.value = nextValue;
-
-      if (this.mask) {
-        this.mask.setRawValue(nextValue);
+      if (!this.mask) {
+        this.field.value = nextValue;
       } else {
-        this.dispatchEventAndMethod('update', nextValue);
+        this.mask.unmaskedValue = nextValue;
       }
+      this.dispatchEventAndMethod('update', nextValue);
     }
   }
 
   _handleFieldInput (evt) {
-    if (!this.mask) {
-      this.dispatchEventAndMethod('update', this.field.value);
-    }
+    const value = !this.mask
+      ? this.field.value
+      : this.mask.unmaskedValue;
+
+    this.dispatchEventAndMethod('update', value);
     evt.stopPropagation();
   }
 
   _handleFieldChange (evt) {
     evt.stopPropagation();
-  }
-
-  _handleMaskedValueUpdate ({ target }) {
-    this.dispatchEventAndMethod('update', target.rawValue);
   }
 
   _updateView () {
