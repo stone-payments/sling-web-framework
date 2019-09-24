@@ -1,7 +1,17 @@
-import Cleave from 'cleave.js';
-import 'cleave.js/dist/addons/cleave-phone.br';
+import iMask from 'imask';
 
-const noop = () => {};
+// This monkey patch fixes the way iMask detects if an input is currently
+// active since, in our case, we must look for the shadowRoot.activeElement
+// and not the document.activeElement.
 
-export const maskMaker = config => (domEl, onValueChanged = noop) =>
-  new Cleave(domEl, { ...config, onValueChanged });
+Object.defineProperty(iMask.HTMLMaskElement.prototype, 'isActive', {
+  get () {
+    const rootElement = this.input.getRootNode
+      ? this.input.getRootNode() || document
+      : document;
+
+    return this.input === rootElement.activeElement;
+  }
+});
+
+export const maskMaker = config => domEl => iMask(domEl, config);
