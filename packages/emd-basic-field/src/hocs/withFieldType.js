@@ -19,7 +19,7 @@ export const withFieldType = (type, validateFn, maskFn) =>
           : noop;
 
         if (isFunction(maskFn)) {
-          this.mask = maskFn(this.field, this._handleMaskedValueUpdate);
+          this.mask = maskFn(this.field);
         }
       }
     }

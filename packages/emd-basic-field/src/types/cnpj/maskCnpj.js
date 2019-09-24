@@ -1,7 +1,5 @@
 import { maskMaker } from '../../helpers/maskMaker.js';
 
 export const maskCnpj = maskMaker({
-  numericOnly: true,
-  delimiters: ['.', '.', '/', '-'],
-  blocks: [2, 3, 3, 4, 2]
+  mask: '00.000.000/0000-00'
 });
