@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-button-v1.1.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.2...@stone-payments/emd-basic-button-v1.1.3) (2019-09-24)
+
+
+### Bug Fixes
+
+* Fix `click` propagation bug ([d0d7015](https://github.com/stone-payments/emerald-web-framework/commit/d0d7015))
+
 # [@stone-payments/emd-basic-button-v1.1.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.1...@stone-payments/emd-basic-button-v1.1.2) (2019-09-05)
 
 
