@@ -10,10 +10,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-basic-icon": "^1.0.0",
-    "@stone-payments/emd-basic-loader": "^1.0.0",
-    "@stone-payments/emd-helpers": "^1.1.2",
-    "@stone-payments/emd-hocs": "^1.1.0",
+    "@stone-payments/emd-basic-icon": "^1.2.0",
+    "@stone-payments/emd-basic-loader": "^1.0.3",
+    "@stone-payments/emd-helpers": "^1.3.0",
+    "@stone-payments/emd-hocs": "^1.3.0",
     "@stone-payments/lit-html": "^1.1.0",
     "imask": "^5.2.1",
     "validator": "^10.11.0"
