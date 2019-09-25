@@ -22,8 +22,9 @@
 }
 
 .emd-brand-icon__wrapper_amex,
-.emd-brand-icon__wrapper_americanexpress {
-  width: calc(0.96 * var(--default));
+.emd-brand-icon__wrapper_americanexpress,
+.emd-brand-icon__wrapper_american-express {
+  width: calc(0.94 * var(--default));
   padding-bottom: 0;
   padding-right: calc(0.125 * var(--default));
 }
@@ -35,8 +36,21 @@
   padding-right: calc(0.125 * var(--default));
 }
 
-.emd-brand-icon__wrapper_elo {
-  width: calc(0.9 * var(--default));
+.emd-brand-icon__wrapper_cooper,
+.emd-brand-icon__wrapper_coopercard {
+  width: calc(0.94 * var(--default));
+  padding-bottom: 0;
+}
+
+.emd-brand-icon__wrapper_elo,
+.emd-brand-icon__wrapper_elo-credito,
+.emd-brand-icon__wrapper_elo-debito {
+  width: calc(0.885 * var(--default));
+  padding-bottom: 0;
+}
+
+.emd-brand-icon__wrapper_greencard {
+  width: calc(1.35 * var(--default));
   padding-bottom: 0;
 }
 
@@ -61,7 +75,7 @@
 }
 
 .emd-brand-icon__wrapper_ticket {
-  width: calc(1.45 * var(--default));
+  width: calc(1.5 * var(--default));
   padding-bottom: 0;
 }
 
