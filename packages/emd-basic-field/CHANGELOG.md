@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.1.0...@stone-payments/emd-basic-field-v1.2.0) (2019-09-25)
+
+
+### Features
+
+* Add Cooper and Greencard icons ([01dd90e](https://github.com/stone-payments/emerald-web-framework/commit/01dd90e))
+
 # [@stone-payments/emd-basic-field-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.0.2...@stone-payments/emd-basic-field-v1.1.0) (2019-09-24)
 
 
