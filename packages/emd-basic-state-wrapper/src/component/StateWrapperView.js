@@ -4,11 +4,19 @@ import '@stone-payments/emd-basic-loader';
 import { stateNames } from '../constants/stateNames.js';
 import { getViewCssVariant } from './helpers/getViewCssVariant.js';
 
-const { DEFAULT, RECOVERY } = stateNames;
+const { DEFAULT, PRISTINE, EMPTY, RECOVERY, ERROR } = stateNames;
 
-const getStateClass = (state, currentState) => 'emd-state-wrapper__state' +
-  ` emd-state-wrapper__state_${state.name}` +
-  (currentState === state.name ? ' emd-state-wrapper__state_current' : '');
+const getStateClass = (state, currentState, ignoreerrors, ignoresource) => {
+  const current = currentState === state.name;
+
+  console.log('ignoreerrors', ignoreerrors, currentState);
+  console.log('ignoresource', ignoresource, currentState);
+  console.log('------');
+
+  return 'emd-state-wrapper__state' +
+  ` emd-state-wrapper__state_${current ? state.name : DEFAULT}` +
+  (current ? ' emd-state-wrapper__state_current' : '');
+};
 
 const getWrapperClass = isLoading => 'emd-state-wrapper__wrapper' +
   (isLoading ? ' emd-state-wrapper__wrapper_loading' : '');
@@ -43,7 +51,9 @@ export const StateWrapperView = ({
   currentState,
   wrapped,
   recovery,
-  view
+  view,
+  ignoreerrors,
+  ignoresource
 }) => html`
   <style>
     @import url("emd-basic-state-wrapper/src/component/StateWrapper.css")
@@ -53,7 +63,7 @@ export const StateWrapperView = ({
       <emd-loader class="emd-state-wrapper__loader" loading></emd-loader>
     </div>
     ${states.map(state => html`
-      <div class="${getStateClass(state, currentState)}">
+      <div class="${getStateClass(state, currentState, ignoreerrors, ignoresource)}">
         <div class="emd-state-wrapper__inner">
           ${state.name !== DEFAULT ? html`
             <slot name="${state.name}">

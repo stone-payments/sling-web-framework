@@ -36,6 +36,14 @@ export const StateWrapperController = (Base = class {}) =>
         recovery: {
           type: Function,
           reflect: false
+        },
+        ignoreerrors: {
+          type: Boolean,
+          reflect: true
+        },
+        ignoresource: {
+          type: Boolean,
+          reflect: true
         }
       };
     }
