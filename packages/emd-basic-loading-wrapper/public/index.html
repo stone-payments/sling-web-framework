@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Loading Wrapper</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>Loading Wrapper – Loading</h1>
+  <emd-loading-wrapper loading>
+    <div class="fake-component">Some text to check resizing of the content</div>
+  </emd-loading-wrapper>
+
+  <h1>Loading Wrapper – Not Loading</h1>
+  <emd-loading-wrapper>
+    <div class="fake-component">Some text to check resizing of the content</div>
+  </emd-loading-wrapper>
+
+  <h1>Loading Wrapper – Screen Aware</h1>
+  <emd-loading-wrapper loading screenaware>
+    <div class="fake-component">Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content. Some text to check resizing of the content.</div>
+  </emd-loading-wrapper>
+
+  <div style="height: 1000px"></div>
+</body>
+</html>
