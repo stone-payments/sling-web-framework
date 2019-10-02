@@ -4,6 +4,7 @@ export const LoadingWrapperController = (Base = class {}) =>
       super();
       this.handleLoadingStart = this.handleLoadingStart.bind(this);
       this.handleLoadingEnd = this.handleLoadingEnd.bind(this);
+      this._animateSpinnerPosition = this._animateSpinnerPosition.bind(this);
     }
 
     static get properties () {
@@ -52,8 +53,8 @@ export const LoadingWrapperController = (Base = class {}) =>
       this._stopForceCenteringSpinner();
     }
 
-    _forceCenterSpinner () {
-      this._interval = setInterval(() => {
+    _applySpinnerPosition () {
+      if (this.parent && this.child) {
         const {
           top: parentTop,
           bottom: parentBottom
@@ -69,12 +70,23 @@ export const LoadingWrapperController = (Base = class {}) =>
         this.child.style.height = Math.max(minHeight,
           (Math.min(window.innerHeight, parentBottom) -
             Math.max(0, parentTop))) + 'px';
-      }, 35);
+      }
+    }
+
+    _animateSpinnerPosition () {
+      this._applySpinnerPosition();
+
+      this._animation =
+        window.requestAnimationFrame(this._animateSpinnerPosition);
+    }
+
+    _forceCenterSpinner () {
+      this._animateSpinnerPosition();
     }
 
     _stopForceCenteringSpinner () {
-      if (this._interval) {
-        clearInterval(this._interval);
+      if (this._animation) {
+        window.cancelAnimationFrame(this._animation);
       }
       this.child.style = '';
     }

@@ -16,8 +16,7 @@ export const LoadingWrapperView = ({
     <div
       class="${wrapperClass}"
       @loadingstart="${handleLoadingStart}"
-      @loadingend="${handleLoadingEnd}"
-    >
+      @loadingend="${handleLoadingEnd}">
       <div class="loading-wrapper__loader">
         <emd-loader loading></emd-loader>
       </div>
