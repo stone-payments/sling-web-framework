@@ -24,13 +24,13 @@ describe('validateBillet', () => {
 
   it('Should return undefined when receiving a valid string', () => {
     const barcode = {
-      billet: '99999999999-9 99999999999-9 99999999999-9 99999999999-9',
-      convenio: '85555.55555 55555.555555 55555.555555 5 55555555555555',
-      outher: '59999999999-9 99999999999-9 99999999999-9 99999999999-9'
+      billet: '89999999999-9 99999999999-9 99999999999-9 99999999999-9',
+      convenio: '35555.55555 55555.555555 55555.555555 5 55555555555555',
+      other: '89999999999-9 99999999999-9 99999999999-9 99999999999-9'
     };
 
     expect(validateBillet(barcode.billet)).to.be.undefined;
     expect(validateBillet(barcode.convenio)).to.be.undefined;
-    expect(validateBillet(barcode.outher)).to.be.undefined;
+    expect(validateBillet(barcode.other)).to.be.undefined;
   });
 });
