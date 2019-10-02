@@ -7,7 +7,7 @@
 }
 
 .loading-wrapper emd-loader {
-  font-size: var(--emd-loading-wrapper-size, 1em);
+  font-size: var(--emd-loading-wrapper-spinner-size, 1em);
 }
 
 .loading-wrapper__loader {
@@ -25,7 +25,7 @@
 }
 
 .loading-wrapper__slot {
-  transition: opacity var(--emd-loading-wrapper-speed, 0.3s);
+  transition: opacity var(--emd-loading-wrapper-transition-speed, 0.3s);
 }
 
 .loading-wrapper_loading .loading-wrapper__slot {
@@ -34,13 +34,13 @@
 
 .loading-wrapper__loader {
   opacity: 0;
-  transition: opacity var(--emd-loading-wrapper-speed, 0.3s), height 0s var(--emd-loading-wrapper-speed, 0.3s);
+  transition: opacity var(--emd-loading-wrapper-transition-speed, 0.3s), height 0s var(--emd-loading-wrapper-transition-speed, 0.3s);
 }
 
 .loading-wrapper_loading .loading-wrapper__loader {
   height: 100%;
   opacity: 1;
-  transition: opacity var(--emd-loading-wrapper-speed, 0.3s), height 0s;
+  transition: opacity var(--emd-loading-wrapper-transition-speed, 0.3s), height 0s;
 }
 
 /* for Edge compatibility */
