@@ -29,9 +29,15 @@
   padding-right: calc(0.125 * var(--default));
 }
 
+.emd-brand-icon__wrapper_banescard {
+  width: calc(1.05 * var(--default));
+  padding-bottom: 0;
+  padding-right: calc(0.125 * var(--default));
+}
+
 .emd-brand-icon__wrapper_boleto,
 .emd-brand-icon__wrapper_barcode {
-    width: calc(1.05 * var(--default));
+  width: calc(1.05 * var(--default));
   padding-bottom: 0;
   padding-right: calc(0.125 * var(--default));
 }
@@ -64,12 +70,23 @@
   padding-bottom: 0;
 }
 
+.emd-brand-icon__wrapper_up,
+.emd-brand-icon__wrapper_up-brasil {
+  width: calc(1.175 * var(--default));
+  padding-bottom: 0;
+}
+
 .emd-brand-icon__wrapper_senff {
   width: calc(1.175 * var(--default));
   padding-bottom: 0;
 }
 
 .emd-brand-icon__wrapper_sodexo {
+  width: calc(1.42 * var(--default));
+  padding-bottom: calc(0.2 * var(--default));
+}
+
+.emd-brand-icon__wrapper_sorocred {
   width: calc(1.42 * var(--default));
   padding-bottom: calc(0.2 * var(--default));
 }
@@ -87,7 +104,7 @@
 
 .emd-brand-icon__wrapper_vr,
 .emd-brand-icon__wrapper_vr-beneficios {
-    width: calc(0.86 * var(--default));
+  width: calc(0.86 * var(--default));
   padding-bottom: 0;
 }
 
