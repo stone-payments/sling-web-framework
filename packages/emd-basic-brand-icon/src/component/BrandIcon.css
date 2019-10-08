@@ -43,7 +43,8 @@
 }
 
 .emd-brand-icon__wrapper_cooper,
-.emd-brand-icon__wrapper_coopercard {
+.emd-brand-icon__wrapper_coopercard,
+.emd-brand-icon__wrapper_cooper-card {
   width: calc(0.94 * var(--default));
   padding-bottom: 0;
 }
@@ -72,7 +73,7 @@
 
 .emd-brand-icon__wrapper_up,
 .emd-brand-icon__wrapper_up-brasil {
-  width: calc(1.175 * var(--default));
+  width: calc(1.1 * var(--default));
   padding-bottom: 0;
 }
 
@@ -92,7 +93,7 @@
 }
 
 .emd-brand-icon__wrapper_ticket {
-  width: calc(1.5 * var(--default));
+  width: calc(1.6 * var(--default));
   padding-bottom: 0;
 }
 
@@ -104,7 +105,7 @@
 
 .emd-brand-icon__wrapper_vr,
 .emd-brand-icon__wrapper_vr-beneficios {
-  width: calc(0.86 * var(--default));
+  width: calc(0.825 * var(--default));
   padding-bottom: 0;
 }
 
