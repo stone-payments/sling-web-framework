@@ -89,7 +89,7 @@
 
 .emd-brand-icon__wrapper_sorocred {
   width: calc(1.42 * var(--default));
-  padding-bottom: calc(0.2 * var(--default));
+  padding-bottom: 0;
 }
 
 .emd-brand-icon__wrapper_ticket {
