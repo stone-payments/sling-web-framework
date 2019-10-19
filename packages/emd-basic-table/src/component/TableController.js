@@ -19,6 +19,7 @@ export const TableController = (Base = class {}) =>
       this.stringifyRowAppearance = this.stringifyRowAppearance.bind(this);
       this.stringifyRowCellAppearance =
         this.stringifyRowCellAppearance.bind(this);
+      this.getRowClickability = this.getRowClickability.bind(this);
     }
 
     static get properties () {
@@ -67,6 +68,10 @@ export const TableController = (Base = class {}) =>
           type: Boolean,
           reflect: true
         },
+        clickableadapter: {
+          type: Function,
+          reflect: false
+        },
         expandedbody: {
           type: Boolean,
           reflect: true
@@ -83,11 +88,11 @@ export const TableController = (Base = class {}) =>
     }
 
     set appearance (value) {
-      let pastStyle = this._appearance;
+      let pastAppearance = this._appearance;
       this._appearance = value;
       this.appearances = { default: this.appearance };
       this.useappearance = 'default';
-      this.requestUpdate('appearance', pastStyle);
+      this.requestUpdate('appearance', pastAppearance);
     }
 
     get adapter () {
@@ -121,7 +126,8 @@ export const TableController = (Base = class {}) =>
         this.constructor.expandStyle(
           appearance,
           DEFAULT_HEADER_APPEARANCE,
-          cellCount, { exclude: CELL_ONLY }
+          cellCount,
+          { exclude: CELL_ONLY }
         ),
         cellCount
       );
@@ -190,6 +196,18 @@ export const TableController = (Base = class {}) =>
         ),
         cellCount
       );
+    }
+
+    getRowClickability (row, rowIndex) {
+      if (!this.clickablerows) {
+        return false;
+      }
+
+      if (typeof this.clickableadapter === 'function') {
+        return this.clickableadapter(row, rowIndex);
+      }
+
+      return true;
     }
 
     handleRowClick (index) {
