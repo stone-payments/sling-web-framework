@@ -375,14 +375,14 @@ describe('TableController', () => {
       dummy.rows = [firstRow, secondRow];
 
       dummy.clickablerows = true;
-      dummy.clickableadapter = row => row !== firstRow;
+      dummy.clickableadapter = row => row !== secondRow;
       dummy.dispatchEventAndMethod = sinon.spy();
 
       dummy.handleRowClick(0)();
       dummy.handleRowClick(1)();
 
       expect(dummy.dispatchEventAndMethod)
-        .to.have.been.calledOnceWith('rowclick', secondRow);
+        .to.have.been.calledOnceWith('rowclick', firstRow);
     });
   });
 
