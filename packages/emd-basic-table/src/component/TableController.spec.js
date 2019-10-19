@@ -317,12 +317,12 @@ describe('TableController', () => {
   });
 
   describe('#getRowClickability()', () => {
-    it('Should always return false is clickablerows is turned off', () => {
+    it('Should always return false if clickablerows is turned off', () => {
       dummy.clickablerows = false;
       expect(dummy.getRowClickability()).to.be.false;
     });
 
-    it('Should always return true is clickablerows is turned on but ' +
+    it('Should always return true if clickablerows is turned on but ' +
       'clickableadapter is not a function', () => {
       dummy.clickablerows = true;
       dummy.clickableadapter = undefined;
