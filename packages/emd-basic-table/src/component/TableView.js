@@ -23,7 +23,7 @@ export const TableView = ({
   clickablerows,
   expandedbody,
   view,
-  getClickability
+  getRowClickability
 }) => html`
   <style>
     @import url("emd-basic-table/src/component/Table.css")
@@ -52,7 +52,7 @@ export const TableView = ({
     ${rows.length > 0 ? html`
       <tbody class="emd-table__body">
         ${rows.map((row, rowIndex) => html`
-          <tr class="emd-table__row${getClickability(row, rowIndex) ? ' emd-table__row_clickable' : ''}">
+          <tr class="emd-table__row${getRowClickability(row, rowIndex) ? ' emd-table__row_clickable' : ''}">
             ${getRowAdapter(row, rowIndex)(row, rowIndex, dispatchCustomEvent(rowIndex)).map((cell, cellIndex, cellArray) => html`
               <td
                 data-label="${titles[cellIndex] || ''}"

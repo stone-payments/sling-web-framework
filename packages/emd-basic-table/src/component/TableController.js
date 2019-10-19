@@ -19,7 +19,7 @@ export const TableController = (Base = class {}) =>
       this.stringifyRowAppearance = this.stringifyRowAppearance.bind(this);
       this.stringifyRowCellAppearance =
         this.stringifyRowCellAppearance.bind(this);
-      this.getClickability = this.getClickability.bind(this);
+      this.getRowClickability = this.getRowClickability.bind(this);
     }
 
     static get properties () {
@@ -198,7 +198,7 @@ export const TableController = (Base = class {}) =>
       );
     }
 
-    getClickability (row, rowIndex) {
+    getRowClickability (row, rowIndex) {
       if (!this.clickablerows) {
         return false;
       }
