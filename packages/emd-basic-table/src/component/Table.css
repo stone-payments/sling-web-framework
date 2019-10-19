@@ -8,10 +8,6 @@
   background-color: var(--emd-table-row-background, #fff);
 }
 
-.emd-table__wrapper_clickable .emd-table__body {
-  cursor: pointer;
-}
-
 .emd-table__cell {
   position: relative;
   font-weight: inherit;
@@ -41,7 +37,11 @@
   }
 }
 
-.emd-table__wrapper_clickable .emd-table__row:hover .emd-table__cell-overlay {
+.emd-table__row_clickable {
+  cursor: pointer;
+}
+
+.emd-table__row_clickable:hover .emd-table__cell-overlay {
   background: var(--emd-table-row-overlay, transparent);
 }
 

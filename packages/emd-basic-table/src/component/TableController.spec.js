@@ -41,6 +41,7 @@ describe('TableController', () => {
         'headeradapter',
         'headerappearance',
         'clickablerows',
+        'clickableadapter',
         'expandedbody',
         'view'
       );
@@ -312,6 +313,28 @@ describe('TableController', () => {
         .to.have.been.calledOnceWith(expandedStyleObject, 4);
 
       expect(result).to.equal(resultingStyle);
+    });
+  });
+
+  describe('#getRowClickability()', () => {
+    it('Should always return false if clickablerows is turned off', () => {
+      dummy.clickablerows = false;
+      expect(dummy.getRowClickability()).to.be.false;
+    });
+
+    it('Should always return true if clickablerows is turned on but ' +
+      'clickableadapter is not a function', () => {
+      dummy.clickablerows = true;
+      dummy.clickableadapter = undefined;
+      expect(dummy.getRowClickability()).to.be.true;
+    });
+
+    it('Should always return the result of the clickableadapter function ' +
+      'if clickablerows is true', () => {
+      dummy.clickablerows = true;
+      dummy.clickableadapter = (row, rowIndex) => rowIndex > 5;
+      expect(dummy.getRowClickability(null, 3)).to.be.false;
+      expect(dummy.getRowClickability(null, 10)).to.be.true;
     });
   });
 
