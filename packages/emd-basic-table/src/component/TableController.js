@@ -19,6 +19,7 @@ export const TableController = (Base = class {}) =>
       this.stringifyRowAppearance = this.stringifyRowAppearance.bind(this);
       this.stringifyRowCellAppearance =
         this.stringifyRowCellAppearance.bind(this);
+      this.getClickability = this.getClickability.bind(this);
     }
 
     static get properties () {
