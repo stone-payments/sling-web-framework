@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-table-v2.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-table-v2.1.0...@stone-payments/emd-basic-table-v2.1.1) (2019-10-19)
+
+
+### Bug Fixes
+
+* Restrict `rowclick` event to clickable rows ([fa74aaf](https://github.com/stone-payments/emerald-web-framework/commit/fa74aaf))
+
 # [@stone-payments/emd-basic-table-v2.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-table-v2.0.0...@stone-payments/emd-basic-table-v2.1.0) (2019-10-19)
 
 
