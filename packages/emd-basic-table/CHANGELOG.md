@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-table-v2.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-table-v2.0.0...@stone-payments/emd-basic-table-v2.1.0) (2019-10-19)
+
+
+### Features
+
+* Allow tables to have conditionally clickable rows ([c9247ce](https://github.com/stone-payments/emerald-web-framework/commit/c9247ce))
+
 # [@stone-payments/emd-basic-table-v2.0.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-table-v1.0.2...@stone-payments/emd-basic-table-v2.0.0) (2019-09-10)
 
 
