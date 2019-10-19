@@ -10,7 +10,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-basic-brand-icon": "^1.2.0",
+    "@stone-payments/emd-basic-brand-icon": "^1.3.0",
     "@stone-payments/emd-basic-button": "^1.1.3",
     "@stone-payments/emd-basic-date": "^1.0.1",
     "@stone-payments/emd-basic-money": "^2.0.0",
