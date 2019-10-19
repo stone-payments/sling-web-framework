@@ -1,3 +1,15 @@
+# [@stone-payments/emd-basic-field-v1.3.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.2.0...@stone-payments/emd-basic-field-v1.3.0) (2019-10-02)
+
+
+### Bug Fixes
+
+* Correct broken test after updating dependencies ([3ce2bb5](https://github.com/stone-payments/emerald-web-framework/commit/3ce2bb5))
+
+
+### Features
+
+* Add native field attributes: `max`, `min` and `maxlength` ([54706f0](https://github.com/stone-payments/emerald-web-framework/commit/54706f0))
+
 # [@stone-payments/emd-basic-field-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.1.0...@stone-payments/emd-basic-field-v1.2.0) (2019-09-25)
 
 

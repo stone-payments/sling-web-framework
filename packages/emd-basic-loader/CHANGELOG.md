@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-loader-v1.0.4](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loader-v1.0.3...@stone-payments/emd-basic-loader-v1.0.4) (2019-10-02)
+
+
+### Bug Fixes
+
+* Update dependencies ([4a04255](https://github.com/stone-payments/emerald-web-framework/commit/4a04255))
+
 # [@stone-payments/emd-basic-loader-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loader-v1.0.2...@stone-payments/emd-basic-loader-v1.0.3) (2019-09-05)
 
 

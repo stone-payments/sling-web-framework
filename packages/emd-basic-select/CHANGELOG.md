@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-select-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.0.3...@stone-payments/emd-basic-select-v1.1.0) (2019-10-02)
+
+
+### Features
+
+* Add native field attributes: `max`, `min` and `maxlength` ([54706f0](https://github.com/stone-payments/emerald-web-framework/commit/54706f0))
+
 # [@stone-payments/emd-basic-select-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.0.2...@stone-payments/emd-basic-select-v1.0.3) (2019-09-10)
 
 

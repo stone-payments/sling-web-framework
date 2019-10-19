@@ -1,3 +1,15 @@
+# [@stone-payments/emd-basic-brand-icon-v1.3.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.2.0...@stone-payments/emd-basic-brand-icon-v1.3.0) (2019-10-19)
+
+
+### Bug Fixes
+
+* Fix Sorocred icon sizes and adjust some others ([f0aab65](https://github.com/stone-payments/emerald-web-framework/commit/f0aab65))
+
+
+### Features
+
+* Add more brands style options ([c3dda7a](https://github.com/stone-payments/emerald-web-framework/commit/c3dda7a))
+
 # [@stone-payments/emd-basic-brand-icon-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.1.0...@stone-payments/emd-basic-brand-icon-v1.2.0) (2019-09-25)
 
 
