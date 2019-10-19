@@ -367,6 +367,23 @@ describe('TableController', () => {
 
       expect(dummy.dispatchEventAndMethod).not.to.have.been.called;
     });
+
+    it('Should not dispatch an event if a specific row ' +
+      'is not clickable', () => {
+      const firstRow = {};
+      const secondRow = {};
+      dummy.rows = [firstRow, secondRow];
+
+      dummy.clickablerows = true;
+      dummy.clickableadapter = row => row !== firstRow;
+      dummy.dispatchEventAndMethod = sinon.spy();
+
+      dummy.handleRowClick(0)();
+      dummy.handleRowClick(1)();
+
+      expect(dummy.dispatchEventAndMethod)
+        .to.have.been.calledOnceWith('rowclick', secondRow);
+    });
   });
 
   describe('#dispatchCustomEvent()', () => {
