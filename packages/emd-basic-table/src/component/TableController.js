@@ -210,17 +210,19 @@ export const TableController = (Base = class {}) =>
       return true;
     }
 
-    handleRowClick (index) {
+    handleRowClick (rowIndex) {
       return () => {
-        if (this.clickablerows) {
-          this.dispatchEventAndMethod('rowclick', this.rows[index]);
+        const row = this.rows[rowIndex];
+        if (this.getRowClickability(row, rowIndex)) {
+          this.dispatchEventAndMethod('rowclick', row);
         }
       };
     }
 
-    dispatchCustomEvent (index) {
+    dispatchCustomEvent (rowIndex) {
       return evtName => () => {
-        this.dispatchEventAndMethod(evtName, this.rows[index]);
+        const row = this.rows[rowIndex];
+        this.dispatchEventAndMethod(evtName, row);
       };
     }
 
