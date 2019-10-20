@@ -1,8 +1,19 @@
 import '../src/index.js';
 
-document.querySelector('emd-pill-select').options = [
-  'Primavera',
-  'Verão',
-  'Outono',
-  'Inverno'
-];
+document
+  .getElementById('array-options')
+  .options = [
+    'Spring',
+    'Summer',
+    'Fall',
+    'Winter'
+  ];
+
+document
+  .getElementById('object-options')
+  .options = [
+    { value: 'SPR', content: 'Spring' },
+    { value: 'SUM', content: 'Summer' },
+    { value: 'FAL', content: 'Fall' },
+    { value: 'WIN', content: 'Winter' }
+  ];

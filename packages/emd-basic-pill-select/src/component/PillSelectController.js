@@ -9,10 +9,6 @@ export const PillSelectController = (Base = class {}) =>
 
     static get properties () {
       return {
-        view: {
-          type: String,
-          reflect: true
-        },
         value: {
           type: String,
           reflect: true
@@ -20,10 +16,6 @@ export const PillSelectController = (Base = class {}) =>
         options: {
           type: Object,
           reflect: false
-        },
-        autoselectsingle: {
-          type: Boolean,
-          reflect: true
         }
       };
     }
@@ -34,15 +26,11 @@ export const PillSelectController = (Base = class {}) =>
 
     set value (value) {
       const pastValue = this.value;
-      const pastSelectedValue = this.selectedValue;
-      this._value = value;
+      this._value = this._validateValue(value);
 
-      Promise.resolve().then(() => {
-        const nextSelectedValue = this.selectedValue;
-        if (pastSelectedValue !== nextSelectedValue) {
-          this.dispatchEventAndMethod('update', nextSelectedValue);
-        }
-      });
+      if (pastValue !== this._value) {
+        this.dispatchEventAndMethod('update', this._value);
+      }
 
       this.requestUpdate('value', pastValue);
     }
@@ -57,9 +45,16 @@ export const PillSelectController = (Base = class {}) =>
     }
 
     get selectedValue () {
-      return this.parsedOptions
-        .find(item => item.value === this.value)
-        .value;
+      const selectedOption = this.parsedOptions
+        .find(item => item.value === this.value) || {};
+
+      return selectedOption.value;
+    }
+
+    _validateValue (value) {
+      return this.parsedOptions.some(item => item.value === value)
+        ? value
+        : undefined;
     }
 
     handleClick (value) {
@@ -69,7 +64,6 @@ export const PillSelectController = (Base = class {}) =>
     }
 
     render () {
-      console.log('HERE', this.currentView);
       return this.currentView.use(this);
     }
   };
