@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.pill-select .selected {
+  color: #909;
+}
+
+/* for Edge compatibility */
+
+emd-pill-select {
+  display: block;
+}
