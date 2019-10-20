@@ -16,6 +16,10 @@ export const PillSelectController = (Base = class {}) =>
         options: {
           type: Object,
           reflect: false
+        },
+        fixed: {
+          type: Boolean,
+          reflect: true
         }
       };
     }

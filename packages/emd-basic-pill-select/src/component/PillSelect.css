@@ -2,8 +2,67 @@
   display: block;
 }
 
-.pill-select .selected {
-  color: #909;
+.pill-select {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  border: 1px solid #96A0AF;
+  color: #96A0AF;
+  border-radius: var(--emd-pill-select-border-radius, 4px);
+}
+
+.pill-select button {
+  flex: 1 1 auto;
+}
+
+.pill-select.fixed button {
+  flex: 1 1 0;
+}
+
+.pill-select .separator,
+.pill-select.fixed .separator {
+  display: block;
+  background: currentColor;
+  max-width: 1px;
+  flex: 0 0 1px;
+}
+
+.pill-select button.selected {
+  color: #fff;
+  background-color: #3B4652;
+}
+
+.pill-select button {
+  display: block;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  font-size: inherit;
+  color: inherit;
+  margin: 0;
+  padding: var(--emd-pill-select-padding, 0.5em 1em);
+  cursor: pointer;
+}
+
+.pill-select button:focus {
+  outline: none;
+}
+
+.pill-select button {
+  margin: -1px 0;
+  border-width: 1px 0;
+}
+
+.pill-select button:nth-child(1) {
+  margin-left: -1px;
+  border-left-width: 1px;
+  border-radius: var(--emd-pill-select-border-radius, 4px) 0 0 var(--emd-pill-select-border-radius, 4px);
+}
+
+.pill-select button:nth-last-child(1) {
+  margin-right: -1px;
+  border-right-width: 1px;
+  border-radius: 0 var(--emd-pill-select-border-radius, 4px) var(--emd-pill-select-border-radius, 4px) 0;
 }
 
 /* for Edge compatibility */
