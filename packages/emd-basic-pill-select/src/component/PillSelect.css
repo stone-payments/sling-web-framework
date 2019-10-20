@@ -6,9 +6,10 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
-  border: 1px solid #96A0AF;
-  color: #96A0AF;
+  border: 1px solid var(--emd-pill-select-base-color ,#96A0AF);
+  color: var(--emd-pill-select-base-color ,#96A0AF);
   border-radius: var(--emd-pill-select-border-radius, 4px);
+  background-color: var(--emd-pill-select-background-color, #fff);
 }
 
 .pill-select button {
@@ -29,7 +30,7 @@
 
 .pill-select button.selected {
   color: #fff;
-  background-color: #3B4652;
+  background-color: var(--emd-pill-select-selected-color, #3B4652);
 }
 
 .pill-select button {
