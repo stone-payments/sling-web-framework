@@ -17,7 +17,8 @@
       "ignoreTemplateLiterals": true,
       "ignoreRegExpLiterals": true
     }],
-    "import/no-unresolved": "off"
+    "import/no-unresolved": "off",
+    "import/named": "off"
   },
   "globals": {
     "describe": true,
