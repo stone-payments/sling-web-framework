@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-pill-select-v1.0.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-pill-select-v1.0.0...@stone-payments/emd-basic-pill-select-v1.0.1) (2019-10-21)
+
+
+### Bug Fixes
+
+* Remove console.log ([d3e9b24](https://github.com/stone-payments/emerald-web-framework/commit/d3e9b24))
+
 # @stone-payments/emd-basic-pill-select-v1.0.0 (2019-10-21)
 
 
