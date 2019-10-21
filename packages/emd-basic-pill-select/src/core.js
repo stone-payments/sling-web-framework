@@ -12,8 +12,6 @@ const PillSelect = compose(
 
 PillSelect.views = PillSelectView;
 
-console.log(PillSelect.views);
-
 export {
   PillSelect,
   PillSelectController,
