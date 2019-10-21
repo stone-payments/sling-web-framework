@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-loading-wrapper-v1.0.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loading-wrapper-v1.0.0...@stone-payments/emd-basic-loading-wrapper-v1.0.1) (2019-10-21)
+
+
+### Bug Fixes
+
+* Fix code lint errors ([91829d9](https://github.com/stone-payments/emerald-web-framework/commit/91829d9))
+
 # @stone-payments/emd-basic-loading-wrapper-v1.0.0 (2019-10-02)
 
 
