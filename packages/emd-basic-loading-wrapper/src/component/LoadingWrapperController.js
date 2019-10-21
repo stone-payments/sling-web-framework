@@ -37,7 +37,7 @@ export const LoadingWrapperController = (Base = class {}) =>
     }
 
     set screenaware (value) {
-      let oldScreenaware = this._screenaware;
+      const oldScreenaware = this._screenaware;
 
       if (value === true) {
         this._forceCenterSpinner();
