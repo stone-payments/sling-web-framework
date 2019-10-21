@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.3.0...@stone-payments/emd-basic-field-v1.4.0) (2019-10-21)
+
+
+### Features
+
+* Add new field type `cpf-cnpj` ([15cac5f](https://github.com/stone-payments/emerald-web-framework/commit/15cac5f))
+
 # [@stone-payments/emd-basic-field-v1.3.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.2.0...@stone-payments/emd-basic-field-v1.3.0) (2019-10-02)
 
 
