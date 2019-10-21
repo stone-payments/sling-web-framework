@@ -88,7 +88,7 @@ export const TableController = (Base = class {}) =>
     }
 
     set appearance (value) {
-      let pastAppearance = this._appearance;
+      const pastAppearance = this._appearance;
       this._appearance = value;
       this.appearances = { default: this.appearance };
       this.useappearance = 'default';
@@ -100,7 +100,7 @@ export const TableController = (Base = class {}) =>
     }
 
     set adapter (value) {
-      let pastAdapter = this._adapter;
+      const pastAdapter = this._adapter;
       this._adapter = value;
       this.adapters = { default: this.adapter };
       this.useadapter = 'default';
