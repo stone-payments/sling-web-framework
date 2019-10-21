@@ -203,6 +203,12 @@ const TestLitForm = (Base = class {}) => class extends Base {
         </div>
 
         <div>
+          <emd-field-wrapper emptyhint label="Document" hint="CPF ou CNPJ">
+            <emd-field name="document" type="cpf-cnpj" required></emd-field>
+          </emd-field-wrapper>
+        </div>
+
+        <div>
           <emd-field-wrapper emptyhint label="Money">
             <emd-field name="money" type="money" required></emd-field>
           </emd-field-wrapper>

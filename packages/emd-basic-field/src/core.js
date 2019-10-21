@@ -13,6 +13,9 @@ import { maskTel } from './types/tel/maskTel.js';
 import { validateCpf } from './types/cpf/validateCpf.js';
 import { maskCpf } from './types/cpf/maskCpf.js';
 
+import { validateCpfCnpj } from './types/cpfCnpj/validateCpfCnpj.js';
+import { maskCpfCnpj } from './types/cpfCnpj/maskCpfCnpj.js';
+
 import { validateCnpj } from './types/cnpj/validateCnpj.js';
 import { maskCnpj } from './types/cnpj/maskCnpj.js';
 
@@ -28,6 +31,7 @@ const withComponentAndFields = compose(
   withFieldType('email', validateEmail, undefined),
   withFieldType('tel', validateTel, maskTel),
   withFieldType('cpf', validateCpf, maskCpf),
+  withFieldType('cpf-cnpj', validateCpfCnpj, maskCpfCnpj),
   withFieldType('cnpj', validateCnpj, maskCnpj),
   withFieldType('cep', validateCep, maskCep),
   withFieldType('money', undefined, maskMoney),
