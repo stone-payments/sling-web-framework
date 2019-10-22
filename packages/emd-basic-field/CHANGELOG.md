@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-field-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.4.0...@stone-payments/emd-basic-field-v1.5.0) (2019-10-22)
+
+
+### Features
+
+* Add two new input types: `bank-account` and `integer` ([3257d38](https://github.com/stone-payments/emerald-web-framework/commit/3257d38))
+* Add two new input types: `bank-account` and `integer` ([e21da2d](https://github.com/stone-payments/emerald-web-framework/commit/e21da2d))
+
 # [@stone-payments/emd-basic-field-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.3.0...@stone-payments/emd-basic-field-v1.4.0) (2019-10-21)
 
 
