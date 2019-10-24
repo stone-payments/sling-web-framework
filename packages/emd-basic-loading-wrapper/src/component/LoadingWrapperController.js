@@ -88,7 +88,10 @@ export const LoadingWrapperController = (Base = class {}) =>
       if (this._animation) {
         window.cancelAnimationFrame(this._animation);
       }
-      this.child.style = '';
+
+      if (this.child) {
+        this.child.style = '';
+      }
     }
 
     handleLoadingStart () {
