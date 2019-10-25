@@ -52,10 +52,11 @@
 
 .emd-field__text {
   flex-grow: 1;
-  flex-shrink: 0;
+  flex-shrink: 1;
   flex-basis: auto;
   display: flex;
   align-items: center;
+  width: 100%;
   height: calc(1.5em + var(--emd-field-padding, 1em) * 2);
   padding: 1px calc(1px + var(--emd-field-padding, 1em));
   box-sizing: content-box;
