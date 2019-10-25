@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-loading-wrapper-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loading-wrapper-v1.0.1...@stone-payments/emd-basic-loading-wrapper-v1.0.2) (2019-10-25)
+
+
+### Bug Fixes
+
+* Prevent component from breaking if its child is removed from the DOM ([42d318c](https://github.com/stone-payments/emerald-web-framework/commit/42d318c))
+
 # [@stone-payments/emd-basic-loading-wrapper-v1.0.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loading-wrapper-v1.0.0...@stone-payments/emd-basic-loading-wrapper-v1.0.1) (2019-10-21)
 
 
