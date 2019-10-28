@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-select-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.1.0...@stone-payments/emd-basic-select-v1.1.1) (2019-10-28)
+
+
+### Bug Fixes
+
+* Correct text overflow on Select ([8e7e995](https://github.com/stone-payments/emerald-web-framework/commit/8e7e995))
+
 # [@stone-payments/emd-basic-select-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.0.3...@stone-payments/emd-basic-select-v1.1.0) (2019-10-02)
 
 
