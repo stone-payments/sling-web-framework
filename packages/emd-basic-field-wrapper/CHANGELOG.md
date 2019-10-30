@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-wrapper-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.2...@stone-payments/emd-basic-field-wrapper-v1.0.3) (2019-10-30)
+
+
+### Bug Fixes
+
+* Allow Field Wrapper to listen to Fields wrapped in other tags ([f8e0bd5](https://github.com/stone-payments/emerald-web-framework/commit/f8e0bd5))
+
 # [@stone-payments/emd-basic-field-wrapper-v1.0.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.1...@stone-payments/emd-basic-field-wrapper-v1.0.2) (2019-09-05)
 
 
