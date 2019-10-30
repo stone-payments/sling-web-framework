@@ -33,8 +33,7 @@ export const FieldWrapperController = (Base = class {}) =>
     }
 
     get wrapped () {
-      return Array.from(this.children)
-        .find(element => element.matches(fieldSelector));
+      return this.querySelector(fieldSelector);
     }
 
     static getFieldId (field) {
