@@ -13,7 +13,7 @@ export const FieldView = ({
     ? validationstatus
     : show;
 
-  show = hideicon ? undefined : show;
+  show = hideicon && show !== 'validating' ? undefined : show;
 
   const showClass = 'emd-field__states' +
     (show ? ` emd-field__states_show_${show}` : '');
