@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-select-v1.1.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.1.1...@stone-payments/emd-basic-select-v1.1.2) (2019-10-31)
+
+
+### Bug Fixes
+
+* Prevent interaction by keyboard keys when component is `readonly`, except for the Tab key ([7e2e9a2](https://github.com/stone-payments/emerald-web-framework/commit/7e2e9a2))
+* Prevent validation icon from being hidden by `hideicon` ([58ae44b](https://github.com/stone-payments/emerald-web-framework/commit/58ae44b))
+
 # [@stone-payments/emd-basic-select-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.1.0...@stone-payments/emd-basic-select-v1.1.1) (2019-10-28)
 
 
