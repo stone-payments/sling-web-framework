@@ -1,12 +1,15 @@
 import { toString, setAttr } from '@stone-payments/emd-helpers';
 import { render } from '@stone-payments/lit-html';
 
+const TAB_KEY = 9;
+
 export const SelectController = (Base = class {}) => class extends Base {
   constructor () {
     super();
     this.attachShadow({ mode: 'open' });
     this.renderRoot = this.shadowRoot;
     this.renderer = render;
+    this.handleKeydown = this.handleKeydown.bind(this);
   }
 
   connectedCallback () {
@@ -128,6 +131,12 @@ export const SelectController = (Base = class {}) => class extends Base {
 
   _updateView () {
     this.renderer(this.render(), this.renderRoot);
+  }
+
+  handleKeydown (evt) {
+    if (this.readonly && evt.which !== TAB_KEY) {
+      evt.preventDefault();
+    }
   }
 
   render () {
