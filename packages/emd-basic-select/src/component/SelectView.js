@@ -9,7 +9,8 @@ export const SelectView = ({
   selection,
   validating,
   validationstatus,
-  hideicon
+  hideicon,
+  handleKeydown
 }) => {
   let show = validating ? 'validating' : undefined;
 
@@ -17,7 +18,7 @@ export const SelectView = ({
     ? validationstatus
     : show;
 
-  show = hideicon ? undefined : show;
+  show = hideicon && show !== 'validating' ? undefined : show;
 
   const showClass = 'emd-field__states emd-field__states_show_unfold' +
     (show ? ` emd-field__states_show_${show}` : '');
@@ -32,7 +33,9 @@ export const SelectView = ({
     <style>
       @import url("emd-basic-select/src/component/Select.css")
     </style>
-    <div class="emd-field__wrapper${iconsClass}">
+    <div
+      class="emd-field__wrapper${iconsClass}"
+      @keydown="${handleKeydown}">
       <select class="emd-field__select">
         <option
           value=""
