@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-v1.5.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.5.0...@stone-payments/emd-basic-field-v1.5.1) (2019-10-31)
+
+
+### Bug Fixes
+
+* Prevent validation icon from being hidden by `hideicon` ([58ae44b](https://github.com/stone-payments/emerald-web-framework/commit/58ae44b))
+
 # [@stone-payments/emd-basic-field-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-v1.4.0...@stone-payments/emd-basic-field-v1.5.0) (2019-10-22)
 
 
