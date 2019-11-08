@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-button-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.3...@stone-payments/emd-basic-button-v1.2.0) (2019-11-08)
+
+
+### Features
+
+* Ignore clicks in sequence dispatching the `click` event one once. ([c9ad139](https://github.com/stone-payments/emerald-web-framework/commit/c9ad139))
+
 # [@stone-payments/emd-basic-button-v1.1.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.2...@stone-payments/emd-basic-button-v1.1.3) (2019-09-24)
 
 
