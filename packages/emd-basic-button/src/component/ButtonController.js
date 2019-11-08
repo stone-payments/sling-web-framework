@@ -36,7 +36,7 @@ export const ButtonController = (Base = class {}) =>
     }
 
     handleClick (evt) {
-      const clickCount = evt.detail;
+      const clickCount = evt.detail || 1;
 
       if (this.disabled || this.loading ||
         (!this.multipleclicks && clickCount > 1)) {
