@@ -6,7 +6,8 @@ export const ButtonView = ({
   disabled,
   loading,
   href,
-  target = ''
+  target = '',
+  handleClick
 }) => {
   let wrapperClass = 'emd-button__wrapper';
   wrapperClass += loading ? ' emd-button__wrapper_loading' : '';
@@ -16,7 +17,9 @@ export const ButtonView = ({
     <style>
       @import url("emd-basic-button/src/component/Button.css")
     </style>
-    <div class="${wrapperClass}">
+    <div
+      class="${wrapperClass}"
+      @click="${handleClick}">
       <emd-loader
         ?loading="${loading}"
         class="emd-button__loader"></emd-loader>

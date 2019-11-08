@@ -3,7 +3,7 @@ export const ButtonController = (Base = class {}) =>
     constructor () {
       super();
       this.type = 'button';
-      this._handleClick = this._handleClick.bind(this);
+      this.handleClick = this.handleClick.bind(this);
     }
 
     static get properties () {
@@ -27,22 +27,19 @@ export const ButtonController = (Base = class {}) =>
         target: {
           type: String,
           reflect: true
+        },
+        multipleclicks: {
+          type: Boolean,
+          reflect: true
         }
       };
     }
 
-    connectedCallback () {
-      super.connectedCallback();
-      this.addEventListener('click', this._handleClick, true);
-    }
+    handleClick (evt) {
+      const clickCount = evt.detail || 1;
 
-    disconnectedCallback () {
-      super.disconnectedCallback();
-      this.removeEventListener('click', this._handleClick);
-    }
-
-    _handleClick (evt) {
-      if (this.disabled || this.loading) {
+      if (this.disabled || this.loading ||
+        (!this.multipleclicks && clickCount > 1)) {
         evt.stopPropagation();
       }
     }
