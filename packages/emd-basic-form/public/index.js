@@ -79,6 +79,10 @@ const TestLitForm = (Base = class {}) => class extends Base {
 
     const lastFieldsCount = this.formFields.length;
 
+    this.formFields.forEach(field => {
+      field.value = undefined;
+    });
+
     Object
       .entries(values)
       .forEach(([key, value]) => {
