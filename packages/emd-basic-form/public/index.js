@@ -97,7 +97,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
   }
 
   handleFieldUpdate ({ target: field }) {
-    console.log('VALUES CHANGED FROM INSIDE');
+    console.log('VALUE CHANGED FROM INSIDE');
 
     this._updateField(field);
   }
