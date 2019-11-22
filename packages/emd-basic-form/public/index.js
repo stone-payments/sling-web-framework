@@ -53,13 +53,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
       .querySelectorAll(this.constructor.fieldSelector) || []);
   }
 
-  _updateField (field) {
-    const path = field.name;
-    const maskedValue = field.value;
-    const unmaskedValue = field.mask
-      ? field.mask.unmaskedValue
-      : field.value;
-
+  _updateFormValue (path, maskedValue, unmaskedValue = maskedValue) {
     const { masked = {}, unmasked = {} } = this._formValues || {};
 
     this._formValues = {
@@ -69,14 +63,17 @@ const TestLitForm = (Base = class {}) => class extends Base {
     };
   }
 
-  get formValues () {
-    const { unmasked = {} } = this._formValues || {};
-    return unmasked;
+  _updateFormValueWithField (field) {
+    const path = field.name;
+    const maskedValue = field.value;
+    const unmaskedValue = field.mask
+      ? field.mask.unmaskedValue
+      : field.value;
+
+    this._updateFormValue(path, maskedValue, unmaskedValue);
   }
 
-  set formValues (values) {
-    console.log('VALUES CHANGED FROM OUTSIDE');
-
+  _updateFieldsWithFormValues (values) {
     const lastFieldsCount = this.formFields.length;
 
     this.formFields.forEach(field => {
@@ -95,29 +92,37 @@ const TestLitForm = (Base = class {}) => class extends Base {
     this.updateComplete.then(() => {
       if (lastFieldsCount !== this.formFields.length) {
         console.log('FIELDS CHANGED WHILE UPDATING');
-        this.formValues = values;
+        this._updateFieldsWithFormValues(values);
       }
     });
   }
 
+  get formValues () {
+    const { unmasked = {} } = this._formValues || {};
+    return unmasked;
+  }
+
+  set formValues (values) {
+    console.log('VALUES CHANGED FROM OUTSIDE');
+    this._updateFieldsWithFormValues(values);
+  }
+
   handleFieldUpdate ({ target: field }) {
     console.log('VALUE CHANGED FROM INSIDE');
-
-    this._updateField(field);
+    this._updateFormValueWithField(field);
   }
 
   handleChildrenUpdate () {
     console.log('FIELD(S) ADDED OR REMOVED');
-
     this._formValues = {};
+
     this.formFields.forEach(field => {
-      this._updateField(field);
+      this._updateFormValueWithField(field);
     });
   }
 
   render () {
     console.log('RENDER TRIGGERED');
-
     return html`
       <div @update="${this.handleFieldUpdate}">
         <label>
