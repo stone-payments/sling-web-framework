@@ -10,14 +10,14 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-basic-button": "^1.0.0",
-    "@stone-payments/emd-basic-field": "^1.0.0",
-    "@stone-payments/emd-basic-field-message": "^1.0.0",
-    "@stone-payments/emd-basic-field-wrapper": "^1.0.0",
-    "@stone-payments/emd-basic-select": "^1.0.0",
-    "@stone-payments/emd-helpers": "^1.1.2",
-    "@stone-payments/emd-hocs": "^1.1.0",
-    "@stone-payments/lit-element": "^2.2.1"
+    "@stone-payments/emd-basic-button": "^1.2.0",
+    "@stone-payments/emd-basic-field": "^1.5.1",
+    "@stone-payments/emd-basic-field-message": "^1.0.1",
+    "@stone-payments/emd-basic-field-wrapper": "^1.0.3",
+    "@stone-payments/emd-basic-select": "^1.1.2",
+    "@stone-payments/emd-helpers": "^1.5.0",
+    "@stone-payments/emd-hocs": "^1.6.0",
+    "@stone-payments/lit-element": "^2.2.2"
   },
   "peerDependencies": {
     "chai": "^4.1.2",
