@@ -1,6 +1,6 @@
 import { html, LitElement } from '@stone-payments/lit-element';
 import { withComponent } from '@stone-payments/emd-hocs';
-import { registerComponent } from '@stone-payments/emd-helpers';
+import { registerComponent, flatten, unflatten, getIn } from '@stone-payments/emd-helpers';
 import '@stone-payments/emd-basic-button';
 import '@stone-payments/emd-basic-field';
 import '@stone-payments/emd-basic-select';
@@ -37,7 +37,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
 
   static get properties () {
     return {
-      _formValues: {
+      formValues: {
         type: Object,
         reflect: false
       }
@@ -48,19 +48,28 @@ const TestLitForm = (Base = class {}) => class extends Base {
     return FIELD_TYPES.join(', ');
   }
 
+  get formValues () {
+    return {
+      masked: unflatten(getIn(this, '_formValues.masked') || {}),
+      unmasked: unflatten(getIn(this, '_formValues.unmasked') || {})
+    };
+  }
+
+  set formValues (values = {}) {
+    console.log('VALUE CHANGED FROM OUTSIDE');
+    const oldValues = this._formValues;
+
+    this._formValues = {
+      masked: flatten(values),
+      unmasked: flatten(values)
+    };
+
+    this.requestUpdate('formValues', oldValues);
+  }
+
   get formFields () {
     return Array.from(this.renderRoot
       .querySelectorAll(this.constructor.fieldSelector) || []);
-  }
-
-  _updateFormValue (path, maskedValue, unmaskedValue = maskedValue) {
-    const { masked = {}, unmasked = {} } = this._formValues || {};
-
-    this._formValues = {
-      ...this._formValues,
-      masked: { ...masked, [path]: maskedValue },
-      unmasked: { ...unmasked, [path]: unmaskedValue }
-    };
   }
 
   _updateFormValueWithField (field) {
@@ -70,41 +79,16 @@ const TestLitForm = (Base = class {}) => class extends Base {
       ? field.mask.unmaskedValue
       : field.value;
 
-    this._updateFormValue(path, maskedValue, unmaskedValue);
-  }
+    const { masked = {}, unmasked = {} } = this._formValues || {};
 
-  _updateFieldsWithFormValues (values) {
-    const lastFieldsCount = this.formFields.length;
+    const oldValues = this._formValues;
 
-    this.formFields.forEach(field => {
-      field.value = undefined;
-    });
+    this._formValues = {
+      masked: { ...masked, [path]: maskedValue },
+      unmasked: { ...unmasked, [path]: unmaskedValue }
+    };
 
-    Object
-      .entries(values)
-      .forEach(([key, value]) => {
-        const field = this.formFields.find(field => field.name === key);
-        if (field) {
-          field.value = value;
-        }
-      });
-
-    this.updateComplete.then(() => {
-      if (lastFieldsCount !== this.formFields.length) {
-        console.log('FIELDS CHANGED WHILE UPDATING');
-        this._updateFieldsWithFormValues(values);
-      }
-    });
-  }
-
-  get formValues () {
-    const { unmasked = {} } = this._formValues || {};
-    return unmasked;
-  }
-
-  set formValues (values) {
-    console.log('VALUES CHANGED FROM OUTSIDE');
-    this._updateFieldsWithFormValues(values);
+    this.requestUpdate('formValues', oldValues);
   }
 
   handleFieldUpdate ({ target: field }) {
@@ -123,20 +107,24 @@ const TestLitForm = (Base = class {}) => class extends Base {
 
   render () {
     console.log('RENDER TRIGGERED');
+    const { masked = {} } = this.formValues || {};
+
     return html`
       <div @update="${this.handleFieldUpdate}">
         <label>
           <p>Primeiro nome</p>
           <emd-field
             name="firstName"
+            .value="${masked.firstName}"
           ></emd-field>
         </label>
 
-        ${this.formValues.firstName === 'Leonardo' ? html`
+        ${masked.firstName === 'Leonardo' ? html`
           <label>
             <p>Secret</p>
             <emd-field
               name="secret"
+              .value="${masked.secret}"
             ></emd-field>
           </label>
         ` : ''}
@@ -145,6 +133,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
           <p>Último nome</p>
           <emd-field
             name="lastName"
+            .value="${masked.lastName}"
           ></emd-field>
         </label>
 
@@ -153,6 +142,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
           <emd-field
             type="cpf-cnpj"
             name="document"
+            .value="${masked.document}"
           ></emd-field>
         </label>
 
@@ -161,6 +151,7 @@ const TestLitForm = (Base = class {}) => class extends Base {
           <emd-field
             type="tel"
             name="phone"
+            .value="${masked.phone}"
           ></emd-field>
         </label>
 
@@ -169,8 +160,19 @@ const TestLitForm = (Base = class {}) => class extends Base {
           <emd-field
             type="money"
             name="money"
+            .value="${masked.money}"
           ></emd-field>
         </label>
+
+        ${(masked.games || []).map((game, index) => html`
+          <label>
+            <p>Jogo ${index + 1}</p>
+            <emd-field
+              name="games[${index}]"
+              .value="${game}"
+            ></emd-field>
+          </label>
+        `)}
       </div>
     `;
   }
