@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@stone-payments/emd-helpers": "^1.6.0",
-    "@stone-payments/emd-hocs": "^1.7.0",
+    "@stone-payments/emd-hocs": "2.0.0-rc.0",
     "@stone-payments/lit-element": "^2.2.2"
   },
   "peerDependencies": {

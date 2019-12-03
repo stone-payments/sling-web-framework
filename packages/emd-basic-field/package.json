@@ -13,7 +13,7 @@
     "@stone-payments/emd-basic-icon": "^1.4.0",
     "@stone-payments/emd-basic-loader": "^1.0.4",
     "@stone-payments/emd-helpers": "^1.6.0",
-    "@stone-payments/emd-hocs": "^1.7.0",
+    "@stone-payments/emd-hocs": "2.0.0-rc.0",
     "@stone-payments/lit-html": "^1.1.1",
     "imask": "^5.2.1",
     "validator": "^10.11.0"
