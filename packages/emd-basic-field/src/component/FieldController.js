@@ -61,10 +61,10 @@ export const FieldController = (Base = class {}) => class extends Base {
     if (isFunction(this.validation)) {
       if (this._previousValidation && this._previousValidation.cancel) {
         this._previousValidation.cancel();
-      } else {
-        this.dispatchEventAndMethod(VALIDATION_START);
+        this.dispatchEventAndMethod(VALIDATION_END);
       }
 
+      this.dispatchEventAndMethod(VALIDATION_START);
       const validationResult = this.validation(value);
 
       if (isPromise(validationResult)) {
