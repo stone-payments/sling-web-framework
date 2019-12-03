@@ -127,8 +127,54 @@ describe('FieldController', () => {
   });
 
   describe('#_handleFieldValidation()', () => {
-    it('Should', () => {
+    it('Should execute a synchronous validation', () => {
+      element.validation = value => value >= 50 ? 'Too much' : undefined;
+      element._handleFieldValidation(60);
 
+      expect(element.dispatchEventAndMethod).to.have.been.calledThrice;
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledWith('validationstart');
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledWith('validation', 'Too much');
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledWith('validationend');
+    });
+
+    it('Should execute an asynchronous validation', (done) => {
+      element.validation = value => new Promise(resolve => {
+        setTimeout(() => {
+          resolve(value >= 50 ? 'Too much' : undefined);
+        }, 20);
+      });
+
+      element._handleFieldValidation(60);
+
+      expect(element.dispatchEventAndMethod).to.have.been.calledOnce;
+
+      setTimeout(() => {
+        expect(element.dispatchEventAndMethod).to.have.been.calledThrice;
+        expect(element.dispatchEventAndMethod)
+          .to.have.been.calledWith('validationstart');
+        expect(element.dispatchEventAndMethod)
+          .to.have.been.calledWith('validation', 'Too much');
+        expect(element.dispatchEventAndMethod)
+          .to.have.been.calledWith('validationend');
+        done();
+      }, 40);
+    });
+
+    it('Should cancle a cancelable validation', () => {
+      const cancelablePromise = new Promise(resolve => {
+        setTimeout(() => { resolve('Too much'); }, 20);
+      });
+
+      cancelablePromise.cancel = sinon.spy();
+
+      element.validation = () => cancelablePromise;
+      element._handleFieldValidation();
+      element._handleFieldValidation();
+
+      expect(cancelablePromise.cancel).to.have.been.calledOnce;
     });
   });
 });
