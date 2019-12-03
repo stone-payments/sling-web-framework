@@ -1,9 +1,5 @@
-import { toString, isFunction, isPromise } from '@stone-payments/emd-helpers';
+import { toString } from '@stone-payments/emd-helpers';
 import { render } from '@stone-payments/lit-html';
-
-const VALIDATION_START = 'validationstart';
-const VALIDATION = 'validation';
-const VALIDATION_END = 'validationend';
 
 export const FieldController = (Base = class {}) => class extends Base {
   constructor () {
@@ -55,33 +51,6 @@ export const FieldController = (Base = class {}) => class extends Base {
 
   _handleFieldChange (evt) {
     evt.stopPropagation();
-  }
-
-  _handleFieldValidation (value) {
-    if (isFunction(this.validation)) {
-      if (this._previousValidation && this._previousValidation.cancel) {
-        this._previousValidation.cancel();
-        this.dispatchEventAndMethod(VALIDATION_END);
-      }
-
-      this.dispatchEventAndMethod(VALIDATION_START);
-      const validationResult = this.validation(value);
-
-      if (isPromise(validationResult)) {
-        this._previousValidation = validationResult;
-
-        validationResult.then(result => {
-          this._previousValidation = undefined;
-          this.dispatchEventAndMethod(VALIDATION, result);
-          this.dispatchEventAndMethod(VALIDATION_END);
-        });
-
-        return undefined;
-      }
-
-      this.dispatchEventAndMethod(VALIDATION, validationResult);
-      this.dispatchEventAndMethod(VALIDATION_END);
-    }
   }
 
   _updateView () {

@@ -34,6 +34,7 @@ export const PillSelectController = (Base = class {}) =>
 
       if (pastValue !== this._value) {
         this.dispatchEventAndMethod('update', this._value);
+        this._handleFieldValidation(this._value);
       }
 
       this.requestUpdate('value', pastValue);
