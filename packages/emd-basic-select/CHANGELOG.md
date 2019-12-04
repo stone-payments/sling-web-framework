@@ -1,3 +1,15 @@
+# [@stone-payments/emd-basic-select-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.1.2...@stone-payments/emd-basic-select-v1.2.0) (2019-12-04)
+
+
+### Bug Fixes
+
+* Also dispatch validation events on blur ([9d0bc63](https://github.com/stone-payments/emerald-web-framework/commit/9d0bc63))
+
+
+### Features
+
+* Handle field validation and dispatch events ([a708134](https://github.com/stone-payments/emerald-web-framework/commit/a708134))
+
 # [@stone-payments/emd-basic-select-v1.1.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.1.1...@stone-payments/emd-basic-select-v1.1.2) (2019-10-31)
 
 
