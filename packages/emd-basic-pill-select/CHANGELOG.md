@@ -1,3 +1,15 @@
+# [@stone-payments/emd-basic-pill-select-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-pill-select-v1.0.1...@stone-payments/emd-basic-pill-select-v1.1.0) (2019-12-04)
+
+
+### Bug Fixes
+
+* Also dispatch validation events on blur ([9d0bc63](https://github.com/stone-payments/emerald-web-framework/commit/9d0bc63))
+
+
+### Features
+
+* Handle field validation and dispatch events ([a708134](https://github.com/stone-payments/emerald-web-framework/commit/a708134))
+
 # [@stone-payments/emd-basic-pill-select-v1.0.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-pill-select-v1.0.0...@stone-payments/emd-basic-pill-select-v1.0.1) (2019-10-21)
 
 
