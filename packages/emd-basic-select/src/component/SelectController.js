@@ -135,14 +135,14 @@ export const SelectController = (Base = class {}) => class extends Base {
     this._handleFieldValidation(this.field.value);
   }
 
-  _updateView () {
-    this.renderer(this.render(), this.renderRoot);
-  }
-
   handleKeydown (evt) {
     if (this.readonly && evt.which !== TAB_KEY) {
       evt.preventDefault();
     }
+  }
+
+  _updateView () {
+    this.renderer(this.render(), this.renderRoot);
   }
 
   render () {

@@ -280,4 +280,85 @@ describe('SelectController', () => {
       expect(element.selection).to.equal('Spring');
     });
   });
+
+  describe('#_handleFieldInput()', () => {
+    it('Should prevent event propagation', () => {
+      const spy = sinon.spy();
+      element._handleFieldInput({ stopPropagation: spy });
+      expect(spy).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#_handleFieldChange()', () => {
+    beforeEach(() => {
+      Object.defineProperty(element, 'field', {
+        get () { return this._field; },
+        set (value) { this._field = value; }
+      });
+
+      element._updateView = sinon.spy();
+    });
+
+    it('Should dispatch an event when value is changed in the UI', () => {
+      element.field = { value: 'moon' };
+      element._handleFieldChange({ stopPropagation: () => {} });
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledOnceWith('update', 'moon');
+    });
+
+    it('Should validate the new value when changed in the UI', () => {
+      element._handleFieldValidation = sinon.spy();
+      element.field = { value: 'moon' };
+      element._handleFieldChange({ stopPropagation: () => {} });
+      expect(element._handleFieldValidation)
+        .to.have.been.calledOnceWith('moon');
+    });
+
+    it('Should prevent event propagation', () => {
+      element._handleFieldValidation = sinon.spy();
+      const spy = sinon.spy();
+      element.field = { value: 'moon' };
+      element._handleFieldChange({ stopPropagation: spy });
+      expect(spy).to.have.been.calledOnce;
+    });
+
+    it('Should update the view', () => {
+      element.field = { value: 'moon' };
+      element._handleFieldChange({ stopPropagation: () => {} });
+      expect(element._updateView).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#_handleFieldBlur()', () => {
+    beforeEach(() => {
+      Object.defineProperty(element, 'field', {
+        get () { return this._field; },
+        set (value) { this._field = value; }
+      });
+    });
+
+    it('Should validate the new value when changed in the UI', () => {
+      element._handleFieldValidation = sinon.spy();
+      element.field = { value: 'moon' };
+      element._handleFieldBlur();
+      expect(element._handleFieldValidation)
+        .to.have.been.calledOnceWith('moon');
+    });
+  });
+
+  describe('#handleKeydown()', () => {
+    it('Should prevent keyboard intereaction if element is readonly', () => {
+      const spy = sinon.spy();
+      element.readonly = true;
+      element.handleKeydown({ preventDefault: spy, which: 10 });
+      expect(spy).to.have.been.calledOnce;
+    });
+
+    it('Should not prevent Tab intereaction if element is readonly', () => {
+      const spy = sinon.spy();
+      element.readonly = true;
+      element.handleKeydown({ preventDefault: spy, which: 9 });
+      expect(spy).not.to.have.been.called;
+    });
+  });
 });
