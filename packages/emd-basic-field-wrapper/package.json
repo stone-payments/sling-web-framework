@@ -13,7 +13,7 @@
     "@stone-payments/emd-basic-field": "^1.5.1",
     "@stone-payments/emd-basic-select": "^1.1.2",
     "@stone-payments/emd-helpers": "^1.6.0",
-    "@stone-payments/emd-hocs": "2.0.0-rc.1",
+    "@stone-payments/emd-hocs": "^2.0.0",
     "@stone-payments/lit-element": "^2.2.2"
   },
   "peerDependencies": {
