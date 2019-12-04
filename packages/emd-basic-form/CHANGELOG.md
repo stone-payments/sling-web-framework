@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-form-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-form-v1.1.0...@stone-payments/emd-basic-form-v1.1.1) (2019-12-04)
+
+
+### Bug Fixes
+
+* Add Pill Select to form example ([506cf7b](https://github.com/stone-payments/emerald-web-framework/commit/506cf7b))
+
 # [@stone-payments/emd-basic-form-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-form-v1.0.2...@stone-payments/emd-basic-form-v1.1.0) (2019-10-21)
 
 
