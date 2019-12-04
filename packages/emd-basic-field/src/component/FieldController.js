@@ -39,18 +39,24 @@ export const FieldController = (Base = class {}) => class extends Base {
     }
   }
 
-  _handleFieldInput (evt) {
-    const value = !this.mask
+  get unmaskedValue () {
+    return !this.mask
       ? this.field.value
       : this.mask.unmaskedValue;
+  }
 
-    this.dispatchEventAndMethod('update', value);
-    this._handleFieldValidation(value);
+  _handleFieldInput (evt) {
+    this.dispatchEventAndMethod('update', this.unmaskedValue);
+    this._handleFieldValidation(this.unmaskedValue);
     evt.stopPropagation();
   }
 
   _handleFieldChange (evt) {
     evt.stopPropagation();
+  }
+
+  _handleFieldBlur () {
+    this._handleFieldValidation(this.unmaskedValue);
   }
 
   _updateView () {

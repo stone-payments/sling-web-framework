@@ -131,6 +131,10 @@ export const SelectController = (Base = class {}) => class extends Base {
     evt.stopPropagation();
   }
 
+  _handleFieldBlur () {
+    this._handleFieldValidation(this.field.value);
+  }
+
   _updateView () {
     this.renderer(this.render(), this.renderRoot);
   }
