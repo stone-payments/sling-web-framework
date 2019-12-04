@@ -5,6 +5,7 @@ import '@stone-payments/emd-basic-field';
 import '@stone-payments/emd-basic-field-wrapper';
 import '@stone-payments/emd-basic-field-message';
 import '@stone-payments/emd-basic-select';
+import '@stone-payments/emd-basic-pill-select';
 import '../src/index.js';
 
 const validateUsernameAvailability = (value) => {
@@ -54,6 +55,8 @@ const citiesByState = {
   RJ: ['Angra dos Reis', 'Búzios', 'Rio de Janeiro'],
   SP: ['Campinas', 'Guarulhos', 'São Paulo']
 };
+
+const seasonOptions = ['Spring', 'Summer', 'Autumn', 'Winter'];
 
 const TestLitForm = (Base = class {}) => class extends Base {
   constructor () {
@@ -271,6 +274,13 @@ const TestLitForm = (Base = class {}) => class extends Base {
         <div>
           <emd-field-wrapper emptyhint label="Landline">
             <emd-field name="phones.land" type="tel"></emd-field>
+          </emd-field-wrappe>
+        </div>
+
+        <div>
+          <emd-field-wrapper emptyhint label="Season">
+            <emd-pill-select name="season" .options="${seasonOptions}">
+            </emd-emd-pill-select>
           </emd-field-wrappe>
         </div>
 

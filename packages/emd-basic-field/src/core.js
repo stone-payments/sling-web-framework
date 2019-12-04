@@ -1,5 +1,5 @@
 import { compose } from '@stone-payments/emd-helpers';
-import { withComponent, withField } from '@stone-payments/emd-hocs';
+import { withComponent, withField, withFieldValidation } from '@stone-payments/emd-hocs';
 import { withFieldType } from './hocs/withFieldType.js';
 
 import { FieldController } from './component/FieldController.js';
@@ -42,6 +42,7 @@ const withComponentAndFields = compose(
   withFieldType('billet', validateBillet, maskBillet),
   withFieldType('bank-account', undefined, maskBankAccount),
   withFieldType('integer', undefined, maskInteger),
+  withFieldValidation,
   withField,
   withComponent
 );

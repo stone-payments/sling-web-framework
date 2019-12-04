@@ -5,6 +5,7 @@ export const PillSelectController = (Base = class {}) =>
     constructor () {
       super();
       this.handleClick = this.handleClick.bind(this);
+      this.handleBlur = this.handleBlur.bind(this);
     }
 
     static get properties () {
@@ -24,6 +25,16 @@ export const PillSelectController = (Base = class {}) =>
       };
     }
 
+    connectedCallback () {
+      super.connectedCallback && super.connectedCallback();
+      this.addEventListener('blur', this.handleBlur);
+    }
+
+    disconnectedCallback () {
+      super.disconnectedCallback && super.disconnectedCallback();
+      this.removeEventListener('blur', this.handleBlur);
+    }
+
     get value () {
       return this._value;
     }
@@ -34,6 +45,7 @@ export const PillSelectController = (Base = class {}) =>
 
       if (pastValue !== this._value) {
         this.dispatchEventAndMethod('update', this._value);
+        this._handleFieldValidation(this._value);
       }
 
       this.requestUpdate('value', pastValue);
@@ -65,6 +77,10 @@ export const PillSelectController = (Base = class {}) =>
       return () => {
         this.value = value;
       };
+    }
+
+    handleBlur () {
+      this._handleFieldValidation(this.value);
     }
 
     render () {

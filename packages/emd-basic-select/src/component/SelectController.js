@@ -105,6 +105,7 @@ export const SelectController = (Base = class {}) => class extends Base {
     } else if (pastValue !== nextValue) {
       this.field.value = nextValue;
       this.dispatchEventAndMethod('update', nextValue);
+      this._handleFieldValidation(nextValue);
       this._updateView();
     }
   }
@@ -125,18 +126,23 @@ export const SelectController = (Base = class {}) => class extends Base {
 
   _handleFieldChange (evt) {
     this.dispatchEventAndMethod('update', this.field.value);
+    this._handleFieldValidation(this.field.value);
     this._updateView();
     evt.stopPropagation();
   }
 
-  _updateView () {
-    this.renderer(this.render(), this.renderRoot);
+  _handleFieldBlur () {
+    this._handleFieldValidation(this.field.value);
   }
 
   handleKeydown (evt) {
     if (this.readonly && evt.which !== TAB_KEY) {
       evt.preventDefault();
     }
+  }
+
+  _updateView () {
+    this.renderer(this.render(), this.renderRoot);
   }
 
   render () {
