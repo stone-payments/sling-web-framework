@@ -10,16 +10,17 @@ let FieldController;
 let Controller;
 let element;
 
-const FakeHTML = class {};
-FakeHTML.prototype.attachShadow = sinon.spy();
-FakeHTML.prototype.querySelector = sinon.spy();
-FakeHTML.prototype.shadowRoot = new FakeHTML();
+const HTMLElement = class {};
+HTMLElement.prototype.connectedCallback = sinon.spy();
+HTMLElement.prototype.attachShadow = sinon.spy();
+HTMLElement.prototype.querySelector = sinon.spy();
+HTMLElement.prototype.shadowRoot = new HTMLElement();
 
 describe('FieldController', () => {
   beforeEach(async () => {
     global.window = {};
     ({ FieldController } = await import('./FieldController.js'));
-    Controller = FieldController(FakeHTML);
+    Controller = FieldController(HTMLElement);
 
     element = new Controller();
     element.dispatchEventAndMethod = sinon.spy();
@@ -29,11 +30,6 @@ describe('FieldController', () => {
       get () { return this.__processedFieldValue; },
       set (value) { this.__processedFieldValue = value; }
     });
-
-    Object.defineProperty(element, 'field', {
-      get () { return this._field; },
-      set (value) { this._field = value; }
-    });
   });
 
   afterEach(() => {
@@ -42,7 +38,38 @@ describe('FieldController', () => {
     element = undefined;
   });
 
+  describe('#connectedCallback()', () => {
+    it('Should upgrade properties before calling super', () => {
+      element._upgradeProperty = sinon.spy();
+      element.connectedCallback();
+
+      expect(element._upgradeProperty).to.have.been.calledOnceWith('value');
+      expect(HTMLElement.prototype.connectedCallback).to.have.been.calledOnce;
+      expect(HTMLElement.prototype.connectedCallback)
+        .to.have.been.calledAfter(element._upgradeProperty);
+    });
+  });
+
+  describe('#field', () => {
+    it('Should get the input DOM element', () => {
+      const FAKE_DOM_INPUT = {};
+
+      element.renderRoot = {
+        querySelector: sinon.stub().withArgs('input').returns(FAKE_DOM_INPUT)
+      };
+
+      expect(element.field).to.equal(FAKE_DOM_INPUT);
+    });
+  });
+
   describe('#value', () => {
+    beforeEach(() => {
+      Object.defineProperty(element, 'field', {
+        get () { return this._field; },
+        set (value) { this._field = value; }
+      });
+    });
+
     it('Should get the processed value', () => {
       element._processedFieldValue = 'laser';
       expect(element.value).to.equal('laser');
@@ -87,7 +114,34 @@ describe('FieldController', () => {
     });
   });
 
+  describe('#unmaskedValue', () => {
+    beforeEach(() => {
+      Object.defineProperty(element, 'field', {
+        get () { return this._field; },
+        set (value) { this._field = value; }
+      });
+    });
+
+    it('Should get the value from the mask, if available', () => {
+      element.field = { value: 'sun' };
+      expect(element.unmaskedValue).to.equal('sun');
+    });
+
+    it('Should get the value from the field otherwise', () => {
+      element.field = { value: 'sun' };
+      element.mask = { unmaskedValue: 'earth' };
+      expect(element.unmaskedValue).to.equal('earth');
+    });
+  });
+
   describe('#_handleFieldInput()', () => {
+    beforeEach(() => {
+      Object.defineProperty(element, 'field', {
+        get () { return this._field; },
+        set (value) { this._field = value; }
+      });
+    });
+
     it('Should use the mask value if available', () => {
       element.mask = { unmaskedValue: 'moon' };
       element._handleFieldInput({ stopPropagation: () => {} });
@@ -124,6 +178,23 @@ describe('FieldController', () => {
       const spy = sinon.spy();
       element._handleFieldChange({ stopPropagation: spy });
       expect(spy).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#_handleFieldBlur()', () => {
+    beforeEach(() => {
+      Object.defineProperty(element, 'field', {
+        get () { return this._field; },
+        set (value) { this._field = value; }
+      });
+    });
+
+    it('Should validate the new value when changed in the UI', () => {
+      element._handleFieldValidation = sinon.spy();
+      element.field = { value: 'moon' };
+      element._handleFieldBlur();
+      expect(element._handleFieldValidation)
+        .to.have.been.calledOnceWith('moon');
     });
   });
 });
