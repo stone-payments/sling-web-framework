@@ -10,7 +10,7 @@ describe('validateBillet', () => {
     expect(validateBillet('')).to.be.undefined;
   });
 
-  it('Should return message when receiving invalid value', () => {
+  it('Should return error when receiving invalid value', () => {
     const barcode = {
       caseOne: 'XXX9999999-X 99999999999-9 99999999999-C 99999999999-A',
       caseTwo: 'ABC45678d12398-391203821397083921372173-832932',
@@ -32,5 +32,15 @@ describe('validateBillet', () => {
     expect(validateBillet(barcode.billet)).to.be.undefined;
     expect(validateBillet(barcode.convenio)).to.be.undefined;
     expect(validateBillet(barcode.other)).to.be.undefined;
+  });
+
+  it('Should use a custom validation error if available', () => {
+    expect(validateBillet('bogus', { defaulterror: 'Invalid billet' }))
+      .to.equal('Invalid billet');
+  });
+
+  it('Should use the default validation error', () => {
+    expect(validateBillet('bogus'))
+      .to.equal('Deve ser um código de barras válido');
   });
 });
