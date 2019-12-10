@@ -29,7 +29,8 @@
   border-color: rgba(45, 56, 68, 0.1);
 }
 
-:host([hidden]) {
+:host([hidden]),
+:host([type="hidden"]) {
   display: none;
 }
 
@@ -237,7 +238,8 @@ emd-select[disabled] {
   border-color: rgba(45, 56, 68, 0.1);
 }
 
-emd-select[hidden] {
+emd-select[hidden],
+emd-select[type="hidden"] {
   display: none;
 }
 
