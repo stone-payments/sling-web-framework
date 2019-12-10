@@ -28,6 +28,7 @@
   border-color: rgba(45, 56, 68, 0.1);
 }
 
+:host([hidden]),
 :host([type="hidden"]) {
   display: none;
 }
@@ -199,6 +200,7 @@ emd-field[disabled] {
   border-color: rgba(45, 56, 68, 0.1);
 }
 
+emd-field[hidden],
 emd-field[type="hidden"] {
   display: none;
 }
