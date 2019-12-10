@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-wrapper-v1.0.4](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.3...@stone-payments/emd-basic-field-wrapper-v1.0.4) (2019-12-10)
+
+
+### Bug Fixes
+
+* Update validation events ([c2f7c96](https://github.com/stone-payments/emerald-web-framework/commit/c2f7c96))
+
 # [@stone-payments/emd-basic-field-wrapper-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.2...@stone-payments/emd-basic-field-wrapper-v1.0.3) (2019-10-30)
 
 
