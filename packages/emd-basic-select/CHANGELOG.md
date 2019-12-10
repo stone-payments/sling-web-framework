@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-select-v1.2.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.2.0...@stone-payments/emd-basic-select-v1.2.1) (2019-12-10)
+
+
+### Bug Fixes
+
+* Update validation events ([c2f7c96](https://github.com/stone-payments/emerald-web-framework/commit/c2f7c96))
+
 # [@stone-payments/emd-basic-select-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.1.2...@stone-payments/emd-basic-select-v1.2.0) (2019-12-04)
 
 
