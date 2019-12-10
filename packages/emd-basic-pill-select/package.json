@@ -9,8 +9,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-helpers": "^1.6.0",
-    "@stone-payments/emd-hocs": "^2.0.0",
+    "@stone-payments/emd-helpers": "^1.7.0",
+    "@stone-payments/emd-hocs": "^2.1.1",
     "@stone-payments/lit-element": "^2.2.2"
   },
   "peerDependencies": {
