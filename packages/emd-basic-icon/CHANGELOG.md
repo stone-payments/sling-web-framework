@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-icon-v1.4.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.4.0...@stone-payments/emd-basic-icon-v1.4.1) (2019-12-13)
+
+
+### Bug Fixes
+
+* Fix and rename `delete` to `remove-circle` and fix `add-circle` ([1a51b96](https://github.com/stone-payments/emerald-web-framework/commit/1a51b96))
+
 # [@stone-payments/emd-basic-icon-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.3.0...@stone-payments/emd-basic-icon-v1.4.0) (2019-10-04)
 
 
