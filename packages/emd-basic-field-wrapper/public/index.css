@@ -35,12 +35,3 @@ h4, p {
 button {
   vertical-align: middle;
 }
-
-emd-field-wrapper {
-  font-size: 12px;
-}
-
-emd-field,
-emd-select {
-  font-size: 14px;
-}
