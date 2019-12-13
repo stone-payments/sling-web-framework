@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-wrapper-v1.0.5](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.4...@stone-payments/emd-basic-field-wrapper-v1.0.5) (2019-12-13)
+
+
+### Bug Fixes
+
+* Correct margin of error messages with two or more lines ([87a42f3](https://github.com/stone-payments/emerald-web-framework/commit/87a42f3))
+
 # [@stone-payments/emd-basic-field-wrapper-v1.0.4](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.3...@stone-payments/emd-basic-field-wrapper-v1.0.4) (2019-12-10)
 
 
