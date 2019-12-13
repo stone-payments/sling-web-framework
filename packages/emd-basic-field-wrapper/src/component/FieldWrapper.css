@@ -9,6 +9,7 @@
 .emd-field-wrapper__label,
 .emd-field-wrapper__message,
 .emd-field-wrapper__hint {
+  min-height: 1.3125em;
   display: flex;
   flex-flow: row nowrap;
   flex-grow: 1;
