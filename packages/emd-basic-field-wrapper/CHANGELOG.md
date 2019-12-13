@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-wrapper-v1.0.6](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.5...@stone-payments/emd-basic-field-wrapper-v1.0.6) (2019-12-13)
+
+
+### Bug Fixes
+
+* Fix `emptyhint` min-height ([95fa133](https://github.com/stone-payments/emerald-web-framework/commit/95fa133))
+
 # [@stone-payments/emd-basic-field-wrapper-v1.0.5](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.4...@stone-payments/emd-basic-field-wrapper-v1.0.5) (2019-12-13)
 
 
