@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-select-v1.2.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.2.1...@stone-payments/emd-basic-select-v1.2.2) (2019-12-20)
+
+
+### Bug Fixes
+
+* Correct `type=hidden` visibility ([125d955](https://github.com/stone-payments/emerald-web-framework/commit/125d955))
+
 # [@stone-payments/emd-basic-select-v1.2.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-select-v1.2.0...@stone-payments/emd-basic-select-v1.2.1) (2019-12-10)
 
 
