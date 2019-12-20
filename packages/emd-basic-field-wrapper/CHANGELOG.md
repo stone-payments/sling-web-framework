@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-wrapper-v1.0.7](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.6...@stone-payments/emd-basic-field-wrapper-v1.0.7) (2019-12-20)
+
+
+### Bug Fixes
+
+* Avoid altering spacing when showing or hiding the error ([9daf936](https://github.com/stone-payments/emerald-web-framework/commit/9daf936))
+
 # [@stone-payments/emd-basic-field-wrapper-v1.0.6](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.5...@stone-payments/emd-basic-field-wrapper-v1.0.6) (2019-12-13)
 
 
