@@ -190,7 +190,7 @@ storiesOf('Button', module)
     },
     template: `
       <div
-        style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 2fr; align-items: center;"
+        style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
         :style="{ fontSize: fontSize + 'px' }"
       >
         <emd-button
