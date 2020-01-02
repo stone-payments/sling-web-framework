@@ -19,16 +19,16 @@ Emerald Card UI component.
 
 ## Attributes and Properties
 
-#### `noscroll`
+#### `expandedbody`
 
-Prevents the component from scrolling the content, which happens by default. When `noscroll` is used, the content itself becomes responsible for scrolling.
+Controls whether the content has a margin of 20px.
 
 - Type: Boolean
 - Attribute and property
 
-#### `expandedbody`
+#### `noscroll`
 
-Controls whether the content expands horizontally until the borders of the card.
+Prevents the component from scrolling the content, which happens by default. When `noscroll` is used, the content itself becomes responsible for scrolling.
 
 - Type: Boolean
 - Attribute and property
