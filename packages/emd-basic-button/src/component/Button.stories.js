@@ -22,11 +22,11 @@ storiesOf('Button', module)
       logEvent
     },
     props: {
-      text: {
-        default: text('Content', 'Click me')
-      },
       fontSize: {
         default: number('Font size', 16, fontOptions)
+      },
+      text: {
+        default: text('Content', 'Click me')
       },
       type: {
         default: select('Type', ['button', 'submit', 'reset'], 'button')
@@ -58,14 +58,14 @@ storiesOf('Button', module)
       logEvent
     },
     props: {
-      text: {
-        default: text('Content', 'Click me')
-      },
       fontSize: {
         default: number('Font size', 16, fontOptions)
       },
+      text: {
+        default: text('Content', 'Click me')
+      },
       padding: {
-        default: text('Padding (--emd-button-padding)', '1em 4em')
+        default: text('Padding', '1em 4em')
       },
       borderRadius: {
         default: text('Border radius', '1em')
