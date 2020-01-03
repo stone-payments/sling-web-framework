@@ -26,11 +26,11 @@ storiesOf('Login', module)
       logEvent
     },
     props: {
-      text: {
-        default: text('Title', 'Acesse Sua Conta')
-      },
       fontSize: {
         default: number('Font size', 16, fontOptions)
+      },
+      text: {
+        default: text('Title', 'Acesse Sua Conta')
       }
     },
     template: `
@@ -53,11 +53,11 @@ storiesOf('Login', module)
       logEvent
     },
     props: {
-      text: {
-        default: text('Title', 'Acesse Sua Conta')
-      },
       fontSize: {
         default: number('Font size', 16, fontOptions)
+      },
+      text: {
+        default: text('Title', 'Acesse Sua Conta')
       }
     },
     template: `
