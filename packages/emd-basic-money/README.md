@@ -1,4 +1,4 @@
-# Button
+# Money
 
 Emerald Money UI component.
 
@@ -16,7 +16,7 @@ Emerald Money UI component.
 
 #### `value`
 
-Defines the numeric value to be displayed.
+Defines the numeric value to be displayed. The component uses `Intl.NumberFormat` API to round values.
 
 - Type: Number
 - Attribute and property
