@@ -11,9 +11,57 @@ const fontOptions = {
   step: 1
 };
 
+const borderRadiusOptions = {
+  range: true,
+  min: 0,
+  max: 24,
+  step: 2
+};
+
 const logEvent = ({ type, detail }) => {
   action(type)(detail);
 };
+
+function getCodeSample () {
+  let attrs = '';
+  attrs += this.loading ? ' loading' : '';
+  attrs += this.disabled ? ' disabled' : '';
+  attrs += this.type ? ` type="${this.type}"` : '';
+  attrs += this.href ? ` href="${this.href}"` : '';
+  attrs += this.target ? ` target="${this.target}"` : '';
+
+  const hasCustomStyle = this.borderRadius ||
+    this.padding ||
+    this.color ||
+    this.backgroundColor ||
+    this.borderColor ||
+    this.disabledColor ||
+    this.disabledBackgroundColor ||
+    this.disabledBorderColor;
+
+  const styles = hasCustomStyle ? `<style>
+  emd-button {
+    font-size: ${this.fontSize}px;
+    border-radius: ${this.borderRadius}px;
+    --emd-button-padding: ${this.padding};
+    color: ${this.color};
+    background-color: ${this.backgroundColor};
+    border-color: ${this.borderColor};
+  }
+
+  emd-button[disabled] {
+    color: ${this.disabledColor};
+    background-color: ${this.disabledBackgroundColor};
+    border-color: ${this.disabledBorderColor};
+  }
+</style>
+
+` : '';
+
+  return `${styles}<emd-button${attrs}>
+  ${this.text}
+</emd-button>`;
+}
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
@@ -51,9 +99,13 @@ storiesOf('Button', module)
           </emd-button>
         </div>
         <div class="codesample">
+          <pre>{{ codesample }}</pre>
         </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   })
@@ -65,14 +117,11 @@ storiesOf('Button', module)
       fontSize: {
         default: number('Font size', 16, fontOptions)
       },
-      text: {
-        default: text('Content', 'Click me')
+      borderRadius: {
+        default: number('Border radius', 10, borderRadiusOptions)
       },
       padding: {
         default: text('Padding', '1em 4em')
-      },
-      borderRadius: {
-        default: text('Border radius', '1em')
       },
       color: {
         default: color('Text color', '#fff')
@@ -87,10 +136,13 @@ storiesOf('Button', module)
         default: color('Disabled text color', '#fff')
       },
       disabledBackgroundColor: {
-        default: color('Disabled background color', '#c3c8d2')
+        default: color('Disabled bg color', '#c3c8d2')
       },
       disabledBorderColor: {
         default: color('Disabled border color', '#c3c8d2')
+      },
+      text: {
+        default: text('Content', 'Click me')
       },
       type: {
         default: select('Type', ['button', 'submit', 'reset'], 'button')
@@ -103,20 +155,21 @@ storiesOf('Button', module)
       }
     },
     computed: {
+      codesample: getCodeSample,
       customStyle () {
         return !this.disabled
           ? {
             color: this.color,
             backgroundColor: this.backgroundColor,
             borderColor: this.borderColor,
-            borderRadius: this.borderRadius,
+            borderRadius: this.borderRadius + 'px',
             '--emd-button-padding': this.padding
           }
           : {
             color: this.disabledColor,
             backgroundColor: this.disabledBackgroundColor,
             borderColor: this.disabledBorderColor,
-            borderRadius: this.borderRadius,
+            borderRadius: this.borderRadius + 'px',
             '--emd-button-padding': this.padding
           };
       }
@@ -138,6 +191,7 @@ storiesOf('Button', module)
           </emd-button>
         </div>
         <div class="codesample">
+          <pre>{{ codesample }}</pre>
         </div>
       </div>
     `
@@ -170,13 +224,20 @@ storiesOf('Button', module)
             :target="target"
             @click="logEvent"
           >
-            Go to {{ href }}
+            {{ text }}
           </emd-button>
         </div>
         <div class="codesample">
+          <pre>{{ codesample }}</pre>
         </div>
       </div>
-    `
+    `,
+    computed: {
+      text () {
+        return `Go to ${this.href}`;
+      },
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   })
@@ -230,9 +291,21 @@ storiesOf('Button', module)
           </p>
         </div>
         <div class="codesample">
+          <pre>{{ codesample }}</pre>
         </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample () {
+        return `<emd-button>
+  Multiple clicks (disabled)
+</emd-button>
+
+<emd-button multipleclicks>
+  Multiple clicks (enabled)
+</emd-button>`;
+      }
+    }
   }), {
     notes: { markdown: readMe }
   });
