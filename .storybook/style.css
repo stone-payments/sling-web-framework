@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i&Fira+Code&display=swap");
 
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Roboto", sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin: 20px;
   font-size: 16px;
   background-color: #f2f5f7;
@@ -24,7 +24,15 @@ body {
 
 .codesample {
   padding: 20px;
-  background: turquoise;
-  border-radius: 8px;
+  background: rgba(30, 30, 30, 1);
+  color: rgba(156, 220, 254, 1);
+  border-radius: 10px;
   margin-bottom: auto;
+  overflow: auto;
+}
+
+.codesample pre {
+  margin: 0;
+  font-size: 14px;
+  font-family: 'Fira Code', monospace;
 }
