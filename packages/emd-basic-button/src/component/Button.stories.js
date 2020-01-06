@@ -24,9 +24,9 @@ const logEvent = ({ type, detail }) => {
 
 function getCodeSample () {
   let attrs = '';
-  attrs += this.loading ? ' loading' : '';
-  attrs += this.disabled ? ' disabled' : '';
   attrs += this.type ? ` type="${this.type}"` : '';
+  attrs += this.disabled ? ' disabled' : '';
+  attrs += this.loading ? ' loading' : '';
   attrs += this.href ? ` href="${this.href}"` : '';
   attrs += this.target ? ` target="${this.target}"` : '';
 
