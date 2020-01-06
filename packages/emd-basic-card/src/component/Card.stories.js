@@ -241,7 +241,7 @@ storiesOf('Card', module)
         default: boolean('Show footer', true)
       },
       expandedBody: {
-        default: boolean('Expande body', true)
+        default: boolean('Expand body', true)
       },
       useScroll: {
         default: true
@@ -303,7 +303,7 @@ storiesOf('Card', module)
         default: true
       },
       expandedBody: {
-        default: boolean('Expande body', true)
+        default: boolean('Expand body', true)
       },
       useScroll: {
         default: true
@@ -344,10 +344,10 @@ storiesOf('Card', module)
         default: true
       },
       expandedBody: {
-        default: boolean('Expande body', true)
+        default: boolean('Expand body', true)
       },
       useScroll: {
-        default: boolean('Scroll enabled', true)
+        default: boolean('Enable scroll', true)
       },
       fixedHeight: {
         default: '21em'
