@@ -21,7 +21,7 @@ const logEvent = ({ type, detail, target }) => {
 
 storiesOf('Login', module)
   .addDecorator(withKnobs)
-  .add('E-mail', () => ({
+  .add('Default', () => ({
     methods: {
       logEvent
     },
@@ -50,13 +50,21 @@ storiesOf('Login', module)
           </emd-login>
         </div>
         <div class="codesample">
+          <pre>{{ codesample }}</pre>
         </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample () {
+        return `<emd-login>
+  ${this.text}
+</emd-login>`;
+      }
+    }
   }), {
     notes: { markdown: readMe }
   })
-  .add('Password', () => ({
+  .add('With password', () => ({
     methods: {
       logEvent
     },
@@ -88,9 +96,17 @@ storiesOf('Login', module)
           </emd-login>
         </div>
         <div class="codesample">
+          <pre>{{ codesample }}</pre>
         </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample () {
+        return `<emd-login step="2" email="user@stone.com.br">
+  ${this.text}
+</emd-login>`;
+      }
+    }
   }), {
     notes: { markdown: readMe }
   });
