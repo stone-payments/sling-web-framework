@@ -34,16 +34,24 @@ storiesOf('Login', module)
       }
     },
     template: `
-      <emd-login
+      <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
-        @forgotemail="logEvent"
-        @forgotpassword="logEvent"
-        @emailsubmitsuccess="logEvent"
-        @passwordsubmitsuccess="logEvent"
-        @keydown.stop=""
       >
-        {{ text }}
-      </emd-login>
+        <div class="component">
+          <emd-login
+            @forgotemail="logEvent"
+            @forgotpassword="logEvent"
+            @emailsubmitsuccess="logEvent"
+            @passwordsubmitsuccess="logEvent"
+            @keydown.stop=""
+          >
+            {{ text }}
+          </emd-login>
+        </div>
+        <div class="codesample">
+        </div>
+      </div>
     `
   }), {
     notes: { markdown: readMe }
@@ -61,18 +69,27 @@ storiesOf('Login', module)
       }
     },
     template: `
-      <emd-login
+      <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
-        email="user@stone.com.br"
-        step="2"
-        @forgotemail="logEvent"
-        @forgotpassword="logEvent"
-        @emailsubmitsuccess="logEvent"
-        @passwordsubmitsuccess="logEvent"
-        @keydown.stop=""
       >
-        {{ text }}
-      </emd-login>
+        <div class="component">
+          <emd-login
+            :style="{ fontSize: fontSize + 'px' }"
+            email="user@stone.com.br"
+            step="2"
+            @forgotemail="logEvent"
+            @forgotpassword="logEvent"
+            @emailsubmitsuccess="logEvent"
+            @passwordsubmitsuccess="logEvent"
+            @keydown.stop=""
+          >
+            {{ text }}
+          </emd-login>
+        </div>
+        <div class="codesample">
+        </div>
+      </div>
     `
   }), {
     notes: { markdown: readMe }

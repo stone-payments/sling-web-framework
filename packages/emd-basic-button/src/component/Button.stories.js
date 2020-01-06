@@ -39,15 +39,19 @@ storiesOf('Button', module)
       }
     },
     template: `
-      <div :style="{ fontSize: fontSize + 'px' }">
-        <emd-button
-          :type="type"
-          :disabled.prop="disabled"
-          :loading.prop="loading"
-          @click="logEvent"
-        >
-          {{ text }}
-        </emd-button>
+      <div class="story" :style="{ fontSize: fontSize + 'px' }">
+        <div class="component">
+          <emd-button
+            :type="type"
+            :disabled.prop="disabled"
+            :loading.prop="loading"
+            @click="logEvent"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+        </div>
       </div>
     `
   }), {
@@ -119,17 +123,22 @@ storiesOf('Button', module)
     },
     template: `
       <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <emd-button
-          :style="customStyle"
-          :type="type"
-          :disabled.prop="disabled"
-          :loading.prop="loading"
-          @click="logEvent"
-        >
-          {{ text }}
-        </emd-button>
+        <div class="component">
+          <emd-button
+            :style="customStyle"
+            :type="type"
+            :disabled.prop="disabled"
+            :loading.prop="loading"
+            @click="logEvent"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+        </div>
       </div>
     `
   }), {
@@ -152,15 +161,20 @@ storiesOf('Button', module)
     },
     template: `
       <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <emd-button
-          :href="href"
-          :target="target"
-          @click="logEvent"
-        >
-          Go to {{ href }}
-        </emd-button>
+        <div class="component">
+          <emd-button
+            :href="href"
+            :target="target"
+            @click="logEvent"
+          >
+            Go to {{ href }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+        </div>
       </div>
     `
   }), {
@@ -190,26 +204,33 @@ storiesOf('Button', module)
     },
     template: `
       <div
-        style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <emd-button
-          @click="addCountSlow"
+        <div
+          class="component"
+          style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
         >
-          Multiple clicks (disabled)
-        </emd-button>
-        <p>
-          Click count: {{ slow }}
-        </p>
-        <emd-button
-          @click="addCountFast"
-          multipleclicks
-        >
-          Multiple clicks (enabled)
-        </emd-button>
-        <p>
-          Click count: {{ fast }}
-        </p>
+          <emd-button
+            @click="addCountSlow"
+          >
+            Multiple clicks (disabled)
+          </emd-button>
+          <p>
+            Click count: {{ slow }}
+          </p>
+          <emd-button
+            @click="addCountFast"
+            multipleclicks
+          >
+            Multiple clicks (enabled)
+          </emd-button>
+          <p>
+            Click count: {{ fast }}
+          </p>
+        </div>
+        <div class="codesample">
+        </div>
       </div>
     `
   }), {
