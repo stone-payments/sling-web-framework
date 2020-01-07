@@ -22,18 +22,35 @@ body {
   margin: 0;
 }
 
-.codesample {
-  grid-column: 2;
+.codesample,
+.inlinecodesample {
   padding: 20px;
   background: rgba(30, 30, 30, 1);
   color: rgba(156, 220, 254, 1);
   border-radius: 10px;
+}
+
+.codesample {
+  grid-column: 2;
   margin-bottom: auto;
   overflow: auto;
 }
 
-.codesample pre {
+.inlinecodesample {
+  padding: 12px 12px 12px 20px;
+  text-align: left;
+}
+
+.codesample pre,
+.inlinecodesample pre {
   margin: 0;
   font-size: 14px;
   font-family: "Fira Code", monospace;
+}
+
+.icongrid {
+  display: grid;
+  grid-gap: 40px 20px;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
 }
