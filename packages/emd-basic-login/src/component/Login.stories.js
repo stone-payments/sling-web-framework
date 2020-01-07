@@ -64,7 +64,7 @@ storiesOf('Login', module)
   }), {
     notes: { markdown: readMe }
   })
-  .add('With password', () => ({
+  .add('With Password', () => ({
     methods: {
       logEvent
     },
