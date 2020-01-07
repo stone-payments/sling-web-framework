@@ -57,7 +57,12 @@ function getCodeSample () {
     .filter(result => result != null)
     .join('');
 
-  const styles = `<style>${styleList}\n</style>\n\n`;
+  const styles = `<style>
+  emd-money {
+    ${styleList}
+  }
+</style>\n\n`;
+
   const boundGetCodeSampleArgs = getCodeSampleArgs.bind(this);
 
   return `${hasCustomStyle ? styles : ''}${this.value
