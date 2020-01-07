@@ -32,7 +32,7 @@ const template = `
   <div class="icongrid">
     <div v-for="iconName in iconNames" :key="iconName">
       <emd-icon :icon="iconName" :style="{ color }"></emd-icon>
-      <div v-if="showCodeSamples" class="inlinecodesample" style="margin-top: 20px;">
+      <div v-if="showCodeSamples" class="inlinecodesample">
         <pre>{{ getCodeSample(iconName, color) }}</pre>
       </div>
     </div>
