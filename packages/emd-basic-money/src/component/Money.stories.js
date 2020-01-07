@@ -91,10 +91,10 @@ storiesOf('Money', module)
         default: select('Currency', ['none', 'BRL', 'USD', 'EUR'], 'BRL')
       },
       showPositiveSign: {
-        default: boolean('Show Positive Sign', true)
+        default: boolean('Show positive sign', true)
       },
       showValue: {
-        default: boolean('Show Value', true)
+        default: boolean('Show value', true)
       }
     },
     template: `
@@ -141,10 +141,10 @@ storiesOf('Money', module)
         default: color('Negative color', '#E74C3C')
       },
       showPositiveSign: {
-        default: boolean('Show Positive Sign', true)
+        default: boolean('Show positive sign', true)
       },
       showValue: {
-        default: boolean('Show Value', true)
+        default: boolean('Show value', true)
       }
     },
     template: `
@@ -205,7 +205,7 @@ storiesOf('Money', module)
         default: number('Effect opacity', 0.5, opacityOptions)
       },
       showValue: {
-        default: boolean('Show Value', false)
+        default: boolean('Show value', false)
       }
     },
     template: `
