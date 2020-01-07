@@ -21,7 +21,7 @@ const logEvent = ({ type, detail, target }) => {
 
 storiesOf('Login', module)
   .addDecorator(withKnobs)
-  .add('E-mail', () => ({
+  .add('Default', () => ({
     methods: {
       logEvent
     },
@@ -34,21 +34,37 @@ storiesOf('Login', module)
       }
     },
     template: `
-      <emd-login
+      <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
-        @forgotemail="logEvent"
-        @forgotpassword="logEvent"
-        @emailsubmitsuccess="logEvent"
-        @passwordsubmitsuccess="logEvent"
-        @keydown.stop=""
       >
-        {{ text }}
-      </emd-login>
-    `
+        <div class="component">
+          <emd-login
+            @forgotemail="logEvent"
+            @forgotpassword="logEvent"
+            @emailsubmitsuccess="logEvent"
+            @passwordsubmitsuccess="logEvent"
+            @keydown.stop=""
+          >
+            {{ text }}
+          </emd-login>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
+      </div>
+    `,
+    computed: {
+      codesample () {
+        return `<emd-login>
+  ${this.text}
+</emd-login>`;
+      }
+    }
   }), {
     notes: { markdown: readMe }
   })
-  .add('Password', () => ({
+  .add('With password', () => ({
     methods: {
       logEvent
     },
@@ -61,19 +77,36 @@ storiesOf('Login', module)
       }
     },
     template: `
-      <emd-login
+      <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
-        email="user@stone.com.br"
-        step="2"
-        @forgotemail="logEvent"
-        @forgotpassword="logEvent"
-        @emailsubmitsuccess="logEvent"
-        @passwordsubmitsuccess="logEvent"
-        @keydown.stop=""
       >
-        {{ text }}
-      </emd-login>
-    `
+        <div class="component">
+          <emd-login
+            :style="{ fontSize: fontSize + 'px' }"
+            email="user@stone.com.br"
+            step="2"
+            @forgotemail="logEvent"
+            @forgotpassword="logEvent"
+            @emailsubmitsuccess="logEvent"
+            @passwordsubmitsuccess="logEvent"
+            @keydown.stop=""
+          >
+            {{ text }}
+          </emd-login>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
+      </div>
+    `,
+    computed: {
+      codesample () {
+        return `<emd-login step="2" email="user@stone.com.br">
+  ${this.text}
+</emd-login>`;
+      }
+    }
   }), {
     notes: { markdown: readMe }
   });

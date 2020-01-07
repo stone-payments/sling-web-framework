@@ -1,5 +1,11 @@
-import { configure } from '@storybook/vue';
+import { configure, addParameters } from '@storybook/vue';
 import './style.css';
+
+addParameters({
+  options: {
+    panelPosition: 'right'
+  },
+});
 
 const loadStories = () => {
   require('../packages/emd-basic-button/src/component/Button.stories.js');

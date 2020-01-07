@@ -11,9 +11,57 @@ const fontOptions = {
   step: 1
 };
 
+const borderRadiusOptions = {
+  range: true,
+  min: 0,
+  max: 24,
+  step: 2
+};
+
 const logEvent = ({ type, detail }) => {
   action(type)(detail);
 };
+
+function getCodeSample () {
+  let attrs = '';
+  attrs += this.type ? ` type="${this.type}"` : '';
+  attrs += this.disabled ? ' disabled' : '';
+  attrs += this.loading ? ' loading' : '';
+  attrs += this.href ? ` href="${this.href}"` : '';
+  attrs += this.target ? ` target="${this.target}"` : '';
+
+  const hasCustomStyle = this.borderRadius ||
+    this.padding ||
+    this.color ||
+    this.backgroundColor ||
+    this.borderColor ||
+    this.disabledColor ||
+    this.disabledBackgroundColor ||
+    this.disabledBorderColor;
+
+  const styles = hasCustomStyle ? `<style>
+  emd-button {
+    font-size: ${this.fontSize}px;
+    border-radius: ${this.borderRadius}px;
+    --emd-button-padding: ${this.padding};
+    color: ${this.color};
+    background-color: ${this.backgroundColor};
+    border-color: ${this.borderColor};
+  }
+
+  emd-button[disabled] {
+    color: ${this.disabledColor};
+    background-color: ${this.disabledBackgroundColor};
+    border-color: ${this.disabledBorderColor};
+  }
+</style>
+
+` : '';
+
+  return `${styles}<emd-button${attrs}>
+  ${this.text}
+</emd-button>`;
+}
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
@@ -39,17 +87,25 @@ storiesOf('Button', module)
       }
     },
     template: `
-      <div :style="{ fontSize: fontSize + 'px' }">
-        <emd-button
-          :type="type"
-          :disabled.prop="disabled"
-          :loading.prop="loading"
-          @click="logEvent"
-        >
-          {{ text }}
-        </emd-button>
+      <div class="story" :style="{ fontSize: fontSize + 'px' }">
+        <div class="component">
+          <emd-button
+            :type="type"
+            :disabled.prop="disabled"
+            :loading.prop="loading"
+            @click="logEvent"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   })
@@ -61,14 +117,11 @@ storiesOf('Button', module)
       fontSize: {
         default: number('Font size', 16, fontOptions)
       },
-      text: {
-        default: text('Content', 'Click me')
+      borderRadius: {
+        default: number('Border radius', 10, borderRadiusOptions)
       },
       padding: {
         default: text('Padding', '1em 4em')
-      },
-      borderRadius: {
-        default: text('Border radius', '1em')
       },
       color: {
         default: color('Text color', '#fff')
@@ -83,10 +136,13 @@ storiesOf('Button', module)
         default: color('Disabled text color', '#fff')
       },
       disabledBackgroundColor: {
-        default: color('Disabled background color', '#c3c8d2')
+        default: color('Disabled bg color', '#c3c8d2')
       },
       disabledBorderColor: {
         default: color('Disabled border color', '#c3c8d2')
+      },
+      text: {
+        default: text('Content', 'Click me')
       },
       type: {
         default: select('Type', ['button', 'submit', 'reset'], 'button')
@@ -99,37 +155,44 @@ storiesOf('Button', module)
       }
     },
     computed: {
+      codesample: getCodeSample,
       customStyle () {
         return !this.disabled
           ? {
             color: this.color,
             backgroundColor: this.backgroundColor,
             borderColor: this.borderColor,
-            borderRadius: this.borderRadius,
+            borderRadius: this.borderRadius + 'px',
             '--emd-button-padding': this.padding
           }
           : {
             color: this.disabledColor,
             backgroundColor: this.disabledBackgroundColor,
             borderColor: this.disabledBorderColor,
-            borderRadius: this.borderRadius,
+            borderRadius: this.borderRadius + 'px',
             '--emd-button-padding': this.padding
           };
       }
     },
     template: `
       <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <emd-button
-          :style="customStyle"
-          :type="type"
-          :disabled.prop="disabled"
-          :loading.prop="loading"
-          @click="logEvent"
-        >
-          {{ text }}
-        </emd-button>
+        <div class="component">
+          <emd-button
+            :style="customStyle"
+            :type="type"
+            :disabled.prop="disabled"
+            :loading.prop="loading"
+            @click="logEvent"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
     `
   }), {
@@ -152,17 +215,29 @@ storiesOf('Button', module)
     },
     template: `
       <div
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <emd-button
-          :href="href"
-          :target="target"
-          @click="logEvent"
-        >
-          Go to {{ href }}
-        </emd-button>
+        <div class="component">
+          <emd-button
+            :href="href"
+            :target="target"
+            @click="logEvent"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
-    `
+    `,
+    computed: {
+      text () {
+        return `Go to ${this.href}`;
+      },
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   })
@@ -190,28 +265,47 @@ storiesOf('Button', module)
     },
     template: `
       <div
-        style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
+        class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <emd-button
-          @click="addCountSlow"
+        <div
+          class="component"
+          style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
         >
-          Multiple clicks (disabled)
-        </emd-button>
-        <p>
-          Click count: {{ slow }}
-        </p>
-        <emd-button
-          @click="addCountFast"
-          multipleclicks
-        >
-          Multiple clicks (enabled)
-        </emd-button>
-        <p>
-          Click count: {{ fast }}
-        </p>
+          <emd-button
+            @click="addCountSlow"
+          >
+            Multiple clicks (disabled)
+          </emd-button>
+          <p>
+            Click count: {{ slow }}
+          </p>
+          <emd-button
+            @click="addCountFast"
+            multipleclicks
+          >
+            Multiple clicks (enabled)
+          </emd-button>
+          <p>
+            Click count: {{ fast }}
+          </p>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample () {
+        return `<emd-button>
+  Multiple clicks (disabled)
+</emd-button>
+
+<emd-button multipleclicks>
+  Multiple clicks (enabled)
+</emd-button>`;
+      }
+    }
   }), {
     notes: { markdown: readMe }
   });

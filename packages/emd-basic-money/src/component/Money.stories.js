@@ -17,21 +17,61 @@ const opacityOptions = {
   step: 0.1
 };
 
-const getCustomStyle = (
-  fontSize,
-  positiveColor,
-  neutralColor,
-  negativeColor,
-  effectColor,
-  effectOpacity
-) => ({
-  fontSize: `${fontSize}px`,
-  '--emd-money-positive-color': positiveColor,
-  '--emd-money-neutral-color': neutralColor,
-  '--emd-money-negative-color': negativeColor,
-  '--emd-money-effect-color': effectColor,
-  '--emd-money-effect-opacity': effectOpacity
-});
+function getCustomStyle () {
+  return {
+    'font-size': `${this.fontSize}px`,
+    '--emd-money-positive-color': this.positiveColor,
+    '--emd-money-neutral-color': this.neutralColor,
+    '--emd-money-negative-color': this.negativeColor,
+    '--emd-money-effect-color': this.effectColor,
+    '--emd-money-effect-opacity': this.effectOpacity
+  };
+}
+
+function getCodeSampleArgs (forcedValue) {
+  const value = this.value || forcedValue;
+
+  let args = '';
+
+  args += value != null ? `\n  value="${value}"` : '';
+
+  args += this.currency != null && this.currency !== 'none'
+    ? `\n  currency="${this.currency}"`
+    : '';
+
+  args += this.showPositiveSign === false ? '\n  hidepositivesign' : '';
+  args += this.showValue === false ? '\n  hidevalue' : '';
+
+  return args;
+}
+
+function getCodeSample () {
+  const hasCustomStyle = this.positiveColor ||
+    this.neutralColor ||
+    this.negativeColor ||
+    this.effectColor ||
+    this.effectOpacity;
+
+  const styleList = Object.entries(getCustomStyle.apply(this))
+    .map(([key, value]) => value ? `\n  ${key}: ${value};` : undefined)
+    .filter(result => result != null)
+    .join('');
+
+  const styles = `<style>${styleList}\n</style>\n\n`;
+  const boundGetCodeSampleArgs = getCodeSampleArgs.bind(this);
+
+  return `${hasCustomStyle ? styles : ''}${this.value
+    ? `<emd-money${boundGetCodeSampleArgs()}
+></emd-money>`
+    : `<emd-money${boundGetCodeSampleArgs(1250)}
+></emd-money>
+
+<emd-money${boundGetCodeSampleArgs(0)}
+></emd-money>
+
+<emd-money${boundGetCodeSampleArgs(-1250)}
+></emd-money>`}`;
+}
 
 storiesOf('Money', module)
   .addDecorator(withKnobs)
@@ -54,24 +94,32 @@ storiesOf('Money', module)
       }
     },
     template: `
-      <div :style="{ fontSize: fontSize + 'px' }">
-        <emd-money
-          :value="value"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block;"
-        >
-        </emd-money>
+      <div
+        class="story"
+        :style="{ fontSize: fontSize + 'px' }"
+      >
+        <div class="component">
+          <emd-money
+            :value="value"
+            :currency="currency"
+            :hidevalue="!showValue"
+            :hidepositivesign="!showPositiveSign"
+            style="display: block;"
+          >
+          </emd-money>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
-    `
+    `,
+    computed: {
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   })
   .add('With Custom Style', () => ({
-    methods: {
-      getCustomStyle
-    },
     props: {
       fontSize: {
         default: number('Font size', 16, fontOptions)
@@ -96,40 +144,49 @@ storiesOf('Money', module)
       }
     },
     template: `
-      <div :style="getCustomStyle(fontSize, positiveColor, neutralColor, negativeColor, effectColor, effectOpacity)">
-        <emd-money
-          value="1250"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block; margin-bottom: 1em;"
-        >
-        </emd-money>
-        <emd-money
-          value="0"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block; margin-bottom: 1em;"
-        >
-        </emd-money>
-        <emd-money
-          value="-1250"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block;"
-        >
-        </emd-money>
+      <div
+        class="story"
+        :style="customStyle"
+      >
+        <div class="component">
+          <emd-money
+            value="1250"
+            :currency="currency"
+            :hidevalue="!showValue"
+            :hidepositivesign="!showPositiveSign"
+            style="display: block; margin-bottom: 1em;"
+          >
+          </emd-money>
+          <emd-money
+            value="0"
+            :currency="currency"
+            :hidevalue="!showValue"
+            :hidepositivesign="!showPositiveSign"
+            style="display: block; margin-bottom: 1em;"
+          >
+          </emd-money>
+          <emd-money
+            value="-1250"
+            :currency="currency"
+            :hidevalue="!showValue"
+            :hidepositivesign="!showPositiveSign"
+            style="display: block;"
+          >
+          </emd-money>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
-    `
+    `,
+    computed: {
+      customStyle: getCustomStyle,
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   })
   .add('With Hidden Value', () => ({
-    methods: {
-      getCustomStyle
-    },
     props: {
       fontSize: {
         default: number('Font size', 16, fontOptions)
@@ -148,33 +205,42 @@ storiesOf('Money', module)
       }
     },
     template: `
-      <div :style="getCustomStyle(fontSize, positiveColor, neutralColor, negativeColor, effectColor, effectOpacity)">
-        <emd-money
-          value="1250"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block; margin-bottom: 1em;"
-        >
-        </emd-money>
-        <emd-money
-          value="0"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block; margin-bottom: 1em;"
-        >
-        </emd-money>
-        <emd-money
-          value="-1250"
-          :currency="currency"
-          :hidevalue="!showValue"
-          :hidepositivesign="!showPositiveSign"
-          style="display: block;"
-        >
-        </emd-money>
+      <div
+        class="story"
+        :style="customStyle"
+      >
+        <div class="component">
+          <emd-money
+            value="1250"
+            :currency="currency"
+            :hidevalue="!showValue"
+            style="display: block; margin-bottom: 1em;"
+          >
+          </emd-money>
+          <emd-money
+            value="0"
+            :currency="currency"
+            :hidevalue="!showValue"
+            style="display: block; margin-bottom: 1em;"
+          >
+          </emd-money>
+          <emd-money
+            value="-1250"
+            :currency="currency"
+            :hidevalue="!showValue"
+            style="display: block;"
+          >
+          </emd-money>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
       </div>
-    `
+    `,
+    computed: {
+      customStyle: getCustomStyle,
+      codesample: getCodeSample
+    }
   }), {
     notes: { markdown: readMe }
   });
