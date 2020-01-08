@@ -33,6 +33,7 @@
 :host([hidden]) .emd-field__wrapper,
 :host([type="hidden"]),
 :host([type="hidden"]) .emd-field__wrapper {
+  display: none;
   border: none;
   height: 0;
   overflow: hidden;
@@ -247,6 +248,7 @@ emd-select[hidden],
 emd-select[hidden] .emd-field__wrapper,
 emd-select[type="hidden"],
 emd-select[type="hidden"] .emd-field__wrapper {
+  display: none;
   border: none;
   height: 0;
   overflow: hidden;
