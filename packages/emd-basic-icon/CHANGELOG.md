@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-icon-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.4.1...@stone-payments/emd-basic-icon-v1.5.0) (2020-01-10)
+
+
+### Features
+
+* Add README ([51f00b7](https://github.com/stone-payments/emerald-web-framework/commit/51f00b7))
+* Add Storybook ([a23b0bf](https://github.com/stone-payments/emerald-web-framework/commit/a23b0bf))
+
 # [@stone-payments/emd-basic-icon-v1.4.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.4.0...@stone-payments/emd-basic-icon-v1.4.1) (2019-12-13)
 
 
