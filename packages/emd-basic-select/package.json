@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-select",
   "description": "emd-basic-select",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
