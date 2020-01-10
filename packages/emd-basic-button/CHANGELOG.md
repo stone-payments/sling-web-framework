@@ -1,3 +1,17 @@
+# [@stone-payments/emd-basic-button-v1.3.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.2.0...@stone-payments/emd-basic-button-v1.3.0) (2020-01-10)
+
+
+### Bug Fixes
+
+* Adjust storybook example ([18c5145](https://github.com/stone-payments/emerald-web-framework/commit/18c5145))
+* Update stories ([0edbf46](https://github.com/stone-payments/emerald-web-framework/commit/0edbf46))
+
+
+### Features
+
+* Add code snippet on Storybook ([cac3208](https://github.com/stone-payments/emerald-web-framework/commit/cac3208))
+* Add Storybook and Readme documentation ([8b5a793](https://github.com/stone-payments/emerald-web-framework/commit/8b5a793))
+
 # [@stone-payments/emd-basic-button-v1.2.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.1.3...@stone-payments/emd-basic-button-v1.2.0) (2019-11-08)
 
 
