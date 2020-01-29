@@ -5,16 +5,13 @@ export const BrandIconView = ({
   icon,
   stoneIcon,
   isUnknownIcon
-}) => {
-  let wrapperClass = 'emd-brand-icon__wrapper';
-  wrapperClass += ` emd-brand-icon__wrapper_${icon}`;
-
-  return html`
-    <style>
-      @import url("emd-basic-brand-icon/src/component/BrandIcon.css")
-    </style>
-    ${!isUnknownIcon ? html`
-      <div class="${wrapperClass}">${iconSvg || stoneIcon}</div>
-    ` : ''}
-  `;
-};
+}) => html`
+  <style>
+    @import url("emd-basic-brand-icon/src/component/BrandIcon.css")
+  </style>
+  ${!isUnknownIcon ? html`
+    <div class="emd-brand-icon__wrapper emd-brand-icon__wrapper_${icon}">
+      ${iconSvg || stoneIcon}
+    </div>
+  ` : ''}
+`;
