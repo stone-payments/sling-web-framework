@@ -8,7 +8,6 @@ export const BrandIconView = ({
 }) => {
   let wrapperClass = 'emd-brand-icon__wrapper';
   wrapperClass += ` emd-brand-icon__wrapper_${icon}`;
-  wrapperClass += isUnknownIcon ? ' emd-brand-icon__wrapper_unknown' : '';
 
   return html`
     <style>

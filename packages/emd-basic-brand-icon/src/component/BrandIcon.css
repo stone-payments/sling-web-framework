@@ -116,10 +116,6 @@
   fill: currentColor;
 }
 
-.emd-brand-icon__wrapper_unknown {
-  display: none;
-}
-
 /* for Edge compatibility */
 
 emd-brand-icon {
