@@ -38,11 +38,17 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
+    "husky": "^3.1.0",
     "lerna": "^3.20.2",
     "semantic-release": "15.9.16",
     "semantic-release-monorepo": "^6.1.1",
     "vue": "^2.6.11",
     "vue-loader": "^15.8.3",
     "vue-template-compiler": "^2.6.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   }
 }
