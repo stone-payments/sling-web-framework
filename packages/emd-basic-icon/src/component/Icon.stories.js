@@ -19,7 +19,7 @@ const iconNames = Object
 
 function getCodeSample (iconName, color) {
   return `<emd-icon
-  icon="${iconName}${color ? `
+  icon="${iconName}"${color ? `
   style="color: ${color}"` : ''}
 ></emd-icon>`;
 }
