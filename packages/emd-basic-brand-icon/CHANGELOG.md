@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-brand-icon-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.4.0...@stone-payments/emd-basic-brand-icon-v1.5.0) (2020-03-12)
+
+
+### Features
+
+* Add Info Circle icon ([22833fc](https://github.com/stone-payments/emerald-web-framework/commit/22833fc))
+
 # [@stone-payments/emd-basic-brand-icon-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.3.0...@stone-payments/emd-basic-brand-icon-v1.4.0) (2020-01-29)
 
 
