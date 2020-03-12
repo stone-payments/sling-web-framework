@@ -1,3 +1,15 @@
+# [@stone-payments/emd-basic-icon-v1.6.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.5.0...@stone-payments/emd-basic-icon-v1.6.0) (2020-03-12)
+
+
+### Bug Fixes
+
+* Fix sample HTML output ([309930d](https://github.com/stone-payments/emerald-web-framework/commit/309930d))
+
+
+### Features
+
+* Add Info Circle icon ([22833fc](https://github.com/stone-payments/emerald-web-framework/commit/22833fc))
+
 # [@stone-payments/emd-basic-icon-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.4.1...@stone-payments/emd-basic-icon-v1.5.0) (2020-01-10)
 
 
