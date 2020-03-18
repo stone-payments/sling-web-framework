@@ -45,15 +45,3 @@ button {
   align-items: center;
   font-size: 5em;
 }
-
-emd-drawer:nth-of-type(3n - 2) .fake-component {
-  align-self: flex-end;
-}
-
-emd-drawer:nth-of-type(3n - 1) .fake-component {
-  align-self: center;
-}
-
-emd-drawer:nth-of-type(3n) .fake-component {
-  align-self: flex-start;
-}
