@@ -1,5 +1,11 @@
 export const TooltipController = (Base = class {}) =>
   class extends Base {
+    constructor () {
+      super();
+      this.handleMouseOver = this.handleMouseOver.bind(this);
+      this.handleMouseOut = this.handleMouseOut.bind(this);
+    }
+
     static get properties () {
       return {
         view: {
@@ -21,42 +27,98 @@ export const TooltipController = (Base = class {}) =>
       };
     }
 
-    get for () {
-      return this._for;
+    get target () {
+      return this.for && this.parentNode && this.parentNode.children
+        ? Array.from(this.parentNode.children).find(el => el.id === this.for)
+        : undefined;
     }
 
-    set for (value) {
-      const oldValue = this._for;
-      this._for = value;
+    attributeChangedCallback (...attrs) {
+      super.attributeChangedCallback(...attrs);
+      this.bindTooltipAndTarget();
+    }
+
+    connectedCallback () {
+      super.connectedCallback();
+      this.bindTooltipAndTarget();
+    }
+
+    disconnectedCallback () {
+      super.disconnectedCallback();
+      this.unbindTooltipAndTarget();
+    }
+
+    unbindTooltipAndTarget () {
+      if (this._interval) {
+        window.cancelAnimationFrame(this._interval);
+      }
+
+      this.removeAttribute('style');
+
+      if (this.target) {
+        this.target.removeEventListener('mouseover', this.handleMouseOver);
+        this.target.removeEventListener('mouseout', this.handleMouseOut);
+      }
+    }
+
+    bindTooltipAndTarget () {
+      this.unbindTooltipAndTarget();
 
       if (this.target) {
         this._interval = window.requestAnimationFrame(() => {
           const {
             top,
+            bottom,
             left,
+            right,
             width,
             height
           } = this.target.getBoundingClientRect();
 
-          this.style.top = `${top}px`;
-          this.style.left = `${left}px`;
-          this.style.width = `${width}px`;
-          this.style.height = `${height}px`;
+          const position = this.position || 'right';
+
+          switch (position) {
+            case 'top':
+              this.style.top = `${top}px`;
+              this.style.left = `${left}px`;
+              this.style.width = `${width}px`;
+              break;
+
+            case 'bottom':
+              this.style.top = `${bottom}px`;
+              this.style.left = `${left}px`;
+              this.style.width = `${width}px`;
+              break;
+
+            case 'left':
+              this.style.top = `${top}px`;
+              this.style.left = `${left}px`;
+              this.style.height = `${height}px`;
+              break;
+
+            case 'right':
+              this.style.top = `${top}px`;
+              this.style.left = `${right}px`;
+              this.style.height = `${height}px`;
+              break;
+          }
+
           this.style.position = 'fixed';
           this.style.margin = 'auto';
+          this.style.border = '1px solid #909';
         });
-      } else {
-        window.cancelAnimationFrame(this._interval);
-        this.removeAttribute('style');
-      }
 
-      this.requestUpdate('for', oldValue);
+        this.target.addEventListener('mouseover', this.handleMouseOver);
+        this.target.addEventListener('mouseout', this.handleMouseOver);
+      }
     }
 
-    get target () {
-      return this.for && this.parentNode && this.parentNode.children
-        ? Array.from(this.parentNode.children).find(el => el.id === this.for)
-        : undefined;
+    handleMouseOver (evt) {
+      console.log(evt);
+    }
+
+    handleMouseOut (evt) {
+      console.log(evt);
     }
 
     render () {
