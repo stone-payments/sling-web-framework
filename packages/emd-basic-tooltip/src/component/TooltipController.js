@@ -24,6 +24,10 @@ export const TooltipController = (Base = class {}) =>
         for: {
           type: String,
           reflect: true
+        },
+        targetActive: {
+          type: Boolean,
+          reflect: false
         }
       };
     }
@@ -63,64 +67,62 @@ export const TooltipController = (Base = class {}) =>
 
       if (this.target) {
         this.target.addEventListener('mouseover', this.handleMouseOver);
-        this.target.addEventListener('mouseout', this.handleMouseOver);
-        window.requestAnimationFrame(this.updateTooltipPosition);
+        this.target.addEventListener('mouseout', this.handleMouseOut);
       }
+
+      this.updateTooltipPosition();
     }
 
     updateTooltipPosition () {
-      const {
-        top,
-        bottom,
-        left,
-        right,
-        width,
-        height
-      } = this.target.getBoundingClientRect();
-
-      const position = this.position || 'right';
-
-      switch (position) {
-        case 'top':
-          this.style.top = `${top}px`;
-          this.style.left = `${left}px`;
-          this.style.width = `${width}px`;
-          break;
-
-        case 'bottom':
-          this.style.top = `${bottom}px`;
-          this.style.left = `${left}px`;
-          this.style.width = `${width}px`;
-          break;
-
-        case 'left':
-          this.style.top = `${top}px`;
-          this.style.left = `${left}px`;
-          this.style.height = `${height}px`;
-          break;
-
-        case 'right':
-          this.style.top = `${top}px`;
-          this.style.left = `${right}px`;
-          this.style.height = `${height}px`;
-          break;
-      }
-
-      this.style.position = 'fixed';
-      this.style.margin = 'auto';
-      this.style.border = '1px solid #909';
-
       if (this.target) {
+        const {
+          top,
+          bottom,
+          left,
+          right,
+          width,
+          height
+        } = this.target.getBoundingClientRect();
+
+        switch (this.position) {
+          case 'top':
+            this.style.top = `${top}px`;
+            this.style.left = `${left}px`;
+            this.style.width = `${width}px`;
+            break;
+
+          case 'bottom':
+            this.style.top = `${bottom}px`;
+            this.style.left = `${left}px`;
+            this.style.width = `${width}px`;
+            break;
+
+          case 'left':
+            this.style.top = `${top}px`;
+            this.style.left = `${left}px`;
+            this.style.height = `${height}px`;
+            break;
+
+          default:
+            this.style.top = `${top}px`;
+            this.style.left = `${right}px`;
+            this.style.height = `${height}px`;
+            break;
+        }
+
+        this.style.position = 'fixed';
+        this.style.margin = 'auto';
+
         window.requestAnimationFrame(this.updateTooltipPosition);
       }
     }
 
-    handleMouseOver (evt) {
-      console.log(evt);
+    handleMouseOver () {
+      this.targetActive = true;
     }
 
-    handleMouseOut (evt) {
-      console.log(evt);
+    handleMouseOut () {
+      this.targetActive = false;
     }
 
     render () {

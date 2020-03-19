@@ -35,7 +35,8 @@
 
 /* Show the tooltip text on mouse over */
 
-.emd-tooltip__wrapper:hover .emd-tooltip__text {
+.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text,
+.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text {
   display: block;
   opacity: 1;
   white-space: normal;
