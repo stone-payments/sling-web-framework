@@ -30,9 +30,24 @@ export const TooltipController = (Base = class {}) =>
       this._for = value;
 
       if (this.target) {
-        console.log(this.target);
+        this._interval = window.requestAnimationFrame(() => {
+          const {
+            top,
+            left,
+            width,
+            height
+          } = this.target.getBoundingClientRect();
+
+          this.style.top = `${top}px`;
+          this.style.left = `${left}px`;
+          this.style.width = `${width}px`;
+          this.style.height = `${height}px`;
+          this.style.position = 'fixed';
+          this.style.margin = 'auto';
+        });
       } else {
-        console.log('removed target');
+        window.cancelAnimationFrame(this._interval);
+        this.removeAttribute('style');
       }
 
       this.requestUpdate('for', oldValue);
