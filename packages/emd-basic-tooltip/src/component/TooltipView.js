@@ -24,7 +24,6 @@ export const TooltipView = ({
       @import url("emd-basic-tooltip/src/component/Tooltip.css")
     </style>
     <div class="${wrapperClass}">
-      ${targetActive}
       <slot></slot>
       <span class="${tooltipTextClass}">
         ${text}
