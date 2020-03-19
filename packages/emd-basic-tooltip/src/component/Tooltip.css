@@ -7,6 +7,15 @@
   display: inline-block;
 }
 
+.emd-tooltip__wrapper_targeted {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
 /* Tooltip text */
 .emd-tooltip__text {
   display: none;
@@ -27,7 +36,7 @@
   display: block;
   opacity: 1;
   white-space: normal;
-  min-width: var(--emd-tooltip-min-width, max-content);
+  width: var(--emd-tooltip-min-width, max-content);
 }
 
 .emd-tooltip__text_position_right {
@@ -38,7 +47,7 @@
 }
 
 .emd-tooltip__text_position_right::after {
-  content: " ";
+  content: "";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -56,7 +65,7 @@
 }
 
 .emd-tooltip__text_position_left::after {
-  content: " ";
+  content: "";
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -74,7 +83,7 @@
 }
 
 .emd-tooltip__text_position_top::after {
-  content: " ";
+  content: "";
   position: absolute;
   top: 100%; /* At the bottom of the tooltip */
   left: 50%;
@@ -92,7 +101,7 @@
 }
 
 .emd-tooltip__text_position_bottom::after {
-  content: " ";
+  content: "";
   position: absolute;
   bottom: 100%; /* At the top of the tooltip */
   left: 50%;
