@@ -12,9 +12,12 @@ html {
 }
 
 body {
+  display: grid;
+  grid-gap: 1em;
   text-align: center;
 }
 
 h2 {
-  display: inline-block;
+  display: block;
+  margin: auto;
 }

@@ -8,35 +8,44 @@
   <link rel="stylesheet" href="./index.css">
 </head>
 <body>
-  <h1>Tooltip</h1>
-  <emd-tooltip 
-    position="left"
-    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tincidunt dui. Nulla risus felis, porta eu congue vitae, dignissim vel urna. Maecenas dictum magna a sollicitudin mattis.">
-    Tooltip
+  <h1>Tooltip&thinsp;—&thinsp;Using for attribute</h1>
+
+  <h2 id="title-top">Top</h2>
+  <emd-tooltip position="top" for="title-top">
+    Top it is
   </emd-tooltip>
 
-  <emd-tooltip 
-    position="top"
-    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tincidunt dui. Nulla risus felis, porta eu congue vitae, dignissim vel urna. Maecenas dictum magna a sollicitudin mattis.">
-    Tooltip
+  <h2 id="title-right">Right</h2>
+  <emd-tooltip position="right" for="title-right">
+    Right it is
   </emd-tooltip>
 
-  <emd-tooltip
-    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tincidunt dui. Nulla risus felis, porta eu congue vitae, dignissim vel urna. Maecenas dictum magna a sollicitudin mattis.">
-    Tooltip
+  <h2 id="title-left">Left</h2>
+  <emd-tooltip position="left" for="title-left">
+    Left it is
   </emd-tooltip>
 
-  <emd-tooltip
-    position="bottom"
-    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tincidunt dui. Nulla risus felis, porta eu congue vitae, dignissim vel urna. Maecenas dictum magna a sollicitudin mattis.">
-    Tooltip
+  <h2 id="title-bottom">Bottom</h2>
+  <emd-tooltip position="bottom" for="title-bottom">
+    Bottom it is
   </emd-tooltip>
 
-  <h2 id="laser">Laser</h2>
+  <h1>Tooltip&thinsp;—&thinsp;Legacy</h1>
 
-  <emd-tooltip
-    for="laser"
-    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eu tincidunt dui. Nulla risus felis, porta eu congue vitae, dignissim vel urna. Maecenas dictum magna a sollicitudin mattis.">
+  <emd-tooltip position="top" text="Top it is">
+    <h2 id="title-top">Top</h2>
+  </emd-tooltip>
+
+  <emd-tooltip position="right" text="Right it is">
+    <h2>Right</h2>
+  </emd-tooltip>
+
+  <emd-tooltip position="left" text="Left it is">
+    <h2>Left</h2>
+  </emd-tooltip>
+
+  <emd-tooltip position="bottom" text="Bottom it is">
+    <h2>Bottom</h2>
   </emd-tooltip>
 </body>
 </html>

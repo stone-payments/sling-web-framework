@@ -23,11 +23,19 @@ export const TooltipView = ({
     <style>
       @import url("emd-basic-tooltip/src/component/Tooltip.css")
     </style>
-    <div class="${wrapperClass}">
-      <slot></slot>
-      <span class="${tooltipTextClass}">
-        ${text}
-      </span>
-    </div>
+    ${target ? html`
+      <div class="${wrapperClass}">
+        <span class="${tooltipTextClass}">
+          <slot></slot>
+        </span>
+      </div>
+    ` : html`
+      <div class="${wrapperClass}">
+        <slot></slot>
+        <span class="${tooltipTextClass}">
+          ${text}
+        </span>
+      </div>
+    `}
   `;
 };
