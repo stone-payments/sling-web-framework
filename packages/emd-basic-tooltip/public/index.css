@@ -12,8 +12,9 @@ html {
 }
 
 body {
-  display: grid;
-  grid-gap: 40px;
-  min-height: 600px;
   text-align: center;
+}
+
+h2 {
+  display: inline-block;
 }
