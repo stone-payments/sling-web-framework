@@ -9,15 +9,12 @@ export const TooltipController = (Base = class {}) =>
 
     static get properties () {
       return {
-        view: {
-          type: String,
-          reflect: true
-        },
         position: {
           type: String,
           reflect: true
         },
         text: {
+          /* legacy */
           type: String,
           reflect: true
         },
