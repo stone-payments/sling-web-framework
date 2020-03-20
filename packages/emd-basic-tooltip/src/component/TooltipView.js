@@ -3,6 +3,7 @@ import { html } from '@stone-payments/lit-element';
 export const TooltipView = ({
   position = 'right',
   text,
+  for: forProp,
   target,
   targetActive,
   isReady
@@ -29,7 +30,7 @@ export const TooltipView = ({
     <style>
       @import url("emd-basic-tooltip/src/component/Tooltip.css")
     </style>
-    ${target ? html`
+    ${forProp ? html`
       <div class="${wrapperClass}">
         <span class="${tooltipTextClass}">
           <slot></slot>

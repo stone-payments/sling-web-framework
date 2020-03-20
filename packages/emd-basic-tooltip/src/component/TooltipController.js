@@ -41,14 +41,7 @@ export const TooltipController = (Base = class {}) =>
       super.attributeChangedCallback(attrName, pastValue, nextValue);
 
       if (attrName === 'for') {
-        this.removeTargetListeners();
-
-        this.target = this.parentNode && this.parentNode.children
-          ? Array.from(this.parentNode.children).find(el => el.id === nextValue)
-          : undefined;
-
-        this.addTargetListeners();
-        this.updateTooltipPosition();
+        this.bindToTarget(nextValue);
       }
 
       if (attrName === 'delay') {
@@ -58,6 +51,8 @@ export const TooltipController = (Base = class {}) =>
 
     connectedCallback () {
       super.connectedCallback();
+      this.bindToTarget(this.for);
+
       setTimeout(() => {
         this.isReady = true;
       }, 100);
@@ -66,6 +61,17 @@ export const TooltipController = (Base = class {}) =>
     disconnectedCallback () {
       super.disconnectedCallback();
       this.removeTargetListeners();
+    }
+
+    bindToTarget (target) {
+      this.removeTargetListeners();
+
+      this.target = this.parentNode && this.parentNode.children
+        ? Array.from(this.parentNode.children).find(el => el.id === target)
+        : undefined;
+
+      this.addTargetListeners();
+      this.updateTooltipPosition();
     }
 
     removeTargetListeners () {
