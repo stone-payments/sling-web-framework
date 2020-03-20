@@ -32,20 +32,23 @@ export const TooltipController = (Base = class {}) =>
       };
     }
 
-    get target () {
-      return this.for && this.parentNode && this.parentNode.children
-        ? Array.from(this.parentNode.children).find(el => el.id === this.for)
-        : undefined;
-    }
+    attributeChangedCallback (attrName, pastValue, nextValue) {
+      super.attributeChangedCallback(attrName, pastValue, nextValue);
 
-    attributeChangedCallback (...attrs) {
-      super.attributeChangedCallback(...attrs);
-      this.bindTooltipAndTarget();
+      if (attrName === 'for') {
+        this.unbindTooltipAndTarget();
+
+        const targetAttempt = this.parentNode && this.parentNode.children
+          ? Array.from(this.parentNode.children).find(el => el.id === nextValue)
+          : undefined;
+
+        this.target = targetAttempt;
+        this.bindTooltipAndTarget();
+      }
     }
 
     connectedCallback () {
       super.connectedCallback();
-      this.bindTooltipAndTarget();
     }
 
     disconnectedCallback () {
@@ -54,8 +57,6 @@ export const TooltipController = (Base = class {}) =>
     }
 
     unbindTooltipAndTarget () {
-      this.removeAttribute('style');
-
       if (this.target) {
         this.target.removeEventListener('mouseover', this.handleMouseOver);
         this.target.removeEventListener('mouseout', this.handleMouseOut);
@@ -63,8 +64,6 @@ export const TooltipController = (Base = class {}) =>
     }
 
     bindTooltipAndTarget () {
-      this.unbindTooltipAndTarget();
-
       if (this.target) {
         this.target.addEventListener('mouseover', this.handleMouseOver);
         this.target.addEventListener('mouseout', this.handleMouseOut);
@@ -89,23 +88,27 @@ export const TooltipController = (Base = class {}) =>
             this.style.top = `${top}px`;
             this.style.left = `${left}px`;
             this.style.width = `${width}px`;
+            this.style.height = 'auto';
             break;
 
           case 'bottom':
             this.style.top = `${bottom}px`;
             this.style.left = `${left}px`;
             this.style.width = `${width}px`;
+            this.style.height = 'auto';
             break;
 
           case 'left':
             this.style.top = `${top}px`;
             this.style.left = `${left}px`;
+            this.style.width = 'auto';
             this.style.height = `${height}px`;
             break;
 
           default:
             this.style.top = `${top}px`;
             this.style.left = `${right}px`;
+            this.style.width = 'auto';
             this.style.height = `${height}px`;
             break;
         }
@@ -115,6 +118,8 @@ export const TooltipController = (Base = class {}) =>
         this.style.zIndex = '99999';
 
         window.requestAnimationFrame(this.updateTooltipPosition);
+      } else {
+        this.removeAttribute('style');
       }
     }
 
