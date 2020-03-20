@@ -13,7 +13,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  margin: auto;
+	margin: auto;
+	pointer-events: none;
 }
 
 /* Tooltip text */
@@ -180,13 +181,13 @@
 .emd-tooltip__wrapper_targeted .emd-tooltip__text {
   transform: scale(0);
   opacity: 0;
-  transition: opacity 0.36s ease-in-out, transform 0s 2s;
+  transition: opacity var(--emd-tooltip-delay, 0s) ease-in-out, transform 0s var(--emd-tooltip-delay, 0s);
 }
 
 .emd-tooltip__wrapper_legacy:hover .emd-tooltip__text,
 .emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text {
   opacity: 1;
-  transition: opacity 0.36s ease-in-out, transform 0s;
+  transition: opacity var(--emd-tooltip-delay, 0s) ease-in-out, transform 0s;
 }
 
 .emd-tooltip__wrapper_legacy:hover .emd-tooltip__text_position_right,

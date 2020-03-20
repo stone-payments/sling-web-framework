@@ -25,6 +25,10 @@ export const TooltipController = (Base = class {}) =>
           type: String,
           reflect: true
         },
+        delay: {
+          type: Number,
+          reflect: true
+        },
         targetActive: {
           type: Boolean,
           reflect: false
@@ -40,14 +44,18 @@ export const TooltipController = (Base = class {}) =>
       super.attributeChangedCallback(attrName, pastValue, nextValue);
 
       if (attrName === 'for') {
-        this.unbindTooltipAndTarget();
+        this.removeTargetListeners();
 
-        const targetAttempt = this.parentNode && this.parentNode.children
+        this.target = this.parentNode && this.parentNode.children
           ? Array.from(this.parentNode.children).find(el => el.id === nextValue)
           : undefined;
 
-        this.target = targetAttempt;
-        this.bindTooltipAndTarget();
+        this.addTargetListeners();
+        this.updateTooltipPosition();
+      }
+
+      if (attrName === 'delay') {
+        this.style.setProperty('--emd-tooltip-delay', `${nextValue}ms`);
       }
     }
 
@@ -60,23 +68,21 @@ export const TooltipController = (Base = class {}) =>
 
     disconnectedCallback () {
       super.disconnectedCallback();
-      this.unbindTooltipAndTarget();
+      this.removeTargetListeners();
     }
 
-    unbindTooltipAndTarget () {
+    removeTargetListeners () {
       if (this.target) {
         this.target.removeEventListener('mouseover', this.handleMouseOver);
         this.target.removeEventListener('mouseout', this.handleMouseOut);
       }
     }
 
-    bindTooltipAndTarget () {
+    addTargetListeners () {
       if (this.target) {
         this.target.addEventListener('mouseover', this.handleMouseOver);
         this.target.addEventListener('mouseout', this.handleMouseOut);
       }
-
-      this.updateTooltipPosition();
     }
 
     updateTooltipPosition () {
