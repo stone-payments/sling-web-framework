@@ -19,27 +19,15 @@
 /* Tooltip text */
 
 .emd-tooltip__text {
-  display: none;
   background-color: var(--emd-tooltip-background-color, #0c1219);
   color: var(--emd-tooltip-text-color, #fff);
-  padding: 0.75em;
-  border-radius: 6px;
+  padding: var(--emd-tooltip-padding, calc(0.75em - 2px));
+  border-radius: var(--emd-tooltip-border-radius, 6px);
   position: absolute;
   z-index: 1;
-  opacity: 0;
-  transition: opacity 1s;
   text-align: var(--emd-tooltip-text-align, left);
   font-size: var(--emd-tooltip-font-size, 0.75em);
   width: var(--emd-tooltip-min-width, var(--emd-tooltip-width, max-content));
-}
-
-/* Show the tooltip text on mouse over */
-
-.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text,
-.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text {
-  display: block;
-  opacity: 1;
-  white-space: normal;
 }
 
 /* Right */
@@ -176,6 +164,35 @@
 	border-bottom-color: var(--emd-tooltip-border-color, var(--emd-tooltip-background-color, #0c1219));
 	border-width: 8px;
 	margin-left: -8px;
+}
+
+/* Show or hide */
+
+.emd-tooltip__wrapper_legacy .emd-tooltip__text,
+.emd-tooltip__wrapper_targeted .emd-tooltip__text {
+  transform: scale(0);
+  opacity: 0;
+  transition: opacity 0.36s ease-in-out, transform 0s 2s;
+}
+
+.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text,
+.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text {
+  opacity: 1;
+  transition: opacity 0.36s ease-in-out, transform 0s;
+}
+
+.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text_position_right,
+.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text_position_right,
+.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text_position_left,
+.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text_position_left {
+  transform: scale(1) translateY(-50%);
+}
+
+.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text_position_top,
+.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text_position_top,
+.emd-tooltip__wrapper_legacy:hover .emd-tooltip__text_position_bottom,
+.emd-tooltip__wrapper_targeted.emd-tooltip__wrapper_active .emd-tooltip__text_position_bottom {
+  transform: scale(1) translateX(-50%);
 }
 
 /* for Edge compatibility */

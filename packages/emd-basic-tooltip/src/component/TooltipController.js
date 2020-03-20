@@ -112,6 +112,7 @@ export const TooltipController = (Base = class {}) =>
 
         this.style.position = 'fixed';
         this.style.margin = 'auto';
+        this.style.zIndex = '99999';
 
         window.requestAnimationFrame(this.updateTooltipPosition);
       }
