@@ -13,6 +13,7 @@ const loadStories = () => {
   require('../packages/emd-basic-icon/src/component/Icon.stories.js');
   require('../packages/emd-basic-login/src/component/Login.stories.js');
   require('../packages/emd-basic-money/src/component/Money.stories.js');
+  require('../packages/emd-basic-tooltip/src/component/Tooltip.stories.js');
 }
 
 configure(loadStories, module);
