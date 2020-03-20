@@ -71,7 +71,7 @@ storiesOf('Button', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       text: {
         default: text('Content', 'Click me')
@@ -115,10 +115,10 @@ storiesOf('Button', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       borderRadius: {
-        default: number('Border radius', 10, borderRadiusOptions)
+        default: number('Border radius (px)', 10, borderRadiusOptions)
       },
       padding: {
         default: text('Padding', '1em 4em')
@@ -204,7 +204,7 @@ storiesOf('Button', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       href: {
         default: text('Href', 'http://stone.co')
@@ -260,7 +260,7 @@ storiesOf('Button', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       }
     },
     template: `
