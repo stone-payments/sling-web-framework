@@ -19,15 +19,23 @@
 /* Tooltip text */
 
 .emd-tooltip__text {
+  position: absolute;
   background-color: var(--emd-tooltip-background-color, #0c1219);
   color: var(--emd-tooltip-text-color, #fff);
   padding: var(--emd-tooltip-padding, calc(0.75em - 2px));
   border-radius: var(--emd-tooltip-border-radius, 6px);
-  position: absolute;
-  z-index: 1;
   text-align: var(--emd-tooltip-text-align, left);
   font-size: var(--emd-tooltip-font-size, 0.75em);
   width: var(--emd-tooltip-min-width, var(--emd-tooltip-width, max-content));
+  z-index: 1;
+}
+
+.emd-tooltip__text {
+  display: none;
+}
+
+.emd-tooltip__text_ready {
+  display: block;
 }
 
 /* Right */

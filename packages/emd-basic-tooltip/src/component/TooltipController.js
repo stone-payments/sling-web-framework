@@ -28,6 +28,10 @@ export const TooltipController = (Base = class {}) =>
         targetActive: {
           type: Boolean,
           reflect: false
+        },
+        isReady: {
+          type: Boolean,
+          reflect: false
         }
       };
     }
@@ -49,6 +53,9 @@ export const TooltipController = (Base = class {}) =>
 
     connectedCallback () {
       super.connectedCallback();
+      setTimeout(() => {
+        this.isReady = true;
+      }, 100);
     }
 
     disconnectedCallback () {

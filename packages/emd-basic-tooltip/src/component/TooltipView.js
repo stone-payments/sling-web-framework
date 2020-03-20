@@ -4,7 +4,8 @@ export const TooltipView = ({
   position = 'right',
   text,
   target,
-  targetActive
+  targetActive,
+  isReady
 }) => {
   let wrapperClass = 'emd-tooltip__wrapper';
 
@@ -17,7 +18,12 @@ export const TooltipView = ({
     : '';
 
   let tooltipTextClass = 'emd-tooltip__text';
+
   tooltipTextClass += ` emd-tooltip__text_position_${position}`;
+
+  tooltipTextClass += isReady
+    ? ' emd-tooltip__text_ready'
+    : '';
 
   return html`
     <style>
