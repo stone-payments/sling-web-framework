@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-button-v1.3.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.3.0...@stone-payments/emd-basic-button-v1.3.1) (2020-03-23)
+
+
+### Bug Fixes
+
+* Specify some units on Storybook documentation ([d4f9738](https://github.com/stone-payments/emerald-web-framework/commit/d4f9738))
+
 # [@stone-payments/emd-basic-button-v1.3.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.2.0...@stone-payments/emd-basic-button-v1.3.0) (2020-01-10)
 
 
