@@ -27,7 +27,7 @@ storiesOf('Login', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       text: {
         default: text('Title', 'Acesse Sua Conta')
@@ -70,7 +70,7 @@ storiesOf('Login', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       text: {
         default: text('Title', 'Acesse Sua Conta')
