@@ -2,7 +2,8 @@ import { html } from '@stone-payments/lit-element';
 
 export const TooltipView = ({
   position = 'right',
-  text,
+  text, /* legacy */
+  shadow,
   for: forProp,
   target,
   targetActive,
@@ -24,6 +25,10 @@ export const TooltipView = ({
 
   tooltipTextClass += isReady
     ? ' emd-tooltip__text_ready'
+    : '';
+
+  tooltipTextClass += shadow
+    ? ' emd-tooltip__text_shadow'
     : '';
 
   return html`

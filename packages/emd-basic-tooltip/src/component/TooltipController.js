@@ -26,6 +26,10 @@ export const TooltipController = (Base = class {}) =>
           type: Number,
           reflect: true
         },
+        shadow: {
+          type: Boolean,
+          reflect: true
+        },
         targetActive: {
           type: Boolean,
           reflect: false
