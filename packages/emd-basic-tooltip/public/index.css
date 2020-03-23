@@ -13,7 +13,11 @@ html {
 
 body {
   display: grid;
-  grid-gap: 40px;
-  min-height: 600px;
+  grid-gap: 1em;
   text-align: center;
+}
+
+h2 {
+  display: block;
+  margin: auto;
 }

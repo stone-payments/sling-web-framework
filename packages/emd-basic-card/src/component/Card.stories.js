@@ -217,7 +217,7 @@ storiesOf('Card', module)
   .add('Default', () => ({
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       headerText: {
         default: text('Header text', '2019 Sales')
@@ -258,7 +258,7 @@ storiesOf('Card', module)
   .add('With Custom Style', () => ({
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       headerText: {
         default: '2019 Sales'
@@ -267,7 +267,7 @@ storiesOf('Card', module)
         default: 'Last updated on 31/12/2019'
       },
       borderRadius: {
-        default: number('Border radius', 10, borderRadiusOptions)
+        default: number('Border radius (px)', 10, borderRadiusOptions)
       },
       headerColor: {
         default: color('Header text color', '#fff')
@@ -320,7 +320,7 @@ storiesOf('Card', module)
   .add('With Scroll', () => ({
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       headerText: {
         default: '2019 Sales'

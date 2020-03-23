@@ -82,7 +82,7 @@ storiesOf('Money', module)
   .add('Default', () => ({
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       value: {
         default: number('Value', 1250)
@@ -126,7 +126,7 @@ storiesOf('Money', module)
   .add('With Custom Style', () => ({
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       currency: {
         default: select('Currency', ['none', 'BRL', 'USD', 'EUR'], 'BRL')
@@ -193,7 +193,7 @@ storiesOf('Money', module)
   .add('With Hidden Value', () => ({
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       currency: {
         default: select('Currency', ['none', 'BRL', 'USD', 'EUR'], 'BRL')

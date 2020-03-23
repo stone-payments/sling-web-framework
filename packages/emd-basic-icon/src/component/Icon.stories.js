@@ -50,7 +50,7 @@ storiesOf('Icon', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       showCodeSamples: {
         default: boolean('Show code samples', true)
@@ -72,7 +72,7 @@ storiesOf('Icon', module)
     },
     props: {
       fontSize: {
-        default: number('Font size', 16, fontOptions)
+        default: number('Font size (px)', 16, fontOptions)
       },
       color: {
         default: color('Color', 'black')
