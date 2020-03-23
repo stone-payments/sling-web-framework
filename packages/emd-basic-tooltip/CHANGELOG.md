@@ -1,3 +1,17 @@
+# [@stone-payments/emd-basic-tooltip-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-tooltip-v1.0.1...@stone-payments/emd-basic-tooltip-v1.1.0) (2020-03-23)
+
+
+### Bug Fixes
+
+* By using the `for` property the tooltip will occupy space or generate unwanted scrollbars ([2722085](https://github.com/stone-payments/emerald-web-framework/commit/2722085))
+
+
+### Features
+
+* Allow tooltip to have a border and add more custom CSS properties ([a423997](https://github.com/stone-payments/emerald-web-framework/commit/a423997))
+* implement `for` property so that the Tooltip does not have to wrap its target ([c0c780a](https://github.com/stone-payments/emerald-web-framework/commit/c0c780a))
+* Implement `shadow` property ([c41af70](https://github.com/stone-payments/emerald-web-framework/commit/c41af70))
+
 # [@stone-payments/emd-basic-tooltip-v1.0.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-tooltip-v1.0.0...@stone-payments/emd-basic-tooltip-v1.0.1) (2019-09-05)
 
 
