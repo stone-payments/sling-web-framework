@@ -39,6 +39,10 @@
   display: block;
 }
 
+.emd-tooltip__text_shadow {
+	box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.1);
+}
+
 /* Right */
 
 .emd-tooltip__text_position_right {

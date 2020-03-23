@@ -5,7 +5,7 @@ Emerald Tooltip UI component.
 ## Usage
 
 ```html
-<p id="target">120 members found</p>
+<span id="target">120 members found</span>
 <emd-tooltip for="target">79 online now</emd-tooltip>
 ```
 
@@ -30,6 +30,13 @@ The id of the target element. The tooltip **must be a sibling** of the target el
 The delay of the fade effect in milliseconds. Defaults to zero if unset.
 
 - Type: Number
+- Attribute and property
+
+#### `shadow`
+
+Shows the tooltip shadow. Defaults to `false`.
+
+- Type: Boolean
 - Attribute and property
 
 
