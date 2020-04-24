@@ -29,8 +29,14 @@
 }
 
 :host([hidden]),
-:host([type="hidden"]) {
+:host([hidden]) .emd-field__wrapper,
+:host([type="hidden"]),
+:host([type="hidden"]) .emd-field__wrapper {
   display: none;
+  border: none;
+  height: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
 }
 
 .emd-field__wrapper {
@@ -201,8 +207,14 @@ emd-field[disabled] {
 }
 
 emd-field[hidden],
-emd-field[type="hidden"] {
+emd-field[hidden] .emd-field__wrapper,
+emd-field[type="hidden"],
+emd-field[type="hidden"] .emd-field__wrapper {
   display: none;
+  border: none;
+  height: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
 }
 
 emd-field[readonly] .emd-field__text,

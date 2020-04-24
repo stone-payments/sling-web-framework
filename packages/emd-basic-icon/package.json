@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-icon",
   "description": "emd-basic-icon",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@stone-payments/emd-assets": "^1.11.0",
-    "@stone-payments/emd-helpers": "^1.1.2",
-    "@stone-payments/emd-hocs": "^1.1.0",
-    "@stone-payments/lit-element": "^2.2.1"
+    "@stone-payments/emd-helpers": "^1.7.0",
+    "@stone-payments/emd-hocs": "^2.1.1",
+    "@stone-payments/lit-element": "^2.2.2"
   },
   "peerDependencies": {
     "chai": "^4.1.2",

@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-field",
   "description": "emd-basic-field",
-  "version": "1.6.0",
+  "version": "1.6.3",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",

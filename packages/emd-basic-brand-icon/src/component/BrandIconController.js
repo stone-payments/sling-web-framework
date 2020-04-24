@@ -5,6 +5,24 @@ export const BrandIconController = (Base = class {}) => class extends Base {
       .replace(/-/g, '_')
       .replace(' ', '_')
       .toUpperCase();
-    return this.icons[key] || this.icons.STONE;
+    return this.icons[key] || '';
+  }
+
+  static get properties () {
+    return {
+      ...super.properties,
+      nofallback: {
+        type: Boolean,
+        reflect: true
+      }
+    };
+  }
+
+  get stoneIcon () {
+    return this.constructor.icons.STONE;
+  }
+
+  get isUnknownIcon () {
+    return this.nofallback && this.iconSvg === '';
   }
 };

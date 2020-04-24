@@ -1,3 +1,30 @@
+# [@stone-payments/emd-basic-icon-v1.6.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.5.0...@stone-payments/emd-basic-icon-v1.6.0) (2020-03-12)
+
+
+### Bug Fixes
+
+* Fix sample HTML output ([309930d](https://github.com/stone-payments/emerald-web-framework/commit/309930d))
+
+
+### Features
+
+* Add Info Circle icon ([22833fc](https://github.com/stone-payments/emerald-web-framework/commit/22833fc))
+
+# [@stone-payments/emd-basic-icon-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.4.1...@stone-payments/emd-basic-icon-v1.5.0) (2020-01-10)
+
+
+### Features
+
+* Add README ([51f00b7](https://github.com/stone-payments/emerald-web-framework/commit/51f00b7))
+* Add Storybook ([a23b0bf](https://github.com/stone-payments/emerald-web-framework/commit/a23b0bf))
+
+# [@stone-payments/emd-basic-icon-v1.4.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.4.0...@stone-payments/emd-basic-icon-v1.4.1) (2019-12-13)
+
+
+### Bug Fixes
+
+* Fix and rename `delete` to `remove-circle` and fix `add-circle` ([1a51b96](https://github.com/stone-payments/emerald-web-framework/commit/1a51b96))
+
 # [@stone-payments/emd-basic-icon-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.3.0...@stone-payments/emd-basic-icon-v1.4.0) (2019-10-04)
 
 

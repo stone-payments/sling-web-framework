@@ -16,6 +16,6 @@ export const FieldWrapperView = ({
   ${message ? html`
     <div class="emd-field-wrapper__message">${message}</div>
   ` : (hint != null && hint !== '') || emptyhint ? html`
-    <div class="emd-field-wrapper__hint">${hint}</div>
+    <div class="emd-field-wrapper__hint">${hint || html`&nbsp;`}</div>
   ` : ''}
 `;

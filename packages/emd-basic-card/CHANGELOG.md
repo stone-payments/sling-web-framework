@@ -1,3 +1,12 @@
+# [@stone-payments/emd-basic-card-v1.3.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-card-v1.2.1...@stone-payments/emd-basic-card-v1.3.0) (2020-01-10)
+
+
+### Features
+
+* Add code snippet on Storybook ([cac3208](https://github.com/stone-payments/emerald-web-framework/commit/cac3208))
+* Add Storybook example ([b9823bc](https://github.com/stone-payments/emerald-web-framework/commit/b9823bc))
+* Include README ([4e203ad](https://github.com/stone-payments/emerald-web-framework/commit/4e203ad))
+
 # [@stone-payments/emd-basic-card-v1.2.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-card-v1.2.0...@stone-payments/emd-basic-card-v1.2.1) (2019-09-05)
 
 

@@ -1,3 +1,17 @@
+# [@stone-payments/emd-basic-money-v2.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-money-v2.0.0...@stone-payments/emd-basic-money-v2.1.0) (2020-01-10)
+
+
+### Bug Fixes
+
+* Fix CSS code snippet ([7f6d7be](https://github.com/stone-payments/emerald-web-framework/commit/7f6d7be))
+
+
+### Features
+
+* Add code sample to Storybook ([00c6d71](https://github.com/stone-payments/emerald-web-framework/commit/00c6d71))
+* Add README ([e3e9129](https://github.com/stone-payments/emerald-web-framework/commit/e3e9129))
+* Add Storybook documentation ([9587d0d](https://github.com/stone-payments/emerald-web-framework/commit/9587d0d))
+
 # [@stone-payments/emd-basic-money-v2.0.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-money-v1.0.1...@stone-payments/emd-basic-money-v2.0.0) (2019-09-12)
 
 
