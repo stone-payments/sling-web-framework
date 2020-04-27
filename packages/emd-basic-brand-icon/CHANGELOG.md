@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-brand-icon-v1.7.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.6.0...@stone-payments/emd-basic-brand-icon-v1.7.0) (2020-04-27)
+
+
+### Features
+
+* update emd-assets to 1.12.0 ([41c79a0](https://github.com/stone-payments/emerald-web-framework/commit/41c79a0033e4442212e9c0603e2cf7b2ae4526d8))
+
 # [@stone-payments/emd-basic-brand-icon-v1.6.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.5.0...@stone-payments/emd-basic-brand-icon-v1.6.0) (2020-04-24)
 
 
