@@ -5,6 +5,8 @@ Emerald is an open-source collection of vanilla [Web Components](https://www.web
 We would love to hear from you! If you have any feedback or run into issues using our framework, please file
 an [issue](https://github.com/stone-payments/sling-web-framework/issues/new) on this repository.
 
+[See the documentation.](https://stone-payments.github.io/emerald-web-framework)
+
 # Components
 
 * [emd-basic-brand-icon](https://github.com/stone-payments/sling-web-framework/tree/emd-master/packages/emd-basic-brand-icon)
