@@ -2,7 +2,7 @@ name: Deploy Docs
 on:
   push:
     branches:
-      - master
+      - emd-master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
