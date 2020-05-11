@@ -12,7 +12,6 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm install
-          npm postinstall
           npm run build-storybook
 
       - name: Deploy 🚀
