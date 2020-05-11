@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.feature__wrapper {
+  display: flex;
+}
+
+.feature__icon {
+  font-size: 1.25em;
+}
+
+.feature__content {
+  margin: 0 0 0 .5em;
+}
+
+.feature__headline {
+  font-size: 1.25em;
+  margin: 0;
+}
+
+/* for Edge compatibility */
+
+emd-feature {
+  display: block;
+}

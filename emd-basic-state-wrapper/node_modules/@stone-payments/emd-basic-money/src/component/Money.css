@@ -1,0 +1,22 @@
+.emd-money__wrapper {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.emd-money__currency {
+  margin-right: 0.33333em; /* changed via Javascript */
+  font-size: 0.75em; /* changed via Javascript */
+  opacity: 0.6;
+  font-weight: normal;
+}
+
+.emd-money__wrapper_color_block .emd-money__currency {
+  opacity: 1;
+}
+
+.emd-money__value {
+  opacity: 1;
+  font-size: 1em;
+}
