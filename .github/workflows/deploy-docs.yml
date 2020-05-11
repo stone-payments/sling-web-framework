@@ -1,5 +1,8 @@
-name: Deploy Doc - Develop
-on: [push]
+name: Deploy Docs
+on:
+  push:
+    branches:
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
