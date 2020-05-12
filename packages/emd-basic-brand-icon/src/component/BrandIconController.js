@@ -10,12 +10,19 @@ export const BrandIconController = (Base = class {}) => class extends Base {
 
   static get properties () {
     return {
-      ...super.properties,
+      icon: {
+        type: String,
+        reflect: true
+      },
       nofallback: {
         type: Boolean,
         reflect: true
       }
     };
+  }
+
+  get iconSvg () {
+    return this.constructor.getIconByName(this.icon);
   }
 
   get stoneIcon () {
