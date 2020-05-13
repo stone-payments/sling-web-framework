@@ -1,7 +1,13 @@
+import { idKeyMap } from '../constants/idKeyMap.js';
+
 export const BrandIconController = (Base = class {}) => class extends Base {
   static get properties () {
     return {
       icon: {
+        type: String,
+        reflect: true
+      },
+      iconid: {
         type: String,
         reflect: true
       },
@@ -43,11 +49,11 @@ export const BrandIconController = (Base = class {}) => class extends Base {
   }
 
   get iconKey () {
-    return this.constructor.getIconKey(this.icon);
+    return this.constructor.getIconKey(this.icon || idKeyMap[this.iconid]);
   }
 
   get iconView () {
-    return this.constructor.getIconView(this.icon);
+    return this.constructor.getIconView(this.icon || idKeyMap[this.iconid]);
   }
 
   get stoneIconView () {
