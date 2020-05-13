@@ -2,12 +2,12 @@ import { html } from '@stone-payments/lit-element';
 
 export const BrandIconView = ({
   iconView,
-  iconId,
+  iconKey,
   stoneIconView,
   isUnknownIcon
 }) => {
   let iconClass = iconView
-    ? `emd-brand-icon__${iconId.toLowerCase()}`
+    ? `emd-brand-icon__${iconKey.toLowerCase()}`
     : 'emd-brand-icon__unknown';
   iconClass += ' emd-brand-icon__wrapper';
 

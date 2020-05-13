@@ -34,7 +34,7 @@ export const BrandIconController = (Base = class {}) => class extends Base {
       }, []);
   }
 
-  static getIconId (name) {
+  static getIconKey (name) {
     const possibleKeys = this.getPossibleKeys(name);
 
     for (const possibleKey of possibleKeys) {
@@ -47,11 +47,11 @@ export const BrandIconController = (Base = class {}) => class extends Base {
   }
 
   static getIconView (name) {
-    return this.icons[this.getIconId(name)];
+    return this.icons[this.getIconKey(name)];
   }
 
-  get iconId () {
-    return this.constructor.getIconId(this.icon);
+  get iconKey () {
+    return this.constructor.getIconKey(this.icon);
   }
 
   get iconView () {
