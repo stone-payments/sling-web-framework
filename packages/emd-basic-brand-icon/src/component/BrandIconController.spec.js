@@ -130,8 +130,13 @@ describe('BrandIconController', () => {
   });
 
   describe('#iconKey', () => {
-    it('Should return the current icon key', () => {
+    it('Should return the current icon key when icon is set', () => {
       element.icon = 'Hiper Card Crédito';
+      expect(element.iconKey).to.equal('HIPERCARD');
+    });
+
+    it('Should return the current icon key when iconid is set', () => {
+      element.iconid = '9';
       expect(element.iconKey).to.equal('HIPERCARD');
     });
 
@@ -144,6 +149,11 @@ describe('BrandIconController', () => {
   describe('#iconView', () => {
     it('Should return the current icon view', () => {
       element.icon = 'Hiper Card Crédito';
+      expect(element.iconView).to.equal(VW_HIPERCARD);
+    });
+
+    it('Should return the current icon view when iconid is set', () => {
+      element.iconid = '9';
       expect(element.iconView).to.equal(VW_HIPERCARD);
     });
 
