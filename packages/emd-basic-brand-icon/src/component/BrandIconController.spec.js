@@ -49,6 +49,12 @@ describe('BrandIconController', () => {
     element = undefined;
   });
 
+  describe('.properties', () => {
+    it('Should expose the correct properties', () => {
+      expect(Controller.properties).to.include.keys('icon', 'nofallback');
+    });
+  });
+
   describe('.getPossibleKeys()', () => {
     it('Should return a sorted array with possible brand keys', () => {
       expect(Controller.getPossibleKeys('Hiper Card Débito')).to.deep.equal([
