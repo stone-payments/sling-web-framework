@@ -8,6 +8,7 @@ addParameters({
 });
 
 const loadStories = () => {
+  require('../packages/emd-basic-brand-icon/src/component/BrandIcon.stories.js');
   require('../packages/emd-basic-button/src/component/Button.stories.js');
   require('../packages/emd-basic-card/src/component/Card.stories.js');
   require('../packages/emd-basic-icon/src/component/Icon.stories.js');
