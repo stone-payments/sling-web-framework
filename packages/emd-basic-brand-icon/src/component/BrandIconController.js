@@ -63,7 +63,7 @@ export const BrandIconController = (Base = class {}) => class extends Base {
   }
 
   get isRenderable () {
-    return this.nofallback && !this.iconView;
+    return Boolean(this.iconView || !this.nofallback);
   }
 
   render () {

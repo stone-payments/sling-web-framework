@@ -15,7 +15,7 @@ export const BrandIconView = ({
     <style>
       @import url("emd-basic-brand-icon/src/component/BrandIcon.css")
     </style>
-    ${!isRenderable ? html`
+    ${isRenderable ? html`
       <div class="${iconClass}">
         ${iconView || stoneIconView}
       </div>
