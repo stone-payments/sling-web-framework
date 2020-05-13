@@ -4,7 +4,7 @@ export const BrandIconView = ({
   iconView,
   iconKey,
   stoneIconView,
-  isUnknownIcon
+  isRenderable
 }) => {
   let iconClass = iconView
     ? `emd-brand-icon__${iconKey.toLowerCase()}`
@@ -15,7 +15,7 @@ export const BrandIconView = ({
     <style>
       @import url("emd-basic-brand-icon/src/component/BrandIcon.css")
     </style>
-    ${!isUnknownIcon ? html`
+    ${!isRenderable ? html`
       <div class="${iconClass}">
         ${iconView || stoneIconView}
       </div>

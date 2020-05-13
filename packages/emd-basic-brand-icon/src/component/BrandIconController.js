@@ -62,7 +62,7 @@ export const BrandIconController = (Base = class {}) => class extends Base {
     return this.constructor.icons.STONE;
   }
 
-  get isUnknownIcon () {
+  get isRenderable () {
     return this.nofallback && !this.iconView;
   }
 
