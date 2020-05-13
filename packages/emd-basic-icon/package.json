@@ -10,7 +10,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-assets": "^1.13.0",
+    "@stone-payments/emd-assets": "^1.14.0",
     "@stone-payments/emd-helpers": "^1.7.0",
     "@stone-payments/emd-hocs": "^2.1.1",
     "@stone-payments/lit-element": "^2.2.2"
