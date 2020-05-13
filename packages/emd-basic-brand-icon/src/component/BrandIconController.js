@@ -35,15 +35,7 @@ export const BrandIconController = (Base = class {}) => class extends Base {
   }
 
   static getIconKey (name) {
-    const possibleKeys = this.getPossibleKeys(name);
-
-    for (const possibleKey of possibleKeys) {
-      if (this.icons[possibleKey]) {
-        return possibleKey;
-      }
-    }
-
-    return undefined;
+    return this.getPossibleKeys(name).find(key => this.icons[key] != null);
   }
 
   static getIconView (name) {
