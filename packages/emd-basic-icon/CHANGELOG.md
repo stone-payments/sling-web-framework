@@ -1,3 +1,15 @@
+# [@stone-payments/emd-basic-icon-v1.9.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.8.0...@stone-payments/emd-basic-icon-v1.9.0) (2020-05-14)
+
+
+### Bug Fixes
+
+* Improve code samples' style in the documentation ([23f2547](https://github.com/stone-payments/emerald-web-framework/commit/23f25477c5da9e31d85d26ed4595af2cd3d051f1))
+
+
+### Features
+
+* Update Assets to 1.13.0 ([e3cd1ef](https://github.com/stone-payments/emerald-web-framework/commit/e3cd1efcfc53b4a0fef2e410b8e81ba30a21b35f))
+
 # [@stone-payments/emd-basic-icon-v1.8.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.7.0...@stone-payments/emd-basic-icon-v1.8.0) (2020-04-27)
 
 
