@@ -1,16 +1,16 @@
-export const BrandIconController = (Base = class {}) => class extends Base {
-  static getIconByName (name) {
-    const key = name.normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/-/g, '_')
-      .replace(' ', '_')
-      .toUpperCase();
-    return this.icons[key] || '';
-  }
+import { idKeyMap } from '../constants/idKeyMap.js';
 
+export const BrandIconController = (Base = class {}) => class extends Base {
   static get properties () {
     return {
-      ...super.properties,
+      icon: {
+        type: String,
+        reflect: true
+      },
+      iconid: {
+        type: String,
+        reflect: true
+      },
       nofallback: {
         type: Boolean,
         reflect: true
@@ -18,11 +18,53 @@ export const BrandIconController = (Base = class {}) => class extends Base {
     };
   }
 
-  get stoneIcon () {
+  static getPossibleKeys (str) {
+    if (str == null || str === '') {
+      return [];
+    }
+
+    const parsedStr = str
+      .normalize('NFD')
+      .replace(/([\u0300-\u036f]|\.)/g, '')
+      .replace(/-| /g, '_')
+      .toUpperCase();
+
+    return parsedStr
+      .split('_')
+      .reduceRight((result, item, index, arr) => {
+        const firstPossibleKey = arr.slice(0, index + 1).join('_');
+        const secondPossibleKey = firstPossibleKey.replace(/_/g, '');
+        return index !== 0
+          ? [...result, firstPossibleKey, secondPossibleKey]
+          : [...result, firstPossibleKey];
+      }, []);
+  }
+
+  static getIconKey (name) {
+    return this.getPossibleKeys(name).find(key => this.icons[key] != null);
+  }
+
+  static getIconView (name) {
+    return this.icons[this.getIconKey(name)];
+  }
+
+  get iconKey () {
+    return this.constructor.getIconKey(this.icon || idKeyMap[this.iconid]);
+  }
+
+  get iconView () {
+    return this.constructor.getIconView(this.icon || idKeyMap[this.iconid]);
+  }
+
+  get stoneIconView () {
     return this.constructor.icons.STONE;
   }
 
-  get isUnknownIcon () {
-    return this.nofallback && this.iconSvg === '';
+  get isRenderable () {
+    return Boolean(this.iconView || !this.nofallback);
+  }
+
+  render () {
+    return this.currentView.apply(this);
   }
 };
