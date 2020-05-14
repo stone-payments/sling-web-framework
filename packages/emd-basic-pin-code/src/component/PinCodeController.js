@@ -40,7 +40,9 @@ export const PinCodeController = (Base = class {}) =>
     handleKeyDown (evt) {
       const { target, code, ctrlKey, metaKey } = evt;
 
-      if (code === 'Backspace') {
+      if (code === 'Space') {
+        evt.preventDefault();
+      } else if (code === 'Backspace') {
         evt.preventDefault();
         target.value = '';
         if (target.previousElementSibling) {
@@ -53,8 +55,8 @@ export const PinCodeController = (Base = class {}) =>
       }
     }
 
-    handleInput ({ target }) {
-      target.value = target.value.slice(-1);
+    handleInput ({ target, data }) {
+      target.value = data;
 
       if (target.value !== '' && target.nextElementSibling) {
         target.nextElementSibling.focus();
