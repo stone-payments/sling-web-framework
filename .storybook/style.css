@@ -37,8 +37,10 @@ body {
 }
 
 .inlinecodesample {
+  box-sizing: border-box;
   padding: 12px 12px 12px 20px;
   text-align: left;
+  width: 100%;
 }
 
 * + .inlinecodesample {
@@ -57,4 +59,11 @@ body {
   grid-gap: 40px 20px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   text-align: center;
+}
+
+.icongrid > .inner {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
 }

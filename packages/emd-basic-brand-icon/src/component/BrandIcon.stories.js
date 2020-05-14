@@ -46,7 +46,7 @@ const template = `
   :style="{ fontSize: fontSize + 'px' }"
 >
   <div class="icongrid">
-    <div v-for="iconName in iconNames" :key="iconName">
+    <div class="inner" v-for="iconName in iconNames" :key="iconName">
       <emd-brand-icon :icon="iconName" :style="{ color }"></emd-brand-icon>
       <div v-if="showCodeSamples" class="inlinecodesample">
         <pre>{{ getCodeSample(iconName, color) }}</pre>
