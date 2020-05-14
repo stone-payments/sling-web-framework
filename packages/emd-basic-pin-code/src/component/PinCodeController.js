@@ -3,6 +3,7 @@ export const PinCodeController = (Base = class {}) =>
     constructor () {
       super();
       this.handleInput = this.handleInput.bind(this);
+      this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     static get properties () {
@@ -36,23 +37,25 @@ export const PinCodeController = (Base = class {}) =>
       return Array.from(Array(this.cases).keys());
     }
 
-    get prevToFocus () {
-      const { activeElement } = this.renderRoot;
-      return activeElement.previousElementSibling || activeElement;
-    }
+    handleKeyDown (evt) {
+      const { target, code } = evt;
 
-    get nextToFocus () {
-      const { activeElement } = this.renderRoot;
-      return activeElement.nextElementSibling || activeElement;
+      if (code.toUpperCase() === 'BACKSPACE') {
+        evt.preventDefault();
+        target.value = '';
+        if (target.previousElementSibling) {
+          target.previousElementSibling.focus();
+          target.previousElementSibling.select();
+        }
+      }
     }
 
     handleInput ({ target }) {
       target.value = target.value.slice(-1);
 
-      if (target.value === '') {
-        this.prevToFocus.focus();
-      } else {
-        this.nextToFocus.focus();
+      if (target.value !== '' && target.nextElementSibling) {
+        target.nextElementSibling.focus();
+        target.nextElementSibling.select();
       }
     }
 
