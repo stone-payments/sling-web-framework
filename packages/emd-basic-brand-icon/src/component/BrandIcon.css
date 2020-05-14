@@ -62,7 +62,7 @@
 }
 
 .emd-brand-icon__greencard {
-  width: calc(1.35 * var(--default));
+  width: calc(1.15 * var(--default));
 }
 
 .emd-brand-icon__itau {
@@ -102,7 +102,7 @@
 }
 
 .emd-brand-icon__sorocred {
-  width: calc(1.42 * var(--default));
+  width: calc(1.2 * var(--default));
 }
 
 .emd-brand-icon__ticket {
