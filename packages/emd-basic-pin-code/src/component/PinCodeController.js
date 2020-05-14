@@ -40,13 +40,15 @@ export const PinCodeController = (Base = class {}) =>
     handleKeyDown (evt) {
       const { target, code } = evt;
 
-      if (code.toUpperCase() === 'BACKSPACE') {
+      if (code === 'Backspace') {
         evt.preventDefault();
         target.value = '';
         if (target.previousElementSibling) {
           target.previousElementSibling.focus();
           target.previousElementSibling.select();
         }
+      } else if (target.type === 'number' && code.startsWith('Key')) {
+        evt.preventDefault();
       }
     }
 
