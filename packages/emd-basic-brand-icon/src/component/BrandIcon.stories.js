@@ -15,6 +15,7 @@ const iconEntries = Object
   .entries(idKeyMap)
   .filter(([key]) => Number(key) < 1000)
   .filter(([key]) => !['20', '24', '26'].includes(key))
+  .map((entry) => entry[1] === 'VR Benefícios' ? [entry[0], 'VR'] : entry)
   .sort((entryA, entryB) => entryA[1].localeCompare(entryB[1]));
 
 function getCodeSample ([id, name], showId) {
