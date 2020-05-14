@@ -38,7 +38,7 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     handleKeyDown (evt) {
-      const { target, code } = evt;
+      const { target, code, ctrlKey, metaKey } = evt;
 
       if (code === 'Backspace') {
         evt.preventDefault();
@@ -47,7 +47,8 @@ export const PinCodeController = (Base = class {}) =>
           target.previousElementSibling.focus();
           target.previousElementSibling.select();
         }
-      } else if (target.type === 'number' && code.startsWith('Key')) {
+      } else if (target.type === 'number' &&
+        code.startsWith('Key') && !(ctrlKey || metaKey)) {
         evt.preventDefault();
       }
     }
