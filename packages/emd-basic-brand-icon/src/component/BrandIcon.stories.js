@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/vue';
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 import readMe from '../../README.md';
 import '../index.js';
+import { idKeyMap } from '../constants/idKeyMap.js';
 
 const fontOptions = {
   range: true,
@@ -10,33 +11,19 @@ const fontOptions = {
   step: 1
 };
 
-const iconNames = [
-  'Alelo',
-  'AmericanExpress',
-  'Banescard',
-  'Ben',
-  'Cabal',
-  'Cooper Card',
-  'Elo',
-  'GreenCard',
-  'Hipercard',
-  'MasterCard',
-  'Senff',
-  'Sodexo',
-  'Sorocred',
-  'Ticket',
-  'UnionPay',
-  'UP Brasil',
-  'ValeCard',
-  'VerdeCard',
-  'VeroCard',
-  'Visa',
-  'VR Benefícios'
-];
+const iconEntries = Object
+  .entries(idKeyMap)
+  .filter(([key]) => Number(key) < 1000)
+  .filter(([key]) => !['20', '24', '26'].includes(key))
+  .sort((entryA, entryB) => entryA[1].localeCompare(entryB[1]));
 
-function getCodeSample (iconName, color) {
-  return `<emd-brand-icon
-  icon="${iconName}"
+function getCodeSample ([id, name], showId) {
+  return showId
+    ? `<emd-brand-icon
+  iconid="${id}"
+></emd-brand-icon>`
+    : `<emd-brand-icon
+  icon="${name}"
 ></emd-brand-icon>`;
 }
 
@@ -46,10 +33,10 @@ const template = `
   :style="{ fontSize: fontSize + 'px' }"
 >
   <div class="icongrid">
-    <div class="inner" v-for="iconName in iconNames" :key="iconName">
-      <emd-brand-icon :icon="iconName" :style="{ color }"></emd-brand-icon>
+    <div class="inner" v-for="iconEntry in iconEntries" :key="iconEntry[0]">
+      <emd-brand-icon :icon="iconEntry[1]"></emd-brand-icon>
       <div v-if="showCodeSamples" class="inlinecodesample">
-        <pre>{{ getCodeSample(iconName, color) }}</pre>
+        <pre>{{ getCodeSample(iconEntry, showIdsInCodeSamples) }}</pre>
       </div>
     </div>
   </div>
@@ -61,7 +48,7 @@ storiesOf('Brand Icon', module)
   .add('Default', () => ({
     data () {
       return {
-        iconNames
+        iconEntries
       };
     },
     props: {
@@ -71,7 +58,9 @@ storiesOf('Brand Icon', module)
       showCodeSamples: {
         default: boolean('Show code samples', true)
       },
-      color: null
+      showIdsInCodeSamples: {
+        default: boolean('Show ids in code samples', false)
+      }
     },
     methods: {
       getCodeSample
