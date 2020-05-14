@@ -2,6 +2,16 @@
   display: block;
 }
 
+.emd-pin-code__wrapper ::-webkit-outer-spin-button,
+.emd-pin-code__wrapper ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.emd-pin-code__wrapper input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /* for Edge compatibility */
 
 emd-pin-code {
