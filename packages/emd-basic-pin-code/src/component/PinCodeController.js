@@ -15,10 +15,6 @@ export const PinCodeController = (Base = class {}) =>
         type: {
           type: String,
           reflect: true
-        },
-        value: {
-          type: String,
-          reflect: false
         }
       };
     }
@@ -64,7 +60,6 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     set value (value) {
-      const pastValue = this.value;
       const nextValue = String(value).replace(this.restrictions, '');
 
       this.casesArray.forEach(index => {
@@ -72,8 +67,6 @@ export const PinCodeController = (Base = class {}) =>
           this.inputElements[index].value = nextValue[index] || '';
         }
       });
-
-      this.requestUpdate('value', pastValue);
     }
 
     handleKeyDown (evt) {
