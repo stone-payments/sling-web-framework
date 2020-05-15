@@ -15,6 +15,10 @@ export const PinCodeController = (Base = class {}) =>
         type: {
           type: String,
           reflect: true
+        },
+        forceuppercase: {
+          type: Boolean,
+          reflect: true
         }
       };
     }
@@ -60,13 +64,22 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     set value (value) {
-      const nextValue = String(value).replace(this.restrictions, '');
+      const nextValue = this.applyRestrictions(value);
 
       this.casesArray.forEach(index => {
         if (this.inputElements[index]) {
           this.inputElements[index].value = nextValue[index] || '';
         }
       });
+    }
+
+    applyRestrictions (value) {
+      const definedValue = value == null ? '' : value;
+      const parsedValue = String(definedValue).replace(this.restrictions, '');
+
+      return this.forceuppercase
+        ? parsedValue.toUpperCase()
+        : parsedValue;
     }
 
     handleKeyDown (evt) {
@@ -83,7 +96,7 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     handleInput ({ target, data }) {
-      target.value = data.replace(this.restrictions, '');
+      target.value = this.applyRestrictions(data);
 
       if (target.value !== '' && target.nextElementSibling) {
         target.nextElementSibling.focus();
