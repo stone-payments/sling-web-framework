@@ -23,6 +23,12 @@ export const PinCodeController = (Base = class {}) =>
       };
     }
 
+    async connectedCallback () {
+      super.connectedCallback();
+      await this.updateComplete;
+      this.value = this.getAttribute('value') || '';
+    }
+
     attributeChangedCallback (attrName, prevValue, nextValue) {
       super.attributeChangedCallback(attrName, prevValue, nextValue);
 
