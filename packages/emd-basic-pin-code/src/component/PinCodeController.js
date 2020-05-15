@@ -37,6 +37,10 @@ export const PinCodeController = (Base = class {}) =>
       }
     }
 
+    get casesArray () {
+      return Array.from(Array(this.cases).keys());
+    }
+
     get inputElements () {
       return Array.from(this.renderRoot.querySelectorAll('input'));
     }
@@ -50,9 +54,9 @@ export const PinCodeController = (Base = class {}) =>
     set value (value) {
       const pastValue = this.value;
 
-      String(value).split('').forEach((char, index) => {
+      this.casesArray.forEach(index => {
         if (this.inputElements[index]) {
-          this.inputElements[index].value = char;
+          this.inputElements[index].value = value[index] || '';
         }
       });
 
