@@ -16,7 +16,6 @@ export const PinCodeView = ({
         @keydown="${handleKeyDown}"
         @input="${handleInput}"
         @focus="${handleFocus}"
-        data-case="${item}"
         type="${type}"
         size="1"
       />
