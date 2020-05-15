@@ -41,6 +41,12 @@ export const PinCodeController = (Base = class {}) =>
       return Array.from(Array(this.cases).keys());
     }
 
+    get restrictions () {
+      return (this.type === 'number')
+        ? new RegExp('[ˆ0-9]', 'g')
+        : new RegExp('[^a-zA-Z0-9]', 'g');
+    }
+
     get inputElements () {
       return Array.from(this.renderRoot.querySelectorAll('input'));
     }
@@ -53,10 +59,11 @@ export const PinCodeController = (Base = class {}) =>
 
     set value (value) {
       const pastValue = this.value;
+      const nextValue = String(value).replace(this.restrictions, '');
 
       this.casesArray.forEach(index => {
         if (this.inputElements[index]) {
-          this.inputElements[index].value = value[index] || '';
+          this.inputElements[index].value = nextValue[index] || '';
         }
       });
 
@@ -64,25 +71,20 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     handleKeyDown (evt) {
-      const { target, code, ctrlKey, metaKey } = evt;
+      const { target, code } = evt;
 
-      if (code === 'Space') {
-        evt.preventDefault();
-      } else if (code === 'Backspace') {
+      if (code === 'Backspace') {
         evt.preventDefault();
         target.value = '';
         if (target.previousElementSibling) {
           target.previousElementSibling.focus();
           target.previousElementSibling.select();
         }
-      } else if (target.type === 'number' &&
-        code.startsWith('Key') && !(ctrlKey || metaKey)) {
-        evt.preventDefault();
       }
     }
 
     handleInput ({ target, data }) {
-      target.value = data;
+      target.value = data.replace(this.restrictions, '');
 
       if (target.value !== '' && target.nextElementSibling) {
         target.nextElementSibling.focus();
