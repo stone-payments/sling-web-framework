@@ -15,6 +15,10 @@ export const PinCodeController = (Base = class {}) =>
         type: {
           type: String,
           reflect: true
+        },
+        value: {
+          type: String,
+          reflect: false
         }
       };
     }
@@ -35,6 +39,28 @@ export const PinCodeController = (Base = class {}) =>
 
     get casesArray () {
       return Array.from(Array(this.cases).keys());
+    }
+
+    get inputElements () {
+      return Array.from(this.renderRoot.querySelectorAll('input'));
+    }
+
+    get value () {
+      return this.inputElements
+        .map(({ value }) => value)
+        .join('');
+    }
+
+    set value (value) {
+      const pastValue = this.value;
+
+      String(value).split('').forEach((char, index) => {
+        if (this.inputElements[index]) {
+          this.inputElements[index].value = char;
+        }
+      });
+
+      this.requestUpdate('value', pastValue);
     }
 
     handleKeyDown (evt) {
