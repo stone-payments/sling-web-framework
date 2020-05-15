@@ -4,6 +4,7 @@ export const PinCodeController = (Base = class {}) =>
       super();
       this.handleInput = this.handleInput.bind(this);
       this.handleKeyDown = this.handleKeyDown.bind(this);
+      this.handleFocus = this.handleFocus.bind(this);
     }
 
     static get properties () {
@@ -101,6 +102,12 @@ export const PinCodeController = (Base = class {}) =>
       if (target.value !== '' && target.nextElementSibling) {
         target.nextElementSibling.focus();
         target.nextElementSibling.select();
+      }
+    }
+
+    handleFocus ({ target }) {
+      if (target.value === '') {
+        this.inputElements[this.value.length].focus();
       }
     }
 
