@@ -2,7 +2,7 @@ import { html } from '@stone-payments/lit-element';
 
 export const PinCodeView = ({
   type = 'text',
-  casesArray,
+  cases,
   handleInput,
   handleKeyDown
 }) => html`
@@ -10,7 +10,7 @@ export const PinCodeView = ({
     @import url("emd-basic-pin-code/src/component/PinCode.css")
   </style>
   <div class="emd-pin-code__wrapper">
-    ${casesArray.map(item => html`
+    ${Array.from(Array(cases).keys()).map(item => html`
       <input
         @keydown="${handleKeyDown}"
         @input="${handleInput}"

@@ -37,10 +37,6 @@ export const PinCodeController = (Base = class {}) =>
       }
     }
 
-    get casesArray () {
-      return Array.from(Array(this.cases).keys());
-    }
-
     get inputElements () {
       return Array.from(this.renderRoot.querySelectorAll('input'));
     }
