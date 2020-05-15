@@ -2,9 +2,10 @@ export const PinCodeController = (Base = class {}) =>
   class extends Base {
     constructor () {
       super();
-      this.handleInput = this.handleInput.bind(this);
       this.handleKeyDown = this.handleKeyDown.bind(this);
+      this.handleInput = this.handleInput.bind(this);
       this.handleFocus = this.handleFocus.bind(this);
+      this.handlePaste = this.handlePaste.bind(this);
     }
 
     static get properties () {
@@ -109,6 +110,12 @@ export const PinCodeController = (Base = class {}) =>
       if (target.value === '') {
         this.inputElements[this.value.length].focus();
       }
+    }
+
+    handlePaste (evt) {
+      evt.preventDefault();
+      const pastedText = evt.clipboardData.getData('text');
+      this.value = pastedText;
     }
 
     render () {

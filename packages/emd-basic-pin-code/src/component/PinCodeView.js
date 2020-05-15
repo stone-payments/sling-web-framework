@@ -5,7 +5,8 @@ export const PinCodeView = ({
   casesArray,
   handleInput,
   handleKeyDown,
-  handleFocus
+  handleFocus,
+  handlePaste
 }) => html`
   <style>
     @import url("emd-basic-pin-code/src/component/PinCode.css")
@@ -16,6 +17,7 @@ export const PinCodeView = ({
         @keydown="${handleKeyDown}"
         @input="${handleInput}"
         @focus="${handleFocus}"
+        @paste="${handlePaste}"
         type="${type}"
         size="1"
       />
