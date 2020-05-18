@@ -42,6 +42,8 @@ export const PinCodeController = (Base = class {}) =>
         } else if (numericNextValue !== Math.round(numericNextValue)) {
           this.setAttribute('cases', Math.round(numericNextValue));
         }
+      } else if (attrName === 'forceuppercase') {
+        this.value = this.applyRestrictions(this.value);
       }
     }
 
@@ -92,7 +94,6 @@ export const PinCodeController = (Base = class {}) =>
         target.value = '';
         if (target.previousElementSibling) {
           target.previousElementSibling.focus();
-          target.previousElementSibling.select();
         }
       }
     }
@@ -102,7 +103,6 @@ export const PinCodeController = (Base = class {}) =>
 
       if (target.value !== '' && target.nextElementSibling) {
         target.nextElementSibling.focus();
-        target.nextElementSibling.select();
       }
     }
 

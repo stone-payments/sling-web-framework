@@ -2,6 +2,7 @@ import { html } from '@stone-payments/lit-element';
 
 export const PinCodeView = ({
   type = 'text',
+  cases,
   casesArray,
   handleInput,
   handleKeyDown,
@@ -11,8 +12,12 @@ export const PinCodeView = ({
   <style>
     @import url("emd-basic-pin-code/src/component/PinCode.css")
   </style>
-  <div class="emd-pin-code__wrapper">
-    ${casesArray.map(item => html`
+  <div
+    class="emd-pin-code__wrapper"
+    part="wrapper"
+    style="grid-template-columns: repeat(${cases}, min-content);"
+  >
+    ${casesArray.map(() => html`
       <input
         @keydown="${handleKeyDown}"
         @input="${handleInput}"
@@ -20,6 +25,7 @@ export const PinCodeView = ({
         @paste="${handlePaste}"
         type="${type}"
         size="1"
+        part="case"
       />
     `)}
   </div>
