@@ -351,7 +351,7 @@ describe('PinCodeController', () => {
           return [
             { value: 'H' },
             { value: 'i' },
-            { focus: spy },
+            { value: '', focus: spy },
             {}
           ];
         }
@@ -372,7 +372,7 @@ describe('PinCodeController', () => {
         { value: '8' },
         { value: '0' },
         { value: '8' },
-        { focus: sinon.spy() }
+        { value: '', focus: sinon.spy() }
       ];
 
       Object.defineProperty(element, 'inputElements', {
@@ -400,7 +400,7 @@ describe('PinCodeController', () => {
         { value: '8' },
         { value: '0' },
         { value: '8' },
-        { focus: sinon.spy() }
+        { value: '', focus: sinon.spy() }
       ];
 
       Object.defineProperty(element, 'inputElements', {
@@ -452,7 +452,7 @@ describe('PinCodeController', () => {
         { value: '8' },
         { value: '0' },
         { value: '8' },
-        { focus: sinon.spy() }
+        { value: '', focus: sinon.spy() }
       ];
 
       Object.defineProperty(element, 'inputElements', {
