@@ -114,8 +114,7 @@ export const PinCodeController = (Base = class {}) =>
 
     handlePaste (evt) {
       evt.preventDefault();
-      const pastedText = evt.clipboardData.getData('text');
-      this.value = pastedText;
+      this.value = evt.clipboardData.getData('text');
     }
 
     render () {

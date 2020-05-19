@@ -212,4 +212,190 @@ describe('PinCodeController', () => {
       expect(INPUT_ELEMENTS[3].value).to.equal('');
     });
   });
+
+  describe('#applyRestrictions()', () => {
+    it('Should convert an undefined entry to an empty string', () => {
+      expect(element.applyRestrictions()).to.equal('');
+    });
+
+    it('Should convert entry to string', () => {
+      expect(element.applyRestrictions(249)).to.equal('249');
+    });
+
+    it('Should remove all restricted charcters', () => {
+      Object.defineProperty(element, 'restrictions', {
+        get () { return new RegExp('[^a-zA-Z0-9]', 'g'); }
+      });
+      expect(element.applyRestrictions('[};"zd5%Yuçã')).to.equal('zd5Yu');
+    });
+
+    it('Should convert characters to upper case ' +
+      'when forceuppercase is true', () => {
+      element.forceuppercase = true;
+      expect(element.applyRestrictions('l0ma')).to.equal('L0MA');
+    });
+  });
+
+  describe('#handleKeyDown()', () => {
+    it('Should delete the current input value and move to the previous one ' +
+      'when the Backspace key is pressed', () => {
+      const evt = {
+        preventDefault: sinon.spy(),
+        target: {
+          value: '909',
+          previousElementSibling: { focus: sinon.spy() }
+        },
+        code: 'Backspace'
+      };
+
+      element.handleKeyDown(evt);
+
+      expect(evt.preventDefault).to.have.been.calledOnce;
+      expect(evt.target.value).to.equal('');
+      expect(evt.target.previousElementSibling.focus).to.have.been.calledOnce;
+    });
+
+    it('Should not break when the Backspace key is pressed ' +
+      'but there is no previous input', () => {
+      const evt = {
+        preventDefault: sinon.spy(),
+        target: {},
+        code: 'Backspace'
+      };
+
+      element.handleKeyDown(evt);
+
+      expect(evt.preventDefault).to.have.been.calledOnce;
+      expect(evt.target.value).to.equal('');
+    });
+
+    it('Should present default behaviour if another key is pressed', () => {
+      const evt = {
+        preventDefault: sinon.spy(),
+        target: { value: '909' },
+        code: 'Key9'
+      };
+
+      element.handleKeyDown(evt);
+
+      expect(evt.preventDefault).not.to.have.been.called;
+      expect(evt.target.value).to.equal('909');
+    });
+  });
+
+  describe('#handleInput()', () => {
+    it('Should set the input value to the latest key stroke', () => {
+      const evt = {
+        target: { value: '9' },
+        data: '8'
+      };
+
+      element.handleInput(evt);
+      expect(evt.target.value).to.equal('8');
+    });
+
+    it('Should apply restrictions to the latest key stroke', () => {
+      const evt = {
+        target: { value: '9' },
+        data: 'ç'
+      };
+
+      element.handleInput(evt);
+      expect(evt.target.value).to.equal('');
+    });
+
+    it('Should focus the next input if it exists', () => {
+      const evt = {
+        target: {
+          value: '9',
+          nextElementSibling: { focus: sinon.spy() }
+        },
+        data: '8'
+      };
+
+      element.handleInput(evt);
+      expect(evt.target.nextElementSibling.focus).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#handleFocus()', () => {
+    it('Should move the cursor to the first empty ' +
+      'input element when focusing any empty input element', () => {
+      const spy = sinon.spy();
+
+      Object.defineProperties(element, {
+        inputElements: {
+          get () {
+            return [
+              { value: 'H' },
+              { value: 'i' },
+              { focus: spy },
+              {}
+            ];
+          }
+        }
+      });
+
+      const evt = {
+        target: { value: '' }
+      };
+
+      element.handleFocus(evt);
+      expect(spy).to.have.been.calledOnce;
+    });
+
+    it('Should present default behaviour when focusing ' +
+      'a filled input element', () => {
+      const spy = sinon.spy();
+
+      Object.defineProperties(element, {
+        inputElements: {
+          get () {
+            return [
+              { value: 'H' },
+              { value: 'i' },
+              { focus: spy },
+              {}
+            ];
+          }
+        }
+      });
+
+      const evt = {
+        target: { value: '8' }
+      };
+
+      element.handleFocus(evt);
+      expect(spy).not.to.have.been.called;
+    });
+  });
+
+  describe('#handlePaste()', () => {
+    it('Should distribute the pasted value between all input elements', () => {
+      Object.defineProperty(element, 'value', {
+        get () { return this._value; },
+        set (value) { this._value = value; }
+      });
+
+      const evt = {
+        preventDefault: sinon.spy(),
+        clipboardData: {
+          getData: sinon.stub().withArgs('text').returns('909')
+        }
+      };
+
+      element.handlePaste(evt);
+      expect(evt.preventDefault).to.have.been.calledOnce;
+      expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
+      expect(element.value).to.equal('909');
+    });
+  });
+
+  describe('#render()', () => {
+    it('Should call currentView.use', () => {
+      element.currentView = { use: sinon.spy() };
+      element.render();
+      expect(element.currentView.use).to.have.been.calledOnceWith(element);
+    });
+  });
 });
