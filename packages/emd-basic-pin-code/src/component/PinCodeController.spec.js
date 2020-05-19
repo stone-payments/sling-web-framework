@@ -10,7 +10,6 @@ let PinCodeController;
 let Controller;
 let element;
 let HTMLElement;
-let caseDOMElement;
 
 describe('PinCodeController', () => {
   beforeEach(async () => {
@@ -22,8 +21,6 @@ describe('PinCodeController', () => {
     HTMLElement.prototype.querySelectorAll = sinon.stub().returns([]);
     HTMLElement.prototype.getAttribute = sinon.spy();
     HTMLElement.prototype.setAttribute = sinon.spy();
-
-    caseDOMElement = new HTMLElement();
     HTMLElement.prototype.shadowRoot = new HTMLElement();
 
     global.window = {};
@@ -33,8 +30,6 @@ describe('PinCodeController', () => {
     element = new Controller();
     element.renderRoot = element.shadowRoot;
     element.updateComplete = Promise.resolve();
-    element.querySelectorAll = sinon.stub()
-      .withArgs('input').returns([caseDOMElement]);
   });
 
   afterEach(() => {
@@ -101,10 +96,120 @@ describe('PinCodeController', () => {
         get () { return this._value; },
         set (value) { this._value = value; }
       });
+
       element.value = 'code';
       element.applyRestrictions = sinon.spy();
       element.attributeChangedCallback('forceuppercase', null, '');
       expect(element.applyRestrictions).to.have.been.calledWith('code');
+    });
+  });
+
+  describe('#casesArray', () => {
+    it('Should be an array from zero to cases - 1', () => {
+      element.cases = 4;
+      expect(element.casesArray).to.deep.equal([0, 1, 2, 3]);
+    });
+
+    it('Should return [0] if cases is undefined', () => {
+      expect(element.casesArray).to.deep.equal([0]);
+    });
+  });
+
+  describe('#restrictions', () => {
+    it('Should restrict to digits if type is number', () => {
+      element.type = 'number';
+      expect(element.restrictions).to.deep
+        .equal(new RegExp('[ˆ0-9]', 'g'));
+    });
+
+    it('Should restrict to digits and characters if type is not number', () => {
+      expect(element.restrictions).to.deep
+        .equal(new RegExp('[^a-zA-Z0-9]', 'g'));
+    });
+  });
+
+  describe('#inputElements', () => {
+    it('Should be an array of all the input elements in the component', () => {
+      const FIRST_INPUT = Symbol('FIRST_INPUT');
+      const SECOND_INPUT = Symbol('SECOND_INPUT');
+
+      element.renderRoot.querySelectorAll = sinon.stub().withArgs('input')
+        .returns([FIRST_INPUT, SECOND_INPUT]);
+
+      expect(element.inputElements).to.deep.equal([FIRST_INPUT, SECOND_INPUT]);
+    });
+  });
+
+  describe('#value', () => {
+    it('Should compose value from DOM input elements\' values', () => {
+      Object.defineProperty(element, 'inputElements', {
+        get () {
+          return [
+            { value: 'D' },
+            { value: 'o' },
+            { value: '4' },
+            { value: '2' }
+          ];
+        }
+      });
+
+      expect(element.value).to.equal('Do42');
+    });
+
+    it('Should have restrictions applied to when set', () => {
+      element.applyRestrictions = sinon.spy();
+      element.value = 'LAC0';
+      expect(element.applyRestrictions).to.have.been.calledOnceWith('LAC0');
+    });
+
+    it('Should actually set values to DOM input elements', () => {
+      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      element.cases = 4;
+      element.value = 'LAC0';
+
+      expect(INPUT_ELEMENTS[0].value).to.equal('L');
+      expect(INPUT_ELEMENTS[1].value).to.equal('A');
+      expect(INPUT_ELEMENTS[2].value).to.equal('C');
+      expect(INPUT_ELEMENTS[3].value).to.equal('0');
+    });
+
+    it('Should be restricted to the number of DOM input elements', () => {
+      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      element.cases = 4;
+      element.value = 'LAC042';
+
+      expect(INPUT_ELEMENTS[0].value).to.equal('L');
+      expect(INPUT_ELEMENTS[1].value).to.equal('A');
+      expect(INPUT_ELEMENTS[2].value).to.equal('C');
+      expect(INPUT_ELEMENTS[3].value).to.equal('0');
+      expect(INPUT_ELEMENTS[4]).to.be.undefined;
+      expect(INPUT_ELEMENTS[5]).to.be.undefined;
+    });
+
+    it('Should fill extra DOM input elements with an empty string', () => {
+      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      element.cases = 4;
+      element.value = 'LA';
+
+      expect(INPUT_ELEMENTS[0].value).to.equal('L');
+      expect(INPUT_ELEMENTS[1].value).to.equal('A');
+      expect(INPUT_ELEMENTS[2].value).to.equal('');
+      expect(INPUT_ELEMENTS[3].value).to.equal('');
     });
   });
 });
