@@ -114,7 +114,18 @@ export const PinCodeController = (Base = class {}) =>
 
     handlePaste (evt) {
       evt.preventDefault();
-      this.value = evt.clipboardData.getData('text');
+
+      const { target } = evt;
+      const index = this.inputElements.indexOf(target);
+      const pastedText = evt.clipboardData.getData('text');
+      const nextValue = this.value.slice(0, index) + pastedText;
+
+      this.value = nextValue;
+
+      const lastInput = this.inputElements[this.value.length] ||
+        this.inputElements[this.value.length - 1];
+
+      lastInput.focus();
     }
 
     render () {

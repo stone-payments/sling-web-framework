@@ -323,16 +323,14 @@ describe('PinCodeController', () => {
       'input element when focusing any empty input element', () => {
       const spy = sinon.spy();
 
-      Object.defineProperties(element, {
-        inputElements: {
-          get () {
-            return [
-              { value: 'H' },
-              { value: 'i' },
-              { focus: spy },
-              {}
-            ];
-          }
+      Object.defineProperty(element, 'inputElements', {
+        get () {
+          return [
+            { value: 'H' },
+            { value: 'i' },
+            { focus: spy },
+            {}
+          ];
         }
       });
 
@@ -348,16 +346,14 @@ describe('PinCodeController', () => {
       'a filled input element', () => {
       const spy = sinon.spy();
 
-      Object.defineProperties(element, {
-        inputElements: {
-          get () {
-            return [
-              { value: 'H' },
-              { value: 'i' },
-              { focus: spy },
-              {}
-            ];
-          }
+      Object.defineProperty(element, 'inputElements', {
+        get () {
+          return [
+            { value: 'H' },
+            { value: 'i' },
+            { focus: spy },
+            {}
+          ];
         }
       });
 
@@ -372,22 +368,111 @@ describe('PinCodeController', () => {
 
   describe('#handlePaste()', () => {
     it('Should distribute the pasted value between all input elements', () => {
-      Object.defineProperty(element, 'value', {
-        get () { return this._value; },
-        set (value) { this._value = value; }
+      const INPUT_ELEMENTS = [
+        { value: '8' },
+        { value: '0' },
+        { value: '8' },
+        { focus: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
       });
 
       const evt = {
+        target: INPUT_ELEMENTS[0],
         preventDefault: sinon.spy(),
         clipboardData: {
-          getData: sinon.stub().withArgs('text').returns('909')
+          getData: sinon.stub().withArgs('text').returns('ABC')
         }
       };
 
+      element.cases = 4;
       element.handlePaste(evt);
+
       expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
-      expect(element.value).to.equal('909');
+      expect(element.value).to.equal('ABC');
+    });
+
+    it('Should move cursor to the last empty input element after paste', () => {
+      const INPUT_ELEMENTS = [
+        { value: '8' },
+        { value: '0' },
+        { value: '8' },
+        { focus: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      const evt = {
+        target: INPUT_ELEMENTS[0],
+        preventDefault: sinon.spy(),
+        clipboardData: {
+          getData: sinon.stub().withArgs('text').returns('ABC')
+        }
+      };
+
+      element.cases = 4;
+      element.handlePaste(evt);
+
+      expect(INPUT_ELEMENTS[3].focus).to.have.been.calledOnce;
+    });
+
+    it('Should move cursor to the last filled element after paste ' +
+      'if there are no empty input elements left', () => {
+      const INPUT_ELEMENTS = [
+        { value: '8' },
+        { value: '0' },
+        { value: '8', focus: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      const evt = {
+        target: INPUT_ELEMENTS[0],
+        preventDefault: sinon.spy(),
+        clipboardData: {
+          getData: sinon.stub().withArgs('text').returns('ABC')
+        }
+      };
+
+      element.cases = 3;
+      element.handlePaste(evt);
+
+      expect(INPUT_ELEMENTS[2].focus).to.have.been.calledOnce;
+    });
+
+    it('Should begin pasting in the currently selected input element', () => {
+      const INPUT_ELEMENTS = [
+        { value: '8' },
+        { value: '0' },
+        { value: '8' },
+        { focus: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      const evt = {
+        target: INPUT_ELEMENTS[2],
+        preventDefault: sinon.spy(),
+        clipboardData: {
+          getData: sinon.stub().withArgs('text').returns('ABC')
+        }
+      };
+
+      element.cases = 4;
+      element.handlePaste(evt);
+
+      expect(evt.preventDefault).to.have.been.calledOnce;
+      expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
+      expect(element.value).to.equal('80AB');
     });
   });
 
