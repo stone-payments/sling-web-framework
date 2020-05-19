@@ -38,9 +38,9 @@ export const PinCodeController = (Base = class {}) =>
         const numericNextValue = Number(nextValue);
 
         if (Number.isNaN(numericNextValue) || numericNextValue < 1) {
-          this.setAttribute('cases', 1);
+          this.cases = 1;
         } else if (numericNextValue !== Math.round(numericNextValue)) {
-          this.setAttribute('cases', Math.round(numericNextValue));
+          this.cases = Math.round(numericNextValue);
         }
       } else if (attrName === 'forceuppercase') {
         this.value = this.applyRestrictions(this.value);
