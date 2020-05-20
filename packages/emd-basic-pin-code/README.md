@@ -98,3 +98,13 @@ Dispatched every time all cases are filled.
   value: 'AB24'
 }
 ```
+
+## Methods
+
+#### `focus()`
+
+Programatically move focus to the first empty case, if it exists.
+
+#### `blur()`
+
+Programatically remove focus from all cases.
