@@ -140,17 +140,75 @@ describe('PinCodeController', () => {
     });
   });
 
+  describe('#firstEmptyInputElement', () => {
+    it('Should return the first empty input element', () => {
+      const INPUT_ELMENTS = [
+        { value: 'D', id: '1' },
+        { value: 'o', id: '2' },
+        { value: '', id: '3' },
+        { value: '', id: '4' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      expect(element.firstEmptyInputElement.id).to.equal('3');
+    });
+
+    it('Should return undefined if there are no empty input elements', () => {
+      const INPUT_ELMENTS = [
+        { value: 'D', id: '1' },
+        { value: 'o', id: '2' },
+        { value: '4', id: '3' },
+        { value: '2', id: '4' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      expect(element.firstEmptyInputElement).to.be.undefined;
+    });
+  });
+
+  describe('#isComplete', () => {
+    it('Should return true if all input elements are filled', () => {
+      Object.defineProperty(element, 'value', {
+        get () { return this._value; },
+        set (value) { this._value = value; }
+      });
+
+      element.cases = 4;
+      element.value = 'Do42';
+
+      expect(element.isComplete).to.be.true;
+    });
+
+    it('Should return false if not all input elements are filled', () => {
+      Object.defineProperty(element, 'value', {
+        get () { return this._value; },
+        set (value) { this._value = value; }
+      });
+
+      element.cases = 4;
+      element.value = 'Do';
+
+      expect(element.isComplete).to.be.false;
+    });
+  });
+
   describe('#value', () => {
     it('Should compose value from DOM input elements\' values', () => {
+      const INPUT_ELMENTS = [
+        { value: 'D' },
+        { value: 'o' },
+        { value: '4' },
+        { value: '2' }
+      ];
+
       Object.defineProperty(element, 'inputElements', {
-        get () {
-          return [
-            { value: 'D' },
-            { value: 'o' },
-            { value: '4' },
-            { value: '2' }
-          ];
-        }
+        get () { return INPUT_ELMENTS; }
       });
 
       expect(element.value).to.equal('Do42');
@@ -321,17 +379,15 @@ describe('PinCodeController', () => {
   describe('#handleFocus()', () => {
     it('Should move the cursor to the first empty ' +
       'input element when focusing any empty input element', () => {
-      const spy = sinon.spy();
+      const INPUT_ELEMENTS = [
+        { value: 'H' },
+        { value: 'i' },
+        { value: '', focus: sinon.spy() },
+        { value: '' }
+      ];
 
       Object.defineProperty(element, 'inputElements', {
-        get () {
-          return [
-            { value: 'H' },
-            { value: 'i' },
-            { focus: spy },
-            {}
-          ];
-        }
+        get () { return INPUT_ELEMENTS; }
       });
 
       const evt = {
@@ -339,22 +395,20 @@ describe('PinCodeController', () => {
       };
 
       element.handleFocus(evt);
-      expect(spy).to.have.been.calledOnce;
+      expect(INPUT_ELEMENTS[2].focus).to.have.been.calledOnce;
     });
 
     it('Should present default behaviour when focusing ' +
       'a filled input element', () => {
-      const spy = sinon.spy();
+      const INPUT_ELEMENTS = [
+        { value: 'H' },
+        { value: 'i' },
+        { value: '', focus: sinon.spy() },
+        { value: '' }
+      ];
 
       Object.defineProperty(element, 'inputElements', {
-        get () {
-          return [
-            { value: 'H' },
-            { value: 'i' },
-            { value: '', focus: spy },
-            {}
-          ];
-        }
+        get () { return INPUT_ELEMENTS; }
       });
 
       const evt = {
@@ -362,17 +416,22 @@ describe('PinCodeController', () => {
       };
 
       element.handleFocus(evt);
-      expect(spy).not.to.have.been.called;
+      expect(INPUT_ELEMENTS[2].focus).not.to.have.been.called;
     });
   });
 
   describe('#handlePaste()', () => {
+    beforeEach(() => {
+      element.focus = sinon.spy();
+      element.blur = sinon.spy();
+    });
+
     it('Should distribute the pasted value between all input elements', () => {
       const INPUT_ELEMENTS = [
         { value: '8' },
         { value: '0' },
         { value: '8' },
-        { value: '', focus: sinon.spy() }
+        { value: '' }
       ];
 
       Object.defineProperty(element, 'inputElements', {
@@ -395,64 +454,12 @@ describe('PinCodeController', () => {
       expect(element.value).to.equal('ABC');
     });
 
-    it('Should move cursor to the last empty input element after paste', () => {
-      const INPUT_ELEMENTS = [
-        { value: '8' },
-        { value: '0' },
-        { value: '8' },
-        { value: '', focus: sinon.spy() }
-      ];
-
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELEMENTS; }
-      });
-
-      const evt = {
-        target: INPUT_ELEMENTS[0],
-        preventDefault: sinon.spy(),
-        clipboardData: {
-          getData: sinon.stub().withArgs('text').returns('ABC')
-        }
-      };
-
-      element.cases = 4;
-      element.handlePaste(evt);
-
-      expect(INPUT_ELEMENTS[3].focus).to.have.been.calledOnce;
-    });
-
-    it('Should move cursor to the last filled element after paste ' +
-      'if there are no empty input elements left', () => {
-      const INPUT_ELEMENTS = [
-        { value: '8' },
-        { value: '0' },
-        { value: '8', focus: sinon.spy() }
-      ];
-
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELEMENTS; }
-      });
-
-      const evt = {
-        target: INPUT_ELEMENTS[0],
-        preventDefault: sinon.spy(),
-        clipboardData: {
-          getData: sinon.stub().withArgs('text').returns('ABC')
-        }
-      };
-
-      element.cases = 3;
-      element.handlePaste(evt);
-
-      expect(INPUT_ELEMENTS[2].focus).to.have.been.calledOnce;
-    });
-
     it('Should begin pasting in the currently selected input element', () => {
       const INPUT_ELEMENTS = [
         { value: '8' },
         { value: '0' },
         { value: '8' },
-        { value: '', focus: sinon.spy() }
+        { value: '' }
       ];
 
       Object.defineProperty(element, 'inputElements', {
@@ -473,6 +480,115 @@ describe('PinCodeController', () => {
       expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
       expect(element.value).to.equal('80AB');
+    });
+
+    it('Should focus after pasting if value is incomplete', () => {
+      const INPUT_ELEMENTS = [
+        { value: '8' },
+        { value: '0' },
+        { value: '8' },
+        { value: '' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      const evt = {
+        target: INPUT_ELEMENTS[0],
+        preventDefault: sinon.spy(),
+        clipboardData: {
+          getData: sinon.stub().withArgs('text').returns('ABC')
+        }
+      };
+
+      element.cases = 4;
+      element.handlePaste(evt);
+
+      expect(element.focus).to.have.been.calledOnce;
+      expect(element.blur).not.to.have.been.called;
+    });
+
+    it('Should blur after pasting if value is complete', () => {
+      const INPUT_ELEMENTS = [
+        { value: '8' },
+        { value: '0' },
+        { value: '8' },
+        { value: '' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      const evt = {
+        target: INPUT_ELEMENTS[2],
+        preventDefault: sinon.spy(),
+        clipboardData: {
+          getData: sinon.stub().withArgs('text').returns('ABC')
+        }
+      };
+
+      element.cases = 4;
+      element.handlePaste(evt);
+
+      expect(element.focus).not.to.have.been.called;
+      expect(element.blur).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#focus()', () => {
+    it('Should focus on the first empty input element', async () => {
+      const INPUT_ELMENTS = [
+        { value: 'D' },
+        { value: 'o' },
+        { value: '', focus: sinon.spy() },
+        { value: '' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      await element.focus();
+      expect(INPUT_ELMENTS[2].focus).to.have.been.calledOnce;
+    });
+
+    it('Should do nothing if no input elements are empty', async () => {
+      const INPUT_ELMENTS = [
+        { value: 'D' },
+        { value: 'o' },
+        { value: '4' },
+        { value: '2', focus: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      await element.focus();
+      expect(INPUT_ELMENTS[3].focus).not.to.have.been.called;
+    });
+  });
+
+  describe('#blur()', () => {
+    it('Should blur all input elements', async () => {
+      const INPUT_ELMENTS = [
+        { value: 'D', blur: sinon.spy() },
+        { value: 'o', blur: sinon.spy() },
+        { value: '4', blur: sinon.spy() },
+        { value: '2', blur: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      await element.blur();
+      expect(INPUT_ELMENTS[0].blur).to.have.been.calledOnce;
+      expect(INPUT_ELMENTS[1].blur).to.have.been.calledOnce;
+      expect(INPUT_ELMENTS[2].blur).to.have.been.calledOnce;
+      expect(INPUT_ELMENTS[3].blur).to.have.been.calledOnce;
     });
   });
 

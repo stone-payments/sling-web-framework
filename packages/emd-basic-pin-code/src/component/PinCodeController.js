@@ -61,6 +61,14 @@ export const PinCodeController = (Base = class {}) =>
       return Array.from(this.renderRoot.querySelectorAll('input'));
     }
 
+    get firstEmptyInputElement () {
+      return this.inputElements.find(inputEl => inputEl.value === '');
+    }
+
+    get isComplete () {
+      return this.value.length === this.cases;
+    }
+
     get value () {
       return this.inputElements
         .map(({ value }) => value)
@@ -104,6 +112,10 @@ export const PinCodeController = (Base = class {}) =>
       if (target.value !== '' && target.nextElementSibling) {
         target.nextElementSibling.focus();
       }
+
+      if (this.isComplete) {
+        this.blur();
+      }
     }
 
     handleFocus ({ target }) {
@@ -122,10 +134,25 @@ export const PinCodeController = (Base = class {}) =>
 
       this.value = nextValue;
 
-      const lastInput = this.inputElements[this.value.length] ||
-        this.inputElements[this.value.length - 1];
+      if (this.isComplete) {
+        this.blur();
+      } else {
+        this.focus();
+      }
+    }
 
-      lastInput.focus();
+    async focus () {
+      await this.updateComplete;
+      if (this.firstEmptyInputElement) {
+        this.firstEmptyInputElement.focus();
+      }
+    }
+
+    async blur () {
+      await this.updateComplete;
+      this.inputElements.forEach(inputEl => {
+        inputEl.blur();
+      });
     }
 
     render () {
