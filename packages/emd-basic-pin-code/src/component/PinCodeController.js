@@ -2,6 +2,7 @@ export const PinCodeController = (Base = class {}) =>
   class extends Base {
     constructor () {
       super();
+
       this.handleKeyDown = this.handleKeyDown.bind(this);
       this.handleInput = this.handleInput.bind(this);
       this.handleFocus = this.handleFocus.bind(this);
