@@ -83,6 +83,10 @@ export const PinCodeController = (Base = class {}) =>
           this.inputElements[index].value = nextValue[index] || '';
         }
       });
+
+      if (this.isComplete) {
+        this.dispatchEventAndMethod('complete', this.value);
+      }
     }
 
     applyRestrictions (value) {
@@ -109,18 +113,17 @@ export const PinCodeController = (Base = class {}) =>
     handleInput ({ target, data }) {
       target.value = this.applyRestrictions(data);
 
-      if (target.value !== '' && target.nextElementSibling) {
-        target.nextElementSibling.focus();
-      }
-
       if (this.isComplete) {
         this.blur();
+        this.dispatchEventAndMethod('complete', this.value);
+      } else {
+        this.focus();
       }
     }
 
     handleFocus ({ target }) {
       if (target.value === '') {
-        this.inputElements[this.value.length].focus();
+        this.focus();
       }
     }
 

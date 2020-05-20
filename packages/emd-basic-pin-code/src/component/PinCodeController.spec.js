@@ -30,6 +30,7 @@ describe('PinCodeController', () => {
     element = new Controller();
     element.renderRoot = element.shadowRoot;
     element.updateComplete = Promise.resolve();
+    element.dispatchEventAndMethod = sinon.spy();
   });
 
   afterEach(() => {
@@ -199,7 +200,7 @@ describe('PinCodeController', () => {
   });
 
   describe('#value', () => {
-    it('Should compose value from DOM input elements\' values', () => {
+    it('Should compose value from input elements\' values', () => {
       const INPUT_ELMENTS = [
         { value: 'D' },
         { value: 'o' },
@@ -220,7 +221,7 @@ describe('PinCodeController', () => {
       expect(element.applyRestrictions).to.have.been.calledOnceWith('LAC0');
     });
 
-    it('Should actually set values to DOM input elements', () => {
+    it('Should actually set values to input elements', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'inputElements', {
@@ -236,7 +237,7 @@ describe('PinCodeController', () => {
       expect(INPUT_ELEMENTS[3].value).to.equal('0');
     });
 
-    it('Should be restricted to the number of DOM input elements', () => {
+    it('Should be restricted to the number of input elements', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'inputElements', {
@@ -254,7 +255,7 @@ describe('PinCodeController', () => {
       expect(INPUT_ELEMENTS[5]).to.be.undefined;
     });
 
-    it('Should fill extra DOM input elements with an empty string', () => {
+    it('Should fill extra input elements with an empty string', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'inputElements', {
@@ -268,6 +269,33 @@ describe('PinCodeController', () => {
       expect(INPUT_ELEMENTS[1].value).to.equal('A');
       expect(INPUT_ELEMENTS[2].value).to.equal('');
       expect(INPUT_ELEMENTS[3].value).to.equal('');
+    });
+
+    it('Should dispatch complete event if complete', () => {
+      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      element.cases = 4;
+      element.value = 'LA36bbbb';
+
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledOnceWith('complete', 'LA36');
+    });
+
+    it('Should not dispatch complete event if incomplete', () => {
+      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELEMENTS; }
+      });
+
+      element.cases = 4;
+      element.value = 'LA';
+
+      expect(element.dispatchEventAndMethod).not.to.have.been.called;
     });
   });
 
@@ -342,6 +370,11 @@ describe('PinCodeController', () => {
   });
 
   describe('#handleInput()', () => {
+    beforeEach(() => {
+      element.focus = sinon.spy();
+      element.blur = sinon.spy();
+    });
+
     it('Should set the input value to the latest key stroke', () => {
       const evt = {
         target: { value: '9' },
@@ -362,61 +395,82 @@ describe('PinCodeController', () => {
       expect(evt.target.value).to.equal('');
     });
 
-    it('Should focus the next input if it exists', () => {
+    it('Should focus if value is incomplete', () => {
+      Object.defineProperty(element, 'isComplete', {
+        get () { return false; }
+      });
+
       const evt = {
-        target: {
-          value: '9',
-          nextElementSibling: { focus: sinon.spy() }
-        },
+        target: { value: '9' },
         data: '8'
       };
 
       element.handleInput(evt);
-      expect(evt.target.nextElementSibling.focus).to.have.been.calledOnce;
+
+      expect(element.focus).to.have.been.calledOnce;
+      expect(element.blur).not.to.have.been.called;
+    });
+
+    it('Should blur if value is complete', () => {
+      Object.defineProperty(element, 'isComplete', {
+        get () { return true; }
+      });
+
+      const evt = {
+        target: { value: '9' },
+        data: '8'
+      };
+
+      element.handleInput(evt);
+
+      expect(element.focus).not.to.have.been.called;
+      expect(element.blur).to.have.been.calledOnce;
+    });
+
+    it('Should dispatch complete event if value is complete', () => {
+      Object.defineProperty(element, 'isComplete', {
+        get () { return true; }
+      });
+
+      Object.defineProperty(element, 'value', {
+        get () { return this._value; },
+        set (value) { this._value = value; }
+      });
+
+      const evt = {
+        target: { value: '9' },
+        data: '0'
+      };
+
+      element.value = 'P0G0';
+      element.handleInput(evt);
+
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledOnceWith('complete', 'P0G0');
     });
   });
 
   describe('#handleFocus()', () => {
-    it('Should move the cursor to the first empty ' +
-      'input element when focusing any empty input element', () => {
-      const INPUT_ELEMENTS = [
-        { value: 'H' },
-        { value: 'i' },
-        { value: '', focus: sinon.spy() },
-        { value: '' }
-      ];
+    beforeEach(() => {
+      element.focus = sinon.spy();
+    });
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELEMENTS; }
-      });
-
+    it('Should focus when selecting an empty input element', () => {
       const evt = {
         target: { value: '' }
       };
 
       element.handleFocus(evt);
-      expect(INPUT_ELEMENTS[2].focus).to.have.been.calledOnce;
+      expect(element.focus).to.have.been.calledOnce;
     });
 
-    it('Should present default behaviour when focusing ' +
-      'a filled input element', () => {
-      const INPUT_ELEMENTS = [
-        { value: 'H' },
-        { value: 'i' },
-        { value: '', focus: sinon.spy() },
-        { value: '' }
-      ];
-
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELEMENTS; }
-      });
-
+    it('Should not focus when selecting a filled input element', () => {
       const evt = {
         target: { value: '8' }
       };
 
       element.handleFocus(evt);
-      expect(INPUT_ELEMENTS[2].focus).not.to.have.been.called;
+      expect(element.focus).not.to.have.been.called;
     });
   });
 
