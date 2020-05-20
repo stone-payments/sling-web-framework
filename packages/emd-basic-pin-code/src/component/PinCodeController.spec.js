@@ -120,7 +120,7 @@ describe('PinCodeController', () => {
     it('Should restrict to digits if type is number', () => {
       element.type = 'number';
       expect(element.restrictions).to.deep
-        .equal(new RegExp('[ˆ0-9]', 'g'));
+        .equal(new RegExp('[^0-9]', 'g'));
     });
 
     it('Should restrict to digits and characters if type is not number', () => {

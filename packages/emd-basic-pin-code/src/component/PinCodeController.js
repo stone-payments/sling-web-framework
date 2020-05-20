@@ -53,7 +53,7 @@ export const PinCodeController = (Base = class {}) =>
 
     get restrictions () {
       return (this.type === 'number')
-        ? new RegExp('[ˆ0-9]', 'g')
+        ? new RegExp('[^0-9]', 'g')
         : new RegExp('[^a-zA-Z0-9]', 'g');
     }
 
