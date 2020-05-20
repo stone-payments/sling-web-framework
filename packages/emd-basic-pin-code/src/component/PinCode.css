@@ -17,6 +17,10 @@
   font-size: 1em;
   text-align: center;
   padding: 0.3125em 0.25em;
+  color: inherit;
+  background: white;
+  -webkit-appearance: none;
+  width: 1em;
 }
 
 /* Remove up and down arrows from input[type=number] */

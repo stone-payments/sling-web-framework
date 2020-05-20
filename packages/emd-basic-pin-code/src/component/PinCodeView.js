@@ -26,6 +26,7 @@ export const PinCodeView = ({
         type="${type}"
         size="1"
         part="case"
+        autocapitalize="off"
       />
     `)}
   </div>
