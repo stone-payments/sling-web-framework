@@ -86,7 +86,7 @@ storiesOf('Tooltip', module)
     },
     template: `
       <div class="story" :style="{ fontSize: fontSize + 'px' }">
-        <div class="component" style="text-align: center;">
+        <div class="component" @keydown.stop="" style="text-align: center;">
           <h2 id="title" style="display: inline-block; margin: 4em auto;">
             Hover me
           </h2>
@@ -156,7 +156,7 @@ storiesOf('Tooltip', module)
     },
     template: `
       <div class="story" :style="{ fontSize: fontSize + 'px' }">
-        <div class="component" style="text-align: center;">
+        <div class="component" @keydown.stop="" style="text-align: center;">
           <h2 id="title" style="display: inline-block; margin: 4em auto;">
             Hover me
           </h2>

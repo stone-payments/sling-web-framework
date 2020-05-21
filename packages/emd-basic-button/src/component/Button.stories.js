@@ -88,7 +88,7 @@ storiesOf('Button', module)
     },
     template: `
       <div class="story" :style="{ fontSize: fontSize + 'px' }">
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-button
             :type="type"
             :disabled.prop="disabled"
@@ -179,7 +179,7 @@ storiesOf('Button', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-button
             :style="customStyle"
             :type="type"
@@ -218,7 +218,7 @@ storiesOf('Button', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-button
             :href="href"
             :target="target"
