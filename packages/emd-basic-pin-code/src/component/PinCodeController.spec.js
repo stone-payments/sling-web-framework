@@ -374,7 +374,7 @@ describe('PinCodeController', () => {
 
   describe('#handleInput()', () => {
     beforeEach(() => {
-      element.focus = sinon.spy();
+      element.focusFirstEmptyInputElement = sinon.spy();
       element.blur = sinon.spy();
     });
 
@@ -423,7 +423,7 @@ describe('PinCodeController', () => {
 
       element.handleInput(evt);
 
-      expect(element.focus).not.to.have.been.called;
+      expect(element.focusFirstEmptyInputElement).not.to.have.been.called;
       expect(element.blur).to.have.been.calledOnce;
     });
 
@@ -452,7 +452,7 @@ describe('PinCodeController', () => {
 
   describe('#handleFocus()', () => {
     beforeEach(() => {
-      element.focus = sinon.spy();
+      element.focusFirstEmptyInputElement = sinon.spy();
     });
 
     it('Should focus when selecting an empty input element', () => {
@@ -461,7 +461,7 @@ describe('PinCodeController', () => {
       };
 
       element.handleFocus(evt);
-      expect(element.focus).to.have.been.calledOnce;
+      expect(element.focusFirstEmptyInputElement).to.have.been.calledOnce;
     });
 
     it('Should not focus when selecting a filled input element', () => {
@@ -470,13 +470,13 @@ describe('PinCodeController', () => {
       };
 
       element.handleFocus(evt);
-      expect(element.focus).not.to.have.been.called;
+      expect(element.focusFirstEmptyInputElement).not.to.have.been.called;
     });
   });
 
   describe('#handlePaste()', () => {
     beforeEach(() => {
-      element.focus = sinon.spy();
+      element.focusFirstEmptyInputElement = sinon.spy();
       element.blur = sinon.spy();
     });
 
@@ -587,7 +587,7 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(element.focus).to.have.been.calledOnce;
+      expect(element.focusFirstEmptyInputElement).to.have.been.calledOnce;
       expect(element.blur).not.to.have.been.called;
     });
 
@@ -614,8 +614,42 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(element.focus).not.to.have.been.called;
+      expect(element.focusFirstEmptyInputElement).not.to.have.been.called;
       expect(element.blur).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#focusFirstEmptyInputElement()', () => {
+    it('Should focus on the first empty input element', async () => {
+      const INPUT_ELMENTS = [
+        { value: 'D' },
+        { value: 'o' },
+        { value: '', focus: sinon.spy() },
+        { value: '' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      await element.focusFirstEmptyInputElement();
+      expect(INPUT_ELMENTS[2].focus).to.have.been.calledOnce;
+    });
+
+    it('Should do nothing if no input elements are empty', async () => {
+      const INPUT_ELMENTS = [
+        { value: 'D' },
+        { value: 'o' },
+        { value: '4' },
+        { value: '2', focus: sinon.spy() }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      await element.focusFirstEmptyInputElement();
+      expect(INPUT_ELMENTS[3].focus).not.to.have.been.called;
     });
   });
 
@@ -636,7 +670,7 @@ describe('PinCodeController', () => {
       expect(INPUT_ELMENTS[2].focus).to.have.been.calledOnce;
     });
 
-    it('Should do nothing if no input elements are empty', async () => {
+    it('Should focus on the last input element if none are empty', async () => {
       const INPUT_ELMENTS = [
         { value: 'D' },
         { value: 'o' },
@@ -649,7 +683,7 @@ describe('PinCodeController', () => {
       });
 
       await element.focus();
-      expect(INPUT_ELMENTS[3].focus).not.to.have.been.called;
+      expect(INPUT_ELMENTS[3].focus).to.have.been.calledOnce;
     });
   });
 

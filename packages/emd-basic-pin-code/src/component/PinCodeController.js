@@ -126,7 +126,7 @@ export const PinCodeController = (Base = class {}) =>
 
     handleFocus ({ target }) {
       if (target.value === '') {
-        this.focus();
+        this.focusFirstEmptyInputElement();
       }
     }
 
@@ -146,14 +146,27 @@ export const PinCodeController = (Base = class {}) =>
       if (this.isComplete) {
         this.blur();
       } else {
-        this.focus();
+        this.focusFirstEmptyInputElement();
+      }
+    }
+
+    async focusFirstEmptyInputElement () {
+      await this.updateComplete;
+      if (this.firstEmptyInputElement) {
+        this.firstEmptyInputElement.focus();
       }
     }
 
     async focus () {
       await this.updateComplete;
+
+      const lastInputElement =
+        this.inputElements[this.inputElements.length - 1];
+
       if (this.firstEmptyInputElement) {
         this.firstEmptyInputElement.focus();
+      } else {
+        lastInputElement.focus();
       }
     }
 
