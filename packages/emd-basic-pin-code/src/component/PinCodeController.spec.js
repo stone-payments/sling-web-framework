@@ -308,11 +308,14 @@ describe('PinCodeController', () => {
       expect(element.applyRestrictions(249)).to.equal('249');
     });
 
-    it('Should remove all restricted charcters', () => {
-      Object.defineProperty(element, 'restrictions', {
-        get () { return new RegExp('[^a-zA-Z0-9]', 'g'); }
-      });
+    it('Should remove all restricted charcters when type is text', () => {
+      element.type = 'text';
       expect(element.applyRestrictions('[};"zd5%Yuçã')).to.equal('zd5Yu');
+    });
+
+    it('Should remove all restricted charcters when type is number', () => {
+      element.type = 'number';
+      expect(element.applyRestrictions('[};"zd5%Yuçã')).to.equal('5');
     });
 
     it('Should convert characters to upper case ' +
