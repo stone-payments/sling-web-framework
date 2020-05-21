@@ -102,7 +102,7 @@ storiesOf('Money', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-money
             :value="value"
             :currency="currency"
@@ -152,7 +152,7 @@ storiesOf('Money', module)
         class="story"
         :style="customStyle"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-money
             value="1250"
             :currency="currency"
@@ -213,7 +213,7 @@ storiesOf('Money', module)
         class="story"
         :style="customStyle"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-money
             value="1250"
             :currency="currency"

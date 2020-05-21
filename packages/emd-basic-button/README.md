@@ -80,3 +80,7 @@ Controlls the internal padding of the button.
 #### Default
 
 The component's content. Usually some text, but it can also be an image or an icon, for example.
+
+## Events
+
+This component dispatches all native Button events, like `click`, for example.

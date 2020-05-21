@@ -38,13 +38,12 @@ storiesOf('Login', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-login
             @forgotemail="logEvent"
             @forgotpassword="logEvent"
             @emailsubmitsuccess="logEvent"
             @passwordsubmitsuccess="logEvent"
-            @keydown.stop=""
           >
             {{ text }}
           </emd-login>
@@ -81,7 +80,7 @@ storiesOf('Login', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-login
             :style="{ fontSize: fontSize + 'px' }"
             email="user@stone.com.br"
@@ -90,7 +89,6 @@ storiesOf('Login', module)
             @forgotpassword="logEvent"
             @emailsubmitsuccess="logEvent"
             @passwordsubmitsuccess="logEvent"
-            @keydown.stop=""
           >
             {{ text }}
           </emd-login>

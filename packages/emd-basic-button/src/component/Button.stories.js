@@ -80,15 +80,15 @@ storiesOf('Button', module)
         default: select('Type', ['button', 'submit', 'reset'], 'button')
       },
       disabled: {
-        default: boolean('Disabled')
+        default: boolean('Disabled', false)
       },
       loading: {
-        default: boolean('Loading')
+        default: boolean('Loading', false)
       }
     },
     template: `
       <div class="story" :style="{ fontSize: fontSize + 'px' }">
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-button
             :type="type"
             :disabled.prop="disabled"
@@ -148,10 +148,10 @@ storiesOf('Button', module)
         default: select('Type', ['button', 'submit', 'reset'], 'button')
       },
       disabled: {
-        default: boolean('Disabled')
+        default: boolean('Disabled', false)
       },
       loading: {
-        default: boolean('Loading')
+        default: boolean('Loading', false)
       }
     },
     computed: {
@@ -179,7 +179,7 @@ storiesOf('Button', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-button
             :style="customStyle"
             :type="type"
@@ -218,7 +218,7 @@ storiesOf('Button', module)
         class="story"
         :style="{ fontSize: fontSize + 'px' }"
       >
-        <div class="component">
+        <div class="component" @keydown.stop="">
           <emd-button
             :href="href"
             :target="target"

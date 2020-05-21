@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.emd-pin-code__wrapper {
+  display: grid;
+  grid-column-gap: 0.5em;
+}
+
+.emd-pin-code__wrapper input {
+  -webkit-appearance: none;
+  background: #FFFFFF;
+  color: inherit;
+  border: 2px solid #D6DDE4;
+  border-radius: 5px;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  padding: 0.3125em 0.25em;
+  width: 1em;
+}
+
+/* Remove up and down arrows from input[type=number] */
+
+.emd-pin-code__wrapper ::-webkit-outer-spin-button,
+.emd-pin-code__wrapper ::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.emd-pin-code__wrapper input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* for Edge compatibility */
+
+emd-pin-code {
+  display: block;
+}
