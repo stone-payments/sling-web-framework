@@ -106,8 +106,6 @@ export const PinCodeController = (Base = class {}) =>
     handleKeyDown (evt) {
       const { target, code, key, ctrlKey, metaKey } = evt;
 
-      console.log(evt);
-
       if (code === 'Backspace') {
         target.value = '';
         if (target.previousElementSibling) {
@@ -116,8 +114,10 @@ export const PinCodeController = (Base = class {}) =>
         return;
       }
 
-      if (key.length === 1 && !this.applyRestrictions(key) &&
-        !(ctrlKey || metaKey)) {
+      const isRestrictedCharacter =
+        key.length === 1 && !this.applyRestrictions(key);
+
+      if (isRestrictedCharacter && !(ctrlKey || metaKey)) {
         evt.preventDefault();
       }
     }
