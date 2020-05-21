@@ -80,10 +80,10 @@ storiesOf('Button', module)
         default: select('Type', ['button', 'submit', 'reset'], 'button')
       },
       disabled: {
-        default: boolean('Disabled')
+        default: boolean('Disabled', false)
       },
       loading: {
-        default: boolean('Loading')
+        default: boolean('Loading', false)
       }
     },
     template: `
@@ -148,10 +148,10 @@ storiesOf('Button', module)
         default: select('Type', ['button', 'submit', 'reset'], 'button')
       },
       disabled: {
-        default: boolean('Disabled')
+        default: boolean('Disabled', false)
       },
       loading: {
-        default: boolean('Loading')
+        default: boolean('Loading', false)
       }
     },
     computed: {
