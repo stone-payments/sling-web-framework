@@ -66,6 +66,10 @@ export const PinCodeController = (Base = class {}) =>
       return this.inputElements.find(inputEl => inputEl.value === '');
     }
 
+    get lastInputElement () {
+      return this.inputElements[this.inputElements.length - 1];
+    }
+
     get isComplete () {
       return this.value.length === this.cases;
     }
@@ -160,13 +164,10 @@ export const PinCodeController = (Base = class {}) =>
     async focus () {
       await this.updateComplete;
 
-      const lastInputElement =
-        this.inputElements[this.inputElements.length - 1];
-
       if (this.firstEmptyInputElement) {
         this.firstEmptyInputElement.focus();
       } else {
-        lastInputElement.focus();
+        this.lastInputElement.focus();
       }
     }
 

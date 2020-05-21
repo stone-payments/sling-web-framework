@@ -173,6 +173,23 @@ describe('PinCodeController', () => {
     });
   });
 
+  describe('#lastInputElement', () => {
+    it('Should return the last input element', () => {
+      const INPUT_ELMENTS = [
+        { value: 'D', id: '1' },
+        { value: 'o', id: '2' },
+        { value: '', id: '3' },
+        { value: '', id: '4' }
+      ];
+
+      Object.defineProperty(element, 'inputElements', {
+        get () { return INPUT_ELMENTS; }
+      });
+
+      expect(element.lastInputElement.id).to.equal('4');
+    });
+  });
+
   describe('#isComplete', () => {
     it('Should return true if all input elements are filled', () => {
       Object.defineProperty(element, 'value', {
