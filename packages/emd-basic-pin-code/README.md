@@ -67,7 +67,9 @@ Styles all cases at the same time.
 
 ```css
 emd-pin-code::part(case) {
+  -webkit-appearance: none;
   background: #FFFFFF;
+  color: inherit;
   border: 2px solid #D6DDE4;
   border-radius: 5px;
   font-family: inherit;
@@ -76,9 +78,6 @@ emd-pin-code::part(case) {
   font-size: 1em;
   text-align: center;
   padding: 0.3125em 0.25em;
-  color: inherit;
-  background: white;
-  -webkit-appearance: none;
   width: 1em;
 }
 ```
