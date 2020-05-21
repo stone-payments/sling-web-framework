@@ -76,7 +76,7 @@ function getCodeSample () {
 
 const template = `
   <div class="story" :style="{ fontSize: fontSize + 'px' }">
-    <div class="component">
+    <div class="component" @keydown.stop="">
       <emd-card
         :noscroll.prop="!useScroll"
         :expandedbody.prop="expandedBody"
