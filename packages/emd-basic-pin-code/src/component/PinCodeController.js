@@ -58,16 +58,16 @@ export const PinCodeController = (Base = class {}) =>
         : new RegExp('[^a-zA-Z0-9]', 'g');
     }
 
-    get inputElements () {
+    get caseElements () {
       return Array.from(this.renderRoot.querySelectorAll('input'));
     }
 
-    get firstEmptyInputElement () {
-      return this.inputElements.find(inputEl => inputEl.value === '');
+    get firstEmptyCase () {
+      return this.caseElements.find(inputEl => inputEl.value === '');
     }
 
-    get lastInputElement () {
-      return this.inputElements[this.inputElements.length - 1];
+    get lastCase () {
+      return this.caseElements[this.caseElements.length - 1];
     }
 
     get isComplete () {
@@ -75,7 +75,7 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     get value () {
-      return this.inputElements
+      return this.caseElements
         .map(({ value }) => value)
         .join('');
     }
@@ -84,8 +84,8 @@ export const PinCodeController = (Base = class {}) =>
       const nextValue = this.applyRestrictions(value);
 
       this.casesArray.forEach(index => {
-        if (this.inputElements[index]) {
-          this.inputElements[index].value = nextValue[index] || '';
+        if (this.caseElements[index]) {
+          this.caseElements[index].value = nextValue[index] || '';
         }
       });
 
@@ -130,7 +130,7 @@ export const PinCodeController = (Base = class {}) =>
 
     handleFocus ({ target }) {
       if (target.value === '') {
-        this.focusFirstEmptyInputElement();
+        this.focusFirstEmptyCase();
       }
     }
 
@@ -138,7 +138,7 @@ export const PinCodeController = (Base = class {}) =>
       evt.preventDefault();
 
       const { target } = evt;
-      const index = this.inputElements.indexOf(target);
+      const index = this.caseElements.indexOf(target);
       const pastedText = evt.clipboardData.getData('text');
 
       const nextValue = this.casesArray
@@ -150,30 +150,30 @@ export const PinCodeController = (Base = class {}) =>
       if (this.isComplete) {
         this.blur();
       } else {
-        this.focusFirstEmptyInputElement();
+        this.focusFirstEmptyCase();
       }
     }
 
-    async focusFirstEmptyInputElement () {
+    async focusFirstEmptyCase () {
       await this.updateComplete;
-      if (this.firstEmptyInputElement) {
-        this.firstEmptyInputElement.focus();
+      if (this.firstEmptyCase) {
+        this.firstEmptyCase.focus();
       }
     }
 
     async focus () {
       await this.updateComplete;
 
-      if (this.firstEmptyInputElement) {
-        this.firstEmptyInputElement.focus();
+      if (this.firstEmptyCase) {
+        this.firstEmptyCase.focus();
       } else {
-        this.lastInputElement.focus();
+        this.lastCase.focus();
       }
     }
 
     async blur () {
       await this.updateComplete;
-      this.inputElements.forEach(inputEl => {
+      this.caseElements.forEach(inputEl => {
         inputEl.blur();
       });
     }

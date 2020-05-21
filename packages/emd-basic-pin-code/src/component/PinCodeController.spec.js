@@ -129,69 +129,69 @@ describe('PinCodeController', () => {
     });
   });
 
-  describe('#inputElements', () => {
-    it('Should be an array of all the input elements in the component', () => {
+  describe('#caseElements', () => {
+    it('Should be an array of all the cases in the component', () => {
       const FIRST_INPUT = Symbol('FIRST_INPUT');
       const SECOND_INPUT = Symbol('SECOND_INPUT');
 
       element.renderRoot.querySelectorAll = sinon.stub().withArgs('input')
         .returns([FIRST_INPUT, SECOND_INPUT]);
 
-      expect(element.inputElements).to.deep.equal([FIRST_INPUT, SECOND_INPUT]);
+      expect(element.caseElements).to.deep.equal([FIRST_INPUT, SECOND_INPUT]);
     });
   });
 
-  describe('#firstEmptyInputElement', () => {
-    it('Should return the first empty input element', () => {
-      const INPUT_ELMENTS = [
+  describe('#firstEmptyCase', () => {
+    it('Should return the first empty case', () => {
+      const CASE_ELEMENTS = [
         { value: 'D', id: '1' },
         { value: 'o', id: '2' },
         { value: '', id: '3' },
         { value: '', id: '4' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
-      expect(element.firstEmptyInputElement.id).to.equal('3');
+      expect(element.firstEmptyCase.id).to.equal('3');
     });
 
-    it('Should return undefined if there are no empty input elements', () => {
-      const INPUT_ELMENTS = [
+    it('Should return undefined if there are no empty cases', () => {
+      const CASE_ELEMENTS = [
         { value: 'D', id: '1' },
         { value: 'o', id: '2' },
         { value: '4', id: '3' },
         { value: '2', id: '4' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
-      expect(element.firstEmptyInputElement).to.be.undefined;
+      expect(element.firstEmptyCase).to.be.undefined;
     });
   });
 
-  describe('#lastInputElement', () => {
-    it('Should return the last input element', () => {
-      const INPUT_ELMENTS = [
+  describe('#lastCase', () => {
+    it('Should return the last case', () => {
+      const CASE_ELEMENTS = [
         { value: 'D', id: '1' },
         { value: 'o', id: '2' },
         { value: '', id: '3' },
         { value: '', id: '4' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
-      expect(element.lastInputElement.id).to.equal('4');
+      expect(element.lastCase.id).to.equal('4');
     });
   });
 
   describe('#isComplete', () => {
-    it('Should return true if all input elements are filled', () => {
+    it('Should return true if all cases are filled', () => {
       Object.defineProperty(element, 'value', {
         get () { return this._value; },
         set (value) { this._value = value; }
@@ -203,7 +203,7 @@ describe('PinCodeController', () => {
       expect(element.isComplete).to.be.true;
     });
 
-    it('Should return false if not all input elements are filled', () => {
+    it('Should return false if not all cases are filled', () => {
       Object.defineProperty(element, 'value', {
         get () { return this._value; },
         set (value) { this._value = value; }
@@ -217,16 +217,16 @@ describe('PinCodeController', () => {
   });
 
   describe('#value', () => {
-    it('Should compose value from input elements\' values', () => {
-      const INPUT_ELMENTS = [
+    it('Should compose value from cases\' values', () => {
+      const CASE_ELEMENTS = [
         { value: 'D' },
         { value: 'o' },
         { value: '4' },
         { value: '2' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
       expect(element.value).to.equal('Do42');
@@ -238,10 +238,10 @@ describe('PinCodeController', () => {
       expect(element.applyRestrictions).to.have.been.calledOnceWith('LAC0');
     });
 
-    it('Should actually set values to input elements', () => {
+    it('Should actually set values to cases', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -254,10 +254,10 @@ describe('PinCodeController', () => {
       expect(INPUT_ELEMENTS[3].value).to.equal('0');
     });
 
-    it('Should be restricted to the number of input elements', () => {
+    it('Should be restricted to the number of cases', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -272,10 +272,10 @@ describe('PinCodeController', () => {
       expect(INPUT_ELEMENTS[5]).to.be.undefined;
     });
 
-    it('Should fill extra input elements with an empty string', () => {
+    it('Should fill extra cases with an empty string', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -291,7 +291,7 @@ describe('PinCodeController', () => {
     it('Should dispatch complete event if complete', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -305,7 +305,7 @@ describe('PinCodeController', () => {
     it('Should not dispatch complete event if incomplete', () => {
       const INPUT_ELEMENTS = [{}, {}, {}, {}];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -391,7 +391,7 @@ describe('PinCodeController', () => {
 
   describe('#handleInput()', () => {
     beforeEach(() => {
-      element.focusFirstEmptyInputElement = sinon.spy();
+      element.focusFirstEmptyCase = sinon.spy();
       element.blur = sinon.spy();
     });
 
@@ -440,7 +440,7 @@ describe('PinCodeController', () => {
 
       element.handleInput(evt);
 
-      expect(element.focusFirstEmptyInputElement).not.to.have.been.called;
+      expect(element.focusFirstEmptyCase).not.to.have.been.called;
       expect(element.blur).to.have.been.calledOnce;
     });
 
@@ -469,35 +469,35 @@ describe('PinCodeController', () => {
 
   describe('#handleFocus()', () => {
     beforeEach(() => {
-      element.focusFirstEmptyInputElement = sinon.spy();
+      element.focusFirstEmptyCase = sinon.spy();
     });
 
-    it('Should focus when selecting an empty input element', () => {
+    it('Should focus when selecting an empty case', () => {
       const evt = {
         target: { value: '' }
       };
 
       element.handleFocus(evt);
-      expect(element.focusFirstEmptyInputElement).to.have.been.calledOnce;
+      expect(element.focusFirstEmptyCase).to.have.been.calledOnce;
     });
 
-    it('Should not focus when selecting a filled input element', () => {
+    it('Should not focus when selecting a filled case', () => {
       const evt = {
         target: { value: '8' }
       };
 
       element.handleFocus(evt);
-      expect(element.focusFirstEmptyInputElement).not.to.have.been.called;
+      expect(element.focusFirstEmptyCase).not.to.have.been.called;
     });
   });
 
   describe('#handlePaste()', () => {
     beforeEach(() => {
-      element.focusFirstEmptyInputElement = sinon.spy();
+      element.focusFirstEmptyCase = sinon.spy();
       element.blur = sinon.spy();
     });
 
-    it('Should distribute the pasted value between all input elements', () => {
+    it('Should distribute the pasted value between all cases', () => {
       const INPUT_ELEMENTS = [
         { value: '8' },
         { value: '0' },
@@ -505,7 +505,7 @@ describe('PinCodeController', () => {
         { value: '' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -525,7 +525,7 @@ describe('PinCodeController', () => {
       expect(element.value).to.equal('ABC');
     });
 
-    it('Should begin pasting in the currently selected input element', () => {
+    it('Should begin pasting in the currently selected case', () => {
       const INPUT_ELEMENTS = [
         { value: '8' },
         { value: '0' },
@@ -533,7 +533,7 @@ describe('PinCodeController', () => {
         { value: '' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -561,7 +561,7 @@ describe('PinCodeController', () => {
         { value: '7' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -589,7 +589,7 @@ describe('PinCodeController', () => {
         { value: '' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -604,7 +604,7 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(element.focusFirstEmptyInputElement).to.have.been.calledOnce;
+      expect(element.focusFirstEmptyCase).to.have.been.calledOnce;
       expect(element.blur).not.to.have.been.called;
     });
 
@@ -616,7 +616,7 @@ describe('PinCodeController', () => {
         { value: '' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
+      Object.defineProperty(element, 'caseElements', {
         get () { return INPUT_ELEMENTS; }
       });
 
@@ -631,97 +631,97 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(element.focusFirstEmptyInputElement).not.to.have.been.called;
+      expect(element.focusFirstEmptyCase).not.to.have.been.called;
       expect(element.blur).to.have.been.calledOnce;
     });
   });
 
-  describe('#focusFirstEmptyInputElement()', () => {
-    it('Should focus on the first empty input element', async () => {
-      const INPUT_ELMENTS = [
+  describe('#focusFirstEmptyCase()', () => {
+    it('Should focus on the first empty case', async () => {
+      const CASE_ELEMENTS = [
         { value: 'D' },
         { value: 'o' },
         { value: '', focus: sinon.spy() },
         { value: '' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
-      await element.focusFirstEmptyInputElement();
-      expect(INPUT_ELMENTS[2].focus).to.have.been.calledOnce;
+      await element.focusFirstEmptyCase();
+      expect(CASE_ELEMENTS[2].focus).to.have.been.calledOnce;
     });
 
-    it('Should do nothing if no input elements are empty', async () => {
-      const INPUT_ELMENTS = [
+    it('Should do nothing if no cases are empty', async () => {
+      const CASE_ELEMENTS = [
         { value: 'D' },
         { value: 'o' },
         { value: '4' },
         { value: '2', focus: sinon.spy() }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
-      await element.focusFirstEmptyInputElement();
-      expect(INPUT_ELMENTS[3].focus).not.to.have.been.called;
+      await element.focusFirstEmptyCase();
+      expect(CASE_ELEMENTS[3].focus).not.to.have.been.called;
     });
   });
 
   describe('#focus()', () => {
-    it('Should focus on the first empty input element', async () => {
-      const INPUT_ELMENTS = [
+    it('Should focus on the first empty case', async () => {
+      const CASE_ELEMENTS = [
         { value: 'D' },
         { value: 'o' },
         { value: '', focus: sinon.spy() },
         { value: '' }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
       await element.focus();
-      expect(INPUT_ELMENTS[2].focus).to.have.been.calledOnce;
+      expect(CASE_ELEMENTS[2].focus).to.have.been.calledOnce;
     });
 
-    it('Should focus on the last input element if none are empty', async () => {
-      const INPUT_ELMENTS = [
+    it('Should focus on the last case if none are empty', async () => {
+      const CASE_ELEMENTS = [
         { value: 'D' },
         { value: 'o' },
         { value: '4' },
         { value: '2', focus: sinon.spy() }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
       await element.focus();
-      expect(INPUT_ELMENTS[3].focus).to.have.been.calledOnce;
+      expect(CASE_ELEMENTS[3].focus).to.have.been.calledOnce;
     });
   });
 
   describe('#blur()', () => {
-    it('Should blur all input elements', async () => {
-      const INPUT_ELMENTS = [
+    it('Should blur all cases', async () => {
+      const CASE_ELEMENTS = [
         { value: 'D', blur: sinon.spy() },
         { value: 'o', blur: sinon.spy() },
         { value: '4', blur: sinon.spy() },
         { value: '2', blur: sinon.spy() }
       ];
 
-      Object.defineProperty(element, 'inputElements', {
-        get () { return INPUT_ELMENTS; }
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
       });
 
       await element.blur();
-      expect(INPUT_ELMENTS[0].blur).to.have.been.calledOnce;
-      expect(INPUT_ELMENTS[1].blur).to.have.been.calledOnce;
-      expect(INPUT_ELMENTS[2].blur).to.have.been.calledOnce;
-      expect(INPUT_ELMENTS[3].blur).to.have.been.calledOnce;
+      expect(CASE_ELEMENTS[0].blur).to.have.been.calledOnce;
+      expect(CASE_ELEMENTS[1].blur).to.have.been.calledOnce;
+      expect(CASE_ELEMENTS[2].blur).to.have.been.calledOnce;
+      expect(CASE_ELEMENTS[3].blur).to.have.been.calledOnce;
     });
   });
 
