@@ -34,21 +34,32 @@ function getCodeSample () {
   let attrs = '';
   attrs += this.cases ? `\n  cases="${this.cases}"` : '';
   attrs += this.type ? `\n  type="${this.type}"` : '';
-  attrs += this.value ? `\n  value="${this.value}"` : '';
-  attrs += this.forceuppercase ? '\n  forceuppercase' : '';
+  attrs += this.valueAttr ? `\n  value="${this.valueAttr}"` : '';
+  attrs += this.forceUppercase ? '\n  forceuppercase' : '';
   return `<emd-pin-code${attrs}\n></emd-pin-code>`;
 }
 
-const TEMPLATE = `
+const getTemplate = ({ hasCustomValue }) => `
   <div class="story" :style="{ fontSize: fontSize + 'px' }">
     <div class="component" @keydown.stop="">
-      <emd-pin-code
-        :type="type"
-        :cases="cases"
-        :forceuppercase.prop="forceuppercase"
-        @input="logEvent"
-        @complete="logEvent"
-      ></emd-pin-code>
+      ${hasCustomValue ? `
+        <emd-pin-code
+          :type="type"
+          :cases="cases"
+          :forceuppercase.prop="forceUppercase"
+          @input="logEvent"
+          @complete="logEvent"
+          :value="valueAttr"
+        ></emd-pin-code>
+      ` : `
+        <emd-pin-code
+          :type="type"
+          :cases="cases"
+          :forceuppercase.prop="forceUppercase"
+          @input="logEvent"
+          @complete="logEvent"
+        ></emd-pin-code>
+      `}
       <div style="margin-top: 16px">
         <button @click="focusPinCode">Focus</button>
         <button @click="blurPinCode">Blur</button>
@@ -122,11 +133,11 @@ storiesOf('Pin Code', module)
       type: {
         default: select('Type', ['text', 'number', 'password'], 'text')
       },
-      forceuppercase: {
-        default: boolean('Force Uppercase')
+      forceUppercase: {
+        default: boolean('Force Uppercase', false)
       }
     },
-    template: TEMPLATE,
+    template: getTemplate({ hasCustomValue: false }),
     computed: {
       codesample: getCodeSample
     }
@@ -157,14 +168,14 @@ storiesOf('Pin Code', module)
       type: {
         default: select('Type', ['text', 'number', 'password'], 'text')
       },
-      forceuppercase: {
-        default: boolean('Force Uppercase')
+      forceUppercase: {
+        default: boolean('Force Uppercase', false)
       },
       customStyle: {
         default: text('Custom Style', CUSTOM_STYLE)
       }
     },
-    template: TEMPLATE,
+    template: getTemplate({ hasCustomValue: false }),
     computed: {
       codesample: getCodeSample
     },
@@ -172,6 +183,36 @@ storiesOf('Pin Code', module)
       customStyle (val) {
         this.styleNode.textContent = val;
       }
+    }
+  }), {
+    notes: { markdown: readMe }
+  })
+  .add('With Initial Value', () => ({
+    methods: {
+      logEvent,
+      focusPinCode,
+      blurPinCode
+    },
+    props: {
+      fontSize: {
+        default: number('Font size (px)', 16, fontOptions)
+      },
+      cases: {
+        default: number('Cases', 6, casesOptions)
+      },
+      type: {
+        default: select('Type', ['text', 'number', 'password'], 'text')
+      },
+      forceUppercase: {
+        default: boolean('Force Uppercase', false)
+      },
+      valueAttr: {
+        default: 'abc'
+      }
+    },
+    template: getTemplate({ hasCustomValue: true }),
+    computed: {
+      codesample: getCodeSample
     }
   }), {
     notes: { markdown: readMe }
