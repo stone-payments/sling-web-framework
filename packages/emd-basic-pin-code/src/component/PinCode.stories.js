@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/vue';
-import { withKnobs, number, boolean, select } from '@storybook/addon-knobs';
+import { withKnobs, number, boolean, select, text } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import readMe from '../../README.md';
 import '../index.js';
@@ -36,8 +36,72 @@ function getCodeSample () {
   attrs += this.type ? `\n  type="${this.type}"` : '';
   attrs += this.value ? `\n  value="${this.value}"` : '';
   attrs += this.forceuppercase ? '\n  forceuppercase' : '';
-  return `<emd-pin-code${attrs}
-></emd-pin-code>`;
+  return `<emd-pin-code${attrs}\n></emd-pin-code>`;
+}
+
+const TEMPLATE = `
+  <div class="story" :style="{ fontSize: fontSize + 'px' }">
+    <div class="component" @keydown.stop="">
+      <emd-pin-code
+        :type="type"
+        :cases="cases"
+        :forceuppercase.prop="forceuppercase"
+        @input="logEvent"
+        @complete="logEvent"
+      ></emd-pin-code>
+      <div style="margin-top: 16px">
+        <button @click="focusPinCode">Focus</button>
+        <button @click="blurPinCode">Blur</button>
+      </div>
+    </div>
+    <div class="codesample">
+      <pre>{{ codesample }}</pre>
+    </div>
+  </div>
+`;
+
+export const CUSTOM_STYLE = `emd-pin-code::part(wrapper) {
+  display: grid;
+  grid-column-gap: 0.5em;
+}
+
+emd-pin-code::part(case) {
+  -webkit-appearance: none;
+  background: #FFFFFF;
+  color: inherit;
+  border: 2px solid #D6DDE4;
+  border-radius: 5px;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: center;
+  padding: 0.3125em 0.25em;
+  width: 1em;
+}`;
+
+function mountCustomStyle (id) {
+  const parsedId = `custom-style-${id}`;
+  let styleTag = document.getElementById(parsedId);
+
+  if (!styleTag) {
+    styleTag = document.createElement('style');
+    styleTag.type = 'text/css';
+    styleTag.id = parsedId;
+    styleTag.appendChild(document.createTextNode(''));
+    document.head.appendChild(styleTag);
+  }
+
+  this.styleNode = styleTag.childNodes[0];
+}
+
+function destroyCustomStyle (id) {
+  const parsedId = `custom-style-${id}`;
+  const styleTag = document.getElementById(parsedId);
+
+  if (styleTag) {
+    document.head.removeChild(styleTag);
+  }
 }
 
 storiesOf('Pin Code', module)
@@ -62,28 +126,52 @@ storiesOf('Pin Code', module)
         default: boolean('Force Uppercase')
       }
     },
-    template: `
-      <div class="story" :style="{ fontSize: fontSize + 'px' }">
-        <div class="component" @keydown.stop="">
-          <emd-pin-code
-            :type="type"
-            :cases="cases"
-            :forceuppercase.prop="forceuppercase"
-            @input="logEvent"
-            @complete="logEvent"
-          ></emd-pin-code>
-          <p>
-            <button @click="focusPinCode">Focus</button>
-            <button @click="blurPinCode">Blur</button>
-          </p>
-        </div>
-        <div class="codesample">
-          <pre>{{ codesample }}</pre>
-        </div>
-      </div>
-    `,
+    template: TEMPLATE,
     computed: {
       codesample: getCodeSample
+    }
+  }), {
+    notes: { markdown: readMe }
+  })
+  .add('With Custom Style', () => ({
+    mounted () {
+      this.mountCustomStyle('pin-code');
+    },
+    destroyed () {
+      this.destroyCustomStyle('pin-code');
+    },
+    methods: {
+      logEvent,
+      focusPinCode,
+      blurPinCode,
+      mountCustomStyle,
+      destroyCustomStyle
+    },
+    props: {
+      fontSize: {
+        default: number('Font size (px)', 16, fontOptions)
+      },
+      cases: {
+        default: number('Cases', 6, casesOptions)
+      },
+      type: {
+        default: select('Type', ['text', 'number', 'password'], 'text')
+      },
+      forceuppercase: {
+        default: boolean('Force Uppercase')
+      },
+      customStyle: {
+        default: text('Custom Style', CUSTOM_STYLE)
+      }
+    },
+    template: TEMPLATE,
+    computed: {
+      codesample: getCodeSample
+    },
+    watch: {
+      customStyle (val) {
+        this.styleNode.textContent = val;
+      }
     }
   }), {
     notes: { markdown: readMe }
