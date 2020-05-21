@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-button-v1.3.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.3.1...@stone-payments/emd-basic-button-v1.3.2) (2020-05-21)
+
+
+### Bug Fixes
+
+* Fix Storybook Boolean properties ([c696664](https://github.com/stone-payments/emerald-web-framework/commit/c6966643219730f0caf8334dd89e5dbe37fac6b9))
+* Standardize documentation ([29d3722](https://github.com/stone-payments/emerald-web-framework/commit/29d3722f9dbe0607399cfefc2df1d80291ae3051))
+
 # [@stone-payments/emd-basic-button-v1.3.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.3.0...@stone-payments/emd-basic-button-v1.3.1) (2020-03-23)
 
 
