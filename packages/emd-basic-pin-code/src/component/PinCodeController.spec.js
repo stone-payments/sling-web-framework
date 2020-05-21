@@ -347,37 +347,116 @@ describe('PinCodeController', () => {
       'when the Backspace key is pressed', () => {
       const evt = {
         target: {
-          value: '909',
+          value: '9',
           previousElementSibling: { focus: sinon.spy() }
         },
-        code: 'Backspace'
+        code: 'Backspace',
+        key: 'Backspace',
+        preventDefault: sinon.spy()
       };
 
       element.handleKeyDown(evt);
 
       expect(evt.target.value).to.equal('');
       expect(evt.target.previousElementSibling.focus).to.have.been.calledOnce;
+      expect(evt.preventDefault).not.to.have.been.called;
     });
 
     it('Should not break when the Backspace key is pressed ' +
       'but there is no previous input', () => {
       const evt = {
-        target: {},
-        code: 'Backspace'
+        target: { value: '9' },
+        code: 'Backspace',
+        key: 'Backspace',
+        preventDefault: sinon.spy()
       };
 
       element.handleKeyDown(evt);
       expect(evt.target.value).to.equal('');
+      expect(evt.preventDefault).not.to.have.been.called;
     });
 
-    it('Should present default behaviour if another key is pressed', () => {
+    it('Should not ignore a key stroke if it is a regular key', () => {
       const evt = {
-        target: { value: '909' },
-        code: 'Key9'
+        target: { value: '3' },
+        code: 'Digit3',
+        key: '3',
+        preventDefault: sinon.spy()
       };
 
       element.handleKeyDown(evt);
-      expect(evt.target.value).to.equal('909');
+      expect(evt.preventDefault).not.to.have.been.called;
+    });
+
+    it('Should ignore a key stroke if it is a restricted key ' +
+      'in a numeric field', () => {
+      const evt = {
+        target: { value: 'c' },
+        code: 'DigitC',
+        key: 'c',
+        preventDefault: sinon.spy()
+      };
+
+      element.type = 'number';
+      element.handleKeyDown(evt);
+      expect(evt.preventDefault).to.have.been.calledOnce;
+    });
+
+    it('Should ignore a key stroke if it is a restricted key ' +
+      'in a text field', () => {
+      const evt = {
+        target: { value: '?' },
+        code: 'Slash',
+        key: '?',
+        shiftKey: true,
+        preventDefault: sinon.spy()
+      };
+
+      element.type = 'text';
+      element.handleKeyDown(evt);
+      expect(evt.preventDefault).to.have.been.calledOnce;
+    });
+
+    it('Should not ignore a key stroke if it is a special key', () => {
+      const evt = {
+        target: { value: '3' },
+        code: 'Tab',
+        key: 'Tab',
+        preventDefault: sinon.spy()
+      };
+
+      element.handleKeyDown(evt);
+      expect(evt.preventDefault).not.to.have.been.called;
+    });
+
+    it('Should not ignore a key stroke if Ctrl ' +
+      'was pressed along with a restricted key', () => {
+      const evt = {
+        target: { value: 'r' },
+        code: 'KeyR',
+        key: 'r',
+        ctrlKey: true,
+        preventDefault: sinon.spy()
+      };
+
+      element.type = 'number';
+      element.handleKeyDown(evt);
+      expect(evt.preventDefault).not.to.have.been.called;
+    });
+
+    it('Should not ignore a key stroke if Meta ' +
+      'was pressed along with a restricted key', () => {
+      const evt = {
+        target: { value: 'r' },
+        code: 'KeyR',
+        key: 'r',
+        metaKey: true,
+        preventDefault: sinon.spy()
+      };
+
+      element.type = 'number';
+      element.handleKeyDown(evt);
+      expect(evt.preventDefault).not.to.have.been.called;
     });
   });
 
