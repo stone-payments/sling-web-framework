@@ -113,11 +113,25 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     handleInput ({ target, data }) {
-      target.value = this.applyRestrictions(data);
+      if (!this.INPUT_FROM_PASTE) {
+        target.value = this.applyRestrictions(data);
+        if (target.value !== '' && target.nextElementSibling) {
+          target.nextElementSibling.focus();
+        }
+      } else {
+        const firstChar = target.value.slice(0, 1);
+        const rest = target.value.slice(1);
+        const cursorIndex = this.applyRestrictions(rest).length +
+          this.caseElements.indexOf(target);
 
-      if (target.value !== '' && target.nextElementSibling) {
-        target.nextElementSibling.focus();
+        target.value = firstChar;
+
+        if (this.caseElements[cursorIndex]) {
+          this.caseElements[cursorIndex].focus();
+        }
       }
+
+      this.INPUT_FROM_PASTE = false;
 
       if (this.isComplete) {
         this.blur();
@@ -132,23 +146,17 @@ export const PinCodeController = (Base = class {}) =>
     }
 
     handlePaste (evt) {
-      evt.preventDefault();
-
       const { target } = evt;
       const index = this.caseElements.indexOf(target);
-      const pastedText = evt.clipboardData.getData('text');
+      const pastedText = this
+        .applyRestrictions(evt.clipboardData.getData('text'));
 
       const nextValue = this.casesArray
         .map(idx => pastedText[idx - index] || this.value[idx] || '')
-        .join();
+        .join('');
 
       this.value = nextValue;
-
-      if (this.isComplete) {
-        this.blur();
-      } else {
-        this.focusFirstEmptyCase();
-      }
+      this.INPUT_FROM_PASTE = true;
     }
 
     async focusFirstEmptyCase () {

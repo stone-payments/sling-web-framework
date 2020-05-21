@@ -239,60 +239,60 @@ describe('PinCodeController', () => {
     });
 
     it('Should actually set values to cases', () => {
-      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+      const CASE_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       element.cases = 4;
       element.value = 'LAC0';
 
-      expect(INPUT_ELEMENTS[0].value).to.equal('L');
-      expect(INPUT_ELEMENTS[1].value).to.equal('A');
-      expect(INPUT_ELEMENTS[2].value).to.equal('C');
-      expect(INPUT_ELEMENTS[3].value).to.equal('0');
+      expect(CASE_ELEMENTS[0].value).to.equal('L');
+      expect(CASE_ELEMENTS[1].value).to.equal('A');
+      expect(CASE_ELEMENTS[2].value).to.equal('C');
+      expect(CASE_ELEMENTS[3].value).to.equal('0');
     });
 
     it('Should be restricted to the number of cases', () => {
-      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+      const CASE_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       element.cases = 4;
       element.value = 'LAC042';
 
-      expect(INPUT_ELEMENTS[0].value).to.equal('L');
-      expect(INPUT_ELEMENTS[1].value).to.equal('A');
-      expect(INPUT_ELEMENTS[2].value).to.equal('C');
-      expect(INPUT_ELEMENTS[3].value).to.equal('0');
-      expect(INPUT_ELEMENTS[4]).to.be.undefined;
-      expect(INPUT_ELEMENTS[5]).to.be.undefined;
+      expect(CASE_ELEMENTS[0].value).to.equal('L');
+      expect(CASE_ELEMENTS[1].value).to.equal('A');
+      expect(CASE_ELEMENTS[2].value).to.equal('C');
+      expect(CASE_ELEMENTS[3].value).to.equal('0');
+      expect(CASE_ELEMENTS[4]).to.be.undefined;
+      expect(CASE_ELEMENTS[5]).to.be.undefined;
     });
 
     it('Should fill extra cases with an empty string', () => {
-      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+      const CASE_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       element.cases = 4;
       element.value = 'LA';
 
-      expect(INPUT_ELEMENTS[0].value).to.equal('L');
-      expect(INPUT_ELEMENTS[1].value).to.equal('A');
-      expect(INPUT_ELEMENTS[2].value).to.equal('');
-      expect(INPUT_ELEMENTS[3].value).to.equal('');
+      expect(CASE_ELEMENTS[0].value).to.equal('L');
+      expect(CASE_ELEMENTS[1].value).to.equal('A');
+      expect(CASE_ELEMENTS[2].value).to.equal('');
+      expect(CASE_ELEMENTS[3].value).to.equal('');
     });
 
     it('Should dispatch complete event if complete', () => {
-      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+      const CASE_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       element.cases = 4;
@@ -303,10 +303,10 @@ describe('PinCodeController', () => {
     });
 
     it('Should not dispatch complete event if incomplete', () => {
-      const INPUT_ELEMENTS = [{}, {}, {}, {}];
+      const CASE_ELEMENTS = [{}, {}, {}, {}];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       element.cases = 4;
@@ -383,7 +383,6 @@ describe('PinCodeController', () => {
 
   describe('#handleInput()', () => {
     beforeEach(() => {
-      element.focusFirstEmptyCase = sinon.spy();
       element.blur = sinon.spy();
     });
 
@@ -420,6 +419,33 @@ describe('PinCodeController', () => {
       expect(evt.target.nextElementSibling.focus).to.have.been.calledOnce;
     });
 
+    it('Should handle inputs from pasted text correctly', () => {
+      const CASE_ELEMENTS = [
+        { value: 'F' },
+        { value: 'O:Oi8' },
+        { value: '' },
+        { value: '' },
+        { value: '', focus: sinon.spy() },
+        { value: '' }
+      ];
+
+      Object.defineProperty(element, 'caseElements', {
+        get () { return CASE_ELEMENTS; }
+      });
+
+      element.cases = 6;
+      element.INPUT_FROM_PASTE = true;
+
+      const evt = {
+        target: CASE_ELEMENTS[1]
+      };
+
+      element.handleInput(evt);
+
+      expect(evt.target.value).to.equal('O');
+      expect(CASE_ELEMENTS[4].focus).to.have.been.calledOnce;
+    });
+
     it('Should blur if value is complete', () => {
       Object.defineProperty(element, 'isComplete', {
         get () { return true; }
@@ -432,7 +458,6 @@ describe('PinCodeController', () => {
 
       element.handleInput(evt);
 
-      expect(element.focusFirstEmptyCase).not.to.have.been.called;
       expect(element.blur).to.have.been.calledOnce;
     });
 
@@ -490,7 +515,7 @@ describe('PinCodeController', () => {
     });
 
     it('Should distribute the pasted value between all cases', () => {
-      const INPUT_ELEMENTS = [
+      const CASE_ELEMENTS = [
         { value: '8' },
         { value: '0' },
         { value: '8' },
@@ -498,12 +523,11 @@ describe('PinCodeController', () => {
       ];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       const evt = {
-        target: INPUT_ELEMENTS[0],
-        preventDefault: sinon.spy(),
+        target: CASE_ELEMENTS[0],
         clipboardData: {
           getData: sinon.stub().withArgs('text').returns('ABC')
         }
@@ -512,13 +536,12 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
       expect(element.value).to.equal('ABC');
     });
 
     it('Should begin pasting in the currently selected case', () => {
-      const INPUT_ELEMENTS = [
+      const CASE_ELEMENTS = [
         { value: '8' },
         { value: '0' },
         { value: '8' },
@@ -526,12 +549,11 @@ describe('PinCodeController', () => {
       ];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       const evt = {
-        target: INPUT_ELEMENTS[2],
-        preventDefault: sinon.spy(),
+        target: CASE_ELEMENTS[2],
         clipboardData: {
           getData: sinon.stub().withArgs('text').returns('ABC')
         }
@@ -540,13 +562,12 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
       expect(element.value).to.equal('80AB');
     });
 
     it('Should mix original value with pasted value correctly', () => {
-      const INPUT_ELEMENTS = [
+      const CASE_ELEMENTS = [
         { value: '8' },
         { value: '0' },
         { value: '8' },
@@ -554,12 +575,11 @@ describe('PinCodeController', () => {
       ];
 
       Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
+        get () { return CASE_ELEMENTS; }
       });
 
       const evt = {
-        target: INPUT_ELEMENTS[1],
-        preventDefault: sinon.spy(),
+        target: CASE_ELEMENTS[1],
         clipboardData: {
           getData: sinon.stub().withArgs('text').returns('AB')
         }
@@ -568,63 +588,8 @@ describe('PinCodeController', () => {
       element.cases = 4;
       element.handlePaste(evt);
 
-      expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.clipboardData.getData).to.have.been.calledOnceWith('text');
       expect(element.value).to.equal('8AB7');
-    });
-
-    it('Should focus after pasting if value is incomplete', () => {
-      const INPUT_ELEMENTS = [
-        { value: '8' },
-        { value: '0' },
-        { value: '8' },
-        { value: '' }
-      ];
-
-      Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
-      });
-
-      const evt = {
-        target: INPUT_ELEMENTS[0],
-        preventDefault: sinon.spy(),
-        clipboardData: {
-          getData: sinon.stub().withArgs('text').returns('ABC')
-        }
-      };
-
-      element.cases = 4;
-      element.handlePaste(evt);
-
-      expect(element.focusFirstEmptyCase).to.have.been.calledOnce;
-      expect(element.blur).not.to.have.been.called;
-    });
-
-    it('Should blur after pasting if value is complete', () => {
-      const INPUT_ELEMENTS = [
-        { value: '8' },
-        { value: '0' },
-        { value: '8' },
-        { value: '' }
-      ];
-
-      Object.defineProperty(element, 'caseElements', {
-        get () { return INPUT_ELEMENTS; }
-      });
-
-      const evt = {
-        target: INPUT_ELEMENTS[2],
-        preventDefault: sinon.spy(),
-        clipboardData: {
-          getData: sinon.stub().withArgs('text').returns('ABC')
-        }
-      };
-
-      element.cases = 4;
-      element.handlePaste(evt);
-
-      expect(element.focusFirstEmptyCase).not.to.have.been.called;
-      expect(element.blur).to.have.been.calledOnce;
     });
   });
 
