@@ -103,11 +103,8 @@ export const PinCodeController = (Base = class {}) =>
         : parsedValue;
     }
 
-    handleKeyDown (evt) {
-      const { target, code } = evt;
-
+    handleKeyDown ({ target, code }) {
       if (code === 'Backspace') {
-        evt.preventDefault();
         target.value = '';
         if (target.previousElementSibling) {
           target.previousElementSibling.focus();

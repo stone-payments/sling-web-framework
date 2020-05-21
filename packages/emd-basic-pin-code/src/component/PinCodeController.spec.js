@@ -346,7 +346,6 @@ describe('PinCodeController', () => {
     it('Should delete the current input value and move to the previous one ' +
       'when the Backspace key is pressed', () => {
       const evt = {
-        preventDefault: sinon.spy(),
         target: {
           value: '909',
           previousElementSibling: { focus: sinon.spy() }
@@ -356,7 +355,6 @@ describe('PinCodeController', () => {
 
       element.handleKeyDown(evt);
 
-      expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.target.value).to.equal('');
       expect(evt.target.previousElementSibling.focus).to.have.been.calledOnce;
     });
@@ -364,27 +362,21 @@ describe('PinCodeController', () => {
     it('Should not break when the Backspace key is pressed ' +
       'but there is no previous input', () => {
       const evt = {
-        preventDefault: sinon.spy(),
         target: {},
         code: 'Backspace'
       };
 
       element.handleKeyDown(evt);
-
-      expect(evt.preventDefault).to.have.been.calledOnce;
       expect(evt.target.value).to.equal('');
     });
 
     it('Should present default behaviour if another key is pressed', () => {
       const evt = {
-        preventDefault: sinon.spy(),
         target: { value: '909' },
         code: 'Key9'
       };
 
       element.handleKeyDown(evt);
-
-      expect(evt.preventDefault).not.to.have.been.called;
       expect(evt.target.value).to.equal('909');
     });
   });
