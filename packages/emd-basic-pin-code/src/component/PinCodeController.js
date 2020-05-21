@@ -90,7 +90,7 @@ export const PinCodeController = (Base = class {}) =>
       });
 
       if (this.isComplete) {
-        this.dispatchEventAndMethod('complete', this.value);
+        this.dispatchEventAndMethod('complete', { value: this.value });
       }
     }
 
@@ -124,7 +124,7 @@ export const PinCodeController = (Base = class {}) =>
 
       if (this.isComplete) {
         this.blur();
-        this.dispatchEventAndMethod('complete', this.value);
+        this.dispatchEventAndMethod('complete', { value: this.value });
       }
     }
 

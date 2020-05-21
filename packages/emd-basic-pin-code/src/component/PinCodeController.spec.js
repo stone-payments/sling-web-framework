@@ -299,7 +299,7 @@ describe('PinCodeController', () => {
       element.value = 'LA36bbbb';
 
       expect(element.dispatchEventAndMethod)
-        .to.have.been.calledOnceWith('complete', 'LA36');
+        .to.have.been.calledOnceWith('complete', { value: 'LA36' });
     });
 
     it('Should not dispatch complete event if incomplete', () => {
@@ -463,7 +463,7 @@ describe('PinCodeController', () => {
       element.handleInput(evt);
 
       expect(element.dispatchEventAndMethod)
-        .to.have.been.calledOnceWith('complete', 'P0G0');
+        .to.have.been.calledOnceWith('complete', { value: 'P0G0' });
     });
   });
 
