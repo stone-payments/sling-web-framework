@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px 30px 20px 20px;
+}
+
+.notification__icon {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+  font-size: 25px;
+}
+
+.notification__text {
+  margin: 0;
+}
+
+@media only screen and (max-width: 600px) {
+  .notification {
+    align-items: flex-start;
+    padding: 20px 30px 20px 15px;
+  }
+  .notification__icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+}
+
+/* for Edge compatibility */
+
+emd-notification {
+  display: block;
+}
