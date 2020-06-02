@@ -4,9 +4,12 @@
 
 .notification {
   display: flex;
+  position: relative;
   align-items: center;
   border-radius: 5px;
-  padding: 20px 30px 20px 20px;
+  max-width: 100%;
+  flex-wrap: wrap;
+  padding: 15px 20px 15px 20px;
 }
 
 .notification__icon {
@@ -18,16 +21,49 @@
 
 .notification__text {
   margin: 0;
+  max-width: 820px;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.text__wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 2;
+  padding: 10px 30px 20px 0px;
+}
+
+.notification__button {
+  border-radius: 4px;
+  background: #F79E1B;
+  color: #ffffff;
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.notification__button:hover {
+  background: #fea21b;
 }
 
 @media only screen and (max-width: 600px) {
-  .notification {
-    align-items: flex-start;
+  /* .notification {
     padding: 20px 30px 20px 15px;
-  }
+  } */
   .notification__icon {
-    font-size: 20px;
+    font-size: 25px;
     margin-right: 10px;
+  }
+  .notification__text {
+    max-width: auto;
+  }
+  .text__wrapper {
+    align-items: flex-start;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .notification__icon {
+    display: none;
   }
 }
 

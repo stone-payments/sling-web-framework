@@ -7,7 +7,9 @@ export const NotificationView = ({
   icon,
   iconStyle,
   borderColor = '#fc0',
-  backgroundColor = '#fff'
+  backgroundColor = '#fff',
+  buttonText,
+  buttonStyle
 }) => html`
   <style>
     @import url("emd-basic-notification/src/component/Notification.css");
@@ -18,14 +20,20 @@ export const NotificationView = ({
     }
   </style>
   <div class="notification">
-    ${
-      icon && html`
-        <emd-icon
-          class="notification__icon"
-          icon="${icon}"
-          style="${iconStyle}"
-        ></emd-icon>`
-    }
-    <p class="notification__text">${text}</p>
+    <div class="text__wrapper">
+      ${
+        icon && html`
+          <emd-icon
+            class="notification__icon"
+            icon="${icon}"
+            style="${iconStyle}"
+          ></emd-icon>`
+      }
+      <p class="notification__text">${text}</p>
+    </div>
+
+    <emd-button style="${buttonStyle}" class="notification__button" type="button">
+      ${buttonText}
+    </emd-button>
   </div>
 `;

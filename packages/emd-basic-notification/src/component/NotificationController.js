@@ -25,6 +25,14 @@ export const NotificationController = (Base = class {}) =>
         backgroundColor: {
           type: String,
           reflect: false
+        },
+        buttonText: {
+          type: String,
+          reflect: false
+        },
+        buttonStyle: {
+          type: String,
+          reflect: false
         }
       };
     }
