@@ -1,7 +1,7 @@
 {
   "name": "@stone-payments/emd-basic-notification",
   "description": "emd-basic-notification",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "module": "src/index.js",
   "main": "dist/cjs/es5/index.js",
   "jsnext:main": "dist/es/es6/index.js",
@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "chai": "^4.1.2",
-		"sinon": "^6.1.3",
-		"sinon-chai": "^3.2.0"
+    "sinon": "^6.1.3",
+    "sinon-chai": "^3.2.0"
   }
 }
