@@ -43,6 +43,7 @@
   min-width: 200px;
   flex: 1 0 5%;
   word-break: break-word;
+  max-width: 220px;
 }
 
 .notification__button:hover {
@@ -51,6 +52,7 @@
 
 @media only screen and (max-width: 800px) {
   .text__wrapper {
+    align-items: flex-start;
     margin-right: 0;
     flex: 1 0 100%;
   }
@@ -59,19 +61,23 @@
   }
   .notification__button {
     margin-top: 25px;
+    margin-left: 55px;
+    --emd-button-padding: .95em 0em;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .notification__icon {
     font-size: 25px;
-    margin-right: 10px;
   }
 }
 
 @media only screen and (max-width: 500px) {
   .notification__icon {
     display: none;
+  }
+  .notification__button {
+    margin-left: 0;
   }
 }
 
