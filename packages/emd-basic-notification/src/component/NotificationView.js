@@ -9,7 +9,8 @@ export const NotificationView = ({
   borderColor = '#fc0',
   backgroundColor = '#fff',
   buttonText,
-  buttonStyle
+  buttonStyle,
+  handleButtonClick
 }) => html`
   <style>
     @import url("emd-basic-notification/src/component/Notification.css");
@@ -32,8 +33,15 @@ export const NotificationView = ({
       <p class="notification__text">${text}</p>
     </div>
 
-    <emd-button style="${buttonStyle}" class="notification__button" type="button">
-      ${buttonText}
-    </emd-button>
+    ${
+      buttonText && html`
+        <emd-button
+          style="${buttonStyle}"
+          @click="${handleButtonClick}"
+          class="notification__button"
+          type="button">
+          ${buttonText}
+        </emd-button>`
+    }
   </div>
 `;

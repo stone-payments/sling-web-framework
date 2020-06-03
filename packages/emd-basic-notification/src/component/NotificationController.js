@@ -1,5 +1,10 @@
 export const NotificationController = (Base = class {}) =>
   class extends Base {
+    constructor () {
+      super();
+      this.handleButtonClick = this.handleButtonClick.bind(this);
+    }
+
     static get properties () {
       return {
         view: {
@@ -35,6 +40,10 @@ export const NotificationController = (Base = class {}) =>
           reflect: false
         }
       };
+    }
+
+    handleButtonClick () {
+      this.dispatchEventAndMethod('buttonclicked');
     }
 
     render () {
