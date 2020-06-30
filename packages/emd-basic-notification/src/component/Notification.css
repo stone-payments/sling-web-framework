@@ -2,19 +2,27 @@
   display: block;
 }
 
+.emd-notification__wrapper ::slotted(*) {
+  flex-shrink: 0;
+}
+
 .emd-notification__wrapper {
   position: relative;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  min-height: 100%;
+  align-items: stretch;
   box-sizing: border-box;
   background: #fff;
   border-width: 1px 1px 1px 10px;
   border-style: solid;
-  border-radius: 0.25em 0.625em 0.625em 0.25em;
-  padding: 1.875em;
+  border-radius: 4px 10px 10px 4px;
+  padding: 30px;
   overflow: hidden;
+}
+
+.emd-notification__wrapper.is-compact {
+  padding: 12px;
+  border-left-width: 4px;
 }
 
 .emd-notification__wrapper.is-alert {
@@ -29,11 +37,39 @@
   border-color: #14AA4B;
 }
 
+.emd-notification__wrapper .content {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.emd-notification__wrapper.is-compact .content {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.emd-notification__wrapper.is-compact slot[name="action"]::slotted(*) {
+  margin-top: 1em;
+}
+
 .emd-notification__wrapper svg {
+  flex-shrink: 0;
   display: block;
-  width: 2.75em;
-  margin-right: 2.625em;
+  width: 44px;
+  height: 100%;
+  margin-right: 44px;
   fill: currentColor;
+}
+
+.emd-notification__wrapper.is-compact svg {
+  width: 24px;
+  height: auto;
+  margin-right: 16px;
 }
 
 .emd-notification__wrapper.is-alert svg {
@@ -49,6 +85,7 @@
 }
 
 /* for Edge compatibility */
+
 emd-notification {
   display: block;
 }

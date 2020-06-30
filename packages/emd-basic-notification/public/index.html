@@ -10,15 +10,30 @@
 <body>
   <h1>Notification</h1>
   <emd-notification mode="success">
-    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <span>Everything goes my way.</span>
-      <button>Close</button>
-    </div>
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    <button slot="action">Close</button>
   </emd-notification>
+
   <emd-notification mode="alert">
-    Olá Fulano, seus dados foram recebidos e estão sendo analisados.<br>
-    Em breve iremos te dar um retorno sobre o resultado da análise dos dados enviados no processo de atualização dos seus dados.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </emd-notification>
-  <emd-notification mode="danger">My love, I'm in love again.</emd-notification>
+
+  <emd-notification mode="danger">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </emd-notification>
+
+  <h1>Notification&thinsp;—&thinsp;Compact</h1>
+  <emd-notification view="compact" mode="success">
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    <button slot="action">Close</button>
+  </emd-notification>
+
+  <emd-notification view="compact" mode="alert">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </emd-notification>
+
+  <emd-notification view="compact" mode="danger">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </emd-notification>
 </body>
 </html>

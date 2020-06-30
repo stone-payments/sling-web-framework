@@ -1,7 +1,7 @@
 import { html } from '@stone-payments/lit-element';
 
 export const SUCCESS = html`
-<svg part="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 44 44" xml:space="preserve">
 <g>
   <path d="M22,0C9.9,0,0,9.9,0,22s9.8,22,22,22c12.1,0,22-9.8,22-22S34.1,0,22,0z M22,41C11.5,41,3,32.5,3,22C3,11.5,11.5,3,22,3
