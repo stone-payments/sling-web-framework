@@ -9,13 +9,16 @@
 </head>
 <body>
   <h1>Notification</h1>
-  <emd-notification
-    text="Estamos processando a atualização dos seus dados e em breve avisaremos para que você finalize os procedimentos para garantir uma maior segurança a sua conta e acesso total a todas as funcionalidades do Portal."
-    iconStyle="color: #F9BF09;"
-    icon="alert-circle"
-    borderColor="#FFD962"
-    backgroundColor="#ffffff"
-    buttonText="Atualizar agora"
-  ></emd-notification>
+  <emd-notification mode="success">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <span>Everything goes my way.</span>
+      <button>Close</button>
+    </div>
+  </emd-notification>
+  <emd-notification mode="alert">
+    Olá Fulano, seus dados foram recebidos e estão sendo analisados.<br>
+    Em breve iremos te dar um retorno sobre o resultado da análise dos dados enviados no processo de atualização dos seus dados.
+  </emd-notification>
+  <emd-notification mode="danger">My love, I'm in love again.</emd-notification>
 </body>
 </html>
