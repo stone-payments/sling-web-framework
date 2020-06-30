@@ -62,7 +62,8 @@ Styles the icon's SVG.
 ```css
 emd-notification::part(icon) {
   display: block;
-  width: 100%;
+  width: 44px;
+  margin-right: 44px;
   fill: currentColor;
 }
 ```

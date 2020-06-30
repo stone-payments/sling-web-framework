@@ -62,14 +62,11 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  width: 44px;
-  margin-right: 44px;
+  flex-grow: 0;
 }
 
 .emd-notification__wrapper.is-compact .icon {
-  width: 24px;
   height: 100%;
-  margin-right: 16px;
 }
 
 .emd-notification__wrapper.is-alert .icon {
@@ -86,8 +83,14 @@
 
 .emd-notification__wrapper svg {
   display: block;
-  width: 100%;
+  width: 44px;
+  margin-right: 44px;
   fill: currentColor;
+}
+
+.emd-notification__wrapper.is-compact svg {
+  width: 24px;
+  margin-right: 16px;
 }
 
 /* for Edge compatibility */
