@@ -1,7 +1,7 @@
 import { html } from '@stone-payments/lit-element';
 
 export const DANGER = html`
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg part="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
   viewBox="0 0 44 44" xml:space="preserve">
 <style type="text/css">
   .warning-svg{fill-rule:evenodd;clip-rule:evenodd;}

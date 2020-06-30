@@ -25,12 +25,14 @@ export const NotificationView = ({
       @import url("emd-basic-notification/src/component/Notification.css");
     </style>
     <div part="wrapper" class="${wrapperClass}">
-      <div part="icon" class="icon">
-        ${svgMap[mode]}
-      </div>
-      <div class="content">
-        <slot></slot>
-        <slot name="action"></slot>
+      <div class="inner">
+        <div class="icon">
+          ${svgMap[mode]}
+        </div>
+        <div class="content">
+          <slot></slot>
+          <slot name="action"></slot>
+        </div>
       </div>
     </div>
   `;
