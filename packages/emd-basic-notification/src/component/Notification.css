@@ -52,9 +52,11 @@
 
 .emd-notification__wrapper slot[name="action"]::slotted(*) {
   flex-shrink: 0;
+  margin-left: 24px;
 }
 
 .emd-notification__wrapper.is-compact slot[name="action"]::slotted(*) {
+  margin-left: 0;
   margin-top: 1em;
 }
 
