@@ -29,7 +29,7 @@ function getCodeSample () {
   attrs += this.view !== 'default' ? ` view="${this.view}"` : '';
   return `<emd-notification${attrs}>
   ${smartEllipsis(this.content, 45)}${this.showAction ? `
-  <button slot="action">Action<button>` : ''}
+  <button slot="action">Action</button>` : ''}
 </emd-notification>`;
 }
 
