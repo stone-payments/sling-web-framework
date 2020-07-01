@@ -2,46 +2,38 @@ import { html } from '@stone-payments/lit-element';
 import '@stone-payments/emd-basic-icon';
 import '@stone-payments/emd-basic-button';
 
-export const NotificationView = ({
-  text,
-  icon,
-  iconStyle,
-  borderColor = '#fc0',
-  backgroundColor = '#fff',
-  buttonText,
-  buttonStyle,
-  handleButtonClick
-}) => html`
-  <style>
-    @import url("emd-basic-notification/src/component/Notification.css");
-    .notification {
-      border: ${`1px solid ${borderColor}`};
-      border-left: ${`10px solid ${borderColor}`};
-      background: ${backgroundColor};
-    }
-  </style>
-  <div class="notification">
-    <div class="text__wrapper">
-      ${
-        icon && html`
-          <emd-icon
-            class="notification__icon"
-            icon="${icon}"
-            style="${iconStyle}"
-          ></emd-icon>`
-      }
-      <p class="notification__text">${text}</p>
-    </div>
+import { ALERT } from './svg/alert.js';
+import { SUCCESS } from './svg/success.js';
+import { DANGER } from './svg/danger.js';
 
-    ${
-      buttonText && html`
-        <emd-button
-          style="${buttonStyle}"
-          @click="${handleButtonClick}"
-          class="notification__button"
-          type="button">
-          ${buttonText}
-        </emd-button>`
-    }
-  </div>
-`;
+const svgMap = {
+  alert: ALERT,
+  success: SUCCESS,
+  danger: DANGER
+};
+
+export const NotificationView = ({
+  view,
+  mode = 'alert'
+}) => {
+  let wrapperClass = 'emd-notification__wrapper';
+  wrapperClass += view ? ` is-${view}` : '';
+  wrapperClass += mode ? ` is-${mode}` : '';
+
+  return html`
+    <style>
+      @import url("emd-basic-notification/src/component/Notification.css");
+    </style>
+    <div part="wrapper" class="${wrapperClass}">
+      <div class="inner">
+        <div class="icon">
+          ${svgMap[mode]}
+        </div>
+        <div class="content">
+          <slot></slot>
+          <slot name="action"></slot>
+        </div>
+      </div>
+    </div>
+  `;
+};

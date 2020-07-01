@@ -71,7 +71,7 @@ const getTemplate = ({ hasCustomValue }) => `
   </div>
 `;
 
-export const CUSTOM_STYLE = `emd-pin-code::part(wrapper) {
+const CUSTOM_STYLE = `emd-pin-code::part(wrapper) {
   display: grid;
   grid-column-gap: 0.5em;
 }
