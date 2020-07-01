@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/vue';
-import { withKnobs, number, select, text } from '@storybook/addon-knobs';
+import { withKnobs, number, select, text, boolean } from '@storybook/addon-knobs';
 import readMe from '../../README.md';
+import chunk from 'chunk-text';
 import '../index.js';
 
 const fontOptions = {
@@ -10,21 +11,42 @@ const fontOptions = {
   step: 1
 };
 
+const smartEllipsis = (str, max) => {
+  const [chunked] = chunk(str, max);
+
+  const chunkedWithoutPunctuation = /[.,;]/g.test(chunked.slice(-1))
+    ? chunked.slice(0, -1)
+    : chunked;
+
+  return chunked.length >= str.length
+    ? str
+    : `${chunkedWithoutPunctuation}…`;
+};
+
 function getCodeSample () {
   let attrs = '';
-  attrs += this.mode ? `\n  mode="${this.mode}"` : '';
-  attrs += this.view !== 'default' ? `\n  view="${this.view}"` : '';
-  return `<emd-notification${attrs}\n></emd-notification>`;
+  attrs += this.mode ? ` mode="${this.mode}"` : '';
+  attrs += this.view !== 'default' ? ` view="${this.view}"` : '';
+  return `<emd-notification${attrs}>
+  ${smartEllipsis(this.content, 45)}${this.showAction ? `
+  <button slot="action">Action<button>` : ''}
+</emd-notification>`;
 }
 
 const getTemplate = () => `
   <div class="story" :style="{ fontSize: fontSize + 'px' }">
     <template v-if="view === 'compact'">
       <div class="component" @keydown.stop="">
-        <emd-notification
-          :mode="mode"
-          :view="view"
-        ></emd-notification>
+        <emd-notification :mode="mode" :view="view">
+          {{content}}
+          <button
+            v-if="showAction"
+            slot="action"
+            :style="{ fontSize: fontSize + 'px' }"
+          >
+            Action
+          </button>
+        </emd-notification>
       </div>
       <div class="codesample">
         <pre>{{ codesample }}</pre>
@@ -32,10 +54,16 @@ const getTemplate = () => `
     </template>
     <template v-if="view !== 'compact'">
       <div class="component" @keydown.stop="" style="grid-column-end: span 2">
-        <emd-notification
-          :mode="mode"
-          :view="view"
-        ></emd-notification>
+        <emd-notification :mode="mode" :view="view">
+          {{content}}
+          <button
+            v-if="showAction"
+            slot="action"
+            :style="{ fontSize: fontSize + 'px' }"
+          >
+            Action
+          </button>
+        </emd-notification>
       </div>
       <div class="codesample" style="grid-column: auto">
         <pre>{{ codesample }}</pre>
@@ -44,7 +72,7 @@ const getTemplate = () => `
   </div>
 `;
 
-export const CUSTOM_STYLE = `emd-notification::part(wrapper) {
+const CUSTOM_STYLE = `emd-notification::part(wrapper) {
   background: #fff;
   border-width: 1px 1px 1px 10px;
   border-style: solid;
@@ -58,6 +86,11 @@ emd-notification::part(icon) {
   margin-right: 44px;
   fill: currentColor;
 }`;
+
+const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+  'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' +
+  'nisi ut aliquip ex ea commodo consequat.';
 
 function mountCustomStyle (id) {
   const parsedId = `custom-style-${id}`;
@@ -95,6 +128,12 @@ storiesOf('Notification', module)
       },
       view: {
         default: 'default'
+      },
+      content: {
+        default: text('Content', LOREM)
+      },
+      showAction: {
+        default: boolean('Show action', false)
       }
     },
     template: getTemplate(),
@@ -114,6 +153,12 @@ storiesOf('Notification', module)
       },
       view: {
         default: 'compact'
+      },
+      content: {
+        default: text('Content', LOREM)
+      },
+      showAction: {
+        default: boolean('Show action', false)
       }
     },
     template: getTemplate(),
@@ -144,8 +189,14 @@ storiesOf('Notification', module)
       view: {
         default: 'default'
       },
+      content: {
+        default: text('Content', LOREM)
+      },
       customStyle: {
         default: text('Custom Style', CUSTOM_STYLE)
+      },
+      showAction: {
+        default: boolean('Show action', false)
       }
     },
     template: getTemplate(),
