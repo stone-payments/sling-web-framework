@@ -9,11 +9,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@stone-payments/emd-basic-icon": "^1.0.0",
     "@stone-payments/emd-basic-button": "^1.0.0",
+    "@stone-payments/emd-basic-icon": "^1.0.0",
     "@stone-payments/emd-helpers": "^1.2.1",
     "@stone-payments/emd-hocs": "^1.1.0",
-    "@stone-payments/lit-element": "^2.1.0"
+    "@stone-payments/lit-element": "^2.1.0",
+    "chunk-text": "^1.0.5"
   },
   "peerDependencies": {
     "chai": "^4.1.2",

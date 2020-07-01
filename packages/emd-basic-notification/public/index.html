@@ -9,13 +9,31 @@
 </head>
 <body>
   <h1>Notification</h1>
-  <emd-notification
-    text="Estamos processando a atualização dos seus dados e em breve avisaremos para que você finalize os procedimentos para garantir uma maior segurança a sua conta e acesso total a todas as funcionalidades do Portal."
-    iconStyle="color: #F9BF09;"
-    icon="alert-circle"
-    borderColor="#FFD962"
-    backgroundColor="#ffffff"
-    buttonText="Atualizar agora"
-  ></emd-notification>
+  <emd-notification mode="success">
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    <button slot="action">Close</button>
+  </emd-notification>
+
+  <emd-notification mode="alert">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </emd-notification>
+
+  <emd-notification mode="danger">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </emd-notification>
+
+  <h1>Notification&thinsp;—&thinsp;Compact</h1>
+  <emd-notification view="compact" mode="success">
+    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+    <button slot="action">Close</button>
+  </emd-notification>
+
+  <emd-notification view="compact" mode="alert">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </emd-notification>
+
+  <emd-notification view="compact" mode="danger">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </emd-notification>
 </body>
 </html>
