@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-notification-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-notification-v1.1.0...@stone-payments/emd-basic-notification-v1.1.1) (2020-07-02)
+
+
+### Bug Fixes
+
+* Correct layout when slots have multiple DOM elements ([b8c2a02](https://github.com/stone-payments/emerald-web-framework/commit/b8c2a0263b63546588c8a4844d60275c0ef56f9f))
+
 # [@stone-payments/emd-basic-notification-v1.1.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-notification-v1.0.0...@stone-payments/emd-basic-notification-v1.1.0) (2020-07-02)
 
 
