@@ -14,11 +14,13 @@ const svgMap = {
 
 export const NotificationView = ({
   view,
-  mode = 'alert'
+  mode = 'alert',
+  hasAction
 }) => {
   let wrapperClass = 'emd-notification__wrapper';
   wrapperClass += view ? ` is-${view}` : '';
   wrapperClass += mode ? ` is-${mode}` : '';
+  wrapperClass += hasAction ? ' has-action' : '';
 
   return html`
     <style>
@@ -30,8 +32,8 @@ export const NotificationView = ({
           ${svgMap[mode]}
         </div>
         <div class="content">
-          <slot></slot>
-          <slot name="action"></slot>
+          <div class="text-wrapper"><slot></slot></div>
+          <div class="action-wrapper"><slot name="action"></slot></div>
         </div>
       </div>
     </div>
