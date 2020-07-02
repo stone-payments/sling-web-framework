@@ -50,12 +50,16 @@
   width: 100%;
 }
 
-.emd-notification__wrapper slot[name="action"]::slotted(*) {
+.emd-notification__wrapper:not(.has-action) .action-wrapper {
+  display: none;
+}
+
+.emd-notification__wrapper .action-wrapper {
   flex-shrink: 0;
   margin-left: 24px;
 }
 
-.emd-notification__wrapper.is-compact slot[name="action"]::slotted(*) {
+.emd-notification__wrapper.is-compact .action-wrapper {
   margin-left: 0;
   margin-top: 1em;
 }
