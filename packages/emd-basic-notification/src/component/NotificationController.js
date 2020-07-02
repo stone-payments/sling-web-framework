@@ -17,12 +17,6 @@ export const NotificationController = (Base = class {}) =>
       };
     }
 
-    actionSlot () {
-      return this.renderRoot
-        ? this.renderRoot.querySelector('slot[name=action]')
-        : undefined;
-    }
-
     childrenUpdatedCallback () {
       const filledSlots = Array.from(this.children).map(item => item.slot);
       this.hasAction = filledSlots.includes('action');
