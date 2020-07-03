@@ -9,10 +9,6 @@ export const SlideshowController = (Base = class {}) =>
         delay: {
           type: Number,
           reflect: true
-        },
-        slideCount: {
-          type: Number,
-          reflect: false
         }
       };
     }
