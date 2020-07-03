@@ -17,6 +17,12 @@ export const SlideshowController = (Base = class {}) =>
       };
     }
 
+    async connectedCallback () {
+      super.connectedCallback();
+      await this.updateComplete;
+      this.updateSlides();
+    }
+
     parseCurrent (current) {
       const parsed = Number(current);
 
@@ -48,6 +54,8 @@ export const SlideshowController = (Base = class {}) =>
               : String(parsedCurrent);
             this.setAttribute(attrName, nextCurrent);
           }
+
+          this.updateSlides();
         }
 
         if (attrName === 'delay') {
@@ -58,6 +66,27 @@ export const SlideshowController = (Base = class {}) =>
 
     childrenUpdatedCallback () {
       this.slideCount = this.children.length;
+      this.updateSlides();
+    }
+
+    updateSlides () {
+      const parsedCurrent = this.current || 1;
+
+      Array.from(this.children).forEach((slide, index) => {
+        const slideNumber = index + 1;
+
+        slide.removeAttribute('before');
+        slide.removeAttribute('current');
+        slide.removeAttribute('after');
+
+        if (slideNumber < parsedCurrent) {
+          slide.setAttribute('before', '');
+        } else if (slideNumber > parsedCurrent) {
+          slide.setAttribute('after', '');
+        } else {
+          slide.setAttribute('current', '');
+        }
+      });
     }
 
     render () {
