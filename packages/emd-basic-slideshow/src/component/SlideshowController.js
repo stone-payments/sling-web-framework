@@ -23,6 +23,18 @@ export const SlideshowController = (Base = class {}) =>
       this.updateSlides();
     }
 
+    get current () {
+      return this._current;
+    }
+
+    set current (value) {
+      const oldValue = this._current;
+      this._current = this.parseCurrent(value) || oldValue;
+      this.setAttribute('current', this.parseCurrent(value) || oldValue);
+      this.updateSlides();
+      this.requestUpdate('current', oldValue);
+    }
+
     parseCurrent (current) {
       const parsed = Number(current);
 
@@ -43,24 +55,8 @@ export const SlideshowController = (Base = class {}) =>
 
     attributeChangedCallback (attrName, pastValue, nextValue) {
       super.attributeChangedCallback(attrName, pastValue, nextValue);
-
-      if (pastValue !== nextValue) {
-        if (attrName === 'current') {
-          const parsedCurrent = this.parseCurrent(nextValue);
-
-          if (nextValue !== parsedCurrent) {
-            const nextCurrent = parsedCurrent == null
-              ? pastValue
-              : String(parsedCurrent);
-            this.setAttribute(attrName, nextCurrent);
-          }
-
-          this.updateSlides();
-        }
-
-        if (attrName === 'delay') {
-          this.style.setProperty('--emd-slideshow-delay', `${nextValue}ms`);
-        }
+      if (attrName === 'delay') {
+        this.style.setProperty('--emd-slideshow-delay', `${nextValue}ms`);
       }
     }
 
