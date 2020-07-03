@@ -17,6 +17,16 @@ export const SlideshowController = (Base = class {}) =>
       };
     }
 
+    attributeChangedCallback (attrName, pastValue, nextValue) {
+      super.attributeChangedCallback(attrName, pastValue, nextValue);
+
+      if (pastValue !== nextValue) {
+        if (attrName === 'delay') {
+          this.style.setProperty('--emd-slideshow-delay', `${nextValue}ms`);
+        }
+      }
+    }
+
     childrenUpdatedCallback () {
       this.slideCount = this.children.length;
     }
