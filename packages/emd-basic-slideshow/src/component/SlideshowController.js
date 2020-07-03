@@ -17,6 +17,10 @@ export const SlideshowController = (Base = class {}) =>
       };
     }
 
+    childrenUpdatedCallback () {
+      this.slideCount = this.children.length;
+    }
+
     render () {
       return this.currentView.use(this);
     }
