@@ -24,8 +24,14 @@ export const SlideshowController = (Base = class {}) =>
     set current (value) {
       const oldValue = this._current;
       const nextValue = this.parseCurrent(value) || oldValue;
-      this._current = nextValue;
-      this.setAttribute('current', nextValue);
+
+      if (nextValue != null) {
+        this._current = nextValue;
+        this.setAttribute('current', nextValue);
+      } else {
+        this.removeAttribute('current');
+      }
+
       this.requestUpdate('current', oldValue);
       this.updateSlides();
     }
@@ -39,7 +45,7 @@ export const SlideshowController = (Base = class {}) =>
 
       const rounded = Math.round(parsed);
 
-      if (rounded < 1) {
+      if (rounded < 1 && this.slideCount > 0) {
         return 1;
       }
 
