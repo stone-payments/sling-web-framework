@@ -17,22 +17,17 @@ export const SlideshowController = (Base = class {}) =>
       };
     }
 
-    async connectedCallback () {
-      super.connectedCallback();
-      await this.updateComplete;
-      this.updateSlides();
-    }
-
     get current () {
       return this._current;
     }
 
     set current (value) {
       const oldValue = this._current;
-      this._current = this.parseCurrent(value) || oldValue;
-      this.setAttribute('current', this.parseCurrent(value) || oldValue);
-      this.updateSlides();
+      const nextValue = this.parseCurrent(value) || oldValue;
+      this._current = nextValue;
+      this.setAttribute('current', nextValue);
       this.requestUpdate('current', oldValue);
+      this.updateSlides();
     }
 
     parseCurrent (current) {
