@@ -2,9 +2,17 @@ export const SlideshowController = (Base = class {}) =>
   class extends Base {
     static get properties () {
       return {
-        view: {
-          type: String,
+        current: {
+          type: Number,
           reflect: true
+        },
+        delay: {
+          type: Number,
+          reflect: true
+        },
+        slideCount: {
+          type: Number,
+          reflect: false
         }
       };
     }
