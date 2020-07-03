@@ -2,6 +2,30 @@
   display: block;
 }
 
+.emd-slideshow__wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+::slotted(*) {
+  width: 100%;
+  transition: left 0.3s ease-in-out, visibility 0.3s 0s;
+}
+
+::slotted([before]),
+::slotted([after]) {
+  visibility: hidden; /* trap focus inside slide */
+}
+
+::slotted([before]) {
+  left: calc(-100% - 2em);
+}
+
+::slotted([after]) {
+  left: calc(100% + 2em);
+}
+
 /* for Edge compatibility */
 
 emd-slideshow {
