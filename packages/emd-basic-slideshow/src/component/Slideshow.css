@@ -8,22 +8,35 @@
   overflow: hidden;
 }
 
+.emd-slideshow__wrapper .container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 300%;
+  left: -100%;
+}
+
 ::slotted(*) {
+  position: relative;
+  grid-row-start: 1;
+  grid-column-start: 2;
   width: 100%;
-  transition: left 0.3s ease-in-out, visibility 0.3s 0s;
+  z-index: 2;
+  transition: transform var(--emd-slideshow-delay, 0.3s) ease-in-out, visibility var(--emd-slideshow-delay, 0.3s) 0s;
 }
 
 ::slotted([before]),
 ::slotted([after]) {
   visibility: hidden; /* trap focus inside slide */
+  z-index: 1;
 }
 
 ::slotted([before]) {
-  left: calc(-100% - 2em);
+  transform: translate(-100%);
 }
 
 ::slotted([after]) {
-  left: calc(100% + 2em);
+  transform: translate(100%);
 }
 
 /* for Edge compatibility */
