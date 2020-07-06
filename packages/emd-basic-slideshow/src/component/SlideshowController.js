@@ -19,7 +19,7 @@ export const SlideshowController = (Base = class {}) =>
 
     set current (value) {
       const oldValue = this._current;
-      const nextValue = this.parseCurrent(value) || oldValue;
+      const nextValue = this._parseCurrent(value) || oldValue;
 
       if (nextValue != null) {
         this._current = nextValue;
@@ -32,7 +32,7 @@ export const SlideshowController = (Base = class {}) =>
       this.updateSlides();
     }
 
-    parseCurrent (current) {
+    _parseCurrent (current) {
       const parsed = Number(current);
 
       if (Number.isNaN(parsed)) {
