@@ -29,7 +29,7 @@ export const SlideshowController = (Base = class {}) =>
       }
 
       this.requestUpdate('current', oldValue);
-      this.updateSlides();
+      this._updateSlides();
     }
 
     _parseCurrent (current) {
@@ -47,7 +47,7 @@ export const SlideshowController = (Base = class {}) =>
 
       return (rounded > this.slideCount)
         ? this.slideCount
-        : rounded;
+        : Math.max(0, rounded);
     }
 
     attributeChangedCallback (attrName, pastValue, nextValue) {
@@ -59,10 +59,10 @@ export const SlideshowController = (Base = class {}) =>
 
     childrenUpdatedCallback () {
       this.slideCount = this.children.length;
-      this.updateSlides();
+      this._updateSlides();
     }
 
-    updateSlides () {
+    _updateSlides () {
       const parsedCurrent = this.current || 1;
 
       Array.from(this.children).forEach((slide, index) => {
