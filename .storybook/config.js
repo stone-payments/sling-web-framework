@@ -16,6 +16,7 @@ const loadStories = () => {
   require('../packages/emd-basic-money/src/component/Money.stories.js');
   require('../packages/emd-basic-notification/src/component/Notification.stories.js');
   require('../packages/emd-basic-pin-code/src/component/PinCode.stories.js');
+  require('../packages/emd-basic-slideshow/src/component/Slideshow.stories.js');
   require('../packages/emd-basic-tooltip/src/component/Tooltip.stories.js');
 }
 
