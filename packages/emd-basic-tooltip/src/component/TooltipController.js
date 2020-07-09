@@ -47,10 +47,6 @@ export const TooltipController = (Base = class {}) =>
       if (attrName === 'for') {
         this.bindToTarget(nextValue);
       }
-
-      if (attrName === 'delay') {
-        this.style.setProperty('--emd-tooltip-delay', `${nextValue}ms`);
-      }
     }
 
     connectedCallback () {
