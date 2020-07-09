@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-tooltip-v1.1.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-tooltip-v1.1.1...@stone-payments/emd-basic-tooltip-v1.1.2) (2020-07-09)
+
+
+### Bug Fixes
+
+* Move `delay` property change responsibility to the View ([298f279](https://github.com/stone-payments/emerald-web-framework/commit/298f279eac2db76c64a2579a8cfc66c301a547fb))
+
 # [@stone-payments/emd-basic-tooltip-v1.1.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-tooltip-v1.1.0...@stone-payments/emd-basic-tooltip-v1.1.1) (2020-05-21)
 
 
