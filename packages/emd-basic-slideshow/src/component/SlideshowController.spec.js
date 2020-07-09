@@ -20,7 +20,6 @@ describe('SlideshowController', () => {
     Controller = SlideshowController(HTMLElement);
 
     element = new Controller();
-    element.removeAttribute = sinon.spy();
     element.setAttribute = sinon.spy();
   });
 
@@ -41,7 +40,20 @@ describe('SlideshowController', () => {
     beforeEach(() => {
       element.requestUpdate = sinon.spy();
       element._updateSlides = sinon.spy();
-      element._parseCurrent = sinon.stub().returnsArg(0);
+      element._parseUserDefinedCurrent = sinon.stub().returnsArg(0);
+    });
+
+    it('Should return zero when unset and there are no slides', () => {
+      element.slideCount = undefined;
+      expect(element.current).to.equal(0);
+
+      element.slideCount = 0;
+      expect(element.current).to.equal(0);
+    });
+
+    it('Should return one when unset and there are slides', () => {
+      element.slideCount = 5;
+      expect(element.current).to.equal(1);
     });
 
     it('Should get and set the value correctly', () => {
@@ -51,14 +63,14 @@ describe('SlideshowController', () => {
 
     it('Should parse the given value before setting it', () => {
       element.current = 3;
-      expect(element._parseCurrent).to.have.been.calledWith(3);
+      expect(element._parseUserDefinedCurrent).to.have.been.calledWith(3);
     });
 
     it('Should return the previous value if ' +
       'parsing returns undefined', () => {
-      element._parseCurrent = sinon.stub();
-      element._parseCurrent.withArgs('bogus').returns(undefined);
-      element._parseCurrent.withArgs(3).returnsArg(0);
+      element._parseUserDefinedCurrent = sinon.stub();
+      element._parseUserDefinedCurrent.withArgs('bogus').returns(undefined);
+      element._parseUserDefinedCurrent.withArgs(3).returnsArg(0);
 
       element.current = 3;
       element.current = 'bogus';
@@ -71,53 +83,54 @@ describe('SlideshowController', () => {
       expect(element.setAttribute).to.have.been.calledOnceWith('current', 3);
     });
 
-    it('Should remove attribute if value is undefined', () => {
-      element.current = undefined;
-      expect(element.removeAttribute).to.have.been.calledOnce;
-    });
-
     it('Should always call methods requestUpdate and _updateSlides', () => {
       element.current = 3;
 
       expect(element.requestUpdate)
-        .to.have.been.calledOnceWith('current', undefined);
+        .to.have.been.calledOnceWith('current', 0);
       expect(element._updateSlides)
         .to.have.been.calledAfter(element.requestUpdate);
       expect(element._updateSlides).to.have.been.calledOnce;
     });
+
+    it('Should correctly set current to zero after it being one', () => {
+      element.current = 1;
+      element.current = 0;
+      expect(element.current).to.equal(0);
+    });
   });
 
-  describe('#_parseCurrent()', () => {
+  describe('#_parseUserDefinedCurrent()', () => {
     it('Should restrict input to the maximum number of slides', () => {
       element.slideCount = 5;
-      expect(element._parseCurrent(20)).to.equal(5);
+      expect(element._parseUserDefinedCurrent(20)).to.equal(5);
     });
 
     it('Should restrict input to the minimum number of slides', () => {
       element.slideCount = 5;
-      expect(element._parseCurrent(-20)).to.equal(1);
+      expect(element._parseUserDefinedCurrent(-20)).to.equal(1);
 
       element.slideCount = 1;
-      expect(element._parseCurrent(-20)).to.equal(1);
+      expect(element._parseUserDefinedCurrent(-20)).to.equal(1);
 
       element.slideCount = 0;
-      expect(element._parseCurrent(-20)).to.equal(0);
+      expect(element._parseUserDefinedCurrent(-20)).to.equal(0);
     });
 
     it('Should round input', () => {
       element.slideCount = 5;
-      expect(element._parseCurrent(1.33333)).to.equal(1);
-      expect(element._parseCurrent(2.66666)).to.equal(3);
+      expect(element._parseUserDefinedCurrent(1.33333)).to.equal(1);
+      expect(element._parseUserDefinedCurrent(2.66666)).to.equal(3);
     });
 
     it('Should convert string to number', () => {
       element.slideCount = 5;
-      expect(element._parseCurrent('3')).to.equal(3);
+      expect(element._parseUserDefinedCurrent('3')).to.equal(3);
     });
 
     it('Should ignore non-numeric values', () => {
       element.slideCount = 5;
-      expect(element._parseCurrent('bogus')).to.be.undefined;
+      expect(element._parseUserDefinedCurrent('bogus')).to.be.undefined;
     });
   });
 
@@ -229,19 +242,6 @@ describe('SlideshowController', () => {
         .to.have.been.calledOnceWith('before', '');
       expect(element.children[2].setAttribute)
         .to.have.been.calledOnceWith('current', '');
-    });
-
-    it('Should add attributes according to the ' +
-      'current slide position (undefined)', () => {
-      element.current = undefined;
-      element._updateSlides();
-
-      expect(element.children[0].setAttribute)
-        .to.have.been.calledOnceWith('current', '');
-      expect(element.children[1].setAttribute)
-        .to.have.been.calledOnceWith('after', '');
-      expect(element.children[2].setAttribute)
-        .to.have.been.calledOnceWith('after', '');
     });
   });
 
