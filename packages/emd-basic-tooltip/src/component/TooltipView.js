@@ -7,7 +7,8 @@ export const TooltipView = ({
   for: forProp,
   target,
   targetActive,
-  isReady
+  isReady,
+  delay = 0
 }) => {
   let wrapperClass = 'emd-tooltip__wrapper';
 
@@ -36,7 +37,7 @@ export const TooltipView = ({
       @import url("emd-basic-tooltip/src/component/Tooltip.css")
     </style>
     ${forProp ? html`
-      <div class="${wrapperClass}">
+      <div class="${wrapperClass}" style="--emd-tooltip-delay: ${delay}ms">
         <span class="${tooltipTextClass}">
           <slot></slot>
         </span>

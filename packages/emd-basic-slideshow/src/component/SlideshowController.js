@@ -49,13 +49,6 @@ export const SlideshowController = (Base = class {}) =>
         : Math.max(0, rounded);
     }
 
-    attributeChangedCallback (attrName, pastValue, nextValue) {
-      super.attributeChangedCallback(attrName, pastValue, nextValue);
-      if (attrName === 'delay') {
-        this.style.setProperty('--emd-slideshow-delay', `${nextValue}ms`);
-      }
-    }
-
     childrenUpdatedCallback () {
       this.slideCount = this.children.length;
 

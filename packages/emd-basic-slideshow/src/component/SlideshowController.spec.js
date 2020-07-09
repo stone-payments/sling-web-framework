@@ -130,26 +130,6 @@ describe('SlideshowController', () => {
     });
   });
 
-  describe('#attributeChangedCallback()', () => {
-    it('Should call super.attributeChangedCallback', () => {
-      element.attributeChangedCallback('attr', 0, 3000);
-
-      expect(HTMLElement.prototype.attributeChangedCallback)
-        .to.have.been.calledOnceWith('attr', 0, 3000);
-    });
-
-    it('Should set the delay CSS property', () => {
-      element.style = {
-        setProperty: sinon.spy()
-      };
-
-      element.attributeChangedCallback('delay', 0, 3000);
-
-      expect(element.style.setProperty)
-        .to.have.been.calledOnceWith('--emd-slideshow-delay', '3000ms');
-    });
-  });
-
   describe('#childrenUpdatedCallback()', () => {
     let setSpy;
 
