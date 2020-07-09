@@ -40,7 +40,6 @@ describe('SlideshowController', () => {
     beforeEach(() => {
       element.requestUpdate = sinon.spy();
       element._updateSlides = sinon.spy();
-      element._parseUserDefinedCurrent = sinon.stub().returnsArg(0);
     });
 
     it('Should return zero when unset and there are no slides', () => {
@@ -62,16 +61,13 @@ describe('SlideshowController', () => {
     });
 
     it('Should parse the given value before setting it', () => {
+      element._parseUserDefinedCurrent = sinon.stub().returnsArg(0);
       element.current = 3;
       expect(element._parseUserDefinedCurrent).to.have.been.calledWith(3);
     });
 
     it('Should return the previous value if ' +
-      'parsing returns undefined', () => {
-      element._parseUserDefinedCurrent = sinon.stub();
-      element._parseUserDefinedCurrent.withArgs('bogus').returns(undefined);
-      element._parseUserDefinedCurrent.withArgs(3).returnsArg(0);
-
+      'received a bogus value', () => {
       element.current = 3;
       element.current = 'bogus';
 
@@ -93,7 +89,7 @@ describe('SlideshowController', () => {
       expect(element._updateSlides).to.have.been.calledOnce;
     });
 
-    it('Should correctly set current to zero after it being one', () => {
+    it('Should correctly set to zero after it being one', () => {
       element.current = 1;
       element.current = 0;
       expect(element.current).to.equal(0);
