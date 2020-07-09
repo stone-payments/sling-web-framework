@@ -40,6 +40,7 @@ describe('SlideshowController', () => {
     beforeEach(() => {
       element.requestUpdate = sinon.spy();
       element._updateSlides = sinon.spy();
+      element._dispatchSlideEvents = sinon.spy();
     });
 
     it('Should return zero when unset and there are no slides', () => {
@@ -79,14 +80,18 @@ describe('SlideshowController', () => {
       expect(element.setAttribute).to.have.been.calledOnceWith('current', 3);
     });
 
-    it('Should always call methods requestUpdate and _updateSlides', () => {
+    it('Should always call side effect methods', () => {
       element.current = 3;
 
       expect(element.requestUpdate)
         .to.have.been.calledOnceWith('current', 0);
+      expect(element._updateSlides).to.have.been.calledOnce;
+      expect(element._dispatchSlideEvents).to.have.been.calledOnceWith(0, 3);
+
       expect(element._updateSlides)
         .to.have.been.calledAfter(element.requestUpdate);
-      expect(element._updateSlides).to.have.been.calledOnce;
+      expect(element._dispatchSlideEvents)
+        .to.have.been.calledAfter(element._updateSlides);
     });
 
     it('Should correctly set to zero after it being one', () => {
@@ -231,6 +236,61 @@ describe('SlideshowController', () => {
         .to.have.been.calledOnceWith('before', '');
       expect(element.children[2].setAttribute)
         .to.have.been.calledOnceWith('current', '');
+    });
+  });
+
+  describe('#_dispatchSlideEvents()', () => {
+    beforeEach(() => {
+      element.renderRoot = { addEventListener: sinon.spy() };
+      element.dispatchEventAndMethod = sinon.spy();
+    });
+
+    it('Should not do anything if past and next values are the same', () => {
+      element._dispatchSlideEvents(3, 3);
+      expect(element.dispatchEventAndMethod).not.to.have.been.called;
+    });
+
+    it('Should dispatch slidechange and slidechangestart events', () => {
+      element._dispatchSlideEvents(1, 2);
+
+      expect(element.dispatchEventAndMethod).to.have.been.calledTwice;
+
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledWith('slidechange', {
+          previous: 1,
+          current: 2
+        });
+
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledWith('slidechangestart', {
+          previous: 1,
+          current: 2
+        });
+    });
+
+    it('Should wait transition to dispatch slidechangeend event', () => {
+      element.renderRoot.addEventListener = sinon.stub()
+        .callsFake((evtName, callback) => callback());
+      element.renderRoot.removeEventListener = sinon.spy();
+
+      element._dispatchSlideEvents(3, 4);
+
+      expect(element.dispatchEventAndMethod).to.have.been.calledThrice;
+
+      expect(element.dispatchEventAndMethod)
+        .to.have.been.calledWith('slidechangeend', {
+          previous: 3,
+          current: 4
+        });
+
+      expect(element.renderRoot.addEventListener)
+        .to.have.been.calledOnceWith('transitionend');
+
+      expect(element.renderRoot.removeEventListener)
+        .to.have.been.calledOnceWith('transitionend');
+
+      expect(element.renderRoot.addEventListener.firstCall.lastArg)
+        .to.equal(element.renderRoot.removeEventListener.firstCall.lastArg);
     });
   });
 

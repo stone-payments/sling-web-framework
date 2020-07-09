@@ -20,15 +20,16 @@ export const SlideshowController = (Base = class {}) =>
     }
 
     set current (value) {
-      const oldValue = this.current;
+      const pastValue = this.current;
       const parsedValue = this._parseUserDefinedCurrent(value);
-      const nextValue = parsedValue != null ? parsedValue : oldValue;
+      const nextValue = parsedValue != null ? parsedValue : pastValue;
 
       this._current = nextValue;
 
       this.setAttribute('current', nextValue);
-      this.requestUpdate('current', oldValue);
+      this.requestUpdate('current', pastValue);
       this._updateSlides();
+      this._dispatchSlideEvents(pastValue, nextValue);
     }
 
     _parseUserDefinedCurrent (current) {
@@ -75,6 +76,27 @@ export const SlideshowController = (Base = class {}) =>
           slide.setAttribute('current', '');
         }
       });
+    }
+
+    _dispatchSlideEvents (pastValue, nextValue) {
+      if (pastValue !== nextValue) {
+        ['slidechange', 'slidechangestart'].forEach(evtName => {
+          this.dispatchEventAndMethod(evtName, {
+            previous: pastValue,
+            current: nextValue
+          });
+        });
+
+        const slideChangeEnd = () => {
+          this.dispatchEventAndMethod('slidechangeend', {
+            previous: pastValue,
+            current: nextValue
+          });
+          this.renderRoot.removeEventListener('transitionend', slideChangeEnd);
+        };
+
+        this.renderRoot.addEventListener('transitionend', slideChangeEnd);
+      }
     }
 
     render () {

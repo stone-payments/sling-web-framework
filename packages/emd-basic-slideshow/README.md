@@ -41,3 +41,31 @@ Controlls the gap between slides.
 #### Default
 
 The slide's container. Each component's child element becomes a slide.
+
+## Events
+
+#### `slidechange` (alias `slidechangestart`)
+
+Dispatched when the current slide changes but before the animation begins.
+
+- Detail:
+
+```javascript
+{
+  previous: 2,
+  current: 3
+}
+```
+
+#### `slidechangeend`
+
+Dispatched after the current slide changes and the animation ends.
+
+- Detail:
+
+```javascript
+{
+  previous: 2,
+  current: 3
+}
+```

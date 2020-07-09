@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, number, text } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import readMe from '../../README.md';
 import '../index.js';
 
@@ -15,6 +16,10 @@ const delayOptions = {
   min: 0,
   max: 1200,
   step: 300
+};
+
+const logEvent = ({ type, detail }) => {
+  action(type)(detail);
 };
 
 function getCodeSample () {
@@ -43,6 +48,9 @@ function getCodeSample () {
 storiesOf('Slideshow', module)
   .addDecorator(withKnobs)
   .add('Default', () => ({
+    methods: {
+      logEvent
+    },
     props: {
       current: {
         default: number('Current slide', 1, slideOptions)
@@ -61,6 +69,9 @@ storiesOf('Slideshow', module)
             :current="current"
             :delay="delay"
             :style="{ '--emd-slideshow-gap': gap }"
+            @slidechange="logEvent"
+            @slidechangestart="logEvent"
+            @slidechangeend="logEvent"
           >
             <div style="background: #f4a589; text-align: center; padding: 1em 0;">One</div>
             <div style="background: #e4b599; text-align: center; padding: 1em 0;">Two</div>
