@@ -27,3 +27,17 @@ The delay of the transition in milliseconds. Defaults to `300` if unset.
 
 - Type: Number
 - Attribute and property
+
+## CSS Properties
+
+#### `--emd-slideshow-gap`
+
+Controlls the gap between slides.
+
+- Default: `0px`
+
+## Slots
+
+#### Default
+
+The slide's container. Each component's child element becomes a slide.

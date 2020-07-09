@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/vue';
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number, text } from '@storybook/addon-knobs';
 import readMe from '../../README.md';
 import '../index.js';
 
@@ -22,7 +22,17 @@ function getCodeSample () {
   attrs += this.current ? ` current="${this.current}"` : '';
   attrs += this.delay ? ` delay="${this.delay}"` : '';
 
-  return `<emd-slideshow${attrs}>
+  const hasCustomStyle = this.gap;
+
+  const styles = hasCustomStyle ? `<style>
+  emd-slideshow {
+    --emd-slideshow-gap: ${this.gap};
+  }
+</style>
+
+` : '';
+
+  return `${styles}<emd-slideshow${attrs}>
   <div>One</div>
   <div>Two</div>
   <div>Three</div>
@@ -39,6 +49,9 @@ storiesOf('Slideshow', module)
       },
       delay: {
         default: number('Delay (ms)', 300, delayOptions)
+      },
+      gap: {
+        default: text('Gap', '0px')
       }
     },
     template: `
@@ -47,6 +60,7 @@ storiesOf('Slideshow', module)
           <emd-slideshow
             :current="current"
             :delay="delay"
+            :style="{ '--emd-slideshow-gap': gap }"
           >
             <div style="background: #f4a589; text-align: center; padding: 1em 0;">One</div>
             <div style="background: #e4b599; text-align: center; padding: 1em 0;">Two</div>
