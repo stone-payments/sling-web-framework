@@ -14,25 +14,25 @@ export const SlideshowController = (Base = class {}) =>
     }
 
     get current () {
-      return this._current;
+      return this._current == null
+        ? Number(this.slideCount != null && this.slideCount > 0)
+        : this._current;
     }
 
     set current (value) {
-      const oldValue = this._current;
-      const nextValue = this._parseCurrent(value) || oldValue;
+      const pastValue = this.current;
+      const parsedValue = this._parseUserDefinedCurrent(value);
+      const nextValue = parsedValue != null ? parsedValue : pastValue;
 
-      if (nextValue != null) {
-        this._current = nextValue;
-        this.setAttribute('current', nextValue);
-      } else {
-        this.removeAttribute('current');
-      }
+      this._current = nextValue;
 
-      this.requestUpdate('current', oldValue);
+      this.setAttribute('current', nextValue);
+      this.requestUpdate('current', pastValue);
       this._updateSlides();
+      this._dispatchSlideEvents(pastValue, nextValue);
     }
 
-    _parseCurrent (current) {
+    _parseUserDefinedCurrent (current) {
       const parsed = Number(current);
 
       if (Number.isNaN(parsed)) {
@@ -50,21 +50,17 @@ export const SlideshowController = (Base = class {}) =>
         : Math.max(0, rounded);
     }
 
-    attributeChangedCallback (attrName, pastValue, nextValue) {
-      super.attributeChangedCallback(attrName, pastValue, nextValue);
-      if (attrName === 'delay') {
-        this.style.setProperty('--emd-slideshow-delay', `${nextValue}ms`);
-      }
-    }
-
     childrenUpdatedCallback () {
       this.slideCount = this.children.length;
+
+      // trigger `current` accessors when the number of slides change
+      const nextCurrent = this.current;
+      this.current = nextCurrent;
+
       this._updateSlides();
     }
 
     _updateSlides () {
-      const parsedCurrent = this.current || 1;
-
       Array.from(this.children).forEach((slide, index) => {
         const slideNumber = index + 1;
 
@@ -72,14 +68,35 @@ export const SlideshowController = (Base = class {}) =>
         slide.removeAttribute('current');
         slide.removeAttribute('after');
 
-        if (slideNumber < parsedCurrent) {
+        if (slideNumber < this.current) {
           slide.setAttribute('before', '');
-        } else if (slideNumber > parsedCurrent) {
+        } else if (slideNumber > this.current) {
           slide.setAttribute('after', '');
         } else {
           slide.setAttribute('current', '');
         }
       });
+    }
+
+    _dispatchSlideEvents (pastValue, nextValue) {
+      if (pastValue !== nextValue) {
+        ['slidechange', 'slidechangestart'].forEach(evtName => {
+          this.dispatchEventAndMethod(evtName, {
+            previous: pastValue,
+            current: nextValue
+          });
+        });
+
+        const slideChangeEnd = () => {
+          this.dispatchEventAndMethod('slidechangeend', {
+            previous: pastValue,
+            current: nextValue
+          });
+          this.renderRoot.removeEventListener('transitionend', slideChangeEnd);
+        };
+
+        this.renderRoot.addEventListener('transitionend', slideChangeEnd);
+      }
     }
 
     render () {
