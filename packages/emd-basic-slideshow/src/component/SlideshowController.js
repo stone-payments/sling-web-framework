@@ -58,6 +58,11 @@ export const SlideshowController = (Base = class {}) =>
 
     childrenUpdatedCallback () {
       this.slideCount = this.children.length;
+
+      // trigger `current` accessors when the number of slides change
+      const nextCurrent = this.current;
+      this.current = nextCurrent;
+
       this._updateSlides();
     }
 

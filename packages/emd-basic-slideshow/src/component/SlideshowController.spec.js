@@ -155,6 +155,8 @@ describe('SlideshowController', () => {
   });
 
   describe('#childrenUpdatedCallback()', () => {
+    let setSpy;
+
     beforeEach(() => {
       element.children = [
         new HTMLElement(),
@@ -163,11 +165,22 @@ describe('SlideshowController', () => {
       ];
 
       element._updateSlides = sinon.spy();
+      setSpy = sinon.spy();
+
+      Object.defineProperty(element, 'current', {
+        get () { return this._current; },
+        set (value) { this._current = value; setSpy(); }
+      });
     });
 
     it('Should update slideCount', () => {
       element.childrenUpdatedCallback();
       expect(element.slideCount).to.equal(3);
+    });
+
+    it('Should update current according to the new number of slides', () => {
+      element.childrenUpdatedCallback();
+      expect(setSpy).to.have.been.calledOnce;
     });
 
     it('Should call _updateSlides', () => {
