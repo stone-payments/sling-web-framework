@@ -32,11 +32,11 @@
 }
 
 ::slotted([before]) {
-  transform: translate(-100%);
+  transform: translate(calc(-100% - var(--emd-slideshow-gap, 0px)));
 }
 
 ::slotted([after]) {
-  transform: translate(100%);
+  transform: translate(calc(var(--emd-slideshow-gap, 0px) + 100%));
 }
 
 /* for Edge compatibility */
