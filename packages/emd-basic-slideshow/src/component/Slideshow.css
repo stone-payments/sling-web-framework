@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.emd-slideshow__wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.emd-slideshow__wrapper .container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 300%;
+  left: -100%;
+}
+
+::slotted(*) {
+  position: relative;
+  grid-row-start: 1;
+  grid-column-start: 2;
+  width: 100%;
+  z-index: 2;
+  transition: transform var(--emd-slideshow-delay, 0.3s) ease-in-out, visibility var(--emd-slideshow-delay, 0.3s) 0s;
+}
+
+::slotted([before]),
+::slotted([after]) {
+  visibility: hidden; /* trap focus inside slide */
+  z-index: 1;
+}
+
+::slotted([before]) {
+  transform: translate(calc(-100% - var(--emd-slideshow-gap, 0px)));
+}
+
+::slotted([after]) {
+  transform: translate(calc(var(--emd-slideshow-gap, 0px) + 100%));
+}
+
+/* for Edge compatibility */
+
+emd-slideshow {
+  display: block;
+}

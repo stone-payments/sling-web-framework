@@ -1,0 +1,53 @@
+:host {
+  display: inline-block;
+  color: #0db14b;
+}
+
+.emd-loader__wrapper {
+  position: relative;
+  display: block;
+  width: 2em;
+  height: 2em;
+  border: 3px solid #ccc;
+  border-radius: 100%;
+  opacity: 0;
+  transition: opacity 0.13s;
+  animation: spin 1s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.emd-loader__wrapper_loading {
+  opacity: 1;
+}
+
+.emd-loader__inner {
+  position: relative;
+  width: 2em;
+  height: 2em;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 100%;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  margin: -3px 0 0 -3px;
+  box-sizing: border-box;
+  border-left: solid 3px transparent;
+  z-index: 2;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* for Edge compatibility */
+
+emd-loader {
+  display: inline-block;
+  color: #0db14b;
+}

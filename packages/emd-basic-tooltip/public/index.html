@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tooltip</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>Tooltip&thinsp;—&thinsp;Using for attribute</h1>
+
+  <h2 id="title-top">Top</h2>
+  <emd-tooltip position="top" for="title-top">
+    Top it is
+  </emd-tooltip>
+
+  <h2 id="title-right">Right</h2>
+  <emd-tooltip position="right" for="title-right">
+    Right it is
+  </emd-tooltip>
+
+  <h2 id="title-left">Left</h2>
+  <emd-tooltip position="left" for="title-left">
+    Left it is
+  </emd-tooltip>
+
+  <h2 id="title-bottom">Bottom</h2>
+  <emd-tooltip position="bottom" for="title-bottom">
+    Bottom it is
+  </emd-tooltip>
+
+  <h1>Tooltip&thinsp;—&thinsp;Legacy</h1>
+
+  <emd-tooltip position="top" text="Top it is">
+    <h2 id="title-top">Top</h2>
+  </emd-tooltip>
+
+  <emd-tooltip position="right" text="Right it is">
+    <h2>Right</h2>
+  </emd-tooltip>
+
+  <emd-tooltip position="left" text="Left it is">
+    <h2>Left</h2>
+  </emd-tooltip>
+
+  <emd-tooltip position="bottom" text="Bottom it is">
+    <h2>Bottom</h2>
+  </emd-tooltip>
+</body>
+</html>

@@ -38,3 +38,6 @@ bin
 
 # sonar cloud
 .scannerwork
+
+# storybook
+docs/

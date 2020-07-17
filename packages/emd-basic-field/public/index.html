@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Field</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>Field</h1>
+  <emd-field value="Everything in it’s Right Place"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Placeholder</h1>
+  <emd-field placeholder="Type a Radiohead song name"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Validation</h1>
+  <emd-field validating value="Who sings this song?"></emd-field>
+  <emd-field validationstatus="error" value="Tom York"></emd-field>
+  <emd-field validationstatus="success" value="Thom Yorke"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Validation without icons</h1>
+  <emd-field validationstatus="error" value="Tom York" hideicon></emd-field>
+  <emd-field validationstatus="success" value="Thom Yorke" hideicon></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Read only</h1>
+  <emd-field readonly value="Tom York"></emd-field>
+  <emd-field readonly validating value="Tom York"></emd-field>
+  <emd-field readonly validationstatus="error" value="Tom York"></emd-field>
+  <emd-field readonly validationstatus="success" value="Tom York"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Disabled</h1>
+  <emd-field disabled value="Thom Yorke"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Autofill</h1>
+  <emd-field type="email" name="email" autocomplete="on"></emd-field>
+  <emd-field type="email" name="email" autocomplete="on" validating></emd-field>
+  <emd-field type="email" name="email" autocomplete="on" validationstatus="error"></emd-field>
+  <emd-field type="email" name="email" autocomplete="on" validationstatus="success"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Masked</h1>
+  <emd-field type="bank-account" placeholder="Bank Account (with digit)"></emd-field>
+  <emd-field type="billet" placeholder="Billet"></emd-field>
+  <emd-field type="cep" placeholder="CEP"></emd-field>
+  <emd-field type="cnpj" placeholder="CNPJ"></emd-field>
+  <emd-field type="cpf" placeholder="CPF"></emd-field>
+  <emd-field type="cpf-cnpj" placeholder="CPF or CNPJ"></emd-field>
+  <emd-field type="money" placeholder="Money"></emd-field>
+  <emd-field type="integer" placeholder="Numeric (integer)"></emd-field>
+  <emd-field type="tel" placeholder="Telephone"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Padding</h1>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Font size</h1>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+  <emd-field value="Daft Punk" validationstatus="success"></emd-field>
+
+  <h1>Field&thinsp;—&thinsp;Created programmatically</h1>
+</body>
+</html>
