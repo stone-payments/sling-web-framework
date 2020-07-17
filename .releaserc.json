@@ -1,4 +1,5 @@
 {
+  "branch": "emd-legacy",
   "verifyConditions": [
       "@semantic-release/changelog",
       "@semantic-release/git"
