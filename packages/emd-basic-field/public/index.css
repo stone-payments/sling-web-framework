@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i");
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto", sans-serif;
+  margin: 30px;
+  font-size: 16px;
+  background-color: #f2f5f7;
+  color: #2d3844;
+  line-height: 1.35;
+}
+
+body {
+  display: grid;
+  grid-gap: 30px;
+}
+
+.fake-component {
+  width: 100%;
+  height: 200px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(45, 56, 68, 0.075),
+    rgba(45, 56, 68, 0.075) 10px,
+    rgba(45, 56, 68, 0.15) 10px,
+    rgba(45, 56, 68, 0.15) 20px
+  );
+}
+
+h4, p {
+  margin: 0;
+}
+
+button {
+  vertical-align: middle;
+}
+
+emd-field {
+  font-size: 14px;
+}
+
+emd-field:nth-of-type(26) {
+  --emd-field-padding: 0.5em;
+}
+
+emd-field:nth-of-type(27) {
+  --emd-field-padding: 0.75em;
+}
+
+emd-field:nth-of-type(28) {
+  --emd-field-padding: 1em;
+}
+
+emd-field:nth-of-type(29) {
+  --emd-field-padding: 1.5em;
+}
+
+emd-field:nth-of-type(30) {
+  font-size: 14px;
+}
+
+emd-field:nth-of-type(31) {
+  font-size: 16px;
+}
+
+emd-field:nth-of-type(32) {
+  font-size: 18px;
+}
+
+emd-field:nth-of-type(33) {
+  font-size: 20px;
+}

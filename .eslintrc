@@ -1,72 +1,40 @@
 {
-  "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "extends": [
+    "semistandard",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
   "env": {
     "browser": true,
-    "node": true,
-    "jest": true
-  },
-  "globals": {
-    "expect": true,
-    "module": true,
-    "fixture": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 9,
+    "node": true
   },
   "rules": {
-    "import/extensions": "off",
-    "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": "off",
-    "no-underscore-dangle": "off",
+    "max-len": ["error", {
+      "code": 80,
+      "ignorePattern": "^(import|export)\\s.+\\sfrom\\s.+;$",
+      "ignoreUrls": true,
+      "ignoreTemplateLiterals": true,
+      "ignoreRegExpLiterals": true
+    }],
     "import/no-unresolved": "off",
-    "class-methods-use-this": [
-      "error",
-      {
-        "exceptMethods": [
-          "render",
-          "_render"
-        ]
-      }
-    ],
-    "object-curly-newline": [
-      "error",
-      {
-        "ObjectExpression": {
-          "consistent": true
-        },
-        "ObjectPattern": {
-          "consistent": true
-        }
-      }
-    ],
-    "function-paren-newline": "off",
-    "max-len": [
-      "error",
-      {
-        "code": 80,
-        "ignoreComments": true,
-        "ignorePattern": "^import\\s.+;$",
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
-      }
-    ],
-    "no-param-reassign": [
-      "error",
-      {
-        "props": false
-      }
-    ]
- 
+    "import/named": "off"
   },
-  "overrides": [
-    {
-      "files": "*.{test,spec,cafe}.js",
-      "rules": {
-        "no-unused-expressions": "off",
-        "no-new-wrappers": "off",
-        "func-names": "off",
-        "prefer-arrow-callback": "off"
-      }
+  "globals": {
+    "describe": true,
+    "it": true,
+    "should": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "fixture": true,
+    "test": true
+  },
+  "overrides": [{
+    "files": "*.{test,spec}.js",
+    "rules": {
+      "no-unused-expressions": "off"
     }
-  ]
+  }]
 }

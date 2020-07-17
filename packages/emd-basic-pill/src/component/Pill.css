@@ -1,0 +1,26 @@
+:host {
+  display: inline-flex;
+  border-radius: 1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  align-items: center;
+  justify-content: center;
+}
+
+.emd-pill__wrapper {
+  text-align: center;
+  padding: 0.25em 0.875em;
+}
+
+/* for Edge compatibility */
+
+emd-pill {
+  display: inline-flex;
+  border-radius: 1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  align-items: center;
+  justify-content: center;
+}

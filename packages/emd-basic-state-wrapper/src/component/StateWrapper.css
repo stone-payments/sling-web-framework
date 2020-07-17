@@ -1,0 +1,112 @@
+@import url('./views/StateWrapperEmpty.css');
+@import url('./views/StateWrapperError.css');
+@import url('./views/StateWrapperPristine.css');
+@import url('./views/StateWrapperRecovery.css');
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.emd-state-wrapper__state_default ::slotted(*) {
+  width: 100%;
+  height: 100%;
+}
+
+.emd-state-wrapper__wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.emd-state-wrapper__state,
+.emd-state-wrapper__overlay {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.13s ease-in-out, width 0s 0.13s, height 0s 0.13s;
+}
+
+.emd-state-wrapper__state_current,
+.emd-state-wrapper__wrapper_loading .emd-state-wrapper__overlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.13s ease-in-out, width 0s, height 0s;
+}
+
+.emd-state-wrapper__wrapper_loading .emd-state-wrapper__state_current {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.emd-state-wrapper__wrapper_loading .emd-state-wrapper__state_current.emd-state-wrapper__state_default {
+  opacity: 0.25;
+}
+
+.emd-state-wrapper__inner {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.emd-state-wrapper__overlay {
+  z-index: 3;
+}
+
+.emd-state-wrapper__overlay_view_compact {
+  font-size: 0.625em;
+}
+
+.emd-state-wrapper__loader {
+  color: var(--emd-state-wrapper-loader-color, #0db14b);
+}
+
+.emd-state-wrapper__state_current {
+  z-index: 2;
+}
+
+.emd-state-wrapper__overlay,
+:not(.emd-state-wrapper__state_default) .emd-state-wrapper__inner {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.emd-state-wrapper__state_default,
+.emd-state-wrapper__state_default .emd-state-wrapper__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.emd-state-wrapper__state_default .emd-state-wrapper__inner {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.emd-state-wrapper__state_default:not(.emd-state-wrapper__state_current) {
+  pointer-events: none;
+}
+
+/* for Edge compatibility */
+
+emd-state-wrapper {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+emd-state-wrapper .emd-state-wrapper__state_default .emd-state-wrapper__inner > * {
+  width: 100%;
+  height: 100%;
+}

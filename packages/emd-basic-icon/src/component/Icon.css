@@ -1,0 +1,24 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.emd-icon__wrapper {
+  display: block;
+  width: 1.5em;
+  overflow: hidden;
+}
+
+.emd-icon__wrapper > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: currentColor;
+}
+
+/* for Edge compatibility */
+
+emd-icon {
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,10 +1,4 @@
-# dist
-/packages/**/dist
-
-# dev
-/packages/**/dev
-
-# dependencies
 node_modules/
-/packages/**/node_modules
-*.bundle.js
+dist/
+coverage/
+docs/
