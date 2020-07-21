@@ -1,9 +1,0 @@
-:host {
-  display: block;
-}
-
-/* for compatibility */
-
-sling-field-message {
-  display: block;
-}

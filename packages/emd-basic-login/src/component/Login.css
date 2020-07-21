@@ -1,0 +1,220 @@
+:host {
+  border-radius: unset;
+  display: block;
+}
+
+:host > * {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.emd-login__logo {
+  margin: auto;
+  margin-top: 20px; /* same as Card margin */
+  font-size: 2em;
+}
+
+.emd-login__card {
+  max-width: 400px;
+}
+
+.emd-login__slideshow {
+  position: relative;
+  margin-top: 0.75em;
+  width: 100%;
+  height: 15.625em;
+  overflow: hidden;
+}
+
+.emd-login__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 0;
+  grid-row-gap: 1.75em;
+  width: 100%;
+}
+
+.emd-login__slide {
+  transition: left 0.3s ease-in-out, visibility 0.3s 0s;
+}
+
+.emd-login__slide_before,
+.emd-login__slide_after {
+  visibility: hidden; /* trap focus inside slide */
+}
+
+.emd-login__slide_before {
+  left: calc(-100% - 2em);
+}
+
+.emd-login__slide_after {
+  left: calc(100% + 2em);
+}
+
+.emd-login__title {
+  grid-column-end: span 2;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.5em;
+  color: #96a0af;
+  cursor: default;
+  max-width: 100%;
+}
+
+.emd-login__title > * + * {
+  padding-left: 0.375em;
+}
+
+.emd-login__title-text {
+  --emd-button-padding: 0px;
+  -webkit-appearance: none;
+  background: transparent;
+  font: inherit;
+  border: none;
+  border-radius: unset;
+  padding: 0;
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emd-login__title-text:focus {
+  outline: none;
+}
+
+.emd-login__title-text[tab-focus] {
+  text-decoration: underline;
+}
+
+.emd-login__form {
+  grid-column-end: span 2;
+  margin-top: 0.375em;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 0;
+  grid-row-gap: 1.75em;
+}
+
+.emd-login__field-wrapper {
+  grid-column-end: span 2;
+  font-size: calc(12 / 16 * 1em);
+  font-weight: normal;
+  cursor: default;
+}
+
+.emd-login__field {
+  --emd-field-success-color: #96a0af;
+  font-size: calc(16 / 12 * 1em);
+  font-weight: normal;
+}
+
+.emd-login__button {
+  -webkit-appearance: none;
+  background: transparent;
+  font-size: calc(14 / 16 * 1em);
+  cursor: pointer;
+  border: none;
+}
+
+.emd-login__button:focus {
+  outline: none;
+}
+
+.emd-login__button[tab-focus] {
+  text-decoration: underline;
+}
+
+.emd-login__button_primary {
+  border-radius: 2px;
+  background-color: #0db14b;
+  color: #fff;
+}
+
+.emd-login__button_secondary,
+.emd-login__button_tertiary {
+  --emd-button-padding: 0px;
+  max-width: max-content;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  color: #0db14b;
+}
+
+.emd-login__button_tertiary {
+  color: inherit;
+}
+
+.emd-login__card_pop .emd-login__title {
+  box-sizing: border-box;
+  color: inherit;
+  font-size: calc(20 / 16 * 1em);
+  font-weight: bold;
+  line-height: 1.35;
+  width: 100%;
+  padding: 20px; /* same as Card margin */
+  display: block;
+  text-align: center;
+}
+
+.emd-login__button_primary:hover,
+.emd-login__button_primary:hover:active {
+  background-color: #008d41;
+}
+
+@media (hover: none) {
+  .emd-login__button_primary:hover {
+    background-color: #0db14b;
+  }
+}
+
+.emd-login__button_secondary:hover,
+.emd-login__button_secondary:hover:active {
+  text-decoration: underline;
+}
+
+@media (hover: none) {
+  .emd-login__button_secondary:hover {
+    text-decoration: none;
+  }
+}
+
+.emd-login__slide_password .emd-login__title {
+  color: inherit;
+  cursor: pointer;
+}
+
+.emd-login__slide_password .emd-login__title:hover .emd-login__title-text,
+.emd-login__slide_password .emd-login__title:hover:active .emd-login__title-text {
+  text-decoration: underline;
+}
+
+@media (hover: none) {
+  .emd-login__slide_password .emd-login__title:hover .emd-login__title-text {
+    text-decoration: none;
+  }
+}
+
+.emd-login__slide_password .emd-login__title-text {
+  cursor: pointer;
+}
+
+/* for Edge compatibility */
+
+emd-login {
+  display: block;
+}
+
+emd-login > * {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

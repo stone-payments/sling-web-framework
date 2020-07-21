@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Field Wrapper</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <h1>Field Wrapper</h1>
+  <emd-field-wrapper label="Label" hint="Hint">
+    <emd-field></emd-field>
+  </emd-field-wrapper>
+
+  <emd-field-wrapper label="Label" hint="Hint">
+    <emd-select></emd-select>
+  </emd-field-wrapper>
+
+  <h1>Field Wrapper&thinsp;—&thinsp;Error</h1>
+  <emd-field-wrapper label="Label" hint="Hint" message="Some error">
+    <emd-field validationstatus="error"></emd-field>
+  </emd-field-wrapper>
+
+  <emd-field-wrapper label="Label" hint="Hint" message="Some error">
+    <emd-select validationstatus="error"></emd-select>
+  </emd-field-wrapper>
+</body>
+</html>

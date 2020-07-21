@@ -1,9 +1,0 @@
-@import url('https://fonts.googleapis.com/css?family=Heebo');
-
-body {
-  font-family: 'Heebo', sans-serif;
-}
-
-body > * {
-  margin: 20px;
-}

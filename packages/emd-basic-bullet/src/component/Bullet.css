@@ -1,0 +1,35 @@
+:host {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.1em;
+}
+
+.emd-bullet__wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.emd-bullet__text {
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.emd-bullet__bullet {
+  margin-right: 0.8em;
+}
+
+.emd-bullet__bullet-icon {
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 100%;
+  background-color: currentColor;
+}
+
+/* for Edge compatibility */
+
+emd-bullet {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.1em;
+}

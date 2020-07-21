@@ -1,0 +1,34 @@
+:host {
+  display: block;
+}
+
+.promo {
+  display: flex;
+}
+
+.promo__currency, .promo__cents, .promo__period {
+  font-size: 0.938em;
+}
+
+
+.promo__currency, .promo__period {
+  color: #96a0af;
+}
+
+.promo__cents {
+  color: #2d3844;
+}
+
+.promo__value {
+  margin: 0 5px 0 10px;
+  font-size: 3.038em;
+  line-height: 0.97;
+  font-weight: 800;
+  color: #2d3844;
+}
+
+/* for Edge compatibility */
+
+emd-money-promo {
+  display: block;
+}
