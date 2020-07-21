@@ -1,9 +1,0 @@
-:host {
-  display: block;
-}
-
-/* for compatibility */
-
-sling-table {
-  display: block;
-}

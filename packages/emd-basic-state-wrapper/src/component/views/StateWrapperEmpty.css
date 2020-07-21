@@ -1,0 +1,8 @@
+.emd-state-wrapper__state_empty {
+  font-size: 1em;
+  text-align: center;
+}
+
+.emd-state-wrapper__state_empty .emd-state-wrapper__text_view_compact {
+  font-size: 0.875em;
+}

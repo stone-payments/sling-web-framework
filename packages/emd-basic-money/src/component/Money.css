@@ -1,0 +1,34 @@
+.emd-money__wrapper {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.emd-money__wrapper span + span {
+  margin-left: 0.1875em;
+}
+
+.emd-money__wrapper_positive {
+  color: var(--emd-money-positive-color, inherit);
+}
+
+.emd-money__wrapper_negative {
+  color: var(--emd-money-negative-color, inherit);
+}
+
+.emd-money__wrapper_neutral {
+  color: var(--emd-money-neutral-color, inherit);
+}
+
+.emd-money__wrapper_value_hidden .emd-money__effect {
+  background: var(--emd-money-effect-color, currentColor);
+  opacity: var(--emd-money-effect-opacity, 0.5);
+  overflow: hidden;
+  height: 1em;
+  align-self: center;
+}
+
+.emd-money__wrapper_value_hidden .emd-money__effect > * {
+  visibility: hidden;
+}

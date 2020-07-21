@@ -1,0 +1,106 @@
+:host {
+  display: block;
+}
+
+.emd-notification__wrapper {
+  background: #fff;
+  border-width: 1px 1px 1px 10px;
+  border-style: solid;
+  border-radius: 4px 10px 10px 4px;
+  padding: 30px;
+}
+
+.emd-notification__wrapper.is-compact {
+  padding: 12px;
+  border-left-width: 4px;
+}
+
+.emd-notification__wrapper.is-alert {
+  border-color: #F9BF09;
+}
+
+.emd-notification__wrapper.is-danger {
+  border-color: #E74C3C;
+}
+
+.emd-notification__wrapper.is-success {
+  border-color: #14AA4B;
+}
+
+.emd-notification__wrapper .inner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.emd-notification__wrapper .content {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.emd-notification__wrapper.is-compact .content {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.emd-notification__wrapper:not(.has-action) .action-wrapper {
+  display: none;
+}
+
+.emd-notification__wrapper .action-wrapper {
+  flex-shrink: 0;
+  margin-left: 24px;
+}
+
+.emd-notification__wrapper.is-compact .action-wrapper {
+  margin-left: 0;
+  margin-top: 1em;
+}
+
+.emd-notification__wrapper .icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.emd-notification__wrapper.is-compact .icon {
+  height: 100%;
+}
+
+.emd-notification__wrapper.is-alert .icon {
+  color: #F9BF09;
+}
+
+.emd-notification__wrapper.is-danger .icon {
+  color: #E74C3C;
+}
+
+.emd-notification__wrapper.is-success .icon {
+  color: #14AA4B;
+}
+
+.emd-notification__wrapper svg {
+  display: block;
+  width: 44px;
+  margin-right: 44px;
+  fill: currentColor;
+}
+
+.emd-notification__wrapper.is-compact svg {
+  width: 24px;
+  margin-right: 16px;
+}
+
+/* for Edge compatibility */
+
+emd-notification {
+  display: block;
+}

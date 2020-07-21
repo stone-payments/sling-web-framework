@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i");
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Roboto", sans-serif;
+  margin: 30px;
+  font-size: 16px;
+  background-color: #f2f5f7;
+  color: #2d3844;
+  line-height: 1.35;
+}
+
+body {
+  display: grid;
+  grid-gap: 1em;
+  text-align: center;
+}
+
+h2 {
+  display: block;
+  margin: auto;
+}

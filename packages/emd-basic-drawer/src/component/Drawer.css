@@ -1,0 +1,47 @@
+:host {
+  display: inline-flex;
+  height: auto;
+  width: auto;
+  border: none;
+  padding: 0;
+}
+
+.emd-drawer__wrapper {
+  position: relative;
+  display: flex;
+	overflow: hidden;
+  transition-duration: 0.36s;
+  transition-timing-function: ease-in-out;
+}
+
+.emd-drawer__wrapper_direction_vertical {
+  flex-flow: row nowrap;
+  height: 0;
+  width: 100%;
+  transition-property: height;
+}
+
+.emd-drawer__wrapper_direction_vertical.emd-drawer__wrapper_open {
+  height: auto;
+}
+
+.emd-drawer__wrapper_direction_horizontal {
+  flex-flow: column nowrap;
+  height: 100%;
+  width: 0;
+  transition-property: width;
+}
+
+.emd-drawer__wrapper_direction_horizontal.emd-drawer__wrapper_open {
+  width: auto;
+}
+
+/* for Edge compatibility */
+
+emd-drawer {
+  display: inline-flex;
+  height: auto;
+  width: auto;
+  border: none;
+  padding: 0;
+}
