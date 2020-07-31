@@ -4,14 +4,6 @@ Emerald Card UI component.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-card
-```
-
-```js
-import '@stone-payments/emd-basic-card';
-```
-
 ```html
 <emd-card>
   <user-details></user-details>

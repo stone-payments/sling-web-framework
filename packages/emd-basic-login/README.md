@@ -4,14 +4,6 @@ Login component with two steps: e-mail entry and password entry.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-login
-```
-
-```js
-import '@stone-payments/emd-basic-login';
-```
-
 ```html
 <emd-login></emd-login>
 

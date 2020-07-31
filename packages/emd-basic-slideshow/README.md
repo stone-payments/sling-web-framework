@@ -4,14 +4,6 @@ Emerald Slideshow UI component.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-slideshow
-```
-
-```js
-import '@stone-payments/emd-basic-slideshow';
-```
-
 ```html
 <emd-slideshow current="2">
   <div>One</div>

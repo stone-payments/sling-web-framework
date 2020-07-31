@@ -4,14 +4,6 @@ Emerald Brand Icon UI component.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-brand-icon
-```
-
-```js
-import '@stone-payments/emd-basic-brand-icon';
-```
-
 ```html
 <emd-brand-icon icon="amex"></emd-icon>
 <emd-brand-icon iconid="9"></emd-icon>

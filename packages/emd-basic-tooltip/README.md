@@ -4,14 +4,6 @@ Emerald Tooltip UI component.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-tooltip
-```
-
-```js
-import '@stone-payments/emd-basic-tooltip';
-```
-
 ```html
 <span id="target">120 members found</span>
 <emd-tooltip for="target">79 online now</emd-tooltip>

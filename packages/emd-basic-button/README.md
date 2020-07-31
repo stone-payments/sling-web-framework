@@ -4,14 +4,6 @@ Emerald Button UI component.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-button
-```
-
-```js
-import '@stone-payments/emd-basic-button';
-```
-
 ```html
 <emd-button>
   Click me

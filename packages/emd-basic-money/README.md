@@ -4,14 +4,6 @@ Emerald Money UI component.
 
 ## Usage
 
-```
-npm install @stone-payments/emd-basic-money
-```
-
-```js
-import '@stone-payments/emd-basic-money';
-```
-
 ```html
 <emd-money value="12680.9"></emd-money>
 
