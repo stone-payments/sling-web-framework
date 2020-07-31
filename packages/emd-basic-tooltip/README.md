@@ -1,4 +1,4 @@
-# Tooltip 
+# Tooltip
 
 Emerald Tooltip UI component.
 
