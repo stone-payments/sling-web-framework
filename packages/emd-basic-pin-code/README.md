@@ -4,6 +4,14 @@ Emerald Pin Code UI component.
 
 ## Usage
 
+```
+npm install @stone-payments/emd-basic-pin-code
+```
+
+```js
+import '@stone-payments/emd-basic-pin-code';
+```
+
 ```html
 <emd-pin-code cases="4"></emd-pin-code>
 
