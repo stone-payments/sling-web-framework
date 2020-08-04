@@ -1,3 +1,15 @@
+# @stone-payments/emd-basic-brand-icon-v1.0.0 (2020-08-04)
+
+
+### Features
+
+* Move package to master ([8dbabdd](https://github.com/stone-payments/emerald-web-framework/commit/8dbabdd551c0b143e67837b9ed34e7dbc23e6370))
+
+
+### Reverts
+
+* Revert "chore(release): 1.0.0" ([8f6fdb5](https://github.com/stone-payments/emerald-web-framework/commit/8f6fdb5876127916b6ac0113fc1fe7a477065810))
+
 # [@stone-payments/emd-basic-brand-icon-v1.8.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-brand-icon-v1.7.0...@stone-payments/emd-basic-brand-icon-v1.8.0) (2020-05-14)
 
 
