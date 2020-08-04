@@ -1,6 +1,6 @@
 {
-  "name": "sling-web-framework",
-  "description": "Sling Web Framework",
+  "name": "emerald-web-framework",
+  "description": "Emerald Web Framework",
   "version": "3.0.0",
   "private": true,
   "flat": true,
