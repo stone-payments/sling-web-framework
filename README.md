@@ -9,48 +9,48 @@ an [issue](https://github.com/stone-payments/emerald-web-framework/issues/new) o
 
 # Components
 
-* [emd-basic-brand-icon](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-brand-icon)
+* [emd-basic-brand-icon](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-brand-icon)
 
-* [emd-basic-bullet](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-bullet)
+* [emd-basic-bullet](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-bullet)
 
-* [emd-basic-button](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-button)
+* [emd-basic-button](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-button)
 
-* [emd-basic-card](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-card)
+* [emd-basic-card](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-card)
 
-* [emd-basic-date](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-date)
+* [emd-basic-date](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-date)
 
-* [emd-basic-drawer](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-drawer)
+* [emd-basic-drawer](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-drawer)
 
-* [emd-basic-feature](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-feature)
+* [emd-basic-feature](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-feature)
 
-* [emd-basic-field](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-field)
+* [emd-basic-field](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-field)
 
-* [emd-basic-field-message](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-field-message)
+* [emd-basic-field-message](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-field-message)
 
-* [emd-basic-field-wrapper](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-field-wrapper)
+* [emd-basic-field-wrapper](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-field-wrapper)
 
-* [emd-basic-form](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-form)
+* [emd-basic-form](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-form)
 
-* [emd-basic-icon](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-icon)
+* [emd-basic-icon](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-icon)
 
-* [emd-basic-loader](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-loader)
+* [emd-basic-loader](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-loader)
 
-* [emd-basic-loan-success-dialog](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-loan-success-dialog)
+* [emd-basic-loan-success-dialog](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-loan-success-dialog)
 
-* [emd-basic-login](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-login)
+* [emd-basic-login](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-login)
 
-* [emd-basic-money](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-money)
+* [emd-basic-money](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-money)
 
-* [emd-basic-money-card](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-money-card)
+* [emd-basic-money-card](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-money-card)
 
-* [emd-basic-money-promo](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-money-promo)
+* [emd-basic-money-promo](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-money-promo)
 
-* [emd-basic-pill](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-pill)
+* [emd-basic-pill](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-pill)
 
-* [emd-basic-select](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-select)
+* [emd-basic-select](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-select)
 
-* [emd-basic-simulator-result](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-simulator-result)
+* [emd-basic-simulator-result](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-simulator-result)
 
-* [emd-basic-state-wrapper](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-state-wrapper)
+* [emd-basic-state-wrapper](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-state-wrapper)
 
-* [emd-basic-table](https://github.com/stone-payments/emerald-web-framework/tree/emd-master/packages/emd-basic-table)
+* [emd-basic-table](https://github.com/stone-payments/emerald-web-framework/tree/master/packages/emd-basic-table)
