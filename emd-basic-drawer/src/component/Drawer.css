@@ -6,6 +6,18 @@
   padding: 0;
 }
 
+.emd-drawer__wrapper_effect_sliding ::slotted(:nth-child(1)) {
+  align-self: flex-end;
+}
+
+.emd-drawer__wrapper_effect_centered ::slotted(:nth-child(1)) {
+  align-self: center;
+}
+
+.emd-drawer__wrapper_effect_revealing ::slotted(:nth-child(1)) {
+  align-self: flex-start;
+}
+
 .emd-drawer__wrapper {
   position: relative;
   display: flex;
