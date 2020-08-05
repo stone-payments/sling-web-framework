@@ -4,6 +4,14 @@ Emerald Notification UI component.
 
 ## Usage
 
+```
+npm install @stone-payments/emd-basic-notification
+```
+
+```js
+import '@stone-payments/emd-basic-notification';
+```
+
 ```html
 <emd-notification mode="alert">
   Alert message

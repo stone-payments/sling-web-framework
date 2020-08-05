@@ -3,8 +3,6 @@ import { delay } from '@stone-payments/emd-helpers';
 export const DrawerController = (Base = class {}) => class extends Base {
   constructor () {
     super();
-    this.delay = 360;
-    this.direction = 'vertical';
     this.handleTransitionEnd = this.handleTransitionEnd.bind(this);
   }
 
@@ -34,6 +32,10 @@ export const DrawerController = (Base = class {}) => class extends Base {
       },
       delay: {
         type: Number,
+        reflect: true
+      },
+      effect: {
+        type: String,
         reflect: true
       }
     };
