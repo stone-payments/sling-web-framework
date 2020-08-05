@@ -1,5 +1,5 @@
 {
-  "branch": "forced-release",
+  "branches": ["master", "forced-release"],
   "verifyConditions": [
     "@semantic-release/changelog",
     "@semantic-release/npm",
