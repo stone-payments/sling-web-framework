@@ -15,8 +15,6 @@ git pull
 git checkout -b branch-name
 ```
 
-*We are using `emd-master` and `emd-develop` branches since `master` and `develop` are deprecated for now. In the future, we will rename our branches so that `master` and `develop` can be used again.*
-
 ## Installing
 
 ```
