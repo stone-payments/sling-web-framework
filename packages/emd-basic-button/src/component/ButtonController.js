@@ -8,6 +8,18 @@ export const ButtonController = (Base = class {}) =>
 
     static get properties () {
       return {
+        abc: {
+          type: Boolean,
+          reflect: true
+        },
+        size: {
+          type: String,
+          reflect: true
+        },
+        rank: {
+          type: String,
+          reflect: true
+        },
         type: {
           type: String,
           reflect: true
