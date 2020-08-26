@@ -7,7 +7,8 @@ export const ButtonView = ({
   loading,
   href,
   target = '',
-  handleClick
+  handleClick,
+  showIcon
 }) => {
   let wrapperClass = 'emd-button__wrapper';
   wrapperClass += loading ? ' emd-button__wrapper_loading' : '';
@@ -22,20 +23,35 @@ export const ButtonView = ({
       @click="${handleClick}">
       <emd-loader
         ?loading="${loading}"
-        class="emd-button__loader"></emd-loader>
+        class="emd-button__loader">
+      </emd-loader>
       ${href ? html`
         <a
           href="${href}"
           target="${target}"
           class="emd-button__button emd-button__button_href">
-          <slot></slot>
+          ${showIcon ? html`
+            <span class="emd-button__icon">
+              <slot name="icon"></slot>
+            </span>
+          ` : ''}
+          <span class="emd-button__text">
+            <slot></slot>
+          </span>
         </a>
       ` : html`
         <button
           .type="${type}"
           ?disabled="${disabled}"
           class="emd-button__button">
-          <slot></slot>
+          ${showIcon ? html`
+            <span class="emd-button__icon">
+              <slot name="icon"></slot>
+            </span>
+          ` : ''}
+          <span class="emd-button__text">
+            <slot></slot>
+          </span>
         </button>
       `}
     </div>

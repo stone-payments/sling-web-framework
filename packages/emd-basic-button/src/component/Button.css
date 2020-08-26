@@ -77,18 +77,124 @@
   opacity: 0;
 }
 
-/* for Edge compatibility */
-
-emd-button {
-  display: inline-flex;
-  margin: 0;
-  padding: 0;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 2.5em;
-  text-align: center;
+.emd-button__icon {
+  display: block;
+  margin-left: -0.25em;
+  margin-right: 0.5em;
+  line-height: 1;
 }
 
-emd-button[disabled] {
-  color: #c3c8d2;
+.emd-button__text {
+  display: block;
+}
+
+/* ABC */
+
+:host([abc]) {
+  border: none !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+:host([abc]) .emd-button__wrapper {
+  color: white;
+  border: 1px solid #088037;
+  background-color: #088037;
+  border-radius: 4px;
+  transition: background-color 0.065s;
+}
+
+:host([abc][rank=secondary]) .emd-button__wrapper {
+  color: #088037;
+  background-color: transparent;
+  mix-blend-mode: multiply;
+}
+
+:host([abc][rank=tertiary]) .emd-button__wrapper {
+  color: #088037;
+  border-color: #DCF2E4;
+  background-color: #DCF2E4;
+  mix-blend-mode: multiply;
+}
+
+:host([abc][tab-focus]) .emd-button__wrapper {
+  box-shadow: 0px 0px 8px rgba(0, 171, 99, 0.5);
+}
+
+@media (hover: hover) {
+  :host([abc]) .emd-button__wrapper:hover {
+    background-color: #036228;
+  }
+
+  :host([abc][rank=secondary]) .emd-button__wrapper:hover {
+    background-color: #DCF2E4;
+  }
+
+  :host([abc][rank=tertiary]) .emd-button__wrapper:hover {
+    background-color: #BFEED0;
+  }
+}
+
+@media (hover: none) {
+  :host([abc]) .emd-button__wrapper:active {
+    background-color: #036228;
+  }
+
+  :host([abc][rank=secondary]) .emd-button__wrapper:active {
+    background-color: #DCF2E4;
+  }
+
+  :host([abc][rank=tertiary]) .emd-button__wrapper:active {
+    background-color: #BFEED0;
+  }
+}
+
+:host([abc]) .emd-button__wrapper:active {
+  box-shadow: 0px 0px 16px rgba(0, 171, 99, 0.5);
+}
+
+:host([abc][disabled]) .emd-button__wrapper,
+:host([abc]) .emd-button__wrapper_loading:active {
+  box-shadow: none;
+}
+
+:host([abc][disabled]) .emd-button__wrapper,
+:host([abc][disabled]) .emd-button__wrapper:hover {
+  border-color: #96A0AF;
+  background-color: #96A0AF;
+}
+
+:host([abc][disabled][rank=secondary]) .emd-button__wrapper,
+:host([abc][disabled][rank=secondary]) .emd-button__wrapper:hover {
+  background-color: transparent;
+  color: #96A0AF;
+}
+
+:host([abc][disabled][rank=tertiary]) .emd-button__wrapper,
+:host([abc][disabled][rank=tertiary]) .emd-button__wrapper:hover {
+  border-color: #F4F4F9;
+  background-color: #F4F4F9;
+  color: #677481;
+}
+
+:host([abc]) .emd-button__button {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  padding: 16px 1.25em;
+}
+
+:host([abc]) .emd-button__loader {
+  font-size: 16px;
+}
+
+:host([abc][size=medium]) .emd-button__button {
+  font-size: 14px;
+  line-height: 22px;
+  padding: 12px 1.25em;
+}
+
+:host([abc][size=medium]) .emd-button__loader {
+  font-size: 11px;
 }

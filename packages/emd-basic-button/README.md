@@ -13,12 +13,20 @@ import '@stone-payments/emd-basic-button';
 ```
 
 ```html
+<emd-button abc>
+  Click me
+</emd-button>
+
+<emd-button abc size="large" rank="secondary">
+  Click me
+</emd-button>
+
 <emd-button>
   Click me
 </emd-button>
 
 <emd-button>
-  <emd-icon icon="arrow-up"></emd-icon>
+  <emd-icon slot="icon" icon="arrow-up"></emd-icon>
   Move up
 </emd-button>
 
@@ -32,6 +40,27 @@ import '@stone-payments/emd-basic-button';
 ```
 
 ## Attributes and Properties
+
+#### `abc`
+
+Applies the ABC theme to the component. The ABC mode intentionally restricts the styles that can be applied to the component. Font size, color and background can only be changed through `size` and `rank` properties in ABC mode.
+
+- Type: Boolean
+- Attribute and property
+
+#### `size`
+
+Changes the size of the component when in ABC mode. It can be `large` or `medium`.
+
+- Type: String
+- Attribute and property
+
+#### `rank`
+
+Changes the appearance of the component when in ABC mode. It can be `primary`, `secondary` or `tertiary`.
+
+- Type: String
+- Attribute and property
 
 #### `type`
 
@@ -79,7 +108,7 @@ Allows the component to recognize multiple clicks in a row. By default, when cli
 
 #### `--emd-button-padding`
 
-Controlls the internal padding of the button.
+Controlls the internal padding of the button. This property doesn't work in ABC mode.
 
 - Default: `1.125em 1.5em`
 
@@ -88,6 +117,10 @@ Controlls the internal padding of the button.
 #### Default
 
 The component's content. Usually some text, but it can also be an image or an icon, for example.
+
+#### `icon`
+
+The area on the left to the content where the optional icon goes.
 
 ## Events
 

@@ -6,7 +6,7 @@ html {
   font-family: "Roboto", sans-serif;
   margin: 30px;
   font-size: 16px;
-  background-color: #f2f5f7;
+  background-color: white;
   color: #2d3844;
   line-height: 1.35;
 }
@@ -36,65 +36,15 @@ emd-button {
   margin-right: auto;
 }
 
-emd-button:nth-of-type(7),
-emd-button:nth-of-type(8),
-emd-button:nth-of-type(9),
-emd-button:nth-of-type(10),
-emd-button:nth-of-type(11),
-emd-button:nth-of-type(12) {
+body > emd-button:nth-of-type(1),
+body > emd-button:nth-of-type(2),
+body > emd-button:nth-of-type(3),
+body > emd-button:nth-of-type(4),
+body > emd-button:nth-of-type(5),
+body > emd-button:nth-of-type(6) {
   width: 300px;
 }
 
-emd-button:nth-of-type(19),
-emd-button:nth-of-type(20),
-emd-button:nth-of-type(21),
-emd-button:nth-of-type(22),
-emd-button:nth-of-type(23),
-emd-button:nth-of-type(24) {
-  color: #fff;
-  background-color: #c3c8d2;
-  border-color: #c3c8d2;
-}
-
-emd-button:nth-of-type(6n - 5) {
-  font-size: 12px;
-}
-
-emd-button:nth-of-type(6n - 4) {
-  font-size: 14px;
-}
-
-emd-button:nth-of-type(6n - 3) {
-  font-size: 16px;
-}
-
-emd-button:nth-of-type(6n - 2) {
-  font-size: 20px;
-}
-
-emd-button:nth-of-type(6n - 1) {
-  font-size: 24px;
-}
-
-emd-button:nth-of-type(6n) {
-  font-size: 30px;
-}
-
-emd-button:not([disabled]) {
-  color: #fff;
-  background-color: #0db14b;
-  border-color: #0db14b;
-}
-
-emd-button:nth-of-type(n + 25) {
-  color: #0db14b;
-  background-color: transparent;
-}
-
-emd-button:nth-of-type(n + 37) {
-  color: #c3c8d2;
-}
-
-emd-button:nth-of-type(n + 43) {
-  color: #0db14b;
+div > emd-button {
+  vertical-align: middle;
 }
