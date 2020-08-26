@@ -31,11 +31,13 @@ export const ButtonView = ({
           target="${target}"
           class="emd-button__button emd-button__button_href">
           ${showIcon ? html`
-            <div class="emd-button__icon">
+            <span class="emd-button__icon">
               <slot name="icon"></slot>
-            </div>
+            </span>
           ` : ''}
-          <slot></slot>
+          <span class="emd-button__text">
+            <slot></slot>
+          </span>
         </a>
       ` : html`
         <button
@@ -43,11 +45,13 @@ export const ButtonView = ({
           ?disabled="${disabled}"
           class="emd-button__button">
           ${showIcon ? html`
-            <div class="emd-button__icon">
+            <span class="emd-button__icon">
               <slot name="icon"></slot>
-            </div>
+            </span>
           ` : ''}
-          <slot></slot>
+          <span class="emd-button__text">
+            <slot></slot>
+          </span>
         </button>
       `}
     </div>

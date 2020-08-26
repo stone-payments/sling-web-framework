@@ -44,3 +44,7 @@ emd-button:nth-of-type(11),
 emd-button:nth-of-type(12) {
   width: 300px;
 }
+
+div > emd-button {
+  vertical-align: middle;
+}

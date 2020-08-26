@@ -78,8 +78,14 @@
 }
 
 .emd-button__icon {
+  display: block;
   margin-left: -0.25em;
   margin-right: 0.5em;
+  line-height: 1;
+}
+
+.emd-button__text {
+  display: block;
 }
 
 /* ABC */

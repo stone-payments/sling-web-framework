@@ -16,7 +16,7 @@
   <emd-button abc rank="tertiary">Button</emd-button>
   <emd-button abc size="medium" rank="tertiary">Button</emd-button>
 
-  <h1>Button&thinsp;—&thinsp;Fixed Width</h1>
+  <h1>Button&thinsp;—&thinsp;Elastic Width</h1>
   <emd-button abc>Button</emd-button>
   <emd-button abc size="medium">Button</emd-button>
   <emd-button abc rank="secondary">Button</emd-button>
@@ -41,14 +41,38 @@
   <emd-button abc size="medium" rank="tertiary" disabled>Button</emd-button>
 
   <h1>Button&thinsp;—&thinsp;With Icon</h1>
-  <emd-button abc>
-    <emd-icon slot="icon" icon="edit"></emd-icon>
-    Edit
-  </emd-button>
-  <emd-button abc size="medium">
-    <emd-icon slot="icon" icon="edit"></emd-icon>
-    Edit
-  </emd-button>
+  <div>
+    <emd-button abc>
+      <emd-icon slot="icon" icon="edit"></emd-icon>
+      Edit
+    </emd-button>
+    <emd-button abc>
+      Edit
+    </emd-button>
+    <emd-button abc href="http://stone.co">
+      <emd-icon slot="icon" icon="edit"></emd-icon>
+      Edit
+    </emd-button>
+    <emd-button abc href="http://stone.co">
+      Edit
+    </emd-button>
+  </div>
+  <div>
+    <emd-button abc size="medium">
+      <emd-icon slot="icon" icon="edit"></emd-icon>
+      Edit
+    </emd-button>
+    <emd-button abc size="medium">
+      Edit
+    </emd-button>
+    <emd-button abc size="medium" href="http://stone.co">
+      <emd-icon slot="icon" icon="edit"></emd-icon>
+      Edit
+    </emd-button>
+    <emd-button abc size="medium" href="http://stone.co">
+      Edit
+    </emd-button>
+  </div>
   <emd-button abc rank="secondary">
     <emd-icon slot="icon" icon="edit"></emd-icon>
     Edit
