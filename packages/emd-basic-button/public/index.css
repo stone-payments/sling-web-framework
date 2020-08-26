@@ -36,12 +36,12 @@ emd-button {
   margin-right: auto;
 }
 
-emd-button:nth-of-type(7),
-emd-button:nth-of-type(8),
-emd-button:nth-of-type(9),
-emd-button:nth-of-type(10),
-emd-button:nth-of-type(11),
-emd-button:nth-of-type(12) {
+body > emd-button:nth-of-type(1),
+body > emd-button:nth-of-type(2),
+body > emd-button:nth-of-type(3),
+body > emd-button:nth-of-type(4),
+body > emd-button:nth-of-type(5),
+body > emd-button:nth-of-type(6) {
   width: 300px;
 }
 
