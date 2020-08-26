@@ -22,24 +22,41 @@ const logEvent = ({ type, detail }) => {
   action(type)(detail);
 };
 
-function getCodeSample () {
-  let attrs = '';
-  attrs += this.type ? ` type="${this.type}"` : '';
-  attrs += this.disabled ? ' disabled' : '';
-  attrs += this.loading ? ' loading' : '';
-  attrs += this.href ? ` href="${this.href}"` : '';
-  attrs += this.target ? ` target="${this.target}"` : '';
+function getCodeSample ({ useLegacy }) {
+  return function () {
+    let attrs = '';
+    attrs += !useLegacy ? ' abc' : '';
+    attrs += this.disabled ? ' disabled' : '';
+    attrs += this.loading ? ' loading' : '';
+    attrs += this.size ? ` size="${this.size}"` : '';
+    attrs += this.rank ? ` rank="${this.rank}"` : '';
+    attrs += this.type ? ` type="${this.type}"` : '';
+    attrs += this.href ? ` href="${this.href}"` : '';
+    attrs += this.target ? ` target="${this.target}"` : '';
 
-  const hasCustomStyle = this.borderRadius ||
-    this.padding ||
-    this.color ||
-    this.backgroundColor ||
-    this.borderColor ||
-    this.disabledColor ||
-    this.disabledBackgroundColor ||
-    this.disabledBorderColor;
+    if (attrs.length > 40) {
+      attrs = `${attrs.replace(/ /g, '\n  ')}\n`;
+    }
 
-  const styles = hasCustomStyle ? `<style>
+    const iconStr = this.icon
+      ? `<emd-icon
+    slot="icon"
+    icon="${this.icon}"
+  ></emd-icon>\n  `
+      : '';
+
+    let styles;
+
+    const hasCustomStyle = this.borderRadius ||
+      this.padding ||
+      this.color ||
+      this.backgroundColor ||
+      this.borderColor ||
+      this.disabledColor ||
+      this.disabledBackgroundColor ||
+      this.disabledBorderColor;
+
+    styles = hasCustomStyle ? `<style>
   emd-button {
     font-size: ${this.fontSize}px;
     border-radius: ${this.borderRadius}px;
@@ -58,14 +75,228 @@ function getCodeSample () {
 
 ` : '';
 
-  return `${styles}<emd-button${attrs}>
-  ${this.text}
+    styles = this.useFullWidth ? `<style>
+  emd-button { width: 100%; }
+</style>
+
+` : '';
+
+    return `${styles}<emd-button${attrs}>
+  ${iconStr}${this.text}
 </emd-button>`;
+  };
 }
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
-  .add('Default', () => ({
+  .add('ABC Default', () => ({
+    template: `
+      <div class="story">
+        <div class="component">
+          <emd-button abc
+            :size="size"
+            :rank="rank"
+            :type="type"
+            :loading="loading"
+            :disabled="disabled"
+            :style="fullWidthStyle"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
+      </div>
+    `,
+    props: {
+      text: {
+        default: text('Content', 'Click me')
+      },
+      size: {
+        default: select('Size', ['large', 'medium'], 'large')
+      },
+      rank: {
+        default: select('Rank', ['primary', 'secondary', 'tertiary'], 'primary')
+      },
+      type: {
+        default: select('Type', ['button', 'submit', 'reset'], 'button')
+      },
+      disabled: {
+        default: boolean('Disabled', false)
+      },
+      loading: {
+        default: boolean('Loading', false)
+      },
+      useFullWidth: {
+        default: boolean('Full Width', false)
+      }
+    },
+    computed: {
+      codesample: getCodeSample({ useLegacy: false }),
+      fullWidthStyle () {
+        return this.useFullWidth ? 'width: 100%' : '';
+      }
+    }
+  }), {
+    notes: { markdown: readMe }
+  })
+  .add('With Icon', () => ({
+    template: `
+      <div class="story">
+        <div class="component">
+        <emd-button abc
+          :size="size"
+          :rank="rank"
+          :type="type"
+          :loading="loading"
+          :disabled="disabled"
+          :style="fullWidthStyle"
+        >
+            <emd-icon slot="icon" icon="edit">
+            </emd-icon>
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
+      </div>
+    `,
+    props: {
+      text: {
+        default: text('Content', 'Edit')
+      },
+      size: {
+        default: select('Size', ['large', 'medium'], 'large')
+      },
+      rank: {
+        default: select('Rank', ['primary', 'secondary', 'tertiary'], 'primary')
+      },
+      type: {
+        default: select('Type', ['button', 'submit', 'reset'], 'button')
+      },
+      disabled: {
+        default: boolean('Disabled', false)
+      },
+      loading: {
+        default: boolean('Loading', false)
+      },
+      useFullWidth: {
+        default: boolean('Full Width', false)
+      },
+      icon: {
+        default: 'edit'
+      }
+    },
+    computed: {
+      codesample: getCodeSample({ useLegacy: false }),
+      fullWidthStyle () {
+        return this.useFullWidth ? 'width: 100%' : '';
+      }
+    }
+  }), {
+    notes: { markdown: readMe }
+  })
+  .add('With Link', () => ({
+    methods: {
+      logEvent
+    },
+    props: {
+      href: {
+        default: text('Href', 'http://stone.co')
+      },
+      target: {
+        default: text('Target', '_blank')
+      }
+    },
+    template: `
+      <div class="story">
+        <div class="component" @keydown.stop="">
+          <emd-button
+            abc
+            :href="href"
+            :target="target"
+            @click="logEvent"
+          >
+            {{ text }}
+          </emd-button>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
+      </div>
+    `,
+    computed: {
+      text () {
+        return `Go to ${this.href}`;
+      },
+      codesample: getCodeSample({ useLegacy: false })
+    }
+  }), {
+    notes: { markdown: readMe }
+  })
+  .add('With Multiple Clicks', () => ({
+    methods: {
+      addCountFast (evt) {
+        this.fast += 1;
+        logEvent(evt);
+      },
+      addCountSlow (evt) {
+        this.slow += 1;
+        logEvent(evt);
+      }
+    },
+    data () {
+      return {
+        fast: 0,
+        slow: 0
+      };
+    },
+    template: `
+      <div class="story">
+        <div
+          class="component"
+          style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
+        >
+          <emd-button abc
+            @click="addCountSlow"
+          >
+            Single click
+          </emd-button>
+          <p>
+            Click count: {{ slow }}
+          </p>
+          <emd-button abc
+            @click="addCountFast"
+            multipleclicks
+          >
+            Multiple clicks
+          </emd-button>
+          <p>
+            Click count: {{ fast }}
+          </p>
+        </div>
+        <div class="codesample">
+          <pre>{{ codesample }}</pre>
+        </div>
+      </div>
+    `,
+    computed: {
+      codesample () {
+        return `<emd-button abc>
+  Single click
+</emd-button>
+
+<emd-button abc multipleclicks>
+  Multiple clicks
+</emd-button>`;
+      }
+    }
+  }), {
+    notes: { markdown: readMe }
+  })
+  .add('Legacy', () => ({
     methods: {
       logEvent
     },
@@ -104,12 +335,12 @@ storiesOf('Button', module)
       </div>
     `,
     computed: {
-      codesample: getCodeSample
+      codesample: getCodeSample(({ useLegacy: true }))
     }
   }), {
     notes: { markdown: readMe }
   })
-  .add('With Custom Style', () => ({
+  .add('Legacy With Custom Style', () => ({
     methods: {
       logEvent
     },
@@ -155,7 +386,7 @@ storiesOf('Button', module)
       }
     },
     computed: {
-      codesample: getCodeSample,
+      codesample: getCodeSample({ useLegacy: true }),
       customStyle () {
         return !this.disabled
           ? {
@@ -195,117 +426,6 @@ storiesOf('Button', module)
         </div>
       </div>
     `
-  }), {
-    notes: { markdown: readMe }
-  })
-  .add('With Link', () => ({
-    methods: {
-      logEvent
-    },
-    props: {
-      fontSize: {
-        default: number('Font size (px)', 16, fontOptions)
-      },
-      href: {
-        default: text('Href', 'http://stone.co')
-      },
-      target: {
-        default: text('Target', '_blank')
-      }
-    },
-    template: `
-      <div
-        class="story"
-        :style="{ fontSize: fontSize + 'px' }"
-      >
-        <div class="component" @keydown.stop="">
-          <emd-button
-            :href="href"
-            :target="target"
-            @click="logEvent"
-          >
-            {{ text }}
-          </emd-button>
-        </div>
-        <div class="codesample">
-          <pre>{{ codesample }}</pre>
-        </div>
-      </div>
-    `,
-    computed: {
-      text () {
-        return `Go to ${this.href}`;
-      },
-      codesample: getCodeSample
-    }
-  }), {
-    notes: { markdown: readMe }
-  })
-  .add('With Multiple Clicks', () => ({
-    methods: {
-      addCountFast (evt) {
-        this.fast += 1;
-        logEvent(evt);
-      },
-      addCountSlow (evt) {
-        this.slow += 1;
-        logEvent(evt);
-      }
-    },
-    data () {
-      return {
-        fast: 0,
-        slow: 0
-      };
-    },
-    props: {
-      fontSize: {
-        default: number('Font size (px)', 16, fontOptions)
-      }
-    },
-    template: `
-      <div
-        class="story"
-        :style="{ fontSize: fontSize + 'px' }"
-      >
-        <div
-          class="component"
-          style="display: grid; grid-gap: 1em; grid-template-columns: 1fr 1fr; align-items: center; max-width: 37.5em;"
-        >
-          <emd-button
-            @click="addCountSlow"
-          >
-            Multiple clicks (disabled)
-          </emd-button>
-          <p>
-            Click count: {{ slow }}
-          </p>
-          <emd-button
-            @click="addCountFast"
-            multipleclicks
-          >
-            Multiple clicks (enabled)
-          </emd-button>
-          <p>
-            Click count: {{ fast }}
-          </p>
-        </div>
-        <div class="codesample">
-          <pre>{{ codesample }}</pre>
-        </div>
-      </div>
-    `,
-    computed: {
-      codesample () {
-        return `<emd-button>
-  Multiple clicks (disabled)
-</emd-button>
-
-<emd-button multipleclicks>
-  Multiple clicks (enabled)
-</emd-button>`;
-      }
-    }
   }), {
     notes: { markdown: readMe }
   });
