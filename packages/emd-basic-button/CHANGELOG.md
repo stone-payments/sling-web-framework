@@ -1,3 +1,11 @@
+# [@stone-payments/emd-basic-button-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.3.2...@stone-payments/emd-basic-button-v1.4.0) (2020-08-27)
+
+
+### Features
+
+* Add `abc` mode ([b8492fc](https://github.com/stone-payments/emerald-web-framework/commit/b8492fc48f91d00020fd9f043c01d1a493d42c28))
+* Add slot icon ([9d9e37f](https://github.com/stone-payments/emerald-web-framework/commit/9d9e37f0fde7a543342872df7d23543256d35f2a))
+
 # [@stone-payments/emd-basic-button-v1.3.2](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.3.1...@stone-payments/emd-basic-button-v1.3.2) (2020-05-21)
 
 
