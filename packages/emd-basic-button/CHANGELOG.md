@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-button-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.4.0...@stone-payments/emd-basic-button-v1.5.0) (2020-08-27)
+
+
+### Features
+
+* Improve button behaviour on touch devices ([0544d3d](https://github.com/stone-payments/emerald-web-framework/commit/0544d3d85a39bad68abb484a0648df8ba51099f1))
+
 # [@stone-payments/emd-basic-button-v1.4.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.3.2...@stone-payments/emd-basic-button-v1.4.0) (2020-08-27)
 
 
