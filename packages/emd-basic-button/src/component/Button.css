@@ -18,6 +18,16 @@
   text-decoration: inherit; /* for Safari */
 }
 
+.emd-button__wrapper,
+.emd-button__wrapper * {
+  /* for Mobile */
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .emd-button__button {
   -webkit-appearance: none;
   display: flex;
@@ -123,6 +133,8 @@
 }
 
 @media (hover: hover) {
+  /* Pointer hover */
+
   :host([abc]) .emd-button__wrapper:hover {
     background-color: #036228;
   }
@@ -137,6 +149,8 @@
 }
 
 @media (hover: none) {
+  /* Touch fake hover */
+
   :host([abc]) .emd-button__wrapper:active {
     background-color: #036228;
   }
