@@ -8,6 +8,18 @@ export const ButtonController = (Base = class {}) =>
 
     static get properties () {
       return {
+        abc: {
+          type: Boolean,
+          reflect: true
+        },
+        size: {
+          type: String,
+          reflect: true
+        },
+        rank: {
+          type: String,
+          reflect: true
+        },
         type: {
           type: String,
           reflect: true
@@ -31,8 +43,21 @@ export const ButtonController = (Base = class {}) =>
         multipleclicks: {
           type: Boolean,
           reflect: true
+        },
+        showIcon: {
+          type: Boolean,
+          reflect: false
         }
       };
+    }
+
+    childrenUpdatedCallback () {
+      const filledSlots = Array
+        .from(this.children)
+        .map(item => item.slot || '');
+
+      const isFilled = slotName => filledSlots.includes(slotName);
+      this.showIcon = isFilled('icon');
     }
 
     handleClick (evt) {
