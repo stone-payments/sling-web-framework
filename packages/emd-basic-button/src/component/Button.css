@@ -212,3 +212,13 @@
 :host([abc][size=medium]) .emd-button__loader {
   font-size: 11px;
 }
+
+:host([abc][size=small]) .emd-button__button {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 5px 1.25em;
+}
+
+:host([abc][size=small]) .emd-button__loader {
+  font-size: 8px;
+}
