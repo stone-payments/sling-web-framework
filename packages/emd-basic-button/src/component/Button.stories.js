@@ -114,7 +114,7 @@ storiesOf('Button', module)
         default: text('Content', 'Click me')
       },
       size: {
-        default: select('Size', ['large', 'medium'], 'large')
+        default: select('Size', ['large', 'medium', 'small'], 'large')
       },
       rank: {
         default: select('Rank', ['primary', 'secondary', 'tertiary'], 'primary')
@@ -168,7 +168,7 @@ storiesOf('Button', module)
         default: text('Content', 'Edit')
       },
       size: {
-        default: select('Size', ['large', 'medium'], 'large')
+        default: select('Size', ['large', 'medium', 'small'], 'large')
       },
       rank: {
         default: select('Rank', ['primary', 'secondary', 'tertiary'], 'primary')
