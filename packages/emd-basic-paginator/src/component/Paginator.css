@@ -28,7 +28,6 @@
 
 .emd-pag__button_disabled {
   cursor: unset;
-  opacity: 0;
 }
 
 .emd-pag__button_type_ellipsis {
