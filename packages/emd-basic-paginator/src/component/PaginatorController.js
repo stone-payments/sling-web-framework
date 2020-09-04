@@ -10,10 +10,7 @@ export const PaginatorController = (Base = class {}) =>
   class extends Base {
     constructor () {
       super();
-      this.getRange = this.getRange.bind(this);
       this.paginate = this.paginate.bind(this);
-      this.isFirstSelected = this.isFirstSelected.bind(this);
-      this.isLastSelected = this.isLastSelected.bind(this);
     }
 
     static get properties () {
@@ -25,39 +22,37 @@ export const PaginatorController = (Base = class {}) =>
         },
         total: {
           type: Number,
-          reflectToAttribute: true,
-          observer: 'updateTotal'
+          reflect: true
         },
         selected: {
           type: Number,
-          reflectToAttribute: true,
-          observer: 'updateSelected'
+          reflect: true
         }
       };
     }
 
-    isTotalValid () {
+    get isTotalValid () {
       return isPositiveIntegerStartingAt(1, this.total);
     }
 
-    isSelectedValid () {
+    get isSelectedValid () {
       return isPositiveIntegerStartingAt(0, this.selected);
     }
 
-    isSelectedValidOrNull () {
-      return this.selected == null || this.isSelectedValid();
+    get isSelectedValidOrNull () {
+      return this.selected == null || this.isSelectedValid;
     }
 
-    isSelectedInRange () {
+    get isSelectedInRange () {
       return this.selected >= 1 && this.selected <= this.total;
     }
 
-    isFirstSelected () {
-      return this.isSelectedValid() && this.selected === 1;
+    get isFirstSelected () {
+      return this.isSelectedValid && this.selected === 1;
     }
 
-    isLastSelected () {
-      return this.isSelectedValid() && this.selected === this.total;
+    get isLastSelected () {
+      return this.isSelectedValid && this.selected === this.total;
     }
 
     putSelectedInRange () {
@@ -91,8 +86,8 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     updateSelected () {
-      if (this.isSelectedValidOrNull() && this.isTotalValid()) {
-        if (!this.isSelectedInRange()) {
+      if (this.isSelectedValidOrNull && this.isTotalValid) {
+        if (!this.isSelectedInRange) {
           this.putSelectedInRange();
         } else {
           this.dispatchEventAndMethod('paginate', {
@@ -106,8 +101,8 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     updateTotal () {
-      if (this.isTotalValid()) {
-        if (!this.isSelectedValid()) {
+      if (this.isTotalValid) {
+        if (!this.isSelectedValid) {
           this.changeSelected('index', 1);
         }
       } else {
@@ -118,7 +113,7 @@ export const PaginatorController = (Base = class {}) =>
 
     paginate (type, index) {
       return () => {
-        if (this.isTotalValid()) {
+        if (this.isTotalValid) {
           this.changeSelected(type, index);
         } else {
           this.dispatchEventAndMethod('paginate', { type });
@@ -126,7 +121,7 @@ export const PaginatorController = (Base = class {}) =>
       };
     }
 
-    getRange () {
+    get currentRange () {
       const { total, selected = 1 } = this;
       const delta = CASES / 2;
 
