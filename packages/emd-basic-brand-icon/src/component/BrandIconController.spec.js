@@ -191,10 +191,10 @@ describe('BrandIconController', () => {
   });
 
   describe('#render()', () => {
-    it('Should call currentView.apply', () => {
-      element.currentView = { apply: sinon.spy() };
+    it('Should call currentView.use', () => {
+      element.currentView = { use: sinon.spy() };
       element.render();
-      expect(element.currentView.apply).to.have.been.calledOnceWith(element);
+      expect(element.currentView.use).to.have.been.calledOnceWith(element);
     });
   });
 });
