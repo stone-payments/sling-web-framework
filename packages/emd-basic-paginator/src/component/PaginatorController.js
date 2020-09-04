@@ -11,6 +11,7 @@ export const PaginatorController = (Base = class {}) =>
     constructor () {
       super();
       this.getRange = this.getRange.bind(this);
+      this.paginate = this.paginate.bind(this);
       this.isFirstSelected = this.isFirstSelected.bind(this);
       this.isLastSelected = this.isLastSelected.bind(this);
     }
@@ -121,13 +122,6 @@ export const PaginatorController = (Base = class {}) =>
           this.changeSelected(type, index);
         } else {
           this.dispatchEventAndMethod('paginate', { type });
-
-          // for compatibility
-          const { paginate } = this.configuration || {};
-
-          if (isFunction(paginate)) {
-            paginate(type);
-          }
         }
       };
     }
