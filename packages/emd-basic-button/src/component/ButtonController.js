@@ -3,7 +3,6 @@ export const ButtonController = (Base = class {}) =>
     constructor () {
       super();
       this.type = 'button';
-      this.handleClick = this.handleClick.bind(this);
     }
 
     static get properties () {
