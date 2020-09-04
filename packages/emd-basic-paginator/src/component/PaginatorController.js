@@ -6,6 +6,13 @@ const isPositiveIntegerStartingAt = (start, value) =>
 
 export const PaginatorController = (Base = class {}) =>
   class extends Base {
+    constructor () {
+      super();
+      this.getRange = this.getRange.bind(this);
+      this.isFirstSelected = this.isFirstSelected.bind(this);
+      this.isLastSelected = this.isLastSelected.bind(this);
+    }
+
     static get properties () {
       return {
         configuration: Object,
@@ -124,7 +131,6 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     getRange () {
-
       const { total, selected = 1 } = this;
       const delta = CASES / 2;
 
