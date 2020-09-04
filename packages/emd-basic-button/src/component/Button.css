@@ -226,3 +226,15 @@
 :host([abc][size=small]) .emd-button__loader {
   font-size: 8px;
 }
+
+:host([abc]) .emd-button__wrapper {
+  min-height: 62px;
+}
+
+:host([abc][size=medium]) .emd-button__wrapper {
+  min-height: 46px;
+}
+
+:host([abc][size=small]) .emd-button__wrapper {
+  min-height: 26px;
+}
