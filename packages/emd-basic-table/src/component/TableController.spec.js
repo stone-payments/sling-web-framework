@@ -405,10 +405,10 @@ describe('TableController', () => {
   });
 
   describe('#render()', () => {
-    it('Should call currentView.apply', () => {
-      dummy.currentView = { apply: sinon.spy() };
+    it('Should call currentView.use', () => {
+      dummy.currentView = { use: sinon.spy() };
       dummy.render();
-      expect(dummy.currentView.apply).to.have.been.calledOnceWith(dummy);
+      expect(dummy.currentView.use).to.have.been.calledOnceWith(dummy);
     });
   });
 });
