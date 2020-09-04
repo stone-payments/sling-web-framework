@@ -1,6 +1,8 @@
-import { isFunction, createRangeArray } from '@stone-payments/emd-helpers';
-
 export const CASES = 7;
+
+const createRangeArray = (start, end = start) =>
+  Array.from(Array(1 + (end - start)).keys()).map(item => item + start);
+
 const isPositiveIntegerStartingAt = (start, value) =>
   typeof value === 'number' && value >= start && value === Math.round(value);
 
