@@ -11,7 +11,7 @@ export const PaginatorView = ({
     <button
       @click="${paginate('previous')}"
       ?disabled="${isFirstSelected()}"
-      class="emd-pag__button ${isFirstSelected() ? 'emd-pag__button_disabled' : ''} emd-pag__button_type_arrow">
+      class="emd-pag__button ${isFirstSelected() ? 'emd-pag__button_disabled' : ''}">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
         <path d="M0 0h24v24H0z" fill="none"/>
@@ -24,7 +24,7 @@ export const PaginatorView = ({
         ${label}
       </button>
     ` : html`
-      <span class="emd-pag__button emd-pag__button_type_ellipsis">...</span>
+      <button class="emd-pag__button emd-pag__button_type_ellipsis">...</button>
     `)) : ''}
     <button
       @click="${paginate('next')}"
