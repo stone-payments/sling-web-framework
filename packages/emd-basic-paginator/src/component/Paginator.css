@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+/* for Edge compatibility */
+
+emd-paginator {
+  display: block;
+}
