@@ -63,7 +63,7 @@ export const ButtonController = (Base = class {}) =>
     }
 
     childrenUpdatedCallback () {
-      this.hasIcon = Array.from(this.children).find(n => n.slot === 'icon');
+      this.hasIcon = Array.from(this.children).some(n => n.slot === 'icon');
       this.hasText = this.textContent.trim() !== '';
     }
 
