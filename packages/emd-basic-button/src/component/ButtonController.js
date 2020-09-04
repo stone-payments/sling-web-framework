@@ -3,7 +3,6 @@ export const ButtonController = (Base = class {}) =>
     constructor () {
       super();
       this.type = 'button';
-      this.handleClick = this.handleClick.bind(this);
     }
 
     static get properties () {
@@ -44,20 +43,28 @@ export const ButtonController = (Base = class {}) =>
           type: Boolean,
           reflect: true
         },
-        showIcon: {
+        hasText: {
+          type: Boolean,
+          reflect: false
+        },
+        hasIcon: {
           type: Boolean,
           reflect: false
         }
       };
     }
 
-    childrenUpdatedCallback () {
-      const filledSlots = Array
-        .from(this.children)
-        .map(item => item.slot || '');
+    static get childrenObserverOptions () {
+      return {
+        characterData: true,
+        childList: true,
+        subtree: true
+      };
+    }
 
-      const isFilled = slotName => filledSlots.includes(slotName);
-      this.showIcon = isFilled('icon');
+    childrenUpdatedCallback () {
+      this.hasIcon = Array.from(this.children).some(n => n.slot === 'icon');
+      this.hasText = this.textContent.trim() !== '';
     }
 
     handleClick (evt) {
@@ -70,6 +77,6 @@ export const ButtonController = (Base = class {}) =>
     }
 
     render () {
-      return this.currentView.apply(this);
+      return this.currentView.use(this);
     }
   };

@@ -129,7 +129,7 @@ storiesOf('Button', module)
         default: boolean('Loading', false)
       },
       useFullWidth: {
-        default: boolean('Full Width', false)
+        default: boolean('Full width', false)
       }
     },
     computed: {
@@ -155,7 +155,7 @@ storiesOf('Button', module)
         >
             <emd-icon slot="icon" icon="edit">
             </emd-icon>
-            {{ text }}
+            {{ processedText }}
           </emd-button>
         </div>
         <div class="codesample">
@@ -183,7 +183,10 @@ storiesOf('Button', module)
         default: boolean('Loading', false)
       },
       useFullWidth: {
-        default: boolean('Full Width', false)
+        default: boolean('Full width', false)
+      },
+      hideText: {
+        default: boolean('Icon only', false)
       },
       icon: {
         default: 'edit'
@@ -193,6 +196,9 @@ storiesOf('Button', module)
       codesample: getCodeSample({ useLegacy: false }),
       fullWidthStyle () {
         return this.useFullWidth ? 'width: 100%' : '';
+      },
+      processedText () {
+        return this.hideText ? '' : this.text;
       }
     }
   }), {
