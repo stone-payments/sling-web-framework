@@ -8,11 +8,14 @@ export const ButtonView = ({
   href,
   target = '',
   handleClick,
-  showIcon
+  hasText,
+  hasIcon
 }) => {
   let wrapperClass = 'emd-button__wrapper';
   wrapperClass += loading ? ' emd-button__wrapper_loading' : '';
   wrapperClass += disabled ? ' emd-button__wrapper_disabled' : '';
+  wrapperClass += hasText ? ' emd-button__wrapper_has-text' : '';
+  wrapperClass += hasIcon ? ' emd-button__wrapper_has-icon' : '';
 
   return html`
     <style>
@@ -30,7 +33,7 @@ export const ButtonView = ({
           href="${href}"
           target="${target}"
           class="emd-button__button emd-button__button_href">
-          ${showIcon ? html`
+          ${hasIcon ? html`
             <span class="emd-button__icon">
               <slot name="icon"></slot>
             </span>
@@ -44,7 +47,7 @@ export const ButtonView = ({
           .type="${type}"
           ?disabled="${disabled}"
           class="emd-button__button">
-          ${showIcon ? html`
+          ${hasIcon ? html`
             <span class="emd-button__icon">
               <slot name="icon"></slot>
             </span>

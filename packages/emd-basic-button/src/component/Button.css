@@ -90,12 +90,16 @@
 .emd-button__icon {
   display: block;
   margin-left: -0.25em;
-  margin-right: 0.5em;
+  margin-right: -0.25em;
   line-height: 1;
 }
 
 .emd-button__text {
   display: block;
+}
+
+.emd-button__wrapper_has-icon.emd-button__wrapper_has-text .emd-button__icon {
+  margin-right: 0.5em;
 }
 
 /* ABC */
@@ -211,4 +215,26 @@
 
 :host([abc][size=medium]) .emd-button__loader {
   font-size: 11px;
+}
+
+:host([abc][size=small]) .emd-button__button {
+  font-size: 12px;
+  line-height: 18px;
+  padding: 5px 1.25em;
+}
+
+:host([abc][size=small]) .emd-button__loader {
+  font-size: 8px;
+}
+
+:host([abc]) .emd-button__wrapper {
+  min-height: 62px;
+}
+
+:host([abc][size=medium]) .emd-button__wrapper {
+  min-height: 46px;
+}
+
+:host([abc][size=small]) .emd-button__wrapper {
+  min-height: 26px;
 }

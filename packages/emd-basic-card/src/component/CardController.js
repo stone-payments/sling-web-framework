@@ -60,6 +60,6 @@ export const CardController = (Base = class {}) => class extends Base {
   }
 
   render () {
-    return this.currentView.apply(this);
+    return this.currentView.use(this);
   }
 };
