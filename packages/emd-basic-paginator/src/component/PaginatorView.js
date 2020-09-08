@@ -21,7 +21,7 @@ export const PaginatorView = ({
         <path d="M0 0h24v24H0z" fill="none"/>
       </svg>
     </button>
-    ${(total > 1) ? currentRange.map(label => (label != null ? html`
+    ${(total >= 1) ? currentRange.map(label => (label != null ? html`
       <button
         @click="${paginate('index', label)}"
         class="emd-pag__button ${label === selected ? 'emd-pag__button_selected' : ''} emd-pag__button_type_label">
