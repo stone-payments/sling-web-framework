@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue';
 import { withKnobs, number } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import readMe from '../../README.md';
 import '../index.js';
+import readMe from '../../README.md';
 
 const logEvent = ({ type, detail }) => {
   action(type)(detail);
