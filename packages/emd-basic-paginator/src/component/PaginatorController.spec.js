@@ -72,6 +72,74 @@ describe('PaginatorController', () => {
     });
   });
 
+  describe('#total', () => {
+    it('Should set total', () => {
+      dummy.total = 5;
+      expect(dummy.total).to.equal(5);
+    });
+
+    it('Should allow setting total to null', () => {
+      dummy.total = 5;
+      dummy.total = null;
+      expect(dummy.total).to.be.null;
+    });
+
+    it('Should allow setting total to undefined', () => {
+      dummy.total = 5;
+      dummy.total = undefined;
+      expect(dummy.total).to.be.undefined;
+    });
+
+    it('Should disallow setting total to a string', () => {
+      dummy.total = 5;
+      dummy.total = 'bogus';
+      expect(dummy.total).to.equal(5);
+    });
+
+    it('Should disallow setting total to a non-integer', () => {
+      dummy.total = 5;
+      dummy.total = 0.87354;
+      expect(dummy.total).to.equal(5);
+    });
+
+    it('Should disallow setting total to an integer smaller than one', () => {
+      dummy.total = 5;
+      dummy.total = -20;
+      expect(dummy.total).to.equal(5);
+    });
+
+    it('Should update the attribute if total is set', () => {
+      dummy.total = 5;
+      expect(dummy.setAttribute).to.have.been.calledWith('total', 5);
+    });
+
+    it('Should remove the attribute if total is unset', () => {
+      dummy.total = 5;
+      dummy.total = undefined;
+      expect(dummy.removeAttribute).to.have.been.calledWith('total');
+    });
+
+    it('Should call requestUpdate with the previous value', () => {
+      dummy.total = 23;
+      expect(dummy.requestUpdate).to.have.been.calledWith('total', undefined);
+
+      dummy.total = 25;
+      expect(dummy.requestUpdate).to.have.been.calledWith('total', 23);
+    });
+
+    it('Should updated selected after total is set', () => {
+      const setSpy = sinon.spy();
+
+      Object.defineProperty(dummy, 'selected', {
+        get () { return this._selected; },
+        set (value) { this._selected = value; setSpy(); }
+      });
+
+      dummy.total = 15;
+      expect(setSpy).to.have.been.calledOnce;
+    });
+  });
+
   describe('#currentRange', () => {
     it('Should collapse the pagination if total is greater than ' +
       'the maximum number of cases.', () => {
