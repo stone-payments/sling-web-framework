@@ -16,6 +16,8 @@ describe('PaginatorController', () => {
 
     dummy.requestUpdate = sinon.spy();
     dummy.dispatchEventAndMethod = sinon.spy();
+    dummy.setAttribute = sinon.spy();
+    dummy.removeAttribute = sinon.spy();
   });
 
   afterEach(() => {
