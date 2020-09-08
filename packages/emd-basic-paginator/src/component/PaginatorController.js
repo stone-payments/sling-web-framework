@@ -1,7 +1,12 @@
 import { createRangeArray } from './helpers/createRangeArray.js';
-import { isPositiveIntegerStartingAt } from './helpers/isPositiveIntegerStartingAt.js';
 
 export const CASES = 7;
+
+const isValidTotal = value => value == null ||
+  (typeof value === 'number' && value === Math.round(value) && value > 0);
+
+const isValidSelected = value => value == null ||
+  (typeof value === 'number' && value === Math.round(value));
 
 export const PaginatorController = (Base = class {}) =>
   class extends Base {
@@ -28,11 +33,19 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     get isFirstSelected () {
-      return this.selected === 1;
+      return this.total != null && this.selected === 1;
     }
 
     get isLastSelected () {
-      return this.selected === this.total;
+      return this.total != null && this.selected === this.total;
+    }
+
+    setAttr (attrName, value) {
+      if (value != null) {
+        this.setAttribute(attrName, value);
+      } else {
+        this.removeAttribute();
+      }
     }
 
     get total () {
@@ -40,15 +53,16 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     set total (value) {
-      if (isPositiveIntegerStartingAt(1, value)) {
-        const oldValue = this.total;
-        this._total = value;
-        this.requestUpdate('total', oldValue);
+      const oldValue = this.total;
+      const nextValue = !isValidTotal(value) ? oldValue : value;
 
-        // force selected update
-        const currentlySelected = this.selected;
-        this.selected = currentlySelected;
-      }
+      this._total = nextValue;
+      this.updateAttr('total', nextValue);
+      this.requestUpdate('total', oldValue);
+
+      // force selected update
+      const currentlySelected = this.selected;
+      this.selected = currentlySelected;
     }
 
     get selected () {
@@ -56,26 +70,38 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     set selected (value) {
-      if (isPositiveIntegerStartingAt(0, value)) {
-        const oldValue = this.selected;
-        this._selected = this.putSelectedInRange(value);
-        this.requestUpdate('selected', oldValue);
+      const oldValue = this.selected;
+      let nextValue;
 
+      if (!isValidSelected(value)) {
+        nextValue = oldValue;
+      } else if (value == null) {
+        nextValue = this.total == null ? undefined : 1;
+      } else {
+        nextValue = value > this.total
+          ? this.total
+          : value < 1 ? 1 : value;
+      }
+
+      this._selected = nextValue;
+      this.updateAttr('selected', nextValue);
+
+      if (this.total != null && nextValue != null && nextValue !== oldValue) {
         this.dispatchEventAndMethod('paginate', {
           type: 'index',
-          index: this.selected
+          index: nextValue
         });
       }
+
+      this.requestUpdate('selected', oldValue);
     }
 
-    putSelectedInRange (value) {
-      if (value < 1) {
-        return 1;
+    updateAttr (attrName, value) {
+      if (value == null) {
+        this.removeAttribute(attrName);
+      } else {
+        this.setAttribute(attrName, value);
       }
-
-      return (value > this.total)
-        ? this.total
-        : value;
     }
 
     paginate (type, index) {
