@@ -1,10 +1,7 @@
+import { createRangeArray } from './helpers/createRangeArray.js';
+import { isPositiveIntegerStartingAt } from './helpers/isPositiveIntegerStartingAt.js';
+
 export const CASES = 7;
-
-const createRangeArray = (start, end = start) =>
-  Array.from(Array(1 + (end - start)).keys()).map(item => item + start);
-
-const isPositiveIntegerStartingAt = (start, value) =>
-  typeof value === 'number' && value >= start && value === Math.round(value);
 
 export const PaginatorController = (Base = class {}) =>
   class extends Base {
@@ -31,22 +28,6 @@ export const PaginatorController = (Base = class {}) =>
       };
     }
 
-    get isTotalValid () {
-      return isPositiveIntegerStartingAt(1, this.total);
-    }
-
-    get isSelectedValid () {
-      return isPositiveIntegerStartingAt(0, this.selected);
-    }
-
-    get isSelectedValidOrNull () {
-      return this.selected == null || this.isSelectedValid;
-    }
-
-    get isSelectedInRange () {
-      return this.selected >= 1 && this.selected <= this.total;
-    }
-
     get isFirstSelected () {
       return this.isSelectedValid && this.selected === 1;
     }
@@ -55,66 +36,59 @@ export const PaginatorController = (Base = class {}) =>
       return this.isSelectedValid && this.selected === this.total;
     }
 
-    putSelectedInRange () {
-      if (this.selected < 1) {
-        this.selected = 1;
-      }
-
-      if (this.selected > this.total) {
-        this.selected = this.total;
-      }
+    get total () {
+      return this._total;
     }
 
-    changeSelected (type, index) {
-      if (type === 'previous') {
-        this.selected -= 1;
-      } else if (type === 'next') {
-        this.selected += 1;
-      } else {
-        this.selected = index;
+    set total (value) {
+      if (isPositiveIntegerStartingAt(1, value)) {
+        const oldValue = this.total;
+        this._total = value;
+        this.requestUpdate('total', oldValue);
+
+        // force selected update
+        const currentlySelected = this.selected;
+        this.selected = currentlySelected;
       }
     }
 
-    removeSelected () {
-      this.removeAttribute('selected');
-      this.selected = undefined;
+    get selected () {
+      return this._selected;
     }
 
-    removeTotal () {
-      this.removeAttribute('total');
-      this.total = undefined;
-    }
+    set selected (value) {
+      if (isPositiveIntegerStartingAt(0, value)) {
+        const oldValue = this.selected;
+        this._selected = this.putSelectedInRange(value);
+        this.requestUpdate('selected', oldValue);
 
-    updateSelected () {
-      if (this.isSelectedValidOrNull && this.isTotalValid) {
-        if (!this.isSelectedInRange) {
-          this.putSelectedInRange();
-        } else {
-          this.dispatchEventAndMethod('paginate', {
-            type: 'index',
-            index: this.selected
-          });
-        }
-      } else {
-        this.removeSelected();
+        this.dispatchEventAndMethod('paginate', {
+          type: 'index',
+          index: this.selected
+        });
       }
     }
 
-    updateTotal () {
-      if (this.isTotalValid) {
-        if (!this.isSelectedValid) {
-          this.changeSelected('index', 1);
-        }
-      } else {
-        this.removeTotal();
-        this.removeSelected();
+    putSelectedInRange (value) {
+      if (value < 1) {
+        return 1;
       }
+
+      return (value > this.total)
+        ? this.total
+        : value;
     }
 
     paginate (type, index) {
       return () => {
-        if (this.isTotalValid) {
-          this.changeSelected(type, index);
+        if (this.total != null) {
+          if (type === 'previous') {
+            this.selected -= 1;
+          } else if (type === 'next') {
+            this.selected += 1;
+          } else {
+            this.selected = index;
+          }
         } else {
           this.dispatchEventAndMethod('paginate', { type });
         }
