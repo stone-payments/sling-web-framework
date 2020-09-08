@@ -12,7 +12,6 @@ export const PaginatorController = (Base = class {}) =>
 
     static get properties () {
       return {
-        configuration: Object,
         view: {
           type: String,
           reflect: true
@@ -29,11 +28,11 @@ export const PaginatorController = (Base = class {}) =>
     }
 
     get isFirstSelected () {
-      return this.isSelectedValid && this.selected === 1;
+      return this.selected === 1;
     }
 
     get isLastSelected () {
-      return this.isSelectedValid && this.selected === this.total;
+      return this.selected === this.total;
     }
 
     get total () {
