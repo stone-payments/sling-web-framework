@@ -23,6 +23,53 @@ describe('PaginatorController', () => {
     dummy = undefined;
   });
 
+  describe('.properties', () => {
+    it('Should declare all properties', () => {
+      expect(Object.keys(Dummy.properties).sort())
+        .to.deep.equal([
+          'view',
+          'total',
+          'selected'
+        ].sort());
+    });
+  });
+
+  describe('#isFirstSelected', () => {
+    it('Should return true if the first item is selected', () => {
+      dummy.selected = 1;
+      dummy.total = 5;
+      expect(dummy.isFirstSelected).to.be.true;
+    });
+
+    it('Should return false if the first item is not selected', () => {
+      dummy.selected = 3;
+      dummy.total = 5;
+      expect(dummy.isFirstSelected).to.be.false;
+    });
+
+    it('Should return false if total is undefined', () => {
+      expect(dummy.isFirstSelected).to.be.false;
+    });
+  });
+
+  describe('#isLastSelected', () => {
+    it('Should return true if the last item is selected', () => {
+      dummy.selected = 5;
+      dummy.total = 5;
+      expect(dummy.isLastSelected).to.be.true;
+    });
+
+    it('Should return false if the last item is not selected', () => {
+      dummy.selected = 3;
+      dummy.total = 5;
+      expect(dummy.isLastSelected).to.be.false;
+    });
+
+    it('Should return false if total is undefined', () => {
+      expect(dummy.isLastSelected).to.be.false;
+    });
+  });
+
   describe('#currentRange', () => {
     it('Should collapse the pagination if total is greater than ' +
       'the maximum number of cases.', () => {
