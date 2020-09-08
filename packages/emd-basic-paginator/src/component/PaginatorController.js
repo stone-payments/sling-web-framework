@@ -1,12 +1,12 @@
 import { createRangeArray } from './helpers/createRangeArray.js';
 
-export const CASES = 7;
-
 const isValidTotal = value => value == null ||
   (typeof value === 'number' && value === Math.round(value) && value > 0);
 
 const isValidSelected = value => value == null ||
   (typeof value === 'number' && value === Math.round(value));
+
+export const CASES = 7;
 
 export const PaginatorController = (Base = class {}) =>
   class extends Base {
@@ -40,14 +40,6 @@ export const PaginatorController = (Base = class {}) =>
       return this.total != null && this.selected === this.total;
     }
 
-    setAttr (attrName, value) {
-      if (value != null) {
-        this.setAttribute(attrName, value);
-      } else {
-        this.removeAttribute();
-      }
-    }
-
     get total () {
       return this._total;
     }
@@ -57,7 +49,7 @@ export const PaginatorController = (Base = class {}) =>
       const nextValue = !isValidTotal(value) ? oldValue : value;
 
       this._total = nextValue;
-      this.updateAttr('total', nextValue);
+      this._updateAttr('total', nextValue);
       this.requestUpdate('total', oldValue);
 
       // force selected update
@@ -84,7 +76,7 @@ export const PaginatorController = (Base = class {}) =>
       }
 
       this._selected = nextValue;
-      this.updateAttr('selected', nextValue);
+      this._updateAttr('selected', nextValue);
 
       if (this.total != null && nextValue != null && nextValue !== oldValue) {
         this.dispatchEventAndMethod('paginate', {
@@ -96,7 +88,7 @@ export const PaginatorController = (Base = class {}) =>
       this.requestUpdate('selected', oldValue);
     }
 
-    updateAttr (attrName, value) {
+    _updateAttr (attrName, value) {
       if (value == null) {
         this.removeAttribute(attrName);
       } else {
