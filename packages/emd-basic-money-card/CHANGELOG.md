@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-money-card-v1.0.4](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-money-card-v1.0.3...@stone-payments/emd-basic-money-card-v1.0.4) (2020-09-09)
+
+
+### Bug Fixes
+
+* Substitute deprecated `currentView.apply` with `currentView.use` ([a3e20e9](https://github.com/stone-payments/emerald-web-framework/commit/a3e20e9ebbf3fc2935d538aabf3eb254912c16a0))
+
 # [@stone-payments/emd-basic-money-card-v1.0.3](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-money-card-v1.0.2...@stone-payments/emd-basic-money-card-v1.0.3) (2019-09-05)
 
 
