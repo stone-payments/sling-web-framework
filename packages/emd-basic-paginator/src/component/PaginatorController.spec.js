@@ -275,6 +275,39 @@ describe('PaginatorController', () => {
     });
   });
 
+  describe('#paginate()', () => {
+    it('Should return a function', () => {
+      expect(dummy.paginate()).to.be.a('function');
+    });
+
+    it('Should dispatch paginate event if total is undefined', () => {
+      dummy.paginate('next')();
+      expect(dummy.dispatchEventAndMethod).to.have.been
+        .calledOnceWith('paginate', { type: 'next' });
+    });
+
+    it('Should subtract one from selected if type is previous', () => {
+      dummy.total = 10;
+      dummy.selected = 5;
+      dummy.paginate('previous')();
+      expect(dummy.selected).to.equal(4);
+    });
+
+    it('Should add one to selected if type is next', () => {
+      dummy.total = 10;
+      dummy.selected = 5;
+      dummy.paginate('next')();
+      expect(dummy.selected).to.equal(6);
+    });
+
+    it('Should change selected to a specific value if type is index', () => {
+      dummy.total = 10;
+      dummy.selected = 5;
+      dummy.paginate('index', 3)();
+      expect(dummy.selected).to.equal(3);
+    });
+  });
+
   describe('#currentRange', () => {
     it('Should collapse the pagination if total is greater than ' +
       'the maximum number of cases.', () => {
