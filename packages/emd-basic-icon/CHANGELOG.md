@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-icon-v1.9.1](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.9.0...@stone-payments/emd-basic-icon-v1.9.1) (2020-09-09)
+
+
+### Bug Fixes
+
+* Substitute deprecated `currentView.apply` with `currentView.use` ([a3e20e9](https://github.com/stone-payments/emerald-web-framework/commit/a3e20e9ebbf3fc2935d538aabf3eb254912c16a0))
+
 # [@stone-payments/emd-basic-icon-v1.9.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-icon-v1.8.0...@stone-payments/emd-basic-icon-v1.9.0) (2020-05-14)
 
 
