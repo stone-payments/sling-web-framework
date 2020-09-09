@@ -6,7 +6,7 @@ html {
   font-family: "Roboto", sans-serif;
   margin: 30px;
   font-size: 16px;
-  background-color: white;
+  background-color: #f2f5f7;
   color: #2d3844;
   line-height: 1.35;
 }
@@ -26,28 +26,4 @@ body {
     rgba(45, 56, 68, 0.15) 10px,
     rgba(45, 56, 68, 0.15) 20px
   );
-}
-
-h4, p {
-  margin: 0;
-}
-
-emd-button {
-  margin-right: auto;
-}
-
-body > emd-button:nth-of-type(1),
-body > emd-button:nth-of-type(2),
-body > emd-button:nth-of-type(3),
-body > emd-button:nth-of-type(4),
-body > emd-button:nth-of-type(5),
-body > emd-button:nth-of-type(6),
-body > emd-button:nth-of-type(7),
-body > emd-button:nth-of-type(8),
-body > emd-button:nth-of-type(9) {
-  width: 300px;
-}
-
-div > emd-button {
-  vertical-align: middle;
 }

@@ -50,7 +50,7 @@ Applies the ABC theme to the component. The ABC mode intentionally restricts the
 
 #### `size`
 
-Changes the size of the component when in ABC mode. It can be `large` or `medium`.
+Changes the size of the component when in ABC mode. It can be `large`, `medium` or `small`.
 
 - Type: String
 - Attribute and property

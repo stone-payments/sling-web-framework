@@ -59,6 +59,6 @@ export const FieldWrapperController = (Base = class {}) =>
     }
 
     render () {
-      return this.currentView.apply(this);
+      return this.currentView.use(this);
     }
   };
