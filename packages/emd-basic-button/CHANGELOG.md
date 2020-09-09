@@ -1,3 +1,16 @@
+# [@stone-payments/emd-basic-button-v1.6.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.5.0...@stone-payments/emd-basic-button-v1.6.0) (2020-09-09)
+
+
+### Bug Fixes
+
+* Correct appearance of icon-only button ([9dac326](https://github.com/stone-payments/emerald-web-framework/commit/9dac326e7d8a7518b9ca374e6fc8cb1775281300))
+* Correct height of medium-sized button ([163e510](https://github.com/stone-payments/emerald-web-framework/commit/163e5103a0acafd4efbaf60f2484bc0bb12e3766))
+
+
+### Features
+
+* Add small size ([5eff2c8](https://github.com/stone-payments/emerald-web-framework/commit/5eff2c8f1dfd01d7c695d2a26485b9c54ea79b60))
+
 # [@stone-payments/emd-basic-button-v1.5.0](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-button-v1.4.0...@stone-payments/emd-basic-button-v1.5.0) (2020-08-27)
 
 
