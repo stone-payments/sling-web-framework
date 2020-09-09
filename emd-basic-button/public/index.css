@@ -41,7 +41,10 @@ body > emd-button:nth-of-type(2),
 body > emd-button:nth-of-type(3),
 body > emd-button:nth-of-type(4),
 body > emd-button:nth-of-type(5),
-body > emd-button:nth-of-type(6) {
+body > emd-button:nth-of-type(6),
+body > emd-button:nth-of-type(7),
+body > emd-button:nth-of-type(8),
+body > emd-button:nth-of-type(9) {
   width: 300px;
 }
 
