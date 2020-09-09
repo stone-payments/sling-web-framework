@@ -77,7 +77,7 @@ storiesOf('Paginator', module)
   }), {
     notes: { markdown: readMe }
   })
-  .add('Arrow Only', () => ({
+  .add('Arrows only', () => ({
     template: `
       <div class="story">
         <div class="component">
