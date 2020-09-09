@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-field-wrapper-v1.0.8](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.7...@stone-payments/emd-basic-field-wrapper-v1.0.8) (2020-09-09)
+
+
+### Bug Fixes
+
+* Substitute deprecated `currentView.apply` with `currentView.use` ([a3e20e9](https://github.com/stone-payments/emerald-web-framework/commit/a3e20e9ebbf3fc2935d538aabf3eb254912c16a0))
+
 # [@stone-payments/emd-basic-field-wrapper-v1.0.7](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-field-wrapper-v1.0.6...@stone-payments/emd-basic-field-wrapper-v1.0.7) (2019-12-20)
 
 
