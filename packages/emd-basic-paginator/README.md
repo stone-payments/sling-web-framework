@@ -53,6 +53,7 @@ Dispatched when current page changes.
 ```
 
 When `total` is not assigned.
+Depending on which arrow you click
 
 ```javascript
 {
