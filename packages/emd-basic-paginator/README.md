@@ -27,6 +27,9 @@ Gives total of pages.
 - Type: Number
 - Attribute and property
 
+##### Without `total`
+The Component takes the Arrows only mode.
+
 #### `selected`
 
 Displays the current page.
@@ -48,3 +51,20 @@ Dispatched when current page changes.
   index: 2
 }
 ```
+
+When `total` is not assigned.
+
+```javascript
+{
+  type: "previous",
+}
+```
+
+OR
+
+```javascript
+{
+  type: "next",
+}
+```
+
