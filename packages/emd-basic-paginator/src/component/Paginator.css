@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.emd-pag {
+  display: flex;
+}
+
+.emd-pag__button {
+  color: #424B54;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 30px;
+  height: 34px;
+  border: 1px solid rgba(195, 200, 210, 0.3);
+  outline: none;
+  background: transparent;
+  margin: 0 3px;
+}
+
+.emd-pag__button_selected {
+  background: #088037;
+  color: #ffffff;
+}
+
+.emd-pag__button_disabled {
+  cursor: unset;
+}
+
+.emd-pag__button_type_ellipsis {
+  cursor: unset;
+  user-select: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* for Edge compatibility */
+
+emd-paginator {
+  display: block;
+}
