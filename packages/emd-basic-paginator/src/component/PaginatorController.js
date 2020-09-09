@@ -68,7 +68,7 @@ export const PaginatorController = (Base = class {}) =>
       if (!isValidSelected(value)) {
         nextValue = oldValue;
       } else if (value == null) {
-        nextValue = this.total == null ? undefined : 1;
+        nextValue = this.total == null ? value : 1;
       } else {
         nextValue = value > this.total
           ? this.total

@@ -113,7 +113,7 @@ describe('PaginatorController', () => {
       expect(dummy.setAttribute).to.have.been.calledWith('total', 5);
     });
 
-    it('Should remove the attribute if total is unset', () => {
+    it('Should remove the attribute if total is not set', () => {
       dummy.total = 5;
       dummy.total = undefined;
       expect(dummy.removeAttribute).to.have.been.calledWith('total');
@@ -137,6 +137,141 @@ describe('PaginatorController', () => {
 
       dummy.total = 15;
       expect(setSpy).to.have.been.calledOnce;
+    });
+  });
+
+  describe('#selected', () => {
+    it('Should set selected', () => {
+      dummy.selected = 5;
+      expect(dummy.selected).to.equal(5);
+    });
+
+    it('Should allow setting selected to null if total is not set', () => {
+      dummy.selected = 5;
+      dummy.selected = null;
+      expect(dummy.selected).to.be.null;
+    });
+
+    it('Should allow setting selected to undefined if total is not set', () => {
+      dummy.selected = 5;
+      dummy.selected = undefined;
+      expect(dummy.selected).to.be.undefined;
+    });
+
+    it('Should force selected to one if set to null ' +
+      'when total is set', () => {
+      dummy.total = 10;
+      dummy.selected = 5;
+      dummy.selected = null;
+      expect(dummy.selected).to.equal(1);
+    });
+
+    it('Should force selected to one if set to undefined ' +
+      'when total is set', () => {
+      dummy.total = 10;
+      dummy.selected = 5;
+      dummy.selected = undefined;
+      expect(dummy.selected).to.equal(1);
+    });
+
+    it('Should disallow setting selected to a string', () => {
+      dummy.selected = 5;
+      dummy.selected = 'bogus';
+      expect(dummy.selected).to.equal(5);
+    });
+
+    it('Should disallow setting selected to a non-integer', () => {
+      dummy.selected = 5;
+      dummy.selected = 0.87354;
+      expect(dummy.selected).to.equal(5);
+    });
+
+    it('Should restrict the minimum value of selected to one', () => {
+      dummy.selected = 5;
+      dummy.selected = -20;
+      expect(dummy.selected).to.equal(1);
+    });
+
+    it('Should restrict the maximum value of selected ' +
+      'to total if total is set', () => {
+      dummy.total = 10;
+      dummy.selected = 5000;
+      expect(dummy.selected).to.equal(10);
+    });
+
+    it('Should restrict the maximum value of selected ' +
+      'to total after total is set', () => {
+      dummy.selected = 5000;
+      expect(dummy.selected).to.equal(5000);
+
+      dummy.total = 10;
+      expect(dummy.selected).to.equal(10);
+    });
+
+    it('Should not restrict the maximum value of selected ' +
+      'if total is not set', () => {
+      dummy.selected = 5000;
+      expect(dummy.selected).to.equal(5000);
+    });
+
+    it('Should update the attribute if selected is set', () => {
+      dummy.selected = 5;
+      expect(dummy.setAttribute).to.have.been.calledWith('selected', 5);
+    });
+
+    it('Should remove the attribute if selected is not set', () => {
+      dummy.selected = 5;
+      dummy.selected = undefined;
+      expect(dummy.removeAttribute).to.have.been.calledWith('selected');
+    });
+
+    it('Should disptach paginate event', () => {
+      dummy.total = 10;
+      dummy.selected = 5;
+      dummy.dispatchEventAndMethod = sinon.spy();
+      dummy.selected = 6;
+
+      expect(dummy.dispatchEventAndMethod).to.have.been
+        .calledOnceWith('paginate', {
+          type: 'index',
+          index: 6
+        });
+    });
+
+    it('Should not disptach paginate event if total is not set', () => {
+      dummy.selected = 5;
+      dummy.dispatchEventAndMethod = sinon.spy();
+      dummy.selected = 6;
+
+      expect(dummy.dispatchEventAndMethod).not.to.have.been.called;
+    });
+
+    it('Should not disptach paginate event if select does not change', () => {
+      dummy.selected = 5;
+      dummy.dispatchEventAndMethod = sinon.spy();
+      dummy.selected = 5;
+
+      expect(dummy.dispatchEventAndMethod).not.to.have.been.called;
+    });
+
+    it('Should not disptach paginate event if select is not set', () => {
+      dummy.selected = 5;
+      dummy.dispatchEventAndMethod = sinon.spy();
+      dummy.selected = null;
+
+      expect(dummy.dispatchEventAndMethod).not.to.have.been.called;
+    });
+
+    it('Should call requestUpdate with the previous value', () => {
+      dummy.selected = 23;
+
+      expect(dummy.requestUpdate).to.have.been
+        .calledWith('selected', undefined);
+
+      dummy.selected = 25;
+
+      expect(dummy.requestUpdate).to.have.been
+        .calledWith('selected', 23);
     });
   });
 
