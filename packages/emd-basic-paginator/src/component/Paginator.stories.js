@@ -19,11 +19,11 @@ function getCodeSample () {
     attrs += this.total ? ` total="${this.total}"` : '';
     attrs += this.selected ? ` selected="${this.selected}"` : '';
 
-    if (attrs.length > 40) {
+    if (attrs.length > 20) {
       attrs = `${attrs.replace(/ /g, '\n  ')}\n`;
     }
 
-    return `<emd-paginator${attrs}></emd-button>`;
+    return `<emd-paginator${attrs}></emd-paginator>`;
   };
 }
 
@@ -31,28 +31,15 @@ storiesOf('Paginator', module)
   .addDecorator(withKnobs)
   .add('Arrows and numbers', () => ({
     methods: {
-      paginate (type, index) {
-        return () => {
-          if (this.total != null) {
-            if (type === 'previous') {
-              this.selected -= 1;
-            } else if (type === 'next') {
-              this.selected += 1;
-            } else {
-              this.selected = index;
-            }
-          } else {
-            logEvent('paginate', { type });
-          }
-        };
-      }
+      logEvent
     },
     template: `
       <div class="story">
         <div class="component">
           <emd-paginator
             :total="total"
-            :selected="selected">
+            :selected="selected"
+            @paginate="logEvent">
           </emd-paginator>
         </div>
         <div class="codesample">
@@ -78,10 +65,15 @@ storiesOf('Paginator', module)
     notes: { markdown: readMe }
   })
   .add('Arrows only', () => ({
+    methods: {
+      logEvent
+    },
     template: `
       <div class="story">
         <div class="component">
-          <emd-paginator></emd-paginator>
+          <emd-paginator
+            @paginate="logEvent">
+          </emd-paginator>
         </div>
         <div class="codesample">
           <pre>{{ codesample }}</pre>
