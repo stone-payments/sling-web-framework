@@ -1,3 +1,10 @@
+# [@stone-payments/emd-basic-loader-v1.0.5](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loader-v1.0.4...@stone-payments/emd-basic-loader-v1.0.5) (2020-09-09)
+
+
+### Bug Fixes
+
+* Substitute deprecated `currentView.apply` with `currentView.use` ([a3e20e9](https://github.com/stone-payments/emerald-web-framework/commit/a3e20e9ebbf3fc2935d538aabf3eb254912c16a0))
+
 # [@stone-payments/emd-basic-loader-v1.0.4](https://github.com/stone-payments/emerald-web-framework/compare/@stone-payments/emd-basic-loader-v1.0.3...@stone-payments/emd-basic-loader-v1.0.4) (2019-10-02)
 
 
